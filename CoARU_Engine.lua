@@ -1,0 +1,478 @@
+local MAX_DESC_RECURSION = 2
+
+function CoARU_StripCodes(text)
+    if not text then return nil end
+    local s = text
+
+    s = s:gsub("|[cC]%x%x%x%x%x%x%x%x", "")
+
+    s = s:gsub("|[rR]", "")
+
+    for _ = 1, 6 do
+        local a1, a2, a3
+        s, a1 = s:gsub("|%d+(%b[])%b[]", function(a) return a:sub(2, -2) end)
+        s, a2 = s:gsub("|%d+(%b[])", function(a) return a:sub(2, -2) end)
+        s, a3 = s:gsub("s%d+(%b[])", function(a) return (a:sub(2, -2):gsub("%b[]", "")) end)
+        if a1 == 0 and a2 == 0 and a3 == 0 then break end
+    end
+    s = s:gsub("|T.-|t", "")
+    s = s:gsub("|n", " ")
+    return s
+end
+
+local function extractNumbers(s)
+    local nums = {}
+    for m in s:gmatch("%d[%d%.,]*") do
+        m = m:gsub("[%.,]+$", "")
+        nums[#nums + 1] = m
+    end
+    return nums
+end
+
+function CoARU_Norm(text)
+    if not text then return nil end
+    local s = CoARU_StripCodes(text)
+    s = s:gsub("%d[%d%.,]*", function(m)
+        local trail = m:match("([%.,]+)$") or ""
+        return "#" .. trail
+    end)
+    s = s:gsub("%s+", " ")
+    s = s:gsub("^%s+", ""):gsub("%s+$", "")
+    return s
+end
+
+function CoARU_HasCyrillic(text)
+
+    return text and text:find("[\208\209]") ~= nil
+end
+
+function CoARU_ExpandMarkers(text, spellID)
+    if not text or not text:find("%b@@") then return nil end
+    if not (C_Format and C_Format.Format) then return nil end
+    local ok, newText, lines = pcall(C_Format.Format, text, false, 0, spellID or 0)
+    if ok and newText then return newText, lines end
+    return nil
+end
+
+function CoARU_CleanMarkers(text, depth, spellID)
+    if not text then return nil end
+    depth = depth or 0
+    local s = text
+
+    s = s:gsub("%$?%$@spelldesc(%d+)", function(refId)
+        if depth < MAX_DESC_RECURSION then
+            local sub = CoARU_ResolveDescription(tonumber(refId), depth + 1)
+            if sub then return sub end
+        end
+        return ""
+    end)
+
+    if s:find("%b@@") then
+        local expanded, extra = CoARU_ExpandMarkers(s, spellID)
+        if expanded then
+            s = expanded
+            if extra then
+                for _, line in ipairs(extra) do
+                    s = s .. "\n" .. line
+                end
+            end
+        else
+            s = s:gsub("@ext:(.-):ext@", "%1")
+            s = s:gsub("@(%a+):.-:%1@", "")
+            s = s:gsub("@%a+:?%d*:?%-?%d*@", "")
+        end
+    end
+    s = s:gsub("@%a+:?%d*", "")
+
+    s = s:gsub("[ \t]+\n", "\n")
+    s = s:gsub("\n\n\n+", "\n\n")
+    s = s:gsub("^%s+", ""):gsub("%s+$", "")
+    return s
+end
+
+local function variantsOf(entry)
+    if entry[1] then return entry end
+    return { entry }
+end
+
+function CoARU_ResolveDescription(id, depth)
+    depth = depth or 0
+    local entry = CoARU_T and CoARU_T[id]
+    if entry then
+        for _, v in ipairs(variantsOf(entry)) do
+            if v.ru and not v.ru:find("{%d+}") then
+                return CoARU_CleanMarkers(v.ru, depth, id)
+            end
+        end
+    end
+    return nil
+end
+
+function CoARU_TranslateText(id, liveText)
+    local entry = CoARU_T and CoARU_T[id]
+    if not entry or not liveText then return nil end
+
+    local plain = CoARU_StripCodes(liveText)
+    local norm = CoARU_Norm(plain)
+    for _, v in ipairs(variantsOf(entry)) do
+        if norm == v.en then
+            local nums = extractNumbers(plain)
+            local ru = v.ru:gsub("{(%d+)}", function(n)
+                return nums[tonumber(n)] or "?"
+            end)
+            return CoARU_CleanMarkers(ru, 0, id)
+        end
+    end
+    return nil
+end
+
+CoARU_G = {
+    ["Instant"] = "Мгновенно",
+    ["Instant cast"] = "Мгновенное применение",
+    ["Passive"] = "Пассивный",
+    ["Channeled"] = "Поддерживаемое заклинание",
+    ["Unlimited range"] = "Неограниченная дальность",
+    ["Melee Range"] = "Ближний бой",
+    ["# yd range"] = "Дальность {1} м",
+    ["#-# yd range"] = "Дальность {1}-{2} м",
+    ["Requires Level #"] = "Требуется уровень: {1}",
+    ["# Mana"] = "{1} ед. маны",
+    ["#% of base mana"] = "{1}% от базовой маны",
+    ["# Energy"] = "{1} ед. энергии",
+    ["# Rage"] = "{1} ед. ярости",
+    ["# Focus"] = "{1} ед. концентрации",
+    ["# Runic Power"] = "{1} ед. силы рун",
+    ["# sec cast"] = "Применение: {1} сек.",
+    ["#. sec cast"] = "Применение: {1} сек.",
+    ["# sec cooldown"] = "Восстановление: {1} сек.",
+    ["# min cooldown"] = "Восстановление: {1} мин.",
+    ["Generates # Heat Per Target"] = "Генерирует {1} ед. Жара за каждую цель",
+    ["Generates # Heat Per Tick"] = "Генерирует {1} ед. Жара за каждый тик",
+    ["Generates # Heat Each Tick"] = "Генерирует {1} ед. Жара за каждый тик",
+    ["Generates # Heat Per Enemy Hit"] = "Генерирует {1} ед. Жара за каждого поражённого врага",
+    ["Generates # additional Rage"] = "Генерирует дополнительно {1} ед. ярости",
+    ["# Mana, plus # per sec"] = "{1} ед. маны + {2} в секунду",
+    ["Hold SHIFT for more information"] = "Удерживайте SHIFT для подробностей",
+    ["Only # Ascension spell can be active at a time."] = "Одновременно может быть активно только {1} заклинание Вознесения.",
+
+    ["Cannot be cast when in combat."] = "Нельзя применять в бою.",
+    ["Hello! Ready for some training?"] = "Привет! Готов подучиться?",
+    ["Greetings! Take my trial!"] = "Приветствую! Пройди моё испытание!",
+    ["All"] = "Все",
+    ["Filter"] = "Фильтр",
+    ["Train"] = "Обучиться",
+    ["Exit"] = "Выход",
+    ["Cost:"] = "Цена:",
+    ["(Rank #)"] = "(Ранг {1})",
+    ["Rank #"] = "Ранг {1}",
+    ["Rank #/#"] = "Ранг {1}/{2}",
+    ["Requires: Level #"] = "Требуется уровень: {1}",
+
+    ["Spend more points to unlock this talent"] = "Потратьте больше очков, чтобы открыть этот талант.",
+    ["Spend # more points to unlock this row"] = "Чтобы открыть этот ряд, потратьте ещё очков: {1}",
+    ["Unlocks at level #."] = "Открывается на уровне {1}.",
+    ["Unlocks at level: #"] = "Открывается на уровне: {1}",
+
+    ["Spend # more Talent Essence in current tree to unlock this row"] =
+        "Чтобы открыть этот ряд, потратьте в текущем дереве ещё эссенции талантов: {1}",
+    ["Spend # more Talent Essence points in any tree to unlock rows below"] =
+        "Чтобы открыть ряды ниже, потратьте в любом дереве ещё эссенции талантов: {1}",
+    ["Spend # more Ability Essence in any class to unlock this ability."] =
+        "Чтобы открыть эту способность, потратьте в любом классе ещё эссенции способностей: {1}.",
+    ["Ability Essence: #"] = "Эссенция способностей: {1}",
+    ["Talent Essence: #"] = "Эссенция талантов: {1}",
+    ["Not enough Ability Essence"] = "Не хватает эссенции способностей",
+    ["Not enough Talent Essence"] = "Не хватает эссенции талантов",
+    ["Available"] = "Доступно",
+    ["Unavailable"] = "Недоступно",
+    ["Used"] = "Изучено",
+
+    ["id-спела:"] = "ID спелла:",
+}
+
+do
+    local RES = {
+        ["Heat"] = "Жара",
+        ["Ember"] = "Углей", ["Embers"] = "Углей",
+        ["Advantage"] = "Преимущества",
+        ["Insanity"] = "Безумия",
+        ["Rage"] = "ярости",
+        ["Felfury"] = "Ярости Скверны",
+        ["Demonfire"] = "Демонического огня",
+        ["Reaped Soul"] = "Пожатых душ", ["Reaped Souls"] = "Пожатых душ",
+        ["Static"] = "Статического заряда",
+        ["Runic Power"] = "силы рун",
+        ["Soul Fragment"] = "Осколков души", ["Soul Fragments"] = "Осколков души",
+        ["Energy"] = "энергии",
+        ["Mana"] = "маны",
+    }
+    for en, ru in pairs(RES) do
+        CoARU_G["Generates # " .. en] = "Генерирует {1} ед. " .. ru
+        CoARU_G["Consumes # " .. en] = "Расходует {1} ед. " .. ru
+        CoARU_G["Costs # " .. en] = "Стоимость: {1} ед. " .. ru
+    end
+end
+
+local CLASS_RU = {
+
+    ["Warriors"] = "Воины", ["Paladins"] = "Паладины", ["Hunters"] = "Охотники",
+    ["Rogues"] = "Разбойники", ["Priests"] = "Жрецы", ["Shamans"] = "Шаманы",
+    ["Mages"] = "Маги", ["Warlocks"] = "Чернокнижники", ["Druids"] = "Друиды",
+    ["Death Knights"] = "Рыцари смерти", ["Monks"] = "Монахи",
+
+    ["Necromancers"] = "Некроманты",
+    ["Sun Clerics"] = "Солнечные клирики",
+    ["Chronomancers"] = "Хрономанты",
+    ["Pyromancers"] = "Пироманты",
+    ["Primalists"] = "Первобытники",
+    ["Barbarians"] = "Варвары",
+    ["Reapers"] = "Жнецы",
+    ["Tinkers"] = "Механики",
+    ["Rangers"] = "Следопыты",
+    ["Witch Doctors"] = "Знахари",
+    ["Demon Hunters"] = "Охотники на демонов",
+    ["Cultists"] = "Культисты",
+
+}
+
+function CoARU_TranslateClass(line)
+    if not line then return nil end
+    local en = CoARU_Norm(CoARU_StripCodes(line))
+    local cls = en:match("^(.+) cannot use this Mystic Enchant$")
+    if not cls then return nil end
+    local ru = CLASS_RU[cls]
+    if not ru then return nil end
+    return ru .. " не могут использовать эти Мистические чары"
+end
+
+function CoARU_TranslateRequires(line)
+    if not line or not line:find("Requires") then return nil end
+    local s = line
+    s = s:gsub("Requires:%s*", "Требуется: ")
+    s = s:gsub("Requires%s+", "Требуется ")
+    s = s:gsub("Level", "уровень")
+    s = s:gsub("%(Rank (%d+)%)", "(ранг %1)")
+    s = s:gsub("%(Rank (|c%x%x%x%x%x%x%x%x)(%d+)(|r)%)", "(ранг %1%2%3)")
+
+    local PROF = {
+        { "Fishing Poles", "Удочки" }, { "Fist Weapons", "Кистевое оружие" },
+        { "One%-Handed Swords", "Одноручные мечи" }, { "Two%-Handed Swords", "Двуручные мечи" },
+        { "One%-Handed Axes", "Одноручные топоры" }, { "Two%-Handed Axes", "Двуручные топоры" },
+        { "One%-Handed Maces", "Одноручные палицы" }, { "Two%-Handed Maces", "Двуручные палицы" },
+        { "Crossbows", "Арбалеты" }, { "Polearms", "Древковое оружие" }, { "Warglaives", "Глефы" },
+        { "Daggers", "Кинжалы" }, { "Staves", "Посохи" }, { "Shields", "Щиты" },
+        { "Thrown", "Метательное оружие" }, { "Wands", "Жезлы" },
+        { "Bows", "Луки" }, { "Guns", "Ружья" },
+
+        { "Advantage", "Преимущество" }, { "Insanity", "Безумие" },
+        { "Felfury", "Ярость Скверны" }, { "Demonfire", "Демонический огонь" },
+        { "Reaped Souls", "Пожатые души" }, { "Reaped Soul", "Пожатая душа" },
+    }
+    for _, p in ipairs(PROF) do s = s:gsub(p[1], p[2]) end
+    if s ~= line then return s end
+    return nil
+end
+
+function CoARU_TranslateReagents(line)
+    if not line or not line:find("Reagents:", 1, true) then return nil end
+    local s = line:gsub("Reagents:%s*", "Реагенты: ")
+    if s ~= line then return s end
+    return nil
+end
+
+local textIndex
+function CoARU_TranslateByIndex(liveText)
+    if not liveText then return nil end
+    if not textIndex then
+        textIndex = {}
+        for _, entry in pairs(CoARU_T or {}) do
+            local vs = entry[1] and entry or { entry }
+            for _, v in ipairs(vs) do
+                if v.en and v.ru and textIndex[v.en] == nil then
+                    textIndex[v.en] = v.ru
+                end
+            end
+        end
+    end
+    local plain = CoARU_StripCodes(liveText)
+    local ru = textIndex[CoARU_Norm(plain)]
+    if not ru then return nil end
+    local nums = {}
+    for m in plain:gmatch("%d[%d%.,]*") do
+        nums[#nums + 1] = (m:gsub("[%.,]+$", ""))
+    end
+    return (ru:gsub("{(%d+)}", function(n) return nums[tonumber(n)] or "?" end))
+end
+
+function CoARU_TranslateGlobal(liveText)
+    if not liveText then return nil end
+    local plain = CoARU_StripCodes(liveText)
+    local ru = CoARU_G[CoARU_Norm(plain)]
+    if not ru then return nil end
+    local nums = {}
+    for m in plain:gmatch("%d[%d%.,]*") do
+        nums[#nums + 1] = (m:gsub("[%.,]+$", ""))
+    end
+    return (ru:gsub("{(%d+)}", function(n) return nums[tonumber(n)] or "?" end))
+end
+
+local TERM_FORMS = {
+    ["Demonfire"] = { "Демонический огонь", "Демонического огня", "Демоническому огню",
+                      "Демоническим огнём", "Демоническим огнем", "Демоническом огне" },
+}
+
+local function wrapFirst(ru, needle, color)
+    local s, e = ru:find(needle, 1, true)
+    if not s then return nil end
+    return ru:sub(1, s - 1) .. color .. needle .. "|r" .. ru:sub(e + 1)
+end
+
+local function reapplyInnerColors(line, ru)
+    if ru:find("|c", 1, true) then return ru end
+    local pos = 1
+    while true do
+        local s, e, color, body = line:find("(|[cC]%x%x%x%x%x%x%x%x)(.-)|r", pos)
+        if not s then break end
+        pos = e + 1
+
+        if s > 1 and body and body ~= "" then
+            local term = CoARU_StripCodes(body)
+            term = term and term:match("^%s*(.-)%s*$")
+            if term and #term > 1 then
+                local done = wrapFirst(ru, term, color)
+                if not done then
+                    for _, form in ipairs(TERM_FORMS[term] or {}) do
+                        done = wrapFirst(ru, form, color)
+                        if done then break end
+                    end
+                end
+                ru = done or ru
+            end
+        end
+    end
+    return ru
+end
+
+local PROF = {
+    ["Blacksmithing"] = { "Кузнечному делу",     "кузнечного дела" },
+    ["Alchemy"]       = { "Алхимии",             "алхимии" },
+    ["Enchanting"]    = { "Наложению чар",       "наложения чар" },
+    ["Engineering"]   = { "Инженерному делу",    "инженерного дела" },
+    ["Leatherworking"]= { "Кожевничеству",       "кожевничества" },
+    ["Tailoring"]     = { "Портняжному делу",    "портняжного дела" },
+    ["Herbalism"]     = { "Травничеству",        "травничества" },
+    ["Mining"]        = { "Горному делу",        "горного дела" },
+    ["Skinning"]      = { "Снятию шкур",         "снятия шкур" },
+    ["Cooking"]       = { "Кулинарии",           "кулинарии" },
+    ["First Aid"]     = { "Первой помощи",       "первой помощи" },
+    ["Fishing"]       = { "Рыбной ловле",        "рыбной ловли" },
+    ["Inscription"]   = { "Начертанию",          "начертания" },
+    ["Jewelcrafting"] = { "Ювелирному делу",     "ювелирного дела" },
+    ["Woodworking"]   = { "Деревообработке",     "деревообработки" },
+    ["Woodcutting"]   = { "Заготовке древесины", "заготовки древесины" },
+}
+
+function CoARU_TranslateProfession(line)
+    if not line then return nil end
+    local name = line:match("^You can learn (.-) from a .- Trainer, which can be found by "
+                            .. "speaking to a Guard in most capital cities%.")
+    if not name then return nil end
+    local f = PROF[name]
+    if not f then return nil end
+    return ("Обучиться %s можно у учителя %s — найти его поможет стражник в большинстве "
+            .. "столиц. Также %s можно обучиться по «Book of Artisans»!")
+           :format(f[1], f[2], f[1])
+end
+
+local STAT_PREFIX
+local function statPrefixes()
+    if STAT_PREFIX then return STAT_PREFIX end
+    STAT_PREFIX = {}
+    local seen = {}
+    local function add(en, ru)
+        if type(en) ~= "string" or type(ru) ~= "string" then return end
+        if en == "" or #en < 3 or en:find("%%") or seen[en] then return end
+        seen[en] = true
+        STAT_PREFIX[#STAT_PREFIX + 1] = { en = en, ru = ru }
+    end
+
+    for key, ru in pairs(CoARU_StatLabelRU or {}) do add(_G[key], ru) end
+
+    for en, ru in pairs(CoARU_StatLabelOwn or {}) do add(en, ru) end
+
+    table.sort(STAT_PREFIX, function(a, b) return #a.en > #b.en end)
+    return STAT_PREFIX
+end
+
+function CoARU_TranslateStatLine(line)
+    if not line then return nil end
+    local plain = CoARU_StripCodes(line)
+    if not plain or not plain:find("%d") then return nil end
+    plain = plain:match("^%s*(.-)%s*$")
+    for _, e in ipairs(statPrefixes()) do
+        if plain:sub(1, #e.en) == e.en then
+            local tail = plain:sub(#e.en + 1)
+
+            if tail:find("^%s+[%d%s%+%-%(%)%/%.,%%]*$") and tail:find("%d") then
+                return e.ru .. tail
+            end
+        end
+    end
+    return nil
+end
+
+local function translateLineKeepColor(id, line)
+    local ru = (id and CoARU_TranslateText(id, line)) or CoARU_TranslateGlobal(line)
+        or CoARU_TranslateByIndex(line) or CoARU_TranslateClass(line)
+        or CoARU_TranslateRequires(line) or CoARU_TranslateReagents(line)
+        or CoARU_TranslateProfession(line) or CoARU_TranslateStatLine(line)
+
+        or (CoARU_TranslateItemPrefix and CoARU_TranslateItemPrefix(line))
+    if not ru then return nil end
+    if ru:find("|c", 1, true) then return ru end
+    local color = line:match("^(|c%x%x%x%x%x%x%x%x)")
+
+    if not color then return reapplyInnerColors(line, ru) end
+
+    local lbl, rest = line:match("^|c%x%x%x%x%x%x%x%x(.-)|r:%s*(.+)$")
+    local colonInside = false
+    if not lbl then
+        lbl, rest = line:match("^|c%x%x%x%x%x%x%x%x(.-):|r%s*(.+)$")
+        colonInside = true
+    end
+    if lbl and rest then
+
+        local ruLabel, ruRest = ru:match("^(.-):%s*(.+)$")
+        if ruLabel and ruRest then
+            if colonInside then
+                return color .. ruLabel .. ":|r " .. ruRest
+            end
+            return color .. ruLabel .. "|r: " .. ruRest
+        end
+    end
+    return color .. ru .. "|r"
+end
+
+function CoARU_TranslateBlock(id, text)
+    if not text then return nil end
+    if not text:find("\n") then
+        return translateLineKeepColor(id, text)
+    end
+    local out, any = {}, false
+    for line in (text .. "\n"):gmatch("([^\n]*)\n") do
+        local ru = translateLineKeepColor(id, line)
+        if ru then any = true end
+        out[#out + 1] = ru or line
+    end
+    if not any then return nil end
+    return table.concat(out, "\n")
+end
+
+function CoARU_IsTranslated(id)
+    if CoARU_T and CoARU_T[id] then return true end
+    return false
+end
+
+function CoARU_LineTranslated(id, line)
+    return translateLineKeepColor(id, line) ~= nil
+end
