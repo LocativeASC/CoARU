@@ -6,6 +6,7 @@
 ## DefaultState: Enabled
 ## SavedVariables: CoARU_DB
 
+LibDeflate.lua
 CoARU_Data.lua
 CoARU_Items.lua
 CoARU_ScanIds.lua

@@ -539,7 +539,7 @@ local function slash(cmd)
     end
     if cmd == "" then
         local t = 0
-        for _ in pairs(CoARU_T or {}) do t = t + 1 end
+        for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
         msg(("русификатор описаний Conquest of Azeroth. Переводит спеллы автоматически. Переводов в базе: %d."):format(t))
 
         local key = CoARU_OriginalMod and CoARU_OriginalMod() or "ALT"
@@ -639,7 +639,7 @@ local function slash(cmd)
             return
         end
         local t, iname, idesc = 0, 0, 0
-        for _ in pairs(CoARU_T or {}) do t = t + 1 end
+        for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
         for _ in pairs(CoARU_ItemName or {}) do iname = iname + 1 end
         for _ in pairs(CoARU_ItemDesc or {}) do idesc = idesc + 1 end
         msg(("переводов в базе: %d, спеллов в дампе: %d, hover: %s"):format(t, countDump(), CoARU_DB.opts.hover and "вкл" or "выкл"))
@@ -879,11 +879,17 @@ f:SetScript("OnEvent", function(self, event, arg1)
     elseif event == "PLAYER_LOGIN" then
         installHooks()
         local t = 0
-        for _ in pairs(CoARU_T or {}) do t = t + 1 end
+        for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
         local ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or ""
         local author = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Author")) or "Locative"
         print(("|cffC495DDCoARU|r%s |cffaaaaaa—|r русификатор описаний CoA. Автор: |cffC495DD%s|r. Переводов: |cffffd100%d|r."):format(
             ver ~= "" and (" |cff888888v" .. ver .. "|r") or "", author, t))
+        if CoARU_DeflateStatus then
+            local ok, info = CoARU_DeflateStatus()
+            if not ok then
+                print(("|cffff0000CoARU|r: LibDeflate не подключился (%s) — переводы способностей не будут работать. Напиши в Discord."):format(info))
+            end
+        end
         print("|cffC495DDCoARU|r|cffaaaaaa:|r нравится аддон? Поддержать автора: " .. DONATE_LINK)
     end
 end)
