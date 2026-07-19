@@ -174,6 +174,11 @@ local PATTERN_RULES = {
         "^Use: Use this whistle to tame an? (.-)%.?$",
         "Использование: приручает существо {1} с помощью свистка.",
     },
+
+    {
+        "^<Made by (.-)>$",
+        "<Изготовитель: {1}>",
+    },
 }
 
 function CoARU_TranslateItemPrefix(line)

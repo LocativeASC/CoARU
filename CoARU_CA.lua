@@ -29,9 +29,11 @@ local T = {
     ["Conquest of Azeroth - Character Advancement"] = "Conquest of Azeroth — Развитие персонажа",
 
     ["Assault enemies from a distance with ranged weapons utilizing various powerful quivers to take down your foes."] =
-        "Атакуйте врагов на расстоянии дальнобойным оружием, используя разнообразные мощные колчаны, чтобы сразить противников.",
+
+        "Атакуйте врагов на расстоянии дальнобойным оружием, используя мощные колчаны разных видов, чтобы сразить противников.",
     ["Dominate the battlefield with ease with powerful ranged spells and utility, all while supporting your allies with horns and calling falcons into the fray."] =
-        "Легко доминируйте на поле боя мощными дальнобойными заклинаниями и приёмами, поддерживая союзников рогами и призывая соколов в бой.",
+
+        "Легко доминируйте на поле боя мощными дальнобойными заклинаниями и приёмами, поддерживая союзников боевыми рогами и призывая соколов в бой.",
     ["Stalk your prey with ruthless precision, assaulting them from close range, opening grievous wounds to bleed them out."] =
         "Выслеживайте добычу с беспощадной точностью, атакуя вблизи и нанося тяжёлые раны, чтобы противник истёк кровью.",
 

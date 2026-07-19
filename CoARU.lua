@@ -70,17 +70,53 @@ local function showDonate()
     ensureDonateFrame():Show()
 end
 
+local function purgeSent()
+    local m = CoARU_DB.miss
+    if type(m) ~= "table" then return 0 end
+    local n = 0
+    for norm, rec in pairs(m) do
+        if type(rec) == "table" and rec.sent then
+            m[norm] = nil
+            n = n + 1
+        end
+    end
+    return n
+end
+
 local function initDB()
     CoARU_DB.dump = CoARU_DB.dump or {}
     CoARU_DB.opts = CoARU_DB.opts or {}
     CoARU_DB.miss = CoARU_DB.miss or {}
     if CoARU_DB.opts.hover == nil then CoARU_DB.opts.hover = false end
+    purgeSent()
 end
 
 local MISS_CAP = 3000
 
+local FOREIGN_OWNERS = {
+    "Bagnon", "AtlasLoot", "Details", "LibDBIcon", "ErrorHandler", "pfQuest", "Decursive",
+    "Bartender", "BT4Button", "Skada", "Recount", "WeakAuras", "TitanPanel", "OmniCC",
+    "XPerl", "Quartz", "DragonUI", "AceGUI", "Postal", "Auctionator", "Dominos", "ElvUI",
+}
+
+local QUEST_OWNERS = { "WorldMapFrame", "WatchFrame", "QuestLogScrollFrame" }
+
+local function skipByOwner(owner, line)
+    if type(owner) ~= "string" or owner == "" then return false end
+    for _, frag in ipairs(FOREIGN_OWNERS) do
+        if owner:find(frag, 1, true) then return true end
+    end
+    if line and line:sub(1, 2) == "- " then
+        for _, frag in ipairs(QUEST_OWNERS) do
+            if owner:find(frag, 1, true) then return true end
+        end
+    end
+    return false
+end
+
 local function noteOneLine(kind, line, owner)
     if not line or not CoARU_DB or not CoARU_DB.miss then return end
+    if skipByOwner(owner, line) then return end
     if CoARU_HasCyrillic(line) then return end
     local plain = CoARU_StripCodes(line)
     if not plain or not plain:find("%a") then return end
@@ -162,7 +198,7 @@ local function onTooltipSetSpell(tip)
         CoARU_NoteBlockMisses("spell", id, t)
         local ru = CoARU_TranslateBlock(id, t)
         if ru and ru ~= t then
-            fs:SetText(ru)
+            CoARU_SetTranslated(fs, t, ru)
             changed = true
         else
             local cleaned = CoARU_CleanMarkers(t, 0, id)
@@ -194,6 +230,18 @@ local function colorizeDelta(ru)
     return "|c" .. hex .. sign .. num .. "|r|cffffffff" .. rest .. "|r"
 end
 
+local function clientRewritesLine(t)
+    if not t then return false end
+    local plain = CoARU_StripCodes(t)
+    if not plain or plain == "" then return false end
+    if plain:sub(1, 2) == '"@' then return true end
+    local heroic = _G.ITEM_HEROIC
+    if heroic and heroic ~= "" and plain:sub(1, #heroic) == heroic then
+        return true
+    end
+    return false
+end
+
 local function onTooltipSetItem(tip)
     local name = tip:GetName()
     if not name or not tip.GetItem then return end
@@ -203,13 +251,18 @@ local function onTooltipSetItem(tip)
     if not id then return end
 
     local changed = false
+
     local ru = CoARU_ItemName and CoARU_ItemName[id]
-    if ru then
-        local fs = _G[name .. "TextLeft1"]
-        local t = fs and fs:GetText()
-        if t and t:find("%S") and not CoARU_HasCyrillic(t) then
-            fs:SetText(ru)
-            changed = true
+    if ru and type(itemName) == "string" and itemName ~= "" then
+        local last = math.min(tip:NumLines() or 1, 3)
+        for i = 1, last do
+            local fs = _G[name .. "TextLeft" .. i]
+            local t = fs and fs:GetText()
+            if t and not CoARU_HasCyrillic(t) and CoARU_StripCodes(t) == itemName then
+                CoARU_SetTranslated(fs, t, ru)
+                changed = true
+                break
+            end
         end
     end
 
@@ -224,10 +277,11 @@ local function onTooltipSetItem(tip)
                 and (t:find(DELTA_HEADER_EN, 1, true) or t:find(DELTA_HEADER_RU, 1, true)) then
                 inDelta = true
             end
-            if t and #t > 2 and t:find("%S") and not CoARU_HasCyrillic(t) then
+            if t and #t > 2 and t:find("%S") and not CoARU_HasCyrillic(t)
+                and not clientRewritesLine(t) then
 
                 if desc and side == "TextLeft" and t:match('^".*"$') then
-                    fs:SetText('"' .. desc .. '"')
+                    CoARU_SetTranslated(fs, t, '"' .. desc .. '"')
                     changed = true
                 else
 
@@ -241,7 +295,7 @@ local function onTooltipSetItem(tip)
                     end
                     if r and r ~= t then
                         if inDelta then r = colorizeDelta(r) end
-                        fs:SetText(r)
+                        CoARU_SetTranslated(fs, t, r)
                         changed = true
                     else
 
@@ -260,7 +314,7 @@ local function onTooltipSetItem(tip)
         if t and t:find("%S") and not CoARU_HasCyrillic(t) then
             local r = CoARU_TranslateBlock(nil, t)
             if r and r ~= t then
-                pf:SetText(r)
+                CoARU_SetTranslated(pf, t, r)
                 changed = true
             else
                 CoARU_NoteMiss("money", t)
@@ -356,9 +410,9 @@ local function onTooltipShow(tip)
                     end
                 end
                 if not CoARU_HasCyrillic(t) and schoolRu then
-                    fs:SetText(schoolRu)
+                    CoARU_SetTranslated(fs, t, schoolRu)
                     changed = true
-                elseif #t > 2 and not CoARU_HasCyrillic(t) then
+                elseif #t > 2 and not CoARU_HasCyrillic(t) and not clientRewritesLine(t) then
                     local ru = CoARU_TranslateBlock(nil, t)
 
                     if not (ru and ru ~= t) and CoARU_TranslateItemPrefix then
@@ -366,7 +420,7 @@ local function onTooltipShow(tip)
                     end
                     if ru and ru ~= t then
                         if inDelta then ru = colorizeDelta(ru) end
-                        fs:SetText(ru)
+                        CoARU_SetTranslated(fs, t, ru)
                         changed = true
                     elseif t ~= itemName and (i > 1 or isSchoolTip) then
 
@@ -397,7 +451,7 @@ local function translateAuraTip(tip, id)
                 CoARU_NoteBlockMisses("aura", id, t)
                 local ru = CoARU_TranslateBlock(id, t)
                 if ru and ru ~= t then
-                    fs:SetText(ru)
+                    CoARU_SetTranslated(fs, t, ru)
                     changed = true
                 end
             end
@@ -473,9 +527,13 @@ local RELEASE = true
 local PLAYER_CMDS = { [""] = true, status = true, donate = true, support = true,
                       ["спасибо"] = true, ["донат"] = true }
 
+local function isOriginalCmd(cmd)
+    return cmd:match("^original") or cmd:match("^оригинал") or cmd:match("^англ")
+end
+
 local function slash(cmd)
     cmd = (cmd or ""):gsub("^%s+", ""):gsub("%s+$", ""):lower()
-    if RELEASE and not PLAYER_CMDS[cmd] then
+    if RELEASE and not PLAYER_CMDS[cmd] and not isOriginalCmd(cmd) then
         msg("доступна команда /coaru status — она показывает, что собрал аддон.")
         return
     end
@@ -483,11 +541,40 @@ local function slash(cmd)
         local t = 0
         for _ in pairs(CoARU_T or {}) do t = t + 1 end
         msg(("русификатор описаний Conquest of Azeroth. Переводит спеллы автоматически. Переводов в базе: %d."):format(t))
+
+        local key = CoARU_OriginalMod and CoARU_OriginalMod() or "ALT"
+        key = key:sub(1, 1) .. key:sub(2):lower()
+        print(("  |cffffd100%s|r над тултипом — показать оригинал на английском (сменить клавишу: /coaru original ctrl)"):format(key))
         print("  поддержать автора: " .. DONATE_LINK)
         return
     end
     if cmd == "donate" or cmd == "support" or cmd == "спасибо" or cmd == "донат" then
         showDonate()
+        return
+    end
+
+    if isOriginalCmd(cmd) then
+        local arg = cmd:match("%s+(%a+)$")
+        if arg then
+            local set = CoARU_SetOriginalMod and CoARU_SetOriginalMod(arg)
+            if not set then
+                msg("не знаю такую клавишу. Доступны: alt, ctrl, shift, off.")
+                return
+            end
+            msg(set == "NONE"
+                and "показ оригинала по клавише |cffff0000выключен|r."
+                or ("оригинал показывается, пока зажат |cffffd100%s|r."):format(
+                    set:sub(1, 1) .. set:sub(2):lower()))
+            return
+        end
+        local sticky = CoARU_ToggleOriginalSticky and CoARU_ToggleOriginalSticky()
+        local key = CoARU_OriginalMod and CoARU_OriginalMod() or "ALT"
+        key = key:sub(1, 1) .. key:sub(2):lower()
+        if sticky then
+            msg(("постоянный английский: |cff00ff00ВКЛ|r. Зажми |cffffd100%s|r, чтобы увидеть русский."):format(key))
+        else
+            msg(("постоянный английский: |cffff0000ВЫКЛ|r. Зажми |cffffd100%s|r над тултипом, чтобы увидеть оригинал."):format(key))
+        end
         return
     end
     if cmd == "book" then
@@ -537,10 +624,18 @@ local function slash(cmd)
                 msg("непереведённых строк пока не встретилось.")
                 return
             end
-            msg(("собрано непереведённых строк: |cffffd100%d|r. Сделай /reload и пришли файл")
-                :format(mn))
-            print("  |cff00ff00WTF\\Account\\<твой аккаунт>\\SavedVariables\\CoARU.lua|r"
-                  .. " в Discord: |cffC495DDlocativeds|r")
+
+            for _, rec in pairs(CoARU_DB.miss) do
+                if type(rec) == "table" then rec.sent = true end
+            end
+
+            msg(("непереведённых строк собрано: |cffffd100%d|r"):format(mn))
+            print("  |cffffd1001.|r сделай |cffffd100/reload|r")
+            print("  |cffffd1002.|r найди файл: |cff00ff00WTF\\Account\\<аккаунт>"
+                  .. "\\SavedVariables\\CoARU.lua|r")
+            print("  |cffffd1003.|r пришли его в Discord: |cffC495DDlocativeds|r")
+            print("  |cff888888Список уже помечен и очистится при следующем входе в игру.|r")
+            print("  |cff888888В следующий раз пришлёшь только новое.|r")
             return
         end
         local t, iname, idesc = 0, 0, 0
@@ -556,6 +651,14 @@ local function slash(cmd)
         if CoARU_PaperDollStatus then
             local n, where, fs = CoARU_PaperDollStatus()
             msg(("текст окон: строк %d, FontString в кэше %d | %s"):format(n, fs or 0, where))
+        end
+
+        if CoARU_OriginalStatus then
+            local n, key, sticky = CoARU_OriginalStatus()
+            msg(("оригинал: клавиша %s, постоянный английский %s, строк в кэше %d"):format(
+                key, sticky and "вкл" or "выкл", n))
+        else
+            msg("|cffff0000CoARU_Original.lua не загружен|r — нужен полный перезапуск игры, не /reload.")
         end
 
         local mn, byKind = 0, {}

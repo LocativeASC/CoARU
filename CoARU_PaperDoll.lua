@@ -172,9 +172,10 @@ local TIPS = {
     HELP_TIP_UNSPENT_ESSENCE_TEXT = "За повышение уровня вы получили |n|cffFFFF00[Ability Essence]|r! Щёлкните здесь, чтобы изучить новую способность!",
     TIP_UNSPENT_ABILITY_ESSENCE = "У вас есть нераспределённая |cffffd100[Ability Essence]|r.|nЩёлкните здесь, чтобы изучить новое заклинание!",
     TIP_UNSPENT_TALENT_ESSENCE  = "У вас есть нераспределённая |cffffd100[Talent Essence]|r.|nЩёлкните здесь, чтобы изучить новый талант!",
-    SPELL_HINT_LEARN_HOTKEYS1  = "Изучайте заклинания быстрее: |cffffd100Shift+щелчок|r или |cffffd100двойной щелчок|r по значку.",
-    SPELL_HINT_LEARN_HOTKEYS2  = "Забыть заклинание быстрее: |cffffd100Alt+щелчок|r по значку.",
-    SPELL_HINT_LEARN_HOTKEYS3  = "Изучить все ранги таланта разом: |cffffd100Ctrl+щелчок|r по значку.",
+
+    SPELL_HINT_LEARN_HOTKEYS1  = "Изучайте заклинания быстрее: |cffffd100Shift+клик|r или |cffffd100двойной клик|r по значку.",
+    SPELL_HINT_LEARN_HOTKEYS2  = "Забыть заклинание быстрее: |cffffd100Alt+клик|r по значку.",
+    SPELL_HINT_LEARN_HOTKEYS3  = "Изучить все ранги таланта разом: |cffffd100Ctrl+клик|r по значку.",
     TIP_HARDCAST_EQUIP_STAFF   = "Для заклинаний со временем произнесения стоит взять |cff71d5ffпосох|r: он сокращает время произнесения!",
     TIP_LAYER_PICKER           = "Вы в отдельной копии зоны!|nЩёлкните, чтобы перейти в другую копию.|n|nКопии — это отдельные слои одной зоны, чтобы игра оставалась комфортной.",
     TIP_OPEN_WARDROBE_TO_CHANGE_TRANSMOG = "Настройку показа трансмогрификации можно изменить в гардеробе в любой момент!",

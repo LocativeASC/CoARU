@@ -90,22 +90,33 @@ function CoARU_CleanMarkers(text, depth, spellID)
     return s
 end
 
-local function variantsOf(entry)
-    if entry[1] then return entry end
-    return { entry }
-end
-
 function CoARU_ResolveDescription(id, depth)
     depth = depth or 0
     local entry = CoARU_T and CoARU_T[id]
-    if entry then
-        for _, v in ipairs(variantsOf(entry)) do
+    if not entry then return nil end
+
+    if entry[1] then
+        for _, v in ipairs(entry) do
             if v.ru and not v.ru:find("{%d+}") then
                 return CoARU_CleanMarkers(v.ru, depth, id)
             end
         end
+        return nil
+    end
+
+    if entry.ru and not entry.ru:find("{%d+}") then
+        return CoARU_CleanMarkers(entry.ru, depth, id)
     end
     return nil
+end
+
+local function matchVariant(v, id, norm, plain)
+    if norm ~= v.en then return nil end
+    local nums = extractNumbers(plain)
+    local ru = v.ru:gsub("{(%d+)}", function(n)
+        return nums[tonumber(n)] or "?"
+    end)
+    return CoARU_CleanMarkers(ru, 0, id)
 end
 
 function CoARU_TranslateText(id, liveText)
@@ -114,16 +125,16 @@ function CoARU_TranslateText(id, liveText)
 
     local plain = CoARU_StripCodes(liveText)
     local norm = CoARU_Norm(plain)
-    for _, v in ipairs(variantsOf(entry)) do
-        if norm == v.en then
-            local nums = extractNumbers(plain)
-            local ru = v.ru:gsub("{(%d+)}", function(n)
-                return nums[tonumber(n)] or "?"
-            end)
-            return CoARU_CleanMarkers(ru, 0, id)
+
+    if entry[1] then
+        for _, v in ipairs(entry) do
+            local r = matchVariant(v, id, norm, plain)
+            if r then return r end
         end
+        return nil
     end
-    return nil
+
+    return matchVariant(entry, id, norm, plain)
 end
 
 CoARU_G = {
@@ -252,7 +263,7 @@ function CoARU_TranslateRequires(line)
     s = s:gsub("Requires%s+", "Требуется ")
     s = s:gsub("Level", "уровень")
     s = s:gsub("%(Rank (%d+)%)", "(ранг %1)")
-    s = s:gsub("%(Rank (|c%x%x%x%x%x%x%x%x)(%d+)(|r)%)", "(ранг %1%2%3)")
+    s = s:gsub("%(Rank (|[cC]%x%x%x%x%x%x%x%x)(%d+)(|r)%)", "(ранг %1%2%3)")
 
     local PROF = {
         { "Fishing Poles", "Удочки" }, { "Fist Weapons", "Кистевое оружие" },
@@ -285,12 +296,16 @@ function CoARU_TranslateByIndex(liveText)
     if not liveText then return nil end
     if not textIndex then
         textIndex = {}
+
         for _, entry in pairs(CoARU_T or {}) do
-            local vs = entry[1] and entry or { entry }
-            for _, v in ipairs(vs) do
-                if v.en and v.ru and textIndex[v.en] == nil then
-                    textIndex[v.en] = v.ru
+            if entry[1] then
+                for _, v in ipairs(entry) do
+                    if v.en and v.ru and textIndex[v.en] == nil then
+                        textIndex[v.en] = v.ru
+                    end
                 end
+            elseif entry.en and entry.ru and textIndex[entry.en] == nil then
+                textIndex[entry.en] = entry.ru
             end
         end
     end
@@ -317,17 +332,73 @@ function CoARU_TranslateGlobal(liveText)
 end
 
 local TERM_FORMS = {
-    ["Demonfire"] = { "Демонический огонь", "Демонического огня", "Демоническому огню",
-                      "Демоническим огнём", "Демоническим огнем", "Демоническом огне" },
+    ["Advantage"]    = { "Преимуществом", "Преимущества", "Преимуществу", "Преимуществе",
+                         "Преимущество" },
+    ["Heat"]         = { "Жаром", "Жара", "Жару", "Жаре", "Жар" },
+    ["Insanity"]     = { "Безумием", "Безумия", "Безумию", "Безумии", "Безумие" },
+    ["Static"]       = { "Статическим зарядом", "Статического заряда", "Статическому заряду",
+                         "Статическом заряде", "Статический заряд" },
+    ["Felfury"]      = { "Яростью Скверны", "Ярости Скверны", "Ярость Скверны" },
+    ["Demonfire"]    = { "Демоническим огнём", "Демоническим огнем", "Демонического огня",
+                         "Демоническому огню", "Демоническом огне", "Демонический огонь" },
+    ["Reaped Souls"] = { "Пожатыми душами", "Пожатых душ", "Пожатым душам", "Пожатые души" },
+    ["Life Force"]   = { "жизненной силой", "жизненную силу", "жизненной силы",
+                         "жизненная сила" },
+    ["Embers"]       = { "Углями", "Углей", "Углям", "Угли" },
+    ["Ember"]        = { "Углём", "Углем", "Угля", "Углю", "Уголь" },
+    ["Runic Power"]  = { "силой рун", "силы рун", "силу рун", "силе рун", "сила рун" },
+    ["Focus"]        = { "концентрацией", "концентрации", "концентрацию", "концентрация" },
+    ["Rage"]         = { "яростью", "ярости", "ярость" },
+    ["Energy"]       = { "энергией", "энергии", "энергию", "энергия" },
+    ["Mana"]         = { "маной", "маны", "мане", "ману", "мана" },
 }
 
-local function wrapFirst(ru, needle, color)
-    local s, e = ru:find(needle, 1, true)
-    if not s then return nil end
-    return ru:sub(1, s - 1) .. color .. needle .. "|r" .. ru:sub(e + 1)
+local function flipFirstCase(s)
+    local b1, b2 = s:byte(1), s:byte(2)
+    if not b2 then return nil end
+    if b1 == 208 then
+        if b2 >= 144 and b2 <= 159 then return string.char(208, b2 + 32) .. s:sub(3) end
+        if b2 >= 160 and b2 <= 175 then return string.char(209, b2 - 32) .. s:sub(3) end
+        if b2 >= 176 and b2 <= 191 then return string.char(208, b2 - 32) .. s:sub(3) end
+    elseif b1 == 209 and b2 >= 128 and b2 <= 143 then
+        return string.char(208, b2 + 32) .. s:sub(3)
+    end
+    return nil
 end
 
-local function reapplyInnerColors(line, ru)
+local function wrapFirst(ru, needle, color, restore)
+    local s, e = ru:find(needle, 1, true)
+    if not s then
+        local alt = flipFirstCase(needle)
+        if not alt then return nil end
+        s, e = ru:find(alt, 1, true)
+        if not s then return nil end
+        needle = alt
+    end
+    return ru:sub(1, s - 1) .. color .. needle .. "|r" .. (restore or "") .. ru:sub(e + 1)
+end
+
+local function leadingSpanCoversAll(line)
+    local pos, depth, n = 1, 0, #line
+    while true do
+        local cs, ce = line:find("|[cC]%x%x%x%x%x%x%x%x", pos)
+        local rs, re = line:find("|[rR]", pos)
+        if not cs and not rs then return false end
+        if cs and (not rs or cs < rs) then
+            depth = depth + 1
+            pos = ce + 1
+        else
+            depth = depth - 1
+            if depth <= 0 then
+
+                return line:sub(re + 1):find("%S") == nil
+            end
+            pos = re + 1
+        end
+    end
+end
+
+local function reapplyInnerColors(line, ru, restore, unwrapped)
     if ru:find("|c", 1, true) then return ru end
     local pos = 1
     while true do
@@ -335,14 +406,14 @@ local function reapplyInnerColors(line, ru)
         if not s then break end
         pos = e + 1
 
-        if s > 1 and body and body ~= "" then
+        if (unwrapped or s > 1) and body and body ~= "" then
             local term = CoARU_StripCodes(body)
             term = term and term:match("^%s*(.-)%s*$")
             if term and #term > 1 then
-                local done = wrapFirst(ru, term, color)
+                local done = wrapFirst(ru, term, color, restore)
                 if not done then
                     for _, form in ipairs(TERM_FORMS[term] or {}) do
-                        done = wrapFirst(ru, form, color)
+                        done = wrapFirst(ru, form, color, restore)
                         if done then break end
                     end
                 end
@@ -430,14 +501,15 @@ local function translateLineKeepColor(id, line)
         or (CoARU_TranslateItemPrefix and CoARU_TranslateItemPrefix(line))
     if not ru then return nil end
     if ru:find("|c", 1, true) then return ru end
-    local color = line:match("^(|c%x%x%x%x%x%x%x%x)")
+
+    local color = line:match("^(|[cC]%x%x%x%x%x%x%x%x)")
 
     if not color then return reapplyInnerColors(line, ru) end
 
-    local lbl, rest = line:match("^|c%x%x%x%x%x%x%x%x(.-)|r:%s*(.+)$")
+    local lbl, rest = line:match("^|[cC]%x%x%x%x%x%x%x%x(.-)|r:%s*(.+)$")
     local colonInside = false
     if not lbl then
-        lbl, rest = line:match("^|c%x%x%x%x%x%x%x%x(.-):|r%s*(.+)$")
+        lbl, rest = line:match("^|[cC]%x%x%x%x%x%x%x%x(.-):|r%s*(.+)$")
         colonInside = true
     end
     if lbl and rest then
@@ -450,7 +522,15 @@ local function translateLineKeepColor(id, line)
             return color .. ruLabel .. "|r: " .. ruRest
         end
     end
-    return color .. ru .. "|r"
+
+    if not leadingSpanCoversAll(line) then
+        local painted = reapplyInnerColors(line, ru, nil, true)
+
+        if painted ~= ru then return painted end
+    end
+
+    local inner = line:gsub("^|[cC]%x%x%x%x%x%x%x%x", "", 1):gsub("|r$", "")
+    return color .. reapplyInnerColors(inner, ru, color, true) .. "|r"
 end
 
 function CoARU_TranslateBlock(id, text)

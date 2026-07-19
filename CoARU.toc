@@ -2,7 +2,7 @@
 ## Title: |cffC495DDCoARU|r by |cffC495DDLocative|r
 ## Notes: Русский перевод для Conquest of Azeroth: заклинания, таланты, глифы, чары, баффы, предметы и часть интерфейса. Числа берутся из живого тултипа и не устаревают после правок баланса.|n|nЗадания и собственные окна Ascension не переведены - их текста нет в файлах клиента.|n|n|cffffd100Помочь переводу:|r /coaru status
 ## Author: Locative
-## Version: 1.0.0
+## Version: 1.0.1
 ## DefaultState: Enabled
 ## SavedVariables: CoARU_DB
 
@@ -17,4 +17,5 @@ CoARU_Scan.lua
 CoARU_Trainer.lua
 CoARU_PaperDoll.lua
 CoARU_CA.lua
+CoARU_Original.lua
 CoARU.lua
