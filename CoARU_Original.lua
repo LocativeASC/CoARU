@@ -31,10 +31,29 @@ local function wantOriginal()
     return held ~= sticky
 end
 
+local function grabColor(fs)
+    if not fs.GetTextColor then return nil end
+    local ok, r, g, b, a = pcall(fs.GetTextColor, fs)
+    if not ok or not r then return nil end
+    return { r, g, b, a or 1 }
+end
+
+function CoARU_ReapplyColor(fs)
+    local rec = fs and ORIG[fs]
+    local c = rec and rec.rgb
+    if not (c and fs.SetTextColor) then return end
+
+    local ok, cur = pcall(fs.GetText, fs)
+    if not ok or (cur ~= rec.ru and cur ~= rec.en) then return end
+    pcall(fs.SetTextColor, fs, c[1], c[2], c[3], c[4])
+end
+
 function CoARU_SetTranslated(fs, en, ru)
     if not fs then return end
-    ORIG[fs] = { en = en, ru = ru }
+    local rgb = grabColor(fs)
+    ORIG[fs] = { en = en, ru = ru, rgb = rgb }
     fs:SetText(CoARU_OriginalMode and en or ru)
+    CoARU_ReapplyColor(fs)
 end
 
 local function swapOne(fs)

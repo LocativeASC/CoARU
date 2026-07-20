@@ -1,5 +1,85 @@
 local MAX_DESC_RECURSION = 2
 
+local OFFSET_BITS = 17
+local LEN_BITS = 13
+local OFFSET_MOD = 2 ^ OFFSET_BITS
+local LEN_MOD = 2 ^ LEN_BITS
+
+local function unpackLoc(v)
+    local length = v % LEN_MOD
+    v = (v - length) / LEN_MOD
+    local offset = v % OFFSET_MOD
+    local chunkId = (v - offset) / OFFSET_MOD
+    return chunkId, offset, length
+end
+
+local CoARU_Deflate
+do
+    if _G.LibStub then
+        local ok, lib = pcall(function() return _G.LibStub:GetLibrary("LibDeflate", true) end)
+        if ok and lib then CoARU_Deflate = lib end
+    end
+    if not CoARU_Deflate then CoARU_Deflate = _G.LibDeflate end
+end
+
+local enChunkCache, ruChunkCache = {}, {}
+
+local function decompressChunk(chunkTable, cache, chunkId)
+    local hit = cache[chunkId]
+    if hit ~= nil then
+        if hit == false then return nil end
+        return hit
+    end
+    local raw = chunkTable and chunkTable[chunkId]
+    if not raw then
+        cache[chunkId] = false
+        return nil
+    end
+    local text = CoARU_Deflate and CoARU_Deflate:DecompressZlib(raw)
+    cache[chunkId] = text or false
+    return text
+end
+
+local function sliceLoc(chunkTable, cache, packed)
+    local chunkId, offset, length = unpackLoc(packed)
+    local text = decompressChunk(chunkTable, cache, chunkId)
+    if not text then return nil end
+    return text:sub(offset + 1, offset + length)
+end
+
+local function fetchText(locTable, chunkTable, cache, id)
+    local loc = locTable and locTable[id]
+    if not loc then return nil end
+    if type(loc) == "table" then
+        local out = {}
+        for i, packed in ipairs(loc) do
+            out[i] = sliceLoc(chunkTable, cache, packed)
+        end
+        return out
+    end
+    return sliceLoc(chunkTable, cache, loc)
+end
+
+function CoARU_GetEN(id)
+    return fetchText(CoARU_LOC_EN, CoARU_CHUNK_EN, enChunkCache, id)
+end
+
+function CoARU_GetRU(id)
+    return fetchText(CoARU_LOC_RU, CoARU_CHUNK_RU, ruChunkCache, id)
+end
+
+function CoARU_DeflateStatus()
+    if not CoARU_Deflate then return false, "no LibDeflate instance resolved" end
+    if type(CoARU_Deflate.DecompressZlib) ~= "function" then
+        return false, "resolved object has no DecompressZlib"
+    end
+    return true, CoARU_Deflate._VERSION or "?"
+end
+
+local function fetchOneRU(packed)
+    return sliceLoc(CoARU_CHUNK_RU, ruChunkCache, packed)
+end
+
 function CoARU_StripCodes(text)
     if not text then return nil end
     local s = text
@@ -92,49 +172,52 @@ end
 
 function CoARU_ResolveDescription(id, depth)
     depth = depth or 0
-    local entry = CoARU_T and CoARU_T[id]
-    if not entry then return nil end
+    local ru = CoARU_GetRU(id)
+    if not ru then return nil end
 
-    if entry[1] then
-        for _, v in ipairs(entry) do
-            if v.ru and not v.ru:find("{%d+}") then
-                return CoARU_CleanMarkers(v.ru, depth, id)
+    if type(ru) == "table" then
+        for _, v in ipairs(ru) do
+            if v and not v:find("{%d+}") then
+                return CoARU_CleanMarkers(v, depth, id)
             end
         end
         return nil
     end
 
-    if entry.ru and not entry.ru:find("{%d+}") then
-        return CoARU_CleanMarkers(entry.ru, depth, id)
+    if not ru:find("{%d+}") then
+        return CoARU_CleanMarkers(ru, depth, id)
     end
     return nil
 end
 
-local function matchVariant(v, id, norm, plain)
-    if norm ~= v.en then return nil end
+local function matchOne(en, ru, id, norm, plain)
+    if not en or not ru then return nil end
+    if norm ~= en then return nil end
     local nums = extractNumbers(plain)
-    local ru = v.ru:gsub("{(%d+)}", function(n)
+    local r = ru:gsub("{(%d+)}", function(n)
         return nums[tonumber(n)] or "?"
     end)
-    return CoARU_CleanMarkers(ru, 0, id)
+    return CoARU_CleanMarkers(r, 0, id)
 end
 
 function CoARU_TranslateText(id, liveText)
-    local entry = CoARU_T and CoARU_T[id]
-    if not entry or not liveText then return nil end
+    if not liveText then return nil end
+    local en = CoARU_GetEN(id)
+    if not en then return nil end
+    local ru = CoARU_GetRU(id)
 
     local plain = CoARU_StripCodes(liveText)
     local norm = CoARU_Norm(plain)
 
-    if entry[1] then
-        for _, v in ipairs(entry) do
-            local r = matchVariant(v, id, norm, plain)
+    if type(en) == "table" then
+        for i, e in ipairs(en) do
+            local r = matchOne(e, type(ru) == "table" and ru[i] or nil, id, norm, plain)
             if r then return r end
         end
         return nil
     end
 
-    return matchVariant(entry, id, norm, plain)
+    return matchOne(en, ru, id, norm, plain)
 end
 
 CoARU_G = {
@@ -291,27 +374,28 @@ function CoARU_TranslateReagents(line)
     return nil
 end
 
-local textIndex
+local HASH_K = 131
+local HASH_MOD = 2 ^ 45
+
+local function hashText(s)
+    local h = 0
+    for i = 1, #s do
+        h = (h * HASH_K + s:byte(i)) % HASH_MOD
+    end
+    return h
+end
+
 function CoARU_TranslateByIndex(liveText)
     if not liveText then return nil end
-    if not textIndex then
-        textIndex = {}
-
-        for _, entry in pairs(CoARU_T or {}) do
-            if entry[1] then
-                for _, v in ipairs(entry) do
-                    if v.en and v.ru and textIndex[v.en] == nil then
-                        textIndex[v.en] = v.ru
-                    end
-                end
-            elseif entry.en and entry.ru and textIndex[entry.en] == nil then
-                textIndex[entry.en] = entry.ru
-            end
-        end
-    end
     local plain = CoARU_StripCodes(liveText)
-    local ru = textIndex[CoARU_Norm(plain)]
+    local norm = CoARU_Norm(plain)
+    if not norm or norm == "" then return nil end
+
+    local packed = CoARU_HASH and CoARU_HASH[hashText(norm)]
+    if not packed then return nil end
+    local ru = fetchOneRU(packed)
     if not ru then return nil end
+
     local nums = {}
     for m in plain:gmatch("%d[%d%.,]*") do
         nums[#nums + 1] = (m:gsub("[%.,]+$", ""))
@@ -499,10 +583,22 @@ local function translateLineKeepColor(id, line)
         or CoARU_TranslateProfession(line) or CoARU_TranslateStatLine(line)
 
         or (CoARU_TranslateItemPrefix and CoARU_TranslateItemPrefix(line))
+
+        or (CoARU_TranslateStatCombo and CoARU_TranslateStatCombo(line))
     if not ru then return nil end
     if ru:find("|c", 1, true) then return ru end
 
     local color = line:match("^(|[cC]%x%x%x%x%x%x%x%x)")
+
+    if color then
+        local pos = #color + 1
+        while true do
+            local nxt = line:match("^(|[cC]%x%x%x%x%x%x%x%x)", pos)
+            if not nxt then break end
+            color = nxt
+            pos = pos + #nxt
+        end
+    end
 
     if not color then return reapplyInnerColors(line, ru) end
 
@@ -533,11 +629,45 @@ local function translateLineKeepColor(id, line)
     return color .. reapplyInnerColors(inner, ru, color, true) .. "|r"
 end
 
+local function closeColorsAtBreaks(text)
+    if not (text:find("\n") and text:find("|[cC]")) then return text end
+    local open, out, i, n = {}, {}, 1, #text
+    while i <= n do
+        local c = text:sub(i, i)
+        if c == "|" then
+            local nxt = text:sub(i + 1, i + 1)
+            local code = text:sub(i, i + 9)
+            if (nxt == "c" or nxt == "C") and code:match("^|[cC]%x%x%x%x%x%x%x%x$") then
+                open[#open + 1] = code
+                out[#out + 1] = code
+                i = i + 10
+            elseif nxt == "r" or nxt == "R" then
+                open[#open] = nil
+                out[#out + 1] = text:sub(i, i + 1)
+                i = i + 2
+            else
+                out[#out + 1] = c
+                i = i + 1
+            end
+        elseif c == "\n" then
+            for _ = 1, #open do out[#out + 1] = "|r" end
+            out[#out + 1] = "\n"
+            for k = 1, #open do out[#out + 1] = open[k] end
+            i = i + 1
+        else
+            out[#out + 1] = c
+            i = i + 1
+        end
+    end
+    return table.concat(out)
+end
+
 function CoARU_TranslateBlock(id, text)
     if not text then return nil end
     if not text:find("\n") then
         return translateLineKeepColor(id, text)
     end
+    text = closeColorsAtBreaks(text)
     local out, any = {}, false
     for line in (text .. "\n"):gmatch("([^\n]*)\n") do
         local ru = translateLineKeepColor(id, line)
@@ -549,7 +679,7 @@ function CoARU_TranslateBlock(id, text)
 end
 
 function CoARU_IsTranslated(id)
-    if CoARU_T and CoARU_T[id] then return true end
+    if CoARU_LOC_EN and CoARU_LOC_EN[id] then return true end
     return false
 end
 

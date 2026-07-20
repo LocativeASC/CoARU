@@ -88,6 +88,8 @@ local function initDB()
     CoARU_DB.opts = CoARU_DB.opts or {}
     CoARU_DB.miss = CoARU_DB.miss or {}
     if CoARU_DB.opts.hover == nil then CoARU_DB.opts.hover = false end
+
+    CoARU_DB.ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or "?"
     purgeSent()
 end
 
@@ -160,6 +162,78 @@ function CoARU_NoteBlockMisses(kind, id, text)
     end
 end
 
+local function colorOf(fs)
+    if not (fs and fs.GetTextColor) then return "?" end
+    local ok, r, g, b = pcall(fs.GetTextColor, fs)
+    if not ok or not r then return "?" end
+    return string.format("%.2f/%.2f/%.2f", r, g, b)
+end
+
+local function showCodes(s)
+    if type(s) ~= "string" then return tostring(s) end
+    return (s:gsub("|", "||"):gsub("\n", "\\n"))
+end
+
+local EARLY = setmetatable({}, { __mode = "k" })
+
+local function noteEarlyColor(fs, t)
+    if not (fs and t) then return end
+    local rec = EARLY[fs]
+    if rec and rec.t == t then return end
+    EARLY[fs] = { t = t, c = colorOf(fs) }
+end
+
+local lateFrame = CreateFrame("Frame")
+lateFrame:Hide()
+local latePending
+lateFrame:SetScript("OnUpdate", function(self)
+    self:Hide()
+    local p = latePending
+    latePending = nil
+    if not (p and CoARU_LastTip) then return end
+    for k, fs in pairs(p) do
+        if CoARU_LastTip[k] then
+            CoARU_LastTip[k] = CoARU_LastTip[k] .. "  -> через кадр: [" .. colorOf(fs) .. "]"
+        end
+    end
+end)
+
+local function snapshotTip(tip, name, id)
+    CoARU_LastTip = { id = id }
+    local fsByKey = {}
+    for i = 1, tip:NumLines() do
+        for _, side in ipairs({ "TextLeft", "TextRight" }) do
+            local fs = _G[name .. side .. i]
+            local t = fs and fs:GetText()
+            if t and t ~= " " then
+                local k = #CoARU_LastTip + 1
+                local early = EARLY[fs]
+                local pre = (early and early.t == t) and ("рано: [" .. early.c .. "] ") or ""
+                CoARU_LastTip[k] = side .. i .. " " .. pre .. "[" .. colorOf(fs) .. "] = [["
+                    .. showCodes(t) .. "]]"
+                fsByKey[k] = fs
+            end
+        end
+    end
+    return fsByKey
+end
+
+local function snapshotAfter(fsByKey)
+    if not fsByKey then return end
+    for k, fs in pairs(fsByKey) do
+        if CoARU_ReapplyColor then CoARU_ReapplyColor(fs) end
+        if CoARU_LastTip and CoARU_LastTip[k] then
+
+            local ok, cur = pcall(fs.GetText, fs)
+            CoARU_LastTip[k] = CoARU_LastTip[k] .. "  -> стало: [" .. colorOf(fs) .. "] = [["
+                .. (ok and showCodes(cur) or "?") .. "]]"
+        end
+    end
+
+    latePending = fsByKey
+    lateFrame:Show()
+end
+
 local function onTooltipSetSpell(tip)
     local ok, id = pcall(function() return select(3, tip:GetSpell()) end)
     if not ok or not id then return end
@@ -178,16 +252,7 @@ local function onTooltipSetSpell(tip)
     local name = tip:GetName()
     if not name then return end
 
-    CoARU_LastTip = { id = id }
-    for i = 1, tip:NumLines() do
-        for _, side in ipairs({ "TextLeft", "TextRight" }) do
-            local fs = _G[name .. side .. i]
-            local t = fs and fs:GetText()
-            if t and t ~= " " then
-                CoARU_LastTip[#CoARU_LastTip + 1] = side .. i .. " = [[" .. t:gsub("\n", "\\n") .. "]]"
-            end
-        end
-    end
+    local snapFS = snapshotTip(tip, name, id)
 
     local changed = false
     local function handle(fs)
@@ -215,6 +280,8 @@ local function onTooltipSetSpell(tip)
     if changed then
         tip:Show()
     end
+
+    snapshotAfter(snapFS)
 end
 
 local DELTA_HEADER_EN = "If you replace this item"
@@ -250,9 +317,15 @@ local function onTooltipSetItem(tip)
     local id = tonumber(link:match("item:(%d+)"))
     if not id then return end
 
+    local snapFS = snapshotTip(tip, name, id)
+
     local changed = false
 
-    local ru = CoARU_ItemName and CoARU_ItemName[id]
+    local suffixID = tonumber(link:match(
+        "item:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:(%-?%d+)"))
+    local hasSuffix = suffixID ~= nil and suffixID ~= 0
+
+    local ru = (not hasSuffix) and CoARU_ItemName and CoARU_ItemName[id] or nil
     if ru and type(itemName) == "string" and itemName ~= "" then
         local last = math.min(tip:NumLines() or 1, 3)
         for i = 1, last do
@@ -323,6 +396,7 @@ local function onTooltipSetItem(tip)
     end
 
     if changed then tip:Show() end
+    snapshotAfter(snapFS)
 end
 
 local CoARU_SCHOOL_RU = {
@@ -357,6 +431,9 @@ local function onTooltipShow(tip)
     for i = 1, tip:NumLines() do
         local fs = _G[name .. "TextLeft" .. i]
         local t = fs and fs:GetText()
+        noteEarlyColor(fs, t)
+        noteEarlyColor(_G[name .. "TextRight" .. i], _G[name .. "TextRight" .. i]
+            and _G[name .. "TextRight" .. i]:GetText())
         if t and t:find(RESIST_ANCHOR, 1, true) then
             isResistTip = true
             break
@@ -539,7 +616,7 @@ local function slash(cmd)
     end
     if cmd == "" then
         local t = 0
-        for _ in pairs(CoARU_T or {}) do t = t + 1 end
+        for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
         msg(("русификатор описаний Conquest of Azeroth. Переводит спеллы автоматически. Переводов в базе: %d."):format(t))
 
         local key = CoARU_OriginalMod and CoARU_OriginalMod() or "ALT"
@@ -639,7 +716,7 @@ local function slash(cmd)
             return
         end
         local t, iname, idesc = 0, 0, 0
-        for _ in pairs(CoARU_T or {}) do t = t + 1 end
+        for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
         for _ in pairs(CoARU_ItemName or {}) do iname = iname + 1 end
         for _ in pairs(CoARU_ItemDesc or {}) do idesc = idesc + 1 end
         msg(("переводов в базе: %d, спеллов в дампе: %d, hover: %s"):format(t, countDump(), CoARU_DB.opts.hover and "вкл" or "выкл"))
@@ -706,9 +783,9 @@ local function slash(cmd)
     elseif cmd == "lines" then
 
         if not CoARU_LastTip then
-            msg("ещё не было ни одного спелл-тултипа.")
+            msg("ещё не было ни одного тултипа.")
         else
-            msg("последний тултип, id=" .. tostring(CoARU_LastTip.id) .. ":")
+            msg("последний тултип, id=" .. tostring(CoARU_LastTip.id) .. " (цвет R/G/B):")
             for _, line in ipairs(CoARU_LastTip) do print("  " .. line) end
         end
     elseif cmd == "frames" then
@@ -879,11 +956,17 @@ f:SetScript("OnEvent", function(self, event, arg1)
     elseif event == "PLAYER_LOGIN" then
         installHooks()
         local t = 0
-        for _ in pairs(CoARU_T or {}) do t = t + 1 end
+        for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
         local ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or ""
         local author = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Author")) or "Locative"
         print(("|cffC495DDCoARU|r%s |cffaaaaaa—|r русификатор описаний CoA. Автор: |cffC495DD%s|r. Переводов: |cffffd100%d|r."):format(
             ver ~= "" and (" |cff888888v" .. ver .. "|r") or "", author, t))
+        if CoARU_DeflateStatus then
+            local ok, info = CoARU_DeflateStatus()
+            if not ok then
+                print(("|cffff0000CoARU|r: LibDeflate не подключился (%s) — переводы способностей не работают. Напиши в Discord."):format(info))
+            end
+        end
         print("|cffC495DDCoARU|r|cffaaaaaa:|r нравится аддон? Поддержать автора: " .. DONATE_LINK)
     end
 end)

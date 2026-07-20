@@ -211,3 +211,50 @@ function CoARU_TranslateItemPrefix(line)
     if color then ru = color .. ru .. "|r" end
     return ru
 end
+
+local STAT_LC
+
+local function statIndex()
+    if STAT_LC then return STAT_LC end
+    STAT_LC = {}
+    for k, v in pairs(CoARU_G or {}) do
+        local name = k:match("^%+# (.+)$")
+        if name then STAT_LC[name:lower()] = v end
+    end
+    return STAT_LC
+end
+
+function CoARU_TranslateStatCombo(line)
+    if not line then return nil end
+    local color = line:match("^(|[cC]%x%x%x%x%x%x%x%x)")
+    local plain = line
+    if color then
+        plain = plain:gsub("^|[cC]%x%x%x%x%x%x%x%x", "", 1):gsub("|r$", "")
+    end
+    plain = plain:match("^%s*(.-)%s*$")
+
+    if not plain:find("^[+-]%d") then return nil end
+
+    local pos = {}
+    for p in plain:gmatch("()[+-]%d+") do pos[#pos + 1] = p end
+
+    if #pos < 1 then return nil end
+
+    local idx, out = statIndex(), {}
+    for i = 1, #pos do
+        local chunk = plain:sub(pos[i], (pos[i + 1] and pos[i + 1] - 1) or #plain)
+        local sign, num, name = chunk:match("^([+-])(%d+)%s+(.-)%s*$")
+        if not sign then return nil end
+        name = name:gsub("%.$", ""):gsub("%s+$", "")
+        local ru = idx[name:lower()]
+        if not ru then return nil end
+        ru = ru:gsub("{1}", num)
+        if sign == "-" then ru = ru:gsub("%+" .. num, "-" .. num, 1) end
+        out[#out + 1] = ru
+    end
+
+    local res = table.concat(out, " ")
+    if plain:find("%.$") and not res:find("%.$") then res = res .. "." end
+    if color then res = color .. res .. "|r" end
+    return res
+end
