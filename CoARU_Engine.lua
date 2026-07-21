@@ -97,6 +97,8 @@ function CoARU_StripCodes(text)
     end
     s = s:gsub("|T.-|t", "")
     s = s:gsub("|n", " ")
+
+    s = s:gsub("@ext:(.-):ext@", "%1")
     return s
 end
 
@@ -107,6 +109,22 @@ local function extractNumbers(s)
         nums[#nums + 1] = m
     end
     return nums
+end
+
+local function ruPlural(num, one, few, many)
+    local n = tonumber((tostring(num):gsub("[,.].*$", ""))) or 0
+    if n < 0 then n = -n end
+    if (tostring(num):find("[.,]")) then return few end
+    local n10, n100 = n % 10, n % 100
+    if n10 == 1 and n100 ~= 11 then return one end
+    if n10 >= 2 and n10 <= 4 and (n100 < 12 or n100 > 14) then return few end
+    return many
+end
+
+local function applyPlurals(ru, nums)
+    return (ru:gsub("{(%d+)|([^|{}]*)|([^|{}]*)|([^|{}]*)}", function(n, a, b, c)
+        return ruPlural(nums[tonumber(n)] or "0", a, b, c)
+    end))
 end
 
 function CoARU_Norm(text)
@@ -194,7 +212,7 @@ local function matchOne(en, ru, id, norm, plain)
     if not en or not ru then return nil end
     if norm ~= en then return nil end
     local nums = extractNumbers(plain)
-    local r = ru:gsub("{(%d+)}", function(n)
+    local r = applyPlurals(ru, nums):gsub("{(%d+)}", function(n)
         return nums[tonumber(n)] or "?"
     end)
     return CoARU_CleanMarkers(r, 0, id)
@@ -400,7 +418,7 @@ function CoARU_TranslateByIndex(liveText)
     for m in plain:gmatch("%d[%d%.,]*") do
         nums[#nums + 1] = (m:gsub("[%.,]+$", ""))
     end
-    return (ru:gsub("{(%d+)}", function(n) return nums[tonumber(n)] or "?" end))
+    return (applyPlurals(ru, nums):gsub("{(%d+)}", function(n) return nums[tonumber(n)] or "?" end))
 end
 
 function CoARU_TranslateGlobal(liveText)
@@ -412,7 +430,7 @@ function CoARU_TranslateGlobal(liveText)
     for m in plain:gmatch("%d[%d%.,]*") do
         nums[#nums + 1] = (m:gsub("[%.,]+$", ""))
     end
-    return (ru:gsub("{(%d+)}", function(n) return nums[tonumber(n)] or "?" end))
+    return (applyPlurals(ru, nums):gsub("{(%d+)}", function(n) return nums[tonumber(n)] or "?" end))
 end
 
 local TERM_FORMS = {
@@ -435,7 +453,71 @@ local TERM_FORMS = {
     ["Rage"]         = { "яростью", "ярости", "ярость" },
     ["Energy"]       = { "энергией", "энергии", "энергию", "энергия" },
     ["Mana"]         = { "маной", "маны", "мане", "ману", "мана" },
+
+    ["Undead"]       = { "нежити", "нежитью", "нежитей", "нежить" },
+    ["Raised"]       = { "поднятыми", "поднятого", "поднятому", "поднятых", "поднятые",
+                         "поднятой", "поднятым", "поднятый" },
+    ["Command"]      = { "приказом", "приказа", "приказу", "приказе", "приказ" },
+    ["Glacial Ward"] = { "ледникового оберега", "ледниковым оберегом", "ледниковом обереге",
+                         "ледниковому оберегу", "ледниковый оберег" },
+    ["Lesser Skeletal Warrior"] = { "малым скелетом-воином", "малого скелета-воина",
+                         "малом скелете-воине", "малому скелету-воину", "малый скелет-воин" },
+    ["Greater Skeletal Warrior"] = { "большим скелетом-воином", "большого скелета-воина",
+                         "большом скелете-воине", "большому скелету-воину", "большой скелет-воин" },
+    ["Crypt Fiend"]  = { "порождением склепа", "порождения склепа", "порождению склепа",
+                         "порождении склепа", "порождений склепа", "порождениям склепа",
+                         "порождение склепа" },
+    ["Bone Reliquary"] = { "костяными реликвариями", "костяных реликвариев", "костяные реликварии",
+                         "костяному реликварию", "костяным реликварием", "костяном реликварии",
+                         "костяного реликвария", "костяной реликварий" },
+    ["Corpse Dust"]  = { "Трупным прахом", "Трупного праха", "Трупному праху", "Трупном прахе",
+                         "Трупный прах" },
+    ["Skeletal Rogue"] = { "скелетом-разбойником", "скелета-разбойника", "скелету-разбойнику",
+                         "скелете-разбойнике", "скелет-разбойник" },
+    ["Gravebound Champion"] = { "могильным воителем", "могильного воителя", "могильному воителю",
+                         "могильном воителе", "могильный воитель" },
+    ["Bone Ward"]    = { "костяным оберегом", "костяного оберега", "костяному оберегу",
+                         "костяном обереге", "костяной оберег" },
+
+    ["Champion"]     = { "воителями", "воителях", "воителям", "воителем", "воителей",
+                         "воители", "воителю", "воителя", "воитель" },
+    ["Undead Stance"]= { "стойкой нежити", "стойки нежити", "стойку нежити", "стойке нежити",
+                         "стойка нежити" },
+    ["Skeletal Smith"] = { "Скелетом-кузнецом", "Скелета-кузнеца", "Скелету-кузнецу",
+                         "Скелете-кузнеце", "Скелет-кузнец" },
+    ["Ward"]         = { "оберегами", "оберегах", "оберегам", "оберегом", "оберегов",
+                         "оберегу", "обереге", "оберега", "обереги", "оберег" },
+
+    ["Frozen"]       = { "замороженного", "замороженному", "замороженным", "замороженном",
+                         "замороженные", "замороженных", "замороженными", "замороженный",
+                         "замороженная", "замороженной", "замороженную", "замороженное" },
+    ["Frozen Target"] = { "замороженную цель", "замороженной цели", "замороженной целью",
+                          "замороженная цель" },
+
+    ["Raise"]        = { "поднятия", "поднятий", "поднятиями", "поднятиям", "поднятии",
+                         "поднятие" },
+    ["Animates"]     = { "оживления", "оживлений", "оживлениями", "оживлениям", "оживлении",
+                         "оживление" },
+    ["Animate"]      = { "оживления", "оживлений", "оживлениями", "оживлениям", "оживлении",
+                         "оживление" },
+    ["Standard"]     = { "штандартом", "штандарта", "штандарту", "штандарте", "штандарты",
+                         "штандартов", "штандарт" },
 }
+
+if CoARU_SKILL_TERMS then
+    for en, gen in pairs(CoARU_SKILL_TERMS) do
+        local cur = TERM_FORMS[en]
+        if not cur then
+            TERM_FORMS[en] = gen
+        else
+            local seen = {}
+            for _, f in ipairs(cur) do seen[f] = true end
+            for _, f in ipairs(gen) do
+                if not seen[f] then cur[#cur + 1] = f; seen[f] = true end
+            end
+        end
+    end
+end
 
 local function flipFirstCase(s)
     local b1, b2 = s:byte(1), s:byte(2)
@@ -450,12 +532,25 @@ local function flipFirstCase(s)
     return nil
 end
 
+local function findOutsideColor(ru, needle)
+    local from = 1
+    while true do
+        local s, e = ru:find(needle, from, true)
+        if not s then return nil end
+        local before = ru:sub(1, s - 1)
+        local _, opens = before:gsub("|[cC]%x%x%x%x%x%x%x%x", "")
+        local _, closes = before:gsub("|[rR]", "")
+        if opens <= closes then return s, e end
+        from = e + 1
+    end
+end
+
 local function wrapFirst(ru, needle, color, restore)
-    local s, e = ru:find(needle, 1, true)
+    local s, e = findOutsideColor(ru, needle)
     if not s then
         local alt = flipFirstCase(needle)
         if not alt then return nil end
-        s, e = ru:find(alt, 1, true)
+        s, e = findOutsideColor(ru, alt)
         if not s then return nil end
         needle = alt
     end
@@ -485,6 +580,8 @@ end
 local function reapplyInnerColors(line, ru, restore, unwrapped)
     if ru:find("|c", 1, true) then return ru end
     local pos = 1
+
+    local pendColor, pendCount = nil, 0
     while true do
         local s, e, color, body = line:find("(|[cC]%x%x%x%x%x%x%x%x)(.-)|r", pos)
         if not s then break end
@@ -501,8 +598,16 @@ local function reapplyInnerColors(line, ru, restore, unwrapped)
                         if done then break end
                     end
                 end
-                ru = done or ru
+                if done then ru = done else pendColor, pendCount = color, pendCount + 1 end
             end
+        end
+    end
+
+    if pendCount == 1 and not ru:find("|c", 1, true) then
+
+        local qs, qe, inner = ru:find("(«.-»)")
+        if qs and inner and #inner > 4 and not ru:find("«", qe + 1) then
+            ru = ru:sub(1, qs - 1) .. pendColor .. inner .. "|r" .. (restore or "") .. ru:sub(qe + 1)
         end
     end
     return ru
@@ -576,7 +681,7 @@ function CoARU_TranslateStatLine(line)
     return nil
 end
 
-local function translateLineKeepColor(id, line)
+local function translateLineInner(id, line)
     local ru = (id and CoARU_TranslateText(id, line)) or CoARU_TranslateGlobal(line)
         or CoARU_TranslateByIndex(line) or CoARU_TranslateClass(line)
         or CoARU_TranslateRequires(line) or CoARU_TranslateReagents(line)
@@ -626,7 +731,28 @@ local function translateLineKeepColor(id, line)
     end
 
     local inner = line:gsub("^|[cC]%x%x%x%x%x%x%x%x", "", 1):gsub("|r$", "")
-    return color .. reapplyInnerColors(inner, ru, color, true) .. "|r"
+
+    local itex = ""
+    while true do
+        local t = inner:match("^|T.-|t%s*")
+        if not t then break end
+        itex, inner = itex .. t, inner:sub(#t + 1)
+    end
+    return color .. itex .. reapplyInnerColors(inner, ru, color, true) .. "|r"
+end
+
+local function translateLineKeepColor(id, line)
+    if not line then return translateLineInner(id, line) end
+    local tex, rest = "", line
+    while true do
+        local t = rest:match("^|T.-|t%s*")
+        if not t then break end
+        tex, rest = tex .. t, rest:sub(#t + 1)
+    end
+    if tex == "" then return translateLineInner(id, line) end
+    local ru = translateLineInner(id, rest)
+    if ru == nil then return nil end
+    return tex .. ru
 end
 
 local function closeColorsAtBreaks(text)
@@ -662,10 +788,19 @@ local function closeColorsAtBreaks(text)
     return table.concat(out)
 end
 
+local function neutralizeDarkColors(text)
+    if not text or not text:find("|[cC]") then return text end
+    return (text:gsub("|[cC]%x%x(%x%x)(%x%x)(%x%x)", function(rr, gg, bb)
+        if tonumber(rr, 16) <= 32 and tonumber(gg, 16) <= 32 and tonumber(bb, 16) <= 32 then
+            return "|cffffffff"
+        end
+    end))
+end
+
 function CoARU_TranslateBlock(id, text)
     if not text then return nil end
     if not text:find("\n") then
-        return translateLineKeepColor(id, text)
+        return neutralizeDarkColors(translateLineKeepColor(id, text))
     end
     text = closeColorsAtBreaks(text)
     local out, any = {}, false
@@ -675,7 +810,7 @@ function CoARU_TranslateBlock(id, text)
         out[#out + 1] = ru or line
     end
     if not any then return nil end
-    return table.concat(out, "\n")
+    return neutralizeDarkColors(table.concat(out, "\n"))
 end
 
 function CoARU_IsTranslated(id)

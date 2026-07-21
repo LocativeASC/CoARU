@@ -1,16 +1,29 @@
 local scanTip
 
+local tipLeft, tipRight = {}, nil
 local function getScanTip()
     if not scanTip then
         scanTip = CreateFrame("GameTooltip", "CoARUScanTip", UIParent, "GameTooltipTemplate")
         scanTip:SetFrameStrata("TOOLTIP")
+
+        scanTip:SetOwner(UIParent, "ANCHOR_NONE")
         scanTip:Hide()
     end
     return scanTip
 end
 
-function CoARU_CaptureSpell(id)
+local function leftLine(i)
+    local fs = tipLeft[i]
+    if not fs then
+        fs = _G["CoARUScanTipTextLeft" .. i]
+        if fs then tipLeft[i] = fs end
+    end
+    return fs
+end
+
+function CoARU_CaptureSpell(id, knownDesc)
     local tip = getScanTip()
+
     tip:SetOwner(UIParent, "ANCHOR_NONE")
     tip:ClearLines()
     tip:SetHyperlink("spell:" .. id)
@@ -19,11 +32,13 @@ function CoARU_CaptureSpell(id)
     local n = tip:NumLines()
     if not n or n == 0 then tip:Hide(); return nil end
 
-    local name = _G["CoARUScanTipTextLeft1"] and _G["CoARUScanTipTextLeft1"]:GetText()
-    local rank = _G["CoARUScanTipTextRight1"] and _G["CoARUScanTipTextRight1"]:GetText()
+    local first = leftLine(1)
+    local name = first and first:GetText()
+    if not tipRight then tipRight = _G["CoARUScanTipTextRight1"] end
+    local rank = tipRight and tipRight:GetText()
     local lines = {}
     for i = 2, n do
-        local left = _G["CoARUScanTipTextLeft" .. i]
+        local left = leftLine(i)
         local t = left and left:GetText()
         if t and t ~= " " then
             lines[#lines + 1] = t
@@ -32,8 +47,8 @@ function CoARU_CaptureSpell(id)
     tip:Hide()
     if not name then return nil end
 
-    local desc
-    if GetSpellDescription then
+    local desc = knownDesc
+    if not desc and GetSpellDescription then
         local ok, d = pcall(GetSpellDescription, id)
         if ok and d and d ~= "" then desc = d end
     end
@@ -79,15 +94,35 @@ local function needsDump(id, text, includeAll)
     return false
 end
 
-function CoARU_RecordSpell(id, includeAll)
+function CoARU_RecordSpell(id, includeAll, knownDesc)
     if not id then return false, "нет ID" end
     CoARU_DB.dump = CoARU_DB.dump or {}
-    local name, rank, text, desc = CoARU_CaptureSpell(id)
+    local name, rank, text, desc = CoARU_CaptureSpell(id, knownDesc)
     if not name then return false, "пустой тултип" end
     if not needsDump(id, text, includeAll) then return false, "нечего брать: все строки переводятся" end
     local old = CoARU_DB.dump[id]
     if old and old.x == text and old.d == desc then return false, "уже в дампе, без изменений" end
     CoARU_DB.dump[id] = { n = name, r = rank, x = text, d = desc }
+    return true
+end
+
+local function resolvePlural(text)
+    if not text or not text:find("|4", 1, true) then return text end
+    return (text:gsub("(%d+)(%s*)|4([^:;]*):([^;]*);", function(num, sp, sing, plur)
+        return num .. sp .. (tonumber(num) == 1 and sing or plur)
+    end))
+end
+
+function CoARU_RecordDesc(id, desc, includeAll)
+    if not id or not desc or desc == "" then return false end
+    CoARU_DB.dump = CoARU_DB.dump or {}
+
+    desc = resolvePlural(desc)
+    if not needsDump(id, desc, includeAll) then return false end
+    local old = CoARU_DB.dump[id]
+    if old and old.x == desc then return false end
+    local name = GetSpellInfo and GetSpellInfo(id) or nil
+    CoARU_DB.dump[id] = { n = name, x = desc, d = desc }
     return true
 end
 
@@ -264,6 +299,27 @@ end
 
 local scanQueue, scanPos, scanFound, scanAll = nil, 0, 0, false
 local scanRanges, scanRi, scanCur, scanSeen, scanTotal = nil, 0, 0, 0, 0
+
+local scanDeep, scanSkipped = false, 0
+
+local scanProbe = false
+
+local scanReal = 0
+
+local scanGhost = 0
+
+function CoARU_SetScanDeep(v)
+    scanDeep = v and true or false
+end
+
+function CoARU_SetScanProbe(v)
+    scanProbe = v and true or false
+end
+
+local scanDesc = false
+function CoARU_SetScanDesc(v)
+    scanDesc = v and true or false
+end
 local nextTick = 0
 
 local scanTick, scanBatch, scanBudget = 0.05, 50, nil
@@ -323,11 +379,55 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
             print(("|cffC495DDCoARU|r: скан завершён за %d:%02d. Просмотрено %d (%d ID/сек), новых непереведённых: %d, всего в дампе: %d."):format(
                 math.floor(secs / 60), math.floor(secs % 60), scanSeen,
                 math.floor(scanSeen / secs), scanFound, total))
+
+            if scanSkipped > 0 then
+                print(("|cffC495DDCoARU|r: пропущено без тултипа (нет в клиентском DBC): %d. Полный проход: /coaru scanall deep"):format(scanSkipped))
+            end
+
+            if scanDeep then
+                print(("|cffC495DDCoARU|r: ПРИЗРАКОВ (нет в клиентском DBC, но тултип есть): %d. Если ноль, дешёвый отсев ничего не теряет."):format(scanGhost))
+            end
+            if scanReal > 0 then
+                print(("|cffC495DDCoARU|r: спеллов с тултипом: %d, из них с непереведёнными строками: %d. ПОКРЫТИЕ ПО ЖИВОМУ ТЕКСТУ: %.1f%%"):format(
+                    scanReal, scanFound, 100 * (scanReal - scanFound) / scanReal))
+            end
             print("|cffC495DDCoARU|r: сделай /reload (или выйди из игры), чтобы дамп записался в SavedVariables.")
             return
         end
-        if CoARU_RecordSpell(id, scanAll) then
-            scanFound = scanFound + 1
+
+        if scanDesc then
+
+            local d
+            if GetSpellDescription then
+                local ok, r = pcall(GetSpellDescription, id)
+                if ok and r and r ~= "" then d = r end
+            end
+            if d then
+                scanReal = scanReal + 1
+                if CoARU_RecordDesc(id, d, scanAll) then scanFound = scanFound + 1 end
+            end
+        else
+            local desc, known = nil, true
+            if scanProbe and not scanDeep then
+                if GetSpellDescription then
+                    local ok, d = pcall(GetSpellDescription, id)
+                    if ok and d and d ~= "" then desc = d end
+                end
+                known = desc ~= nil or (not GetSpellInfo) or GetSpellInfo(id) ~= nil
+            end
+            if known then
+                local ok, why = CoARU_RecordSpell(id, scanAll, desc)
+                local hadTip = ok or why ~= "пустой тултип"
+                if ok then scanFound = scanFound + 1 end
+                if hadTip then
+                    scanReal = scanReal + 1
+                    if scanDeep and GetSpellInfo and GetSpellInfo(id) == nil then
+                        scanGhost = scanGhost + 1
+                    end
+                end
+            else
+                scanSkipped = scanSkipped + 1
+            end
         end
         scanSeen = scanSeen + 1
         n = n + 1
@@ -354,6 +454,7 @@ end)
 
 local function beginScan(includeAll, total, fastMs, minId, maxId)
     scanFound, scanSeen, scanAll = 0, 0, includeAll or false
+    scanSkipped, scanReal, scanGhost = 0, 0, 0
     scanMin = minId or 0
     scanMax = maxId or 0
     scanTotal = total or 0

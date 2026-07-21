@@ -90,7 +90,12 @@ local function initDB()
     if CoARU_DB.opts.hover == nil then CoARU_DB.opts.hover = false end
 
     CoARU_DB.ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or "?"
-    purgeSent()
+end
+
+function CoARU_LoadReport()
+    if not CoARU_DeflateStatus or CoARU_DeflateStatus() then return "ok" end
+    if CoARU_CHUNK_EN ~= nil then return "stale" end
+    return "broken"
 end
 
 local MISS_CAP = 3000
@@ -103,9 +108,14 @@ local FOREIGN_OWNERS = {
 
 local QUEST_OWNERS = { "WorldMapFrame", "WatchFrame", "QuestLogScrollFrame" }
 
+local NOISE_OWNERS = { "Toast" }
+
 local function skipByOwner(owner, line)
     if type(owner) ~= "string" or owner == "" then return false end
     for _, frag in ipairs(FOREIGN_OWNERS) do
+        if owner:find(frag, 1, true) then return true end
+    end
+    for _, frag in ipairs(NOISE_OWNERS) do
         if owner:find(frag, 1, true) then return true end
     end
     if line and line:sub(1, 2) == "- " then
@@ -118,6 +128,8 @@ end
 
 local function noteOneLine(kind, line, owner)
     if not line or not CoARU_DB or not CoARU_DB.miss then return end
+
+    if CoARU_DeflateStatus and not CoARU_DeflateStatus() then return end
     if skipByOwner(owner, line) then return end
     if CoARU_HasCyrillic(line) then return end
     local plain = CoARU_StripCodes(line)
@@ -132,9 +144,13 @@ local function noteOneLine(kind, line, owner)
     end
     local n = 0
     for _ in pairs(m) do n = n + 1 end
-    if n >= MISS_CAP then return end
+    if n >= MISS_CAP then
 
-    m[norm] = { n = 1, k = kind, ex = plain, own = owner }
+        n = n - purgeSent()
+        if n >= MISS_CAP then return end
+    end
+
+    m[norm] = { n = 1, k = kind, ex = plain, own = owner, ts = (time and time()) or 0 }
 end
 
 function CoARU_NoteMiss(kind, text, owner)
@@ -196,6 +212,8 @@ lateFrame:SetScript("OnUpdate", function(self)
             CoARU_LastTip[k] = CoARU_LastTip[k] .. "  -> через кадр: [" .. colorOf(fs) .. "]"
         end
     end
+
+    if CoARU_RecLines then CoARU_RecordLines() end
 end)
 
 local function snapshotTip(tip, name, id)
@@ -232,6 +250,20 @@ local function snapshotAfter(fsByKey)
 
     latePending = fsByKey
     lateFrame:Show()
+end
+
+function CoARU_RecordLines()
+    if not (CoARU_LastTip and CoARU_DB) then return 0 end
+    CoARU_DB.lines = CoARU_DB.lines or {}
+    local rec = { id = CoARU_LastTip.id }
+    for k, v in ipairs(CoARU_LastTip) do rec[k] = v end
+    if rec.id ~= nil then
+        for i, e in ipairs(CoARU_DB.lines) do
+            if e.id == rec.id then CoARU_DB.lines[i] = rec; return #CoARU_DB.lines end
+        end
+    end
+    table.insert(CoARU_DB.lines, rec)
+    return #CoARU_DB.lines
 end
 
 local function onTooltipSetSpell(tip)
@@ -681,6 +713,12 @@ local function slash(cmd)
                 end
             end
         end
+
+        if CoARU_SetScanDeep then CoARU_SetScanDeep(cmd:match("%f[%a]deep%f[%A]") ~= nil) end
+
+        if CoARU_SetScanProbe then CoARU_SetScanProbe(cmd:match("%f[%a]probe%f[%A]") ~= nil) end
+
+        if CoARU_SetScanDesc then CoARU_SetScanDesc(cmd:match("%f[%a]desc%f[%A]") ~= nil) end
         local fast = cmd:match("%f[%a]fast") ~= nil
 
         if fast then ms = math.min(math.max(ms or 100, 1), 1000) else ms = nil end
@@ -695,10 +733,13 @@ local function slash(cmd)
     elseif cmd == "status" then
 
         if RELEASE then
-            local mn = 0
-            for _ in pairs(CoARU_DB.miss or {}) do mn = mn + 1 end
+            local mn, newN = 0, 0
+            for _, rec in pairs(CoARU_DB.miss or {}) do
+                mn = mn + 1
+                if not (type(rec) == "table" and rec.sent) then newN = newN + 1 end
+            end
             if mn == 0 then
-                msg("непереведённых строк пока не встретилось.")
+                msg("строк для перевода пока не собралось.")
                 return
             end
 
@@ -706,13 +747,13 @@ local function slash(cmd)
                 if type(rec) == "table" then rec.sent = true end
             end
 
-            msg(("непереведённых строк собрано: |cffffd100%d|r"):format(mn))
+            msg(("строк для перевода собрано: |cffffd100%d|r (новых с прошлой отправки: %d)"):format(mn, newN))
             print("  |cffffd1001.|r сделай |cffffd100/reload|r")
             print("  |cffffd1002.|r найди файл: |cff00ff00WTF\\Account\\<аккаунт>"
                   .. "\\SavedVariables\\CoARU.lua|r")
             print("  |cffffd1003.|r пришли его в Discord: |cffC495DDlocativeds|r")
-            print("  |cff888888Список уже помечен и очистится при следующем входе в игру.|r")
-            print("  |cff888888В следующий раз пришлёшь только новое.|r")
+            print("  |cff888888Получившееся число - это не \"сколько не переведено\". Сюда иногда попадает|r")
+            print("  |cff888888и то, что переводить не нужно (имена игроков и предметов).|r")
             return
         end
         local t, iname, idesc = 0, 0, 0
@@ -729,6 +770,11 @@ local function slash(cmd)
             local n, where, fs = CoARU_PaperDollStatus()
             msg(("текст окон: строк %d, FontString в кэше %d | %s"):format(n, fs or 0, where))
         end
+
+        local st = 0
+        for _ in pairs(CoARU_SKILL_TERMS or {}) do st = st + 1 end
+        msg(("терминов подсветки (авто): %d%s"):format(st,
+            st == 0 and " |cffff0000(CoARU_SkillTerms.lua не загружен — нужен полный перезапуск)|r" or ""))
 
         if CoARU_OriginalStatus then
             local n, key, sticky = CoARU_OriginalStatus()
@@ -760,6 +806,8 @@ local function slash(cmd)
         CoARU_DB.specinfo = nil
         CoARU_DB.catext = nil
         CoARU_DB.trainerdump = nil
+        CoARU_DB.trainercolor = nil
+        CoARU_DB.lines = nil
         CoARU_DB.geom = nil
         CoARU_DB.frames = nil
         CoARU_DB.miss = {}
@@ -770,22 +818,89 @@ local function slash(cmd)
             msg("окно тренера закрыто — открой его и повтори.")
         else
             CoARU_DB.trainerdump = CoARU_DumpTrainer()
-            local n, empty, h = 0, 0, 0
+            local n, dark = 0, 0
             for _, e in ipairs(CoARU_DB.trainerdump) do
                 n = n + 1
-                if e.empty then empty = empty + 1 end
-                h = h + (e.h or 0)
+                local a = tonumber((e.color or ""):match("^([%d%.]+)"))
+                if a and a < 0.15 then dark = dark + 1 end
             end
-            msg(("FontString'ов: %d, из них пустых: %d, суммарная высота: %.1f")
-                :format(n, empty, h))
-            msg("подробности в SavedVariables (CoARU_DB.trainerdump) — /reload и пришли файл.")
+            msg(("FontString'ов снято: %d (тёмных: %d). ПОЛНОЕ сырьё каждого в SavedVariables."):format(n, dark))
+            msg("Сделай /reload и пришли WTF\\...\\SavedVariables\\CoARU.lua — увижу точные байты.")
         end
+    elseif cmd == "trainerskip" then
+
+        CoARU_TrainerSkip = not CoARU_TrainerSkip
+        msg("перевод окна тренера: " .. (CoARU_TrainerSkip
+            and "|cffff0000ВЫКЛЮЧЕН|r — закрой и открой тренера, затем /coaru trainercolor"
+            or "|cff00ff00включён|r"))
+    elseif cmd == "trainercolor" then
+
+        if not (ClassTrainerFrame and ClassTrainerFrame:IsShown()) then
+            msg("окно тренера закрыто — открой его и повтори.")
+        else
+
+            CoARU_DB.trainercolor = {}
+            local n = 0
+            local function walk(fr, depth)
+                if not fr or depth > 8 then return end
+                if fr.GetRegions then
+                    local ok, cnt = pcall(function() return select("#", fr:GetRegions()) end)
+                    if ok then
+                        for i = 1, cnt do
+                            local r = select(i, fr:GetRegions())
+                            local isFS = r and r.GetObjectType and r:GetObjectType() == "FontString"
+                            local t = isFS and r.GetText and r:GetText()
+                            if t and #t > 1 then
+                                local cr, cg, cb = 1, 1, 1
+                                if r.GetTextColor then
+                                    local ok2, a, b, c = pcall(function() return r:GetTextColor() end)
+                                    if ok2 then cr, cg, cb = a or 1, b or 1, c or 1 end
+                                end
+                                n = n + 1
+                                table.insert(CoARU_DB.trainercolor, {
+                                    rgb = ("%.2f/%.2f/%.2f"):format(cr, cg, cb),
+                                    emb = t:find("|c", 1, true) ~= nil,
+                                    raw = t,
+                                })
+                                print(("  %.2f/%.2f/%.2f %s| %s"):format(
+                                    cr, cg, cb,
+                                    t:find("|c") and "ВШИТЫЙ ЦВЕТ " or "",
+                                    t:sub(1, 60)))
+                            end
+                        end
+                    end
+                end
+                if fr.GetChildren then
+                    local ok, cnt = pcall(function() return select("#", fr:GetChildren()) end)
+                    if ok then
+                        for i = 1, cnt do walk(select(i, fr:GetChildren()), depth + 1) end
+                    end
+                end
+            end
+            msg("строки окна тренера (RGB объекта, затем текст):")
+            walk(ClassTrainerFrame, 0)
+            msg(("всего строк: %d. Полное сырьё в SavedVariables (CoARU_DB.trainercolor) — "
+                 .. "сделай /reload и пришли CoARU.lua."):format(n))
+        end
+    elseif cmd == "lines rec" then
+
+        CoARU_RecLines = true
+        CoARU_DB.lines = CoARU_DB.lines or {}
+        msg("запись строк ВКЛючена: наводи на скиллы, они копятся в CoARU_DB.lines. "
+            .. "Потом /reload и пришли CoARU.lua. Выключить: /coaru lines off")
+    elseif cmd == "lines off" then
+        CoARU_RecLines = false
+        local c = 0
+        if CoARU_DB.lines then for _ in ipairs(CoARU_DB.lines) do c = c + 1 end end
+        msg(("запись выключена. В копилке тултипов: %d (в SavedVariables)."):format(c))
     elseif cmd == "lines" then
 
         if not CoARU_LastTip then
             msg("ещё не было ни одного тултипа.")
         else
-            msg("последний тултип, id=" .. tostring(CoARU_LastTip.id) .. " (цвет R/G/B):")
+            local total = CoARU_RecordLines()
+            msg(("тултип id=%s (R/G/B). В копилке: %d — /reload и пришли CoARU.lua."):format(
+                tostring(CoARU_LastTip.id), total))
             for _, line in ipairs(CoARU_LastTip) do print("  " .. line) end
         end
     elseif cmd == "frames" then
@@ -959,14 +1074,21 @@ f:SetScript("OnEvent", function(self, event, arg1)
         for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
         local ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or ""
         local author = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Author")) or "Locative"
-        print(("|cffC495DDCoARU|r%s |cffaaaaaa—|r русификатор описаний CoA. Автор: |cffC495DD%s|r. Переводов: |cffffd100%d|r."):format(
-            ver ~= "" and (" |cff888888v" .. ver .. "|r") or "", author, t))
-        if CoARU_DeflateStatus then
-            local ok, info = CoARU_DeflateStatus()
-            if not ok then
-                print(("|cffff0000CoARU|r: LibDeflate не подключился (%s) — переводы способностей не работают. Напиши в Discord."):format(info))
-            end
+
+        local report = CoARU_LoadReport()
+        if report == "stale" then
+
+            print("|cffff0000CoARU: переводы НЕ работают.|r")
+            print("|cffffd100Похоже, аддон обновляли, не выходя из игры полностью.|r")
+            print("|cffffd100Выйди на рабочий стол и запусти игру заново|r (не /reload, не выход к выбору персонажа).")
+        elseif report == "broken" then
+            print("|cffff0000CoARU: переводы НЕ работают.|r")
+            print("|cffffd100Файлы аддона загрузились не полностью.|r Выйди на рабочий стол, запусти игру заново.")
+            print("|cff888888Если не помогло: проверь, что путь ...\\AddOns\\CoARU\\CoARU.toc, а не CoARU\\CoARU\\CoARU.toc.|r")
+        else
+            print(("|cffC495DDCoARU|r%s |cffaaaaaa-|r русификатор описаний CoA. Автор: |cffC495DD%s|r. Переводов: |cffffd100%d|r."):format(
+                ver ~= "" and (" |cff888888v" .. ver .. "|r") or "", author, t))
+            print("|cffC495DDCoARU|r|cffaaaaaa:|r нравится аддон? Поддержать автора: " .. DONATE_LINK)
         end
-        print("|cffC495DDCoARU|r|cffaaaaaa:|r нравится аддон? Поддержать автора: " .. DONATE_LINK)
     end
 end)
