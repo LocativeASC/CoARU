@@ -267,6 +267,8 @@ function CoARU_RecordLines()
 end
 
 local function onTooltipSetSpell(tip)
+
+    if CoARU_ScanRaw then return end
     local ok, id = pcall(function() return select(3, tip:GetSpell()) end)
     if not ok or not id then return end
     id = tonumber(id)
@@ -456,6 +458,7 @@ local SCHOOL_OWNER = "AscensionCharacterStatsPanel"
 local inReprocess = false
 local function onTooltipShow(tip)
     if inReprocess then return end
+    if CoARU_ScanRaw then return end
     local name = tip:GetName()
     if not name then return end
 
@@ -476,6 +479,12 @@ local function onTooltipShow(tip)
     if tip.GetItem then
         local ok, n = pcall(tip.GetItem, tip)
         if ok then itemName = n end
+    end
+
+    local isSpellTip = false
+    if tip.GetSpell then
+        local ok, sn = pcall(tip.GetSpell, tip)
+        if ok and sn then isSpellTip = true end
     end
 
     local ownerName
@@ -521,7 +530,8 @@ local function onTooltipShow(tip)
                 if not CoARU_HasCyrillic(t) and schoolRu then
                     CoARU_SetTranslated(fs, t, schoolRu)
                     changed = true
-                elseif #t > 2 and not CoARU_HasCyrillic(t) and not clientRewritesLine(t) then
+                elseif #t > 2 and not CoARU_HasCyrillic(t) and not clientRewritesLine(t)
+                    and not (i == 1 and side == "TextLeft" and isSpellTip) then
                     local ru = CoARU_TranslateBlock(nil, t)
 
                     if not (ru and ru ~= t) and CoARU_TranslateItemPrefix then
@@ -807,6 +817,7 @@ local function slash(cmd)
         CoARU_DB.catext = nil
         CoARU_DB.trainerdump = nil
         CoARU_DB.trainercolor = nil
+        CoARU_DB.trainerscan = nil
         CoARU_DB.lines = nil
         CoARU_DB.geom = nil
         CoARU_DB.frames = nil
@@ -826,6 +837,16 @@ local function slash(cmd)
             end
             msg(("FontString'ов снято: %d (тёмных: %d). ПОЛНОЕ сырьё каждого в SavedVariables."):format(n, dark))
             msg("Сделай /reload и пришли WTF\\...\\SavedVariables\\CoARU.lua — увижу точные байты.")
+        end
+    elseif cmd == "trainerscan" then
+
+        local spells, misses = CoARU_ScanTrainer()
+        if not spells then
+            msg((misses or "не вышло") .. " — открой тренера и повтори.")
+        else
+            msg(("тренер просканирован: спеллов %d, новых промахов %d. Сырьё с цветом — в "
+                .. "SavedVariables (CoARU_DB.trainerscan)."):format(spells, misses))
+            msg("Сделай /reload и пришли WTF\\...\\SavedVariables\\CoARU.lua.")
         end
     elseif cmd == "trainerskip" then
 

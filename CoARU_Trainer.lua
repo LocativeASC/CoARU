@@ -1,9 +1,27 @@
 CoARU_TrainerSkip = false
 
+local DESC_FS = {
+    ClassTrainerSkillDescription = true,
+    ClassTrainerSkillRequirements = true,
+    ClassTrainerDetailScrollChildTextlineText = true,
+}
+
+local NAME_FS = { ClassTrainerSkillName = true, ClassTrainerSubSkillName = true }
+local function isNameFS(nm)
+    if not nm then return false end
+    return NAME_FS[nm] or nm:match("^ClassTrainerSkill%d+Text$") ~= nil
+end
+
 local function fsApply(fs)
     if CoARU_TrainerSkip then return end
     local t = fs and fs.GetText and fs:GetText()
     if not t or #t < 2 then return end
+    if isNameFS(fs.GetName and fs:GetName()) then return end
+
+    if CoARU_NoteBlockMisses then
+        local nm = fs.GetName and fs:GetName()
+        if nm and DESC_FS[nm] then CoARU_NoteBlockMisses("trainer", nil, t) end
+    end
     local ru = CoARU_TranslateBlock(nil, t)
     if ru and ru ~= t then
         fs:SetText(ru)
@@ -103,6 +121,88 @@ function CoARU_DumpTrainer()
         if _G[nm] then grab(_G[nm], -1) end
     end
     return res
+end
+
+local function grabTipLines(tip)
+    local nm = tip:GetName()
+    local out = {}
+    for k = 1, tip:NumLines() do
+        for _, side in ipairs({ "TextLeft", "TextRight" }) do
+            local fs = _G[nm .. side .. k]
+            local t = fs and fs.GetText and fs:GetText()
+            if t and t:find("%S") then
+                local cr, cg, cb
+                if fs.GetTextColor then
+                    local ok, a, b, c = pcall(fs.GetTextColor, fs)
+                    if ok then cr, cg, cb = a, b, c end
+                end
+                out[#out + 1] = string.format("%s%d [%s] = [[%s]]", side, k,
+                    cr and string.format("%.2f/%.2f/%.2f", cr, cg or 0, cb or 0) or "?",
+                    (t:gsub("|", "/")))
+            end
+        end
+    end
+    return out
+end
+
+function CoARU_ScanTrainer()
+    if not (ClassTrainerFrame and ClassTrainerFrame:IsShown()) then
+        return nil, "окно тренера закрыто"
+    end
+    local n = (GetNumTrainerServices and GetNumTrainerServices()) or 0
+    if n == 0 then return nil, "услуг у тренера нет (0)" end
+    local raw, misses, spells = {}, 0, 0
+    local tip = GameTooltip
+    for i = 1, n do
+        local sname, _, stype = GetTrainerServiceInfo(i)
+        if stype ~= "header" then
+            spells = spells + 1
+
+            CoARU_ScanRaw = true
+            tip:SetOwner(UIParent, "ANCHOR_NONE"); tip:ClearLines(); tip:SetTrainerService(i); tip:Show()
+            local en = grabTipLines(tip)
+            tip:Hide()
+
+            local savedOrig = CoARU_OriginalMode
+            CoARU_OriginalMode = false
+            CoARU_ScanRaw = false
+            tip:SetOwner(UIParent, "ANCHOR_NONE"); tip:ClearLines(); tip:SetTrainerService(i); tip:Show()
+            local ru = grabTipLines(tip)
+            CoARU_OriginalMode = savedOrig
+            tip:Hide()
+            raw[#raw + 1] = { name = sname, en = en, ru = ru }
+        end
+    end
+    CoARU_ScanRaw = false
+
+    CoARU_ScanRaw = true
+    for i = 1, n do
+        local _, _, stype = GetTrainerServiceInfo(i)
+        if stype ~= "header" then
+            tip:SetOwner(UIParent, "ANCHOR_NONE"); tip:ClearLines(); tip:SetTrainerService(i); tip:Show()
+            local nm = tip:GetName()
+            for k = 2, tip:NumLines() do
+                for _, side in ipairs({ "TextLeft", "TextRight" }) do
+                    local fs = _G[nm .. side .. k]
+                    local t = fs and fs.GetText and fs:GetText()
+                    if t and t:find("%S") and CoARU_NoteBlockMisses then
+                        local pre = 0
+                        if CoARU_DB and CoARU_DB.miss then for _ in pairs(CoARU_DB.miss) do pre = pre + 1 end end
+                        CoARU_NoteBlockMisses("trainer", nil, t)
+                        if CoARU_DB and CoARU_DB.miss then
+                            local post = 0
+                            for _ in pairs(CoARU_DB.miss) do post = post + 1 end
+                            misses = misses + (post - pre)
+                        end
+                    end
+                end
+            end
+            tip:Hide()
+        end
+    end
+    CoARU_ScanRaw = false
+    if CoARU_DB then CoARU_DB.trainerscan = raw end
+    return spells, misses
 end
 
 local waiter = CreateFrame("Frame")
