@@ -66,7 +66,7 @@ Blizzard. Контент Conquest of Azeroth официальной локали
 
 Аддон запоминает строки, которые встретил в игре и не смог перевести.
 
-1. нажмите **«Собрать отчёт»** в окне аддона или наберите `/coaru status`
+1. нажмите **«Собрать отчёт»** в приветственном окне аддона (/coaru welcome) или наберите `/coaru status`
 2. `/reload`
 3. найдите файл
    `<папка игры>\resources\ascension-live\WTF\Account\<ваш аккаунт>\SavedVariables\CoARU.lua`
