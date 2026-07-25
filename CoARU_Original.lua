@@ -83,13 +83,18 @@ local function swapTip(tip)
         if swapOne(_G[name .. "MoneyFrame" .. i .. "PrefixText"]) then changed = true end
     end
     if changed and tip.Show then tip:Show() end
+    return changed
 end
 
 local function applyMode()
+    local any = false
     for _, n in ipairs(TIPS) do
         local tip = _G[n]
-        if tip and tip.IsShown and tip:IsShown() then swapTip(tip) end
+        if tip and tip.IsShown and tip:IsShown() then
+            if swapTip(tip) then any = true end
+        end
     end
+    return any
 end
 
 local watcher = CreateFrame("Frame")
@@ -102,8 +107,38 @@ watcher:SetScript("OnUpdate", function(self, elapsed)
     if want == last then return end
     last = want
     CoARU_OriginalMode = want
-    applyMode()
+    local swapped = applyMode()
+
+    if want and swapped then
+        local o = opts()
+        o.origUsed = (tonumber(o.origUsed) or 0) + 1
+    end
 end)
+
+local KEY_NAME = { ALT = "Alt", CTRL = "Ctrl", SHIFT = "Shift" }
+local HINT_USES = 3
+
+function CoARU_HintText()
+    local o = opts()
+    if o.hint == false then return nil end
+    if (tonumber(o.origUsed) or 0) >= HINT_USES then return nil end
+    local name = KEY_NAME[CoARU_OriginalMod()]
+    if not name then return nil end
+    return "Зажмите " .. name .. ", чтобы увидеть оригинал"
+end
+
+function CoARU_AddHint(tip)
+    local text = CoARU_HintText()
+    if not text or not tip or not tip.AddLine or not tip.NumLines then return false end
+    local name = tip.GetName and tip:GetName()
+    if not name then return false end
+    for i = 1, (tip:NumLines() or 0) do
+        local fs = _G[name .. "TextLeft" .. i]
+        if fs and fs:GetText() == text then return false end
+    end
+    tip:AddLine(text, 0.5, 0.5, 0.5)
+    return true
+end
 
 function CoARU_OriginalStatus()
     local n = 0

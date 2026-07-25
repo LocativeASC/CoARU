@@ -80,6 +80,11 @@ local function fetchOneRU(packed)
     return sliceLoc(CoARU_CHUNK_RU, ruChunkCache, packed)
 end
 
+local questChunkCache = {}
+local function fetchQuestRU(packed)
+    return sliceLoc(CoARU_QUEST_CHUNK, questChunkCache, packed)
+end
+
 function CoARU_StripCodes(text)
     if not text then return nil end
     local s = text
@@ -261,7 +266,7 @@ CoARU_G = {
     ["Generates # Heat Per Target"] = "Генерирует {1} ед. Жара за каждую цель",
     ["Generates # Heat Per Tick"] = "Генерирует {1} ед. Жара за каждый тик",
     ["Generates # Heat Each Tick"] = "Генерирует {1} ед. Жара за каждый тик",
-    ["Generates # Heat Per Enemy Hit"] = "Генерирует {1} ед. Жара за каждого поражённого врага",
+    ["Generates # Heat Per Enemy Hit"] = "Генерирует {1} ед. Жара за каждого пораженного врага",
     ["Generates # additional Rage"] = "Генерирует дополнительно {1} ед. ярости",
     ["# Mana, plus # per sec"] = "{1} ед. маны + {2} в секунду",
     ["Hold SHIFT for more information"] = "Удерживайте SHIFT для подробностей",
@@ -269,7 +274,7 @@ CoARU_G = {
 
     ["Cannot be cast when in combat."] = "Нельзя применять в бою.",
     ["Hello! Ready for some training?"] = "Привет! Готов подучиться?",
-    ["Greetings! Take my trial!"] = "Приветствую! Пройди моё испытание!",
+    ["Greetings! Take my trial!"] = "Приветствую! Пройди мое испытание!",
     ["All"] = "Все",
     ["Filter"] = "Фильтр",
     ["Train"] = "Обучиться",
@@ -281,16 +286,16 @@ CoARU_G = {
     ["Requires: Level #"] = "Требуется уровень: {1}",
 
     ["Spend more points to unlock this talent"] = "Потратьте больше очков, чтобы открыть этот талант.",
-    ["Spend # more points to unlock this row"] = "Чтобы открыть этот ряд, потратьте ещё очков: {1}",
+    ["Spend # more points to unlock this row"] = "Чтобы открыть этот ряд, потратьте еще очков: {1}",
     ["Unlocks at level #."] = "Открывается на уровне {1}.",
     ["Unlocks at level: #"] = "Открывается на уровне: {1}",
 
     ["Spend # more Talent Essence in current tree to unlock this row"] =
-        "Чтобы открыть этот ряд, потратьте в текущем дереве ещё эссенции талантов: {1}",
+        "Чтобы открыть этот ряд, потратьте в текущем дереве еще эссенции талантов: {1}",
     ["Spend # more Talent Essence points in any tree to unlock rows below"] =
-        "Чтобы открыть ряды ниже, потратьте в любом дереве ещё эссенции талантов: {1}",
+        "Чтобы открыть ряды ниже, потратьте в любом дереве еще эссенции талантов: {1}",
     ["Spend # more Ability Essence in any class to unlock this ability."] =
-        "Чтобы открыть эту способность, потратьте в любом классе ещё эссенции способностей: {1}.",
+        "Чтобы открыть эту способность, потратьте в любом классе еще эссенции способностей: {1}.",
     ["Ability Essence: #"] = "Эссенция способностей: {1}",
     ["Talent Essence: #"] = "Эссенция талантов: {1}",
     ["Not enough Ability Essence"] = "Не хватает эссенции способностей",
@@ -431,6 +436,53 @@ function CoARU_TranslateByIndex(liveText)
     return (applyPlurals(ru, nums):gsub("{(%d+)}", function(n) return nums[tonumber(n)] or "?" end))
 end
 
+function CoARU_QuestNorm(t)
+    if not t then return nil end
+    t = t:gsub("%$[Bb]", " ")
+    local pname = UnitName and UnitName("player")
+    if pname and #pname >= 2 and not pname:find("[^%w']") then
+        t = t:gsub(pname, "$N")
+    end
+    t = t:gsub("<[Nn]ame>", "$N")
+    t = t:gsub("<[Cc]lass>", "$c"):gsub("<[Rr]ace>", "$r")
+    t = t:gsub("%$[Cc]", "$c"):gsub("%$[Rr]", "$r")
+    t = t:gsub("%s+", " "):gsub("^%s+", ""):gsub("%s+$", "")
+    return t
+end
+
+local function escPat(w)
+    return (w:gsub("[%(%)%.%%%+%-%*%?%[%]%^%$]", "%%%1"))
+end
+function CoARU_QuestReverseCR(s)
+    if not s then return nil end
+    local c = UnitClass and UnitClass("player")
+    if c and #c >= 3 then local p = escPat(c); s = s:gsub(p, "$c"):gsub(escPat(c:lower()), "$c") end
+    local r = UnitRace and UnitRace("player")
+    if r and #r >= 3 then local p = escPat(r); s = s:gsub(p, "$r"):gsub(escPat(r:lower()), "$r") end
+    return s
+end
+
+function CoARU_QuestLookup(t)
+    if not t or not CoARU_QUEST then return nil end
+    local norm = CoARU_QuestNorm(t)
+    if not norm or #norm < 3 then return nil end
+    local packed = CoARU_QUEST[hashText(norm)]
+    if packed then return fetchQuestRU(packed) end
+
+    local norm2 = CoARU_QuestReverseCR(norm)
+    if norm2 and norm2 ~= norm then
+        packed = CoARU_QUEST[hashText(norm2)]
+        if packed then return fetchQuestRU(packed) end
+    end
+    return nil
+end
+
+function CoARU_QuestCount()
+    local n = 0
+    for _ in pairs(CoARU_QUEST or {}) do n = n + 1 end
+    return n
+end
+
 function CoARU_TranslateGlobal(liveText)
     if not liveText then return nil end
     local plain = CoARU_StripCodes(liveText)
@@ -453,13 +505,13 @@ local TERM_FORMS = {
 
                          "статикой", "статики", "статику", "статике", "статика" },
     ["Felfury"]      = { "Яростью Скверны", "Ярости Скверны", "Ярость Скверны" },
-    ["Demonfire"]    = { "Демоническим огнём", "Демоническим огнем", "Демонического огня",
+    ["Demonfire"]    = { "Демоническим огнем", "Демоническим огнем", "Демонического огня",
                          "Демоническому огню", "Демоническом огне", "Демонический огонь" },
     ["Reaped Souls"] = { "Пожатыми душами", "Пожатых душ", "Пожатым душам", "Пожатые души" },
     ["Life Force"]   = { "жизненной силой", "жизненную силу", "жизненной силы",
                          "жизненная сила" },
     ["Embers"]       = { "Углями", "Углей", "Углям", "Угли" },
-    ["Ember"]        = { "Углём", "Углем", "Угля", "Углю", "Уголь" },
+    ["Ember"]        = { "Углем", "Углем", "Угля", "Углю", "Уголь" },
     ["Runic Power"]  = { "силой рун", "силы рун", "силу рун", "силе рун", "сила рун" },
     ["Focus"]        = { "концентрацией", "концентрации", "концентрацию", "концентрация" },
     ["Rage"]         = { "яростью", "ярости", "ярость" },
@@ -507,7 +559,7 @@ local TERM_FORMS = {
                          "оберегу", "обереги", "обереге", "оберег" },
     ["Wards"]        = { "оберегами", "оберегах", "оберегам", "оберегов", "обереги", "оберег" },
     ["Cauldron"]     = { "котлами", "котлах", "котлам", "котлов", "котлом", "котла", "котлу", "котле",
-                         "котёл", "котел" },
+                         "котел", "котел" },
     ["Ingredients"]  = { "ингредиентами", "ингредиентах", "ингредиентам", "ингредиентов",
                          "ингредиенты", "ингредиент" },
     ["Jinx"]         = { "сглазами", "сглазах", "сглазам", "сглазов", "сглазом", "сглаза", "сглазу",
@@ -524,8 +576,8 @@ local TERM_FORMS = {
                           "резном изваянии", "резное изваяние" },
     ["Jungle Idol"]   = { "идолом джунглей", "идола джунглей", "идолу джунглей", "идоле джунглей",
                           "идол джунглей" },
-    ["Dark Idol"]     = { "тёмным идолом", "тёмного идола", "тёмному идолу", "тёмном идоле",
-                          "тёмный идол" },
+    ["Dark Idol"]     = { "темным идолом", "темного идола", "темному идолу", "темном идоле",
+                          "темный идол" },
     ["Serene Idol"]   = { "безмятежным идолом", "безмятежного идола", "безмятежному идолу",
                           "безмятежном идоле", "безмятежный идол" },
     ["Sentry Ward"]   = { "сторожевым оберегом", "сторожевого оберега", "сторожевому оберегу",
@@ -629,9 +681,9 @@ local TERM_FORMS = {
     ["Map"]     = { "картами", "картах", "картам", "картой", "карту", "карты", "карте", "карта" },
     ["Campsite"]= { "стоянками", "стоянках", "стоянкам", "стоянкой", "стоянку", "стоянки",
                     "стоянке", "стоянка" },
-    ["Campfire"]= { "костром", "костра", "костру", "костре", "костры", "костёр", "костер" },
-    ["Twineweave Line"] = { "плетёную леску", "плетеную леску", "плетёной лески", "плетеной лески",
-                    "плетёная леска", "плетеная леска" },
+    ["Campfire"]= { "костром", "костра", "костру", "костре", "костры", "костер", "костер" },
+    ["Twineweave Line"] = { "плетеную леску", "плетеную леску", "плетеной лески", "плетеной лески",
+                    "плетеная леска", "плетеная леска" },
     ["Rider's Harness"] = { "наезднической упряжью", "наездническую упряжь", "наезднической упряжи",
                     "наездническая упряжь" },
     ["Skinner's Grip"]  = { "захватом снятия шкур", "захвата снятия шкур", "захвату снятия шкур",
@@ -648,7 +700,7 @@ local TERM_FORMS = {
                          "щупальцу Йогг-Сарона", "щупальце Йогг-Сарона" },
     ["Madness"]  = { "Безумием", "Безумия", "Безумию", "Безумии", "Безумие" },
 
-    ["Elemental Fire"] = { "Огнём стихий", "Огнем стихий", "Огня стихий", "Огню стихий",
+    ["Elemental Fire"] = { "Огнем стихий", "Огнем стихий", "Огня стихий", "Огню стихий",
                          "Огне стихий", "Огонь стихий" },
 }
 

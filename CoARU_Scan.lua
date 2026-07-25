@@ -376,7 +376,7 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
             local total = 0
             for _ in pairs(CoARU_DB.dump or {}) do total = total + 1 end
             local secs = math.max(1, GetTime() - scanStart)
-            print(("|cffC495DDCoARU|r: скан завершён за %d:%02d. Просмотрено %d (%d ID/сек), новых непереведённых: %d, всего в дампе: %d."):format(
+            print(("|cffC495DDCoARU|r: скан завершен за %d:%02d. Просмотрено %d (%d ID/сек), новых непереведенных: %d, всего в дампе: %d."):format(
                 math.floor(secs / 60), math.floor(secs % 60), scanSeen,
                 math.floor(scanSeen / secs), scanFound, total))
 
@@ -385,10 +385,10 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
             end
 
             if scanDeep then
-                print(("|cffC495DDCoARU|r: ПРИЗРАКОВ (нет в клиентском DBC, но тултип есть): %d. Если ноль, дешёвый отсев ничего не теряет."):format(scanGhost))
+                print(("|cffC495DDCoARU|r: ПРИЗРАКОВ (нет в клиентском DBC, но тултип есть): %d. Если ноль, дешевый отсев ничего не теряет."):format(scanGhost))
             end
             if scanReal > 0 then
-                print(("|cffC495DDCoARU|r: спеллов с тултипом: %d, из них с непереведёнными строками: %d. ПОКРЫТИЕ ПО ЖИВОМУ ТЕКСТУ: %.1f%%"):format(
+                print(("|cffC495DDCoARU|r: спеллов с тултипом: %d, из них с непереведенными строками: %d. ПОКРЫТИЕ ПО ЖИВОМУ ТЕКСТУ: %.1f%%"):format(
                     scanReal, scanFound, 100 * (scanReal - scanFound) / scanReal))
             end
             print("|cffC495DDCoARU|r: сделай /reload (или выйди из игры), чтобы дамп записался в SavedVariables.")
@@ -510,7 +510,7 @@ function CoARU_StartScanRanges(ranges, includeAll, fastMs, minId, maxId)
     if fastMs then
         print(("|cffC495DDCoARU|r: сканирую %d ID%s, |cffff0000БЫСТРЫЙ РЕЖИМ|r (%d мс на кадр)."):format(
             total, thr, fastMs))
-        print("|cffC495DDCoARU|r: играть нельзя, картинка будет дёргаться. Скорость покажет первый отчёт о прогрессе.")
+        print("|cffC495DDCoARU|r: играть нельзя, картинка будет дергаться. Скорость покажет первый отчет о прогрессе.")
     else
         print(("|cffC495DDCoARU|r: сканирую %d ID%s (~%d мин). Можно играть, клиент не виснет."):format(
             total, thr, math.floor(total / 60000) + 1))

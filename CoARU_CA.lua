@@ -9,7 +9,7 @@ local T = {
     ["Complexity: Intermediate"] = "Сложность: средняя",
     ["Complexity: Advanced"] = "Сложность: продвинутая",
     ["Complexity: Hard"] = "Сложность: высокая",
-    ["Complexity: Easy"] = "Сложность: лёгкая",
+    ["Complexity: Easy"] = "Сложность: легкая",
     ["Complexity: Expert"] = "Сложность: экспертная",
 
     ["Agility"] = "Ловкость",
@@ -33,9 +33,9 @@ local T = {
         "Атакуйте врагов на расстоянии дальнобойным оружием, используя мощные колчаны разных видов, чтобы сразить противников.",
     ["Dominate the battlefield with ease with powerful ranged spells and utility, all while supporting your allies with horns and calling falcons into the fray."] =
 
-        "Легко доминируйте на поле боя мощными дальнобойными заклинаниями и приёмами, поддерживая союзников боевыми рогами и призывая соколов в бой.",
+        "Легко доминируйте на поле боя мощными дальнобойными заклинаниями и приемами, поддерживая союзников боевыми рогами и призывая соколов в бой.",
     ["Stalk your prey with ruthless precision, assaulting them from close range, opening grievous wounds to bleed them out."] =
-        "Выслеживайте добычу с беспощадной точностью, атакуя вблизи и нанося тяжёлые раны, чтобы противник истёк кровью.",
+        "Выслеживайте добычу с беспощадной точностью, атакуя вблизи и нанося тяжелые раны, чтобы противник истек кровью.",
 
     ["Rain a storm of steel upon your prey, pinning foes with bone-crushing spears before finishing them with a flurry of expertly thrown axes."] =
         "Обрушьте стальной ливень на добычу, пригвождая врагов костоломными копьями, чтобы затем добить их градом метко брошенных топоров.",
@@ -47,12 +47,12 @@ local T = {
     ["Bend the flow of aeons to mend wounds, delay incoming damage, and outmaneuver fate itself with elegant temporal mastery."] =
         "Искривляйте течение эпох, чтобы залечивать раны, отсрочивать урон и переигрывать саму судьбу изящным владением временем.",
     ["Rampant chaotic energies flow through you as you channel the power of the Infinite Dragonflight and use them with purpose to unmake your enemies."] =
-        "Буйные энергии хаоса текут сквозь вас: направьте силу рода драконов Бесконечности и обратите её на уничтожение врагов.",
+        "Буйные энергии хаоса текут сквозь вас: направьте силу рода драконов Бесконечности и обратите ее на уничтожение врагов.",
     ["Weave fragmented echoes of time into your wand attacks to continually empower them or unleash single bursts of magic damage."] =
         "Вплетайте осколки эха времени в удары жезла, постоянно усиливая их или высвобождая одиночные вспышки магического урона.",
 
     ["Embrace insanity on the battlefield, healing allies with the power of Yogg-Saron in a crazed melee fervor."] =
-        "Примите безумие на поле боя, исцеляя союзников силой Йогг-Сарона в исступлённой ближней схватке.",
+        "Примите безумие на поле боя, исцеляя союзников силой Йогг-Сарона в исступленной ближней схватке.",
     ["Channel C'thun's destructive gaze, unleashing devastating void magics upon the battlefield."] =
         "Направьте разрушительный взор К'Туна, обрушивая на поле боя опустошительную магию Бездны.",
     ["Imbue your weapon with the power of N'Zoth, acting as a forceful herald of his plans."] =
@@ -68,7 +68,7 @@ local T = {
         "Укрепите свой демонический облик, возьмите два исполинских клинка и подавляйте поле боя громадной тушей, став несокрушимым танком.",
 
     ["Beckon forth hellfire from the distant world of Xoroth to incinerate enemies with powerful burst attacks as an effective melee fire hybrid."] =
-        "Призовите адское пламя из далёкого мира Ксорот, чтобы испепелять врагов мощными вспышками урона, сражаясь вблизи как огненный гибрид.",
+        "Призовите адское пламя из далекого мира Ксорот, чтобы испепелять врагов мощными вспышками урона, сражаясь вблизи как огненный гибрид.",
     ["Command an army of Xorothian demons to both augment your own prowess in battle, and defend your allies, as a juggernaut from hell."] =
         "Повелевайте армией ксоротских демонов, усиливая себя в бою и защищая союзников, словно неудержимая громада из преисподней.",
     ["Butcher your enemies with savage slashes and brutal cleaves, tearing through flesh as a relentless, blood-soaked juggernaut."] =
@@ -77,9 +77,9 @@ local T = {
     ["Destroy enemies using a shield as a master of the arena, devastating your opponents with powerful kicks and trapping them in nets."] =
         "Уничтожайте врагов со щитом в руках, как мастер арены, сокрушая противников мощными ударами ног и опутывая их сетями.",
     ["Lead from the front with rousing speeches, war banners, and heroic ballads that embolden allies and shatter enemy resolve."] =
-        "Ведите за собой, вдохновляя союзников зажигательными речами, боевыми знамёнами и героическими балладами, что ломают волю врага.",
+        "Ведите за собой, вдохновляя союзников зажигательными речами, боевыми знаменами и героическими балладами, что ломают волю врага.",
     ["Charge into the fray and protect your allies from harm with a massive shield and heavy defensive capability."] =
-        "Бросьтесь в гущу боя и защитите союзников от вреда огромным щитом и надёжной обороной.",
+        "Бросьтесь в гущу боя и защитите союзников от вреда огромным щитом и надежной обороной.",
 
     ["Guard allies with disciplined martial mastery, parrying blows and staggering incoming damage before answering with decisive counterattacks."] =
         "Оберегайте союзников выверенным боевым мастерством, парируя удары и пошатывая входящий урон, а затем отвечая решительными контратаками.",
@@ -121,7 +121,7 @@ local T = {
     ["Weave flesh and blood into empowering rites, bolstering allies with potent boons while mending wounds in critical moments."] =
         "Сплетайте плоть и кровь в укрепляющие обряды, наделяя союзников могучими благословениями и залечивая раны в решающий миг.",
     ["Embrace the Curse of the Vampyr as a shadow caster, feeding an insatiable thirst that empowers your blood magic at ever-rising cost."] =
-        "Примите проклятие вампира, став заклинателем тьмы, и питайте ненасытную жажду, что усиливает вашу магию крови всё возрастающей ценой.",
+        "Примите проклятие вампира, став заклинателем тьмы, и питайте ненасытную жажду, что усиливает вашу магию крови все возрастающей ценой.",
     ["Utilize an enhanced cursed form to weave in and out of battle as both a melee damage dealer and a caster simultaneously."] =
         "Используйте усиленный проклятый облик, чтобы врываться в бой и выходить из него, сражаясь одновременно и вблизи, и заклинаниями.",
     ["Transform into a monstrosity that is able to attract the attention of devastingly powerful foes."] =
@@ -137,7 +137,7 @@ local T = {
     ["Embrace the Lunar Cycles, harnessing their power influencing magical waters to heal allies."] =
         "Примите лунные циклы и обратите их силу на волшебные воды, чтобы исцелять союзников.",
     ["Join the Sentinels to unleash enchanted arrows lit by the Moon's everpresent glow."] =
-        "Вступите в ряды Часовых, чтобы посылать зачарованные стрелы, озарённые вечным сиянием луны.",
+        "Вступите в ряды Часовых, чтобы посылать зачарованные стрелы, озаренные вечным сиянием луны.",
     ["Become an avatar of Elune’s wrath, sundering foes with relentless lunar strikes and dispensing indiscriminate justice."] =
         "Станьте воплощением гнева Элуны, разя врагов неустанными лунными ударами и неся беспощадное правосудие всем без разбора.",
     ["Become a mana infused bulwark shielding the secrets of the cosmos from unwelcome influences."] =
@@ -151,9 +151,9 @@ local T = {
         "Уничтожайте врагов силой самой молнии, высвобождая мощнейшие разряды энергии и пуская электричество цепью по полю боя.",
 
     ["Wield sanctified flame and holy wrath in tandem, searing corruption away and reducing enemies into purified ash."] =
-        "Владейте освящённым пламенем и священным гневом разом, выжигая порчу и обращая врагов в очищенный пепел.",
+        "Владейте освященным пламенем и священным гневом разом, выжигая порчу и обращая врагов в очищенный пепел.",
     ["Become the Light’s wrath made flesh, carving through foes with a greatblade in each hand as a storm of merciless holy steel."] =
-        "Станьте воплощённым гневом Света, прорубаясь сквозь врагов двумя огромными клинками, словно буря беспощадной священной стали.",
+        "Станьте воплощенным гневом Света, прорубаясь сквозь врагов двумя огромными клинками, словно буря беспощадной священной стали.",
     ["Swear a radiant oath to guard your allies, standing as an unyielding bulwark that turns aside harm beneath the sun."] =
         "Дайте лучезарную клятву оберегать союзников и станьте несгибаемым оплотом, что отводит беду под сенью солнца.",
     ["Bathe your companions in radiant sunlight, mending grievous wounds and empowering them with steadfast hope and divine blessings."] =
@@ -180,10 +180,10 @@ local T = {
     ["Embrace da voodoo, cripple and enfeeble your enemies with powerful manipulation spells."] =
         "Примите вуду, калечьте и обессиливайте врагов мощными чарами подчинения.",
     ["Harness the shadows of dark alchemy to concoct potent brews and potions, channeling healing energies to empower your allies."] =
-        "Овладейте тенями тёмной алхимии, чтобы варить крепкие настои и зелья, направляя целительные энергии на укрепление союзников.",
+        "Овладейте тенями темной алхимии, чтобы варить крепкие настои и зелья, направляя целительные энергии на укрепление союзников.",
 
     ["Use crossbows to strike down enemies at a medium distance with unparalleled mobility."] =
-        "Разите врагов на средней дистанции из арбалетов, обладая непревзойдённой подвижностью.",
+        "Разите врагов на средней дистанции из арбалетов, обладая непревзойденной подвижностью.",
     ["Use guns and a shadowhound companion to blast enemies into oblivion from across the battlefield."] =
         "Используйте огнестрельное оружие и спутницу — гончую тьмы, чтобы стирать врагов в прах с другого конца поля боя.",
     ["Use dual weapons to hunt the evil doers of Azeroth, burning them in searing flames of judgement."] =
@@ -273,7 +273,7 @@ function CoARU_CA_Fit()
         local ok, w = pcall(function() return CoATalentFrame.SpecView:GetWidth() end)
         if ok and type(w) == "number" and w > 100 then specW = w end
     else
-        print("CoARU: CoATalentFrame ещё не создан — беру ширину по умолчанию 1294." ..
+        print("CoARU: CoATalentFrame еще не создан — беру ширину по умолчанию 1294." ..
               " Точнее будет, если сперва открыть экран талантов.")
     end
 
@@ -310,7 +310,7 @@ function CoARU_CA_Fit()
 
     print(("CoARU cafit: ширина SpecView %d; проверок %d (по 3 и 4 спека)."):format(specW, tested))
     if bad == 0 then
-        print("|cff00ff00Все описания укладываются в габарит английского — вёрстка безопасна.|r")
+        print("|cff00ff00Все описания укладываются в габарит английского — верстка безопасна.|r")
     else
         print(("|cffff0000Выше английского: %d|r — покажу до 10, остальное в /reload + дамп:"):format(bad))
         for i = 1, math.min(10, #report) do
