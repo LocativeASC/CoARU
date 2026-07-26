@@ -23,6 +23,7 @@ local NAMES = {
 }
 
 local function xlate(fs)
+    if not CoARU_ModOn("zones") then return end
     if not fs or not fs.GetText then return end
     local t = fs:GetText()
     if not t or t == "" then return end
@@ -33,6 +34,7 @@ local function xlate(fs)
 end
 
 local function xlateStatus(fs)
+    if not CoARU_ModOn("zones") then return end
     if not fs or not fs.GetText then return end
     local t = fs:GetText()
     if not t or t == "" then return end

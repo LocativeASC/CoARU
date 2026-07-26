@@ -75,7 +75,9 @@ local function byPattern(t)
     return nil
 end
 
-local function qlookup(t)
+local lookupCache, lookupN = {}, 0
+
+local function qlookupUncached(t)
     local ru = CoARU_QuestLookup and CoARU_QuestLookup(t)
     if ru then return ru end
     local core = t:match("^(.-)%s*%(Complete%)$")
@@ -95,6 +97,21 @@ local function qlookup(t)
     return nil
 end
 
+local function qlookup(t)
+    local hit = lookupCache[t]
+    if hit ~= nil then
+        return hit or nil
+    end
+    local ru = qlookupUncached(t)
+
+    if lookupN > 4000 then
+        lookupCache, lookupN = {}, 0
+    end
+    lookupCache[t] = ru or false
+    lookupN = lookupN + 1
+    return ru
+end
+
 local function expand(ru)
     ru = ru:gsub("%$[Bb]", "\n")
     local sex = UnitSex and UnitSex("player")
@@ -111,6 +128,7 @@ local function expand(ru)
 end
 
 local function process(fs, field)
+    if not CoARU_ModOn("quests") then return end
     if not fs or not fs.GetText then return end
     local t = fs:GetText()
     if not t or #t < 2 then return end
@@ -133,6 +151,7 @@ local function process(fs, field)
 end
 
 local function processUI(fs)
+    if not CoARU_ModOn("quests") then return end
     if not fs or not fs.GetText then return end
     local t = fs:GetText()
     local ru = t and UI[t]
@@ -177,6 +196,7 @@ local function doProgress() for _, n in ipairs(PROGRESS_FS) do process(_G[n], n)
 local function doGreeting() for _, n in ipairs(GREETING_FS) do process(_G[n], n) end end
 
 local function questXlate(fs)
+    if not CoARU_ModOn("quests") then return end
     if not fs or not fs.GetText then return end
     local t = fs:GetText()
     if not t or #t < 2 then return end
@@ -214,11 +234,18 @@ local function walkXlate(frame, depth)
 end
 
 local function doLogList() walkXlate(_G.QuestLogFrame, 0) end
+
+local function doLogListNow()
+    if not CoARU_ModOn("quests") then return end
+    local ok = pcall(doLogList)
+    return ok
+end
 local function doTracker() walkXlate(_G.WatchFrame, 0) end
 
 local _sm = strmatch or string.match
 local function xlateLeaderBoard(text)
     if not text or text == "" then return text end
+    if not CoARU_ModOn("quests") then return text end
 
     if CoARU_HasCyrillic and CoARU_HasCyrillic(text) and not hasEnglishTail(text) then
         return text
@@ -242,6 +269,7 @@ end
 
 local _qttBusy = false
 local function questTooltipXlate(tip)
+    if not CoARU_ModOn("quests") then return end
     if _qttBusy or not tip or not tip.NumLines or not tip.GetOwner then return end
     local owner = tip:GetOwner()
     local on = owner and owner.GetName and owner:GetName()
@@ -274,6 +302,7 @@ local BTN = {
     GossipFrameGreetingGoodbyeButton = "До встречи",
 }
 local function doButtons()
+    if not CoARU_ModOn("quests") then return end
     for name, ru in pairs(BTN) do
         local b = _G[name]
         if b and b.SetText and b:IsShown() then b:SetText(ru) end
@@ -316,13 +345,23 @@ end
 if type(QuestLogTitleButton_Resize) == "function" then
     hooksecurefunc("QuestLogTitleButton_Resize", function(qlt)
         local nt = qlt and qlt.normalText
-        if nt and nt.SetWidth then nt:SetWidth(0) end
+
+        if nt then questXlate(nt) end
+
+        local cur = nt and nt.GetText and nt:GetText()
+        if nt and nt.SetWidth and cur and CoARU_HasCyrillic and CoARU_HasCyrillic(cur) then
+            nt:SetWidth(0)
+        end
     end)
 end
 
 if type(QuestLog_Update) == "function" then
     hooksecurefunc("QuestLog_Update", doLogChrome)
-    hooksecurefunc("QuestLog_Update", function() arm("loglist") end)
+
+    hooksecurefunc("QuestLog_Update", function()
+        doLogListNow()
+        arm("loglist")
+    end)
 end
 if type(QuestLog_UpdateTrackButton) == "function" then
     hooksecurefunc("QuestLog_UpdateTrackButton", doLogChrome)
@@ -336,7 +375,13 @@ qevents:RegisterEvent("QUEST_LOG_UPDATE")
 qevents:RegisterEvent("QUEST_WATCH_UPDATE")
 qevents:RegisterEvent("PLAYER_ENTERING_WORLD")
 qevents:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-qevents:SetScript("OnEvent", function() arm("loglist"); arm("tracker") end)
+
+qevents:SetScript("OnEvent", function()
+    doLogListNow()
+    pcall(doTracker)
+    arm("loglist")
+    arm("tracker")
+end)
 
 function CoARU_QuestTranslatedCount() return translated end
 function CoARU_QuestDumpCount()

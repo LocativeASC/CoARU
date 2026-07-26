@@ -5,6 +5,8 @@ CoARU_DB = CoARU_DB or {}
 
 local DONATE_URL = "https://www.donationalerts.com/r/locativeasc"
 
+GITHUB_URL = "https://github.com/LocativeASC/CoARU"
+
 local DONATE_LINK = "|cffffd100|Hcoaru:donate|h[/coaru donate]|h|r"
 
 local ACCENT = { 0.77, 0.58, 0.87 }
@@ -208,8 +210,8 @@ local function styledButton(parent, w, h, text, primary, name)
     return b
 end
 
-local function styledCheck(parent, text)
-    local cb = CreateFrame("CheckButton", nil, parent)
+local function styledCheck(parent, text, name)
+    local cb = CreateFrame("CheckButton", name, parent)
     cb:SetWidth(18)
     cb:SetHeight(18)
 
@@ -362,7 +364,29 @@ local function ensureDonateFrame()
     report:SetPoint("TOPRIGHT", dHelp, "BOTTOMRIGHT", -2, -GAP_SECT - 8)
     report:SetScript("OnClick", runStatusReport)
 
-    local dFoot = f:DividerUnder(altText, GAP_SECT)
+    local lastBlock = altText
+    local total = CoARU_ThanksCount and CoARU_ThanksCount() or 0
+    if total > 0 then
+        local dThanks = f:DividerUnder(altText, GAP_SECT)
+
+        local thText = f:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        thText:SetPoint("TOPLEFT", dThanks, "BOTTOMLEFT", 2, -GAP_SECT)
+
+        local n10, n100 = total % 10, total % 100
+        local word = "человек"
+        if n10 >= 2 and n10 <= 4 and (n100 < 12 or n100 > 14) then word = "человека" end
+        thText:SetText(("Переводу помогли |cffffd100%d|r %s"):format(total, word))
+        thText:SetTextColor(0.86, 0.86, 0.9)
+
+        local thBtn = styledButton(f, BTN_W, CTRL_H, "Кто помог", false,
+            "CoARUDonateThanksButton")
+        thBtn:SetPoint("TOPRIGHT", dThanks, "BOTTOMRIGHT", -2, -GAP_SECT + 4)
+
+        thBtn:SetScript("OnClick", function() CoARU_ShowThanks() end)
+        lastBlock = thBtn
+    end
+
+    local dFoot = f:DividerUnder(lastBlock, GAP_SECT)
 
     local btn = styledButton(f, BTN_W, CTRL_H, "Закрыть")
     btn:SetPoint("BOTTOMRIGHT", -PAD, (FOOTER_H - CTRL_H) / 2)
@@ -404,6 +428,70 @@ local function showDonate()
         welcomeFrame:Hide()
     end
     ensureDonateFrame():Show()
+end
+
+local linkFrame
+local function ensureLinkFrame()
+    if linkFrame then return linkFrame end
+    local PAD, CTRL_H, BTN_W, FOOTER_H = 24, 26, 148, 52
+    local INNER = 480 - PAD * 2
+
+    local f = makePanel("CoARULinkFrame", "FULLSCREEN_DIALOG", 480, 232,
+        "Где взять аддон", "CoARU, русификатор Conquest of Azeroth")
+
+    local d = f:Divider(-72)
+
+    local hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    hint:SetPoint("TOPLEFT", d, "BOTTOMLEFT", 2, -12)
+    hint:SetWidth(INNER)
+    hint:SetJustifyH("LEFT")
+    hint:SetText("Свежая сборка лежит в разделе Releases. Нажми на ссылку, "
+        .. "затем скопируй ее через |cffffd100Ctrl+C|r.")
+    hint:SetTextColor(0.84, 0.84, 0.88)
+
+    local eb = CreateFrame("EditBox", "CoARULinkEdit", f, "InputBoxTemplate")
+    eb:SetWidth(INNER - 12)
+    eb:SetHeight(CTRL_H)
+    eb:SetPoint("TOPLEFT", hint, "BOTTOMLEFT", 6, -10)
+    eb:SetAutoFocus(false)
+
+    eb:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+
+    eb:SetScript("OnTextChanged", function(self)
+        if self:GetText() ~= GITHUB_URL then
+            self:SetText(GITHUB_URL)
+            self:HighlightText()
+        end
+    end)
+    eb:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
+
+    local note = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    note:SetPoint("TOPLEFT", eb, "BOTTOMLEFT", -6, -12)
+    note:SetWidth(INNER)
+    note:SetJustifyH("LEFT")
+    note:SetText("Обновлять только заменой папки целиком, и заходить в игру заново, "
+        .. "а не через /reload.")
+    note:SetTextColor(0.72, 0.72, 0.78)
+
+    local btn = styledButton(f, BTN_W, CTRL_H, "Закрыть")
+    btn:SetPoint("BOTTOMRIGHT", -PAD, (FOOTER_H - CTRL_H) / 2)
+    btn:SetScript("OnClick", function() f:Hide() end)
+
+    f:SetScript("OnShow", function()
+        eb:SetText(GITHUB_URL)
+        eb:SetCursorPosition(0)
+        eb:HighlightText()
+        eb:SetFocus()
+    end)
+
+    f:Hide()
+    linkFrame = f
+    return f
+end
+
+local function showLink()
+    msg("аддон и обновления: " .. GITHUB_URL)
+    ensureLinkFrame():Show()
 end
 
 local function ensureWelcomeFrame()
@@ -480,8 +568,10 @@ local function ensureWelcomeFrame()
     help:SetPoint("TOPLEFT", 26, -336)
     help:SetWidth(330)
     help:SetJustifyH("LEFT")
+
     help:SetText("Собери отчет и пришли файл в Discord |cffC495DDlocativeds|r.\n"
-        .. "Именно из них собирается следующая волна перевода.")
+        .. "Именно из них собирается следующая волна перевода.\n"
+        .. "Где взять аддон и обновления: |cffffd100/coaru link|r")
     help:SetTextColor(0.82, 0.82, 0.87)
 
     local report = styledButton(f, BTN_W, CTRL_H, "Собрать отчет", false,
@@ -537,6 +627,420 @@ local function maybeShowWelcome()
     local ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or "?"
     if CoARU_DB.opts.welcomeVer == ver then return end
     showWelcome()
+end
+
+local thanksFrame
+
+local thanksParent
+local function ensureThanksFrame()
+    if thanksFrame then return thanksFrame end
+
+    local PAD, GAP_HEAD = 24, 6
+    local CTRL_H, BTN_W, FOOTER_H, W, LIST_H = 26, 150, 52, 560, 260
+    local INNER = W - PAD * 2
+    local COL_GAP = 12
+    local COL_W = math.floor((INNER - COL_GAP * 2) / 3)
+
+    local f = makePanel("CoARUThanksFrame", "FULLSCREEN_DIALOG", W,
+        76 + LIST_H + FOOTER_H, "Кто помог переводу", "Спасибо каждому из этого списка", true)
+
+    local SECTIONS = {
+        { key = "donate", head = "Поддержали рублем" },
+        { key = "data",   head = "Прислали данные",   note = "дампы, базы, скриншоты" },
+        { key = "bugs",   head = "Нашли ошибки",      note = "и вычитали перевод" },
+    }
+
+    local scroll = CreateFrame("ScrollFrame", "CoARUThanksScroll", f)
+    scroll:SetPoint("TOPLEFT", PAD, -76)
+    scroll:SetPoint("TOPRIGHT", -PAD, -76)
+    scroll:SetHeight(LIST_H)
+
+    local content = CreateFrame("Frame", "CoARUThanksContent", scroll)
+    content:SetWidth(INNER)
+    content:SetHeight(LIST_H)
+    scroll:SetScrollChild(content)
+
+    local maxRows = 0
+    for i = 1, #SECTIONS do
+        local s = SECTIONS[i]
+        local list = (CoARU_THANKS or {})[s.key] or {}
+        local extra = (s.key == "donate") and (tonumber(CoARU_THANKS_ANON) or 0) or 0
+        local x = (i - 1) * (COL_W + COL_GAP)
+
+        local head = content:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        head:SetPoint("TOPLEFT", x, 0)
+        head:SetWidth(COL_W)
+        head:SetJustifyH("LEFT")
+        head:SetText(s.head)
+        head:SetTextColor(ACCENT_LIGHT[1], ACCENT_LIGHT[2], ACCENT_LIGHT[3])
+
+        local note = content:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+        note:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, -2)
+        note:SetWidth(COL_W)
+        note:SetJustifyH("LEFT")
+        note:SetText(s.note or "")
+        note:SetTextColor(0.5, 0.5, 0.55)
+
+        local names = {}
+        for k = 1, #list do
+            names[#names + 1] = list[k]
+        end
+        if extra > 0 then
+            local n10, n100 = extra % 10, extra % 100
+            local word = "анонимов"
+            if n10 == 1 and n100 ~= 11 then
+                word = "аноним"
+            elseif n10 >= 2 and n10 <= 4 and (n100 < 12 or n100 > 14) then
+                word = "анонима"
+            end
+            names[#names + 1] = ("и еще %d %s"):format(extra, word)
+        end
+        if #names == 0 then names[1] = "пока никого" end
+
+        local body = content:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        body:SetPoint("TOPLEFT", note, "BOTTOMLEFT", 0, -GAP_HEAD)
+        body:SetWidth(COL_W)
+        body:SetJustifyH("LEFT")
+        body:SetJustifyV("TOP")
+        body:SetText("|cffC495DD" .. table.concat(names, "|r\n|cffC495DD") .. "|r")
+        body:SetTextColor(0.84, 0.84, 0.88)
+
+        if #names > maxRows then maxRows = #names end
+    end
+
+    local contentH = 34 + maxRows * 14
+    content:SetHeight(contentH)
+
+    scroll:EnableMouseWheel(true)
+    scroll:SetScript("OnMouseWheel", function(self, delta)
+        local limit = contentH - LIST_H
+        if limit <= 0 then return end
+        local pos = self:GetVerticalScroll() - delta * 24
+        if pos < 0 then pos = 0 elseif pos > limit then pos = limit end
+        self:SetVerticalScroll(pos)
+    end)
+
+    if contentH > LIST_H then
+        local hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+        hint:SetPoint("BOTTOMLEFT", PAD, (FOOTER_H - CTRL_H) / 2 + 6)
+        hint:SetText("колесо мыши прокручивает список")
+        hint:SetTextColor(0.5, 0.5, 0.55)
+    end
+
+    local close = styledButton(f, BTN_W, CTRL_H, "Закрыть", false, "CoARUThanksCloseButton")
+    close:SetPoint("BOTTOMRIGHT", -PAD, (FOOTER_H - CTRL_H) / 2)
+    close:SetScript("OnClick", function() f:Hide() end)
+
+    f:SetScript("OnHide", function()
+        if thanksParent then
+            local p = thanksParent
+            thanksParent = nil
+            if p.Show then p:Show() end
+        end
+    end)
+
+    f:Hide()
+    thanksFrame = f
+    return f
+end
+
+local OUR_WINDOWS = { "CoARUWelcomeFrame", "CoARUDonateFrame", "CoARUOptionsFrame" }
+
+function CoARU_ShowThanks()
+    local ok, err = pcall(function()
+        local f = ensureThanksFrame()
+        thanksParent = nil
+
+        for _ = 1, 3 do
+            local any = false
+            for i = 1, #OUR_WINDOWS do
+                local w = _G[OUR_WINDOWS[i]]
+                if w and w.IsShown and w:IsShown() then
+
+                    thanksParent = thanksParent or w
+                    w:Hide()
+                    any = true
+                end
+            end
+            if not any then break end
+        end
+        f:Show()
+    end)
+    if not ok then
+        msg("окно благодарностей не открылось: " .. tostring(err))
+        return false
+    end
+    return true
+end
+
+local optionsFrame
+local function ensureOptionsFrame()
+    if optionsFrame then return optionsFrame end
+
+    local PAD, HINT_GAP = 24, 2
+
+    local ROW_STEP = 30
+    local CTRL_H, BTN_W = 26, 150
+    local FOOTER_H = 52
+    local W = 430
+
+    local f = makePanel("CoARUOptionsFrame", "FULLSCREEN_DIALOG", W, 200,
+        "Настройки", "Что переводить", true)
+
+    local prevCB, lastHint = nil, nil
+    local rows = {}
+    for i = 1, #CoARU_MODULES do
+        local m = CoARU_MODULES[i]
+        local cb = styledCheck(f, m.label, "CoARUOptionCheck_" .. m.key)
+        if prevCB then
+            cb:SetPoint("TOPLEFT", prevCB, "BOTTOMLEFT", 0, -ROW_STEP)
+        else
+            cb:SetPoint("TOPLEFT", PAD, -76)
+        end
+
+        local hint = f:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+        hint:SetPoint("TOPLEFT", cb, "BOTTOMLEFT", 24, -HINT_GAP)
+        hint:SetText(m.hint)
+        hint:SetTextColor(0.5, 0.5, 0.55)
+
+        rows[#rows + 1] = { key = m.key, cb = cb }
+        prevCB, lastHint = cb, hint
+    end
+
+    local div = f:DividerUnder(lastHint, 14)
+
+    local iconCB = styledCheck(f, "Значок у миникарты", "CoARUOptionCheck_minimap")
+    iconCB:SetPoint("TOPLEFT", div, "BOTTOMLEFT", 0, -14)
+
+    local paintIcon = iconCB:GetScript("OnClick")
+    iconCB:SetScript("OnClick", function(self)
+        if paintIcon then paintIcon(self) end
+        CoARU_DB.opts = CoARU_DB.opts or {}
+        if self:GetChecked() then
+            CoARU_DB.opts.minimapHide = nil
+        else
+            CoARU_DB.opts.minimapHide = true
+        end
+        if CoARU_UpdateMinimapButton then CoARU_UpdateMinimapButton() end
+    end)
+
+    local lastRow = iconCB
+    local total = CoARU_ThanksCount and CoARU_ThanksCount() or 0
+    if total > 0 then
+        local hlp = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+        hlp:SetPoint("TOPLEFT", iconCB, "BOTTOMLEFT", 0, -16)
+        local n10, n100 = total % 10, total % 100
+        local word = "человек"
+        if n10 >= 2 and n10 <= 4 and (n100 < 12 or n100 > 14) then word = "человека" end
+        hlp:SetText(("Переводу помогли |cffffd100%d|r %s"):format(total, word))
+        hlp:SetTextColor(0.7, 0.7, 0.76)
+
+        local who = styledButton(f, 120, 22, "Кто помог", false, "CoARUOptionsThanksButton")
+        who:SetPoint("LEFT", hlp, "RIGHT", 12, 0)
+        who:SetScript("OnClick", function() CoARU_ShowThanks() end)
+        lastRow = who
+    end
+
+    f:SetScript("OnShow", function(self)
+        for i = 1, #rows do
+            rows[i].cb:SetChecked(CoARU_ModOn(rows[i].key))
+        end
+        iconCB:SetChecked(not (CoARU_DB.opts and CoARU_DB.opts.minimapHide))
+        local top, bottom = self:GetTop(), lastRow:GetBottom()
+        if top and bottom then
+            self:SetHeight((top - bottom) + FOOTER_H)
+        end
+    end)
+
+    local allOn = styledButton(f, BTN_W, CTRL_H, "Включить все", false,
+        "CoARUOptionsAllOnButton")
+    allOn:SetPoint("BOTTOMRIGHT", -(PAD + BTN_W + 12), (FOOTER_H - CTRL_H) / 2)
+    allOn:SetScript("OnClick", function()
+        for i = 1, #rows do
+            CoARU_SetMod(rows[i].key, true)
+            rows[i].cb:SetChecked(true)
+        end
+    end)
+
+    local close = styledButton(f, BTN_W, CTRL_H, "Закрыть")
+    close:SetPoint("BOTTOMRIGHT", -PAD, (FOOTER_H - CTRL_H) / 2)
+    close:SetScript("OnClick", function() f:Hide() end)
+
+    for i = 1, #rows do
+        local row = rows[i]
+        local paint = row.cb:GetScript("OnClick")
+        row.cb:SetScript("OnClick", function(self)
+            if paint then paint(self) end
+            CoARU_SetMod(row.key, self:GetChecked() and true or false)
+        end)
+    end
+
+    f:Hide()
+    optionsFrame = f
+    return f
+end
+
+function CoARU_ShowOptions()
+    local ok, err = pcall(function() ensureOptionsFrame():Show() end)
+    if not ok then
+        msg("окно настроек не открылось: " .. tostring(err))
+        return false
+    end
+    return true
+end
+
+local minimapButton
+local MM_RADIUS = 80
+
+local function minimapAngle()
+    local a = CoARU_DB and CoARU_DB.opts and CoARU_DB.opts.minimapAngle
+    return tonumber(a) or 200
+end
+
+local function placeMinimapButton()
+    if not minimapButton then return end
+    local a = math.rad(minimapAngle())
+    minimapButton:ClearAllPoints()
+    minimapButton:SetPoint("CENTER", Minimap, "CENTER",
+        math.cos(a) * MM_RADIUS, math.sin(a) * MM_RADIUS)
+end
+
+local function ensureMinimapButton()
+    if minimapButton then return minimapButton end
+    if not Minimap or not CreateFrame then return nil end
+
+    local b = CreateFrame("Button", "CoARUMinimapButton", Minimap)
+    b:SetWidth(33)
+    b:SetHeight(33)
+    b:SetFrameStrata("MEDIUM")
+    b:SetFrameLevel(8)
+    b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    b:RegisterForDrag("LeftButton")
+    b:SetMovable(true)
+
+    local icon = b:CreateTexture(nil, "BACKGROUND")
+    icon:SetPoint("CENTER", 0, 1)
+
+    local own = icon:SetTexture("Interface\\AddOns\\CoARU\\Textures\\minimap.tga") and true or false
+    if own then
+
+        icon:SetWidth(34)
+        icon:SetHeight(34)
+    else
+        icon:SetWidth(20)
+        icon:SetHeight(20)
+
+        icon:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+        local border = b:CreateTexture(nil, "OVERLAY")
+        border:SetWidth(53)
+        border:SetHeight(53)
+        border:SetPoint("TOPLEFT")
+        border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+    end
+
+    local loadedCount
+    local function loaded()
+        if not loadedCount then
+            loadedCount = 0
+            for _ in pairs(CoARU_LOC_EN or {}) do loadedCount = loadedCount + 1 end
+        end
+        return loadedCount
+    end
+
+    b:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        local ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or ""
+        GameTooltip:AddLine("|cffC495DDCoARU|r"
+            .. (ver ~= "" and ("  |cff888888v" .. ver .. "|r") or ""))
+        GameTooltip:AddLine("русификатор Conquest of Azeroth", 0.7, 0.7, 0.75)
+
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddDoubleLine("Переводов в базе", groupNum(loaded()),
+            0.8, 0.8, 0.85, 1, 0.82, 0)
+
+        local miss = 0
+        for _ in pairs(CoARU_DB and CoARU_DB.miss or {}) do miss = miss + 1 end
+        if miss > 0 then
+            GameTooltip:AddDoubleLine("Собрано для перевода", groupNum(miss),
+                0.8, 0.8, 0.85, 1, 0.82, 0)
+        end
+
+        local offN, offList = CoARU_ModsOff()
+        if offN > 0 then
+            GameTooltip:AddDoubleLine("Выключено", table.concat(offList, ", "),
+                0.8, 0.8, 0.85, 1, 0.5, 0.5)
+        end
+
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine("Левый клик: настройки", 0.9, 0.9, 0.9)
+        GameTooltip:AddLine("Правый клик: отчет для переводчика", 0.9, 0.9, 0.9)
+        GameTooltip:AddLine("Shift + клик: окно приветствия", 0.9, 0.9, 0.9)
+        GameTooltip:AddLine("Ctrl + клик: кто помог переводу", 0.9, 0.9, 0.9)
+
+        GameTooltip:AddLine("Где взять аддон и обновления: /coaru link", 0.72, 0.72, 0.78)
+        GameTooltip:Show()
+    end)
+    b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
+    local function toggle(frameName, open)
+        local w = _G[frameName]
+        if w and w.IsShown and w:IsShown() then
+            w:Hide()
+            return
+        end
+        open()
+    end
+
+    b:SetScript("OnClick", function(_, button)
+
+        if IsShiftKeyDown and IsShiftKeyDown() then
+            toggle("CoARUWelcomeFrame", function()
+                local fn = SlashCmdList and SlashCmdList["COARU"]
+                if fn then fn("welcome") end
+            end)
+        elseif IsControlKeyDown and IsControlKeyDown() then
+            toggle("CoARUThanksFrame", CoARU_ShowThanks)
+        elseif button == "RightButton" then
+
+            runStatusReport()
+        else
+            toggle("CoARUOptionsFrame", CoARU_ShowOptions)
+        end
+    end)
+
+    local function dragUpdate()
+        local mx, my = Minimap:GetCenter()
+        local px, py = GetCursorPosition()
+        local s = Minimap:GetEffectiveScale()
+        if not (mx and my and px and py and s and s > 0) then return end
+        px, py = px / s, py / s
+        CoARU_DB.opts = CoARU_DB.opts or {}
+        CoARU_DB.opts.minimapAngle = math.deg(math.atan2(py - my, px - mx))
+        placeMinimapButton()
+    end
+    b:SetScript("OnDragStart", function(self)
+        self:SetScript("OnUpdate", dragUpdate)
+    end)
+    b:SetScript("OnDragStop", function(self)
+        self:SetScript("OnUpdate", nil)
+    end)
+
+    minimapButton = b
+    placeMinimapButton()
+    return b
+end
+
+function CoARU_UpdateMinimapButton()
+    local hide = CoARU_DB and CoARU_DB.opts and CoARU_DB.opts.minimapHide
+    if hide then
+        if minimapButton then minimapButton:Hide() end
+        return
+    end
+    local b = ensureMinimapButton()
+    if b then
+        placeMinimapButton()
+        b:Show()
+    end
 end
 
 local welcomeTimer = CreateFrame("Frame")
@@ -753,9 +1257,21 @@ function CoARU_RecordLines()
     return #CoARU_DB.lines
 end
 
+local function translateSpellName(fs)
+    if not CoARU_ModOn("spellnames") or not CoARU_SPELL_NAME_RU then return false end
+    local t = fs and fs.GetText and fs:GetText()
+    if not t or t == "" or CoARU_HasCyrillic(t) then return false end
+    local plain = CoARU_StripCodes(t):gsub("^%s+", ""):gsub("%s+$", "")
+    local ru = plain ~= "" and CoARU_SPELL_NAME_RU[plain]
+    if not ru then return false end
+    CoARU_SetTranslated(fs, t, ru)
+    return true
+end
+
 local function onTooltipSetSpell(tip)
 
     if CoARU_ScanRaw then return end
+    if not CoARU_ModOn("spells") then return end
     local ok, id = pcall(function() return select(3, tip:GetSpell()) end)
     if not ok or not id then return end
     id = tonumber(id)
@@ -794,6 +1310,8 @@ local function onTooltipSetSpell(tip)
             end
         end
     end
+
+    if translateSpellName(_G[name .. "TextLeft1"]) then changed = true end
     for i = 2, tip:NumLines() do
         handle(_G[name .. "TextLeft" .. i])
         handle(_G[name .. "TextRight" .. i])
@@ -831,6 +1349,7 @@ local function clientRewritesLine(t)
 end
 
 local function onTooltipSetItem(tip)
+    if not CoARU_ModOn("items") then return end
     local name = tip:GetName()
     if not name or not tip.GetItem then return end
     local ok, itemName, link = pcall(tip.GetItem, tip)
@@ -974,6 +1493,9 @@ local function onTooltipShow(tip)
         if ok and sn then isSpellTip = true end
     end
 
+    if isSpellTip and not CoARU_ModOn("spells") then return end
+    if itemName and itemName ~= "" and not CoARU_ModOn("items") then return end
+
     local ownerName
     if tip.GetOwner then
         local ok, of = pcall(tip.GetOwner, tip)
@@ -986,8 +1508,8 @@ local function onTooltipShow(tip)
         end
     end
 
-    local isSchoolTip = isResistTip
-        or (ownerName ~= nil and ownerName:find(SCHOOL_OWNER, 1, true) ~= nil)
+    local isSchoolTip = CoARU_ModOn("stats") and (isResistTip
+        or (ownerName ~= nil and ownerName:find(SCHOOL_OWNER, 1, true) ~= nil))
     local changed = false
     local inDelta = false
     for i = 1, tip:NumLines() do
@@ -1017,8 +1539,10 @@ local function onTooltipShow(tip)
                 if not CoARU_HasCyrillic(t) and schoolRu then
                     CoARU_SetTranslated(fs, t, schoolRu)
                     changed = true
-                elseif #t > 2 and not CoARU_HasCyrillic(t) and not clientRewritesLine(t)
-                    and not (i == 1 and side == "TextLeft" and isSpellTip) then
+                elseif i == 1 and side == "TextLeft" and isSpellTip then
+
+                    if translateSpellName(fs) then changed = true end
+                elseif #t > 2 and not CoARU_HasCyrillic(t) and not clientRewritesLine(t) then
 
                     local ru
 
@@ -1143,16 +1667,32 @@ local RELEASE = true
 local PLAYER_CMDS = { [""] = true, status = true, donate = true, support = true,
                       ["спасибо"] = true, ["донат"] = true,
 
+                      thanks = true, ["помогли"] = true, ["кто помог"] = true,
+
                       welcome = true, ["привет"] = true, hint = true,
-                      ["hint off"] = true, ["hint on"] = true }
+                      ["hint off"] = true, ["hint on"] = true,
+
+                      link = true, github = true, ["гит"] = true, ["ссылка"] = true,
+                      update = true, ["обновление"] = true, ["обновления"] = true }
 
 local function isOriginalCmd(cmd)
     return cmd:match("^original") or cmd:match("^оригинал") or cmd:match("^англ")
 end
 
+local function isNamesCmd(cmd)
+    return cmd:match("^names") or cmd:match("^имена")
+end
+
+local function isOptionsCmd(cmd)
+    return cmd == "options" or cmd == "config" or cmd == "opt"
+        or cmd == "настройки" or cmd == "опции"
+end
+
 local function slash(cmd)
-    cmd = (cmd or ""):gsub("^%s+", ""):gsub("%s+$", ""):lower()
-    if RELEASE and not PLAYER_CMDS[cmd] and not isOriginalCmd(cmd) then
+
+    cmd = (cmd or ""):gsub("^%s+", ""):gsub("%s+$", ""):gsub("[A-Z]", string.lower)
+    if RELEASE and not PLAYER_CMDS[cmd] and not isOriginalCmd(cmd) and not isNamesCmd(cmd)
+        and not isOptionsCmd(cmd) then
         msg("доступна команда /coaru status — она показывает, что собрал аддон.")
         return
     end
@@ -1164,11 +1704,27 @@ local function slash(cmd)
         local key = CoARU_OriginalMod and CoARU_OriginalMod() or "ALT"
         key = key:sub(1, 1) .. key:sub(2):lower()
         print(("  |cffffd100%s|r над тултипом — показать оригинал на английском (сменить клавишу: /coaru original ctrl)"):format(key))
+        print("  |cffffd100/coaru options|r — что переводить: предметы, статы, задания, имена (или значок у миникарты)")
+        print("  |cffffd100/coaru link|r — где взять аддон и обновления")
         print("  поддержать автора: " .. DONATE_LINK)
         return
     end
     if cmd == "donate" or cmd == "support" or cmd == "спасибо" or cmd == "донат" then
         showDonate()
+        return
+    end
+
+    if cmd == "link" or cmd == "github" or cmd == "гит" or cmd == "ссылка"
+       or cmd == "update" or cmd == "обновление" or cmd == "обновления" then
+        showLink()
+        return
+    end
+    if isOptionsCmd(cmd) then
+        CoARU_ShowOptions()
+        return
+    end
+    if cmd == "thanks" or cmd == "кто помог" or cmd == "помогли" then
+        CoARU_ShowThanks()
         return
     end
     if cmd == "welcome" or cmd == "привет" then
@@ -1200,6 +1756,21 @@ local function slash(cmd)
                 state = "включена"
             end
             msg("подсказка: " .. state .. ". Команды: /coaru hint on|off")
+        end
+        return
+    end
+
+    if isNamesCmd(cmd) then
+        local arg = cmd:match("%s+(%S+)$")
+        if arg == "off" or arg == "выкл" then
+            CoARU_SetNames(false)
+            msg("имена существ: |cffff2020английские|r. Описания, предметы и задания переводятся как прежде.")
+        elseif arg == "on" or arg == "вкл" then
+            CoARU_SetNames(true)
+            msg("имена существ: |cff00ff00русские|r (наведи мышь заново, чтобы увидеть).")
+        else
+            msg(("имена существ: %s. Команды: /coaru names on|off"):format(
+                (CoARU_NamesOn and CoARU_NamesOn()) and "|cff00ff00русские|r" or "|cffff2020английские|r"))
         end
         return
     end
@@ -1283,6 +1854,12 @@ local function slash(cmd)
             for _ in pairs(CoARU_QUEST or {}) do nq = nq + 1 end
             msg(("загружено: спеллов %d, предметов %d (+%d по имени), заданий %d")
                 :format(nsp, nit, nbt, nq))
+
+            local offN, offList = CoARU_ModsOff()
+            if offN > 0 then
+                msg(("выключено в настройках: |cffffd100%s|r (вернуть: /coaru options)")
+                    :format(table.concat(offList, ", ")))
+            end
 
             local mn, newN = 0, 0
             for _, rec in pairs(CoARU_DB.miss or {}) do
@@ -1444,6 +2021,61 @@ local function slash(cmd)
             msg("запись текста квестов: |cff00ff00ВКЛ|r — открывай квесты (у NPC и в журнале P), "
                 .. "текст копится. Потом /coaru questdump off, /reload и пришли SavedVariables.")
             msg(("сейчас снято блоков: %d"):format(CoARU_QuestDumpCount and CoARU_QuestDumpCount() or 0))
+        end
+    elseif cmd:match("^questprobe") then
+
+        local id = tonumber(cmd:match("(%d+)"))
+        if not id then
+            msg("нужен номер: /coaru questprobe 254045 (номера своих квестов: /coaru questids)")
+            return
+        end
+        if CoARU_QuestProbe then CoARU_QuestProbe(id) end
+    elseif cmd:match("^questscan") then
+
+        if cmd:match("stop") then
+            if not (CoARU_StopQuestScan and CoARU_StopQuestScan()) then
+                msg("скан квестов и так не идет.")
+            end
+            return
+        end
+
+        local rs = {}
+        for a, b in cmd:gmatch("(%d+)%s*%-%s*(%d+)") do
+            rs[#rs + 1] = { tonumber(a), tonumber(b) }
+        end
+        local a = rs[1] and rs[1][1]
+        if not a then
+            local n, active = CoARU_QuestScanCount and CoARU_QuestScanCount()
+            msg(("скан квестов: %s, в списке %d номеров."):format(
+                active and "|cff00ff00идет|r" or "не идет", n or 0))
+            print("  запуск: |cffffd100/coaru questscan 254000-255000|r [запросов/сек, по умолчанию 10]")
+            print("  остановить: |cffffd100/coaru questscan stop|r")
+            return
+        end
+
+        local rest = cmd:gsub("%d+%s*%-%s*%d+", " ")
+        local rate = tonumber(rest:match("(%d+)"))
+        CoARU_StartQuestScan(rs, rate)
+    elseif cmd:match("^questids") then
+
+        local n = GetNumQuestLogEntries and GetNumQuestLogEntries() or 0
+        local found = 0
+        msg(("квестов в журнале: %d"):format(n))
+        for i = 1, n do
+            local title, _, _, isHeader = GetQuestLogTitle(i)
+            if not isHeader then
+                local link = GetQuestLink and GetQuestLink(i)
+                local id = link and link:match("quest:(%d+)")
+                if id then
+                    found = found + 1
+                    print(("  |cffffd100%s|r  %s"):format(id, title or "?"))
+                else
+                    print(("  |cffff2020без номера|r  %s"):format(title or "?"))
+                end
+            end
+        end
+        if found == 0 then
+            msg("номеров не видно: журнал пуст либо клиент не отдает ссылку квеста.")
         end
     elseif cmd == "trainerskip" then
 
@@ -1669,6 +2301,9 @@ local function slash(cmd)
         print("  /coaru geom — координаты кнопок в пикселях (открой журнал L)")
         print("  /coaru frames — имена ОТКРЫТЫХ окон (открой нужные окна и повтори)")
         print("  /coaru cafit — проверить верстку русских описаний спеков (все 70, альты не нужны)")
+        print("  /coaru questscan <A-B> [зап/сек] — спросить у сервера текст квестов по номерам (кэш -> Parse-WdbCache.py)")
+        print("  /coaru questprobe <id> — сырые строки тултипа одного квеста (диагностика скана)")
+        print("  /coaru questids — номера всех квестов журнала (нужны, чтобы украсть текст с базы сайта)")
         print("  /coaru id <spellId> — показать, что видит сканер")
         print("  /coaru item <itemId> — резолвится ли тултип предмета по ID (проверка перед волной предметов)")
         print("  после сканирования: /reload, затем отдать WTF\\...\\SavedVariables\\CoARU.lua переводчику")
@@ -1690,6 +2325,8 @@ f:SetScript("OnEvent", function(self, event, arg1)
         self:UnregisterEvent("ADDON_LOADED")
     elseif event == "PLAYER_ENTERING_WORLD" then
         armWelcome()
+
+        pcall(CoARU_UpdateMinimapButton)
     elseif event == "PLAYER_LOGIN" then
         installHooks()
         local t = 0
@@ -1710,7 +2347,16 @@ f:SetScript("OnEvent", function(self, event, arg1)
         else
             print(("|cffC495DDCoARU|r%s |cffaaaaaa-|r русификатор описаний CoA. Автор: |cffC495DD%s|r. Переводов: |cffffd100%d|r."):format(
                 ver ~= "" and (" |cff888888v" .. ver .. "|r") or "", author, t))
-            print("|cffC495DDCoARU|r|cffaaaaaa:|r нравится аддон? Поддержать автора: " .. DONATE_LINK)
+
+            local me = UnitName and UnitName("player")
+            local kind = CoARU_ThanksFor and CoARU_ThanksFor(me)
+            if kind then
+                local why = ({ donate = "за поддержку", data = "за присланные данные",
+                               bugs = "за найденные ошибки" })[kind] or "за помощь"
+                print(("|cffC495DDCoARU|r|cffaaaaaa:|r спасибо %s, |cffC495DD%s|r. Ты в списке: /coaru thanks"):format(why, me))
+            else
+                print("|cffC495DDCoARU|r|cffaaaaaa:|r нравится аддон? Поддержать автора: " .. DONATE_LINK)
+            end
 
             armWelcome()
         end

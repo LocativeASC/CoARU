@@ -1,0 +1,52 @@
+Лицензия CoARU
+
+ЧТО ПОКРЫТО
+
+Оригинальный код CoARU: файлы движка и интерфейса аддона, инструменты сборки, документация,
+собственные текстуры проекта.
+
+ЧТО НЕ ПОКРЫТО
+
+Игровые тексты и данные. Аддон работает с текстом World of Warcraft и Conquest of Azeroth:
+названия, описания, задания, имена существ и предметов. Права на них у их владельцев, и эта
+лицензия таких прав никому не передаёт. Откуда взят каждый набор, написано в
+DATA_PROVENANCE.md, условия сторонних компонентов в THIRD_PARTY_NOTICES.md.
+
+Наши собственные переводы тоже не покрыты. Русский текст написан для этого проекта, но
+перевод производен от оригинала, права на который принадлежат другим.
+
+Файл CoARU_QuestData.lua собран из world-базы AzerothCore под GNU GPL v2. На него идут условия
+GPL v2, а не лицензия ниже.
+
+Товарные знаки. World of Warcraft, Blizzard Entertainment, Project Ascension, Conquest of
+Azeroth принадлежат своим владельцам. CoARU упоминает их только чтобы сказать, с чем
+совместим, и не выдаёт себя за официальный продукт.
+
+---
+
+MIT License
+
+Copyright (c) 2026 Locative
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Слово "Software" в тексте выше означает оригинальный код CoARU из первого раздела. Игровые
+тексты, игровые данные и сторонние компоненты в него не входят.

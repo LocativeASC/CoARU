@@ -14,6 +14,7 @@ end
 
 local function fsApply(fs)
     if CoARU_TrainerSkip then return end
+    if not CoARU_ModOn("trainer") then return end
     local t = fs and fs.GetText and fs:GetText()
     if not t or #t < 2 then return end
     if isNameFS(fs.GetName and fs:GetName()) then return end

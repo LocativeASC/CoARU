@@ -1010,10 +1010,21 @@ local function neutralizeDarkColors(text)
     end))
 end
 
+function CoARU_LocalizeNames(text)
+    if not text or not CoARU_SPELL_NAME_RU then return text end
+    if not CoARU_ModOn or not CoARU_ModOn("spellnames") then return text end
+    if not text:find("«", 1, true) then return text end
+
+    return (text:gsub("«(.-)»", function(n)
+        local ru = CoARU_SPELL_NAME_RU[n]
+        if ru then return "«" .. ru .. "»" end
+    end))
+end
+
 function CoARU_TranslateBlock(id, text)
     if not text then return nil end
     if not text:find("\n") then
-        return neutralizeDarkColors(translateLineKeepColor(id, text))
+        return CoARU_LocalizeNames(neutralizeDarkColors(translateLineKeepColor(id, text)))
     end
     text = closeColorsAtBreaks(text)
     local out, any = {}, false
@@ -1023,7 +1034,8 @@ function CoARU_TranslateBlock(id, text)
         out[#out + 1] = ru or line
     end
     if not any then return nil end
-    return neutralizeDarkColors(table.concat(out, "\n"))
+
+    return CoARU_LocalizeNames(neutralizeDarkColors(table.concat(out, "\n")))
 end
 
 function CoARU_IsTranslated(id)

@@ -283,9 +283,9 @@ local function bindingMap()
 end
 
 local TARGETS = {
-    { name = "AscensionCharacterFrame", perFrame = true },
+    { name = "AscensionCharacterFrame", perFrame = true,  mod = "stats" },
     { name = "WorldMapFrame",           perFrame = false },
-    { name = "QuestLogFrame",           perFrame = false },
+    { name = "QuestLogFrame",           perFrame = false, mod = "quests" },
 
     { name = "TimeManagerClockButton",  perFrame = false },
 
@@ -355,7 +355,7 @@ local function hookButton(f)
     if not ok then f.__coaruBtnHooked = nil end
 end
 
-local function collect(frame, depth, out, map)
+local function collect(frame, depth, out, map, mod)
     if not frame or depth > 12 then return end
     hookButton(frame)
     if frame.GetRegions then
@@ -366,6 +366,8 @@ local function collect(frame, depth, out, map)
                     out[#out + 1] = r
 
                     r.__coaruMap = map
+
+                    r.__coaruMod = mod
                     hookFS(r)
                 end
             end
@@ -374,7 +376,7 @@ local function collect(frame, depth, out, map)
     if frame.GetChildren then
         local ok, children = pcall(function() return { frame:GetChildren() } end)
         if ok then
-            for _, c in ipairs(children) do collect(c, depth + 1, out, map) end
+            for _, c in ipairs(children) do collect(c, depth + 1, out, map, mod) end
         end
     end
 end
@@ -418,6 +420,8 @@ local function fitButton(fs)
 end
 
 applyTo = function(r)
+
+    if r.__coaruMod and not CoARU_ModOn(r.__coaruMod) then return end
 
     local map = r.__coaruMap or buildMap()
     local ok, t = pcall(r.GetText, r)
@@ -466,7 +470,7 @@ local function rebuild(t, frame)
 
     if type(t.map) == "function" then t.map = t.map() end
     t.cache = {}
-    collect(frame, 0, t.cache, t.map)
+    collect(frame, 0, t.cache, t.map, t.mod)
     t.n = #t.cache
     t.age = 0
 end

@@ -200,6 +200,7 @@ local function stripColor(t)
 end
 
 local function retext(frame, depth)
+    if not CoARU_ModOn("ca") then return end
     if not frame or depth > 10 then return end
     if frame.GetRegions then
         local ok, regions = pcall(function() return { frame:GetRegions() } end)

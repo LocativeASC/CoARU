@@ -20,7 +20,12 @@ end
 
 local hasCyr = CoARU_HasCyrillic or function(s) return s and s:find("[Ѐ-ӿ]") end
 
+local function namesOn()
+    return CoARU_ModOn("names")
+end
+
 local function tipUnit(tip)
+    if not namesOn() then return end
     local _, unit = tip:GetUnit()
     if not unit then return end
     local id = npcID(UnitGUID and UnitGUID(unit))
@@ -43,6 +48,7 @@ if GameTooltip and GameTooltip.HookScript then
 end
 
 local function unitFrame(unit, fs)
+    if not namesOn() then return end
     if not unit or (UnitExists and not UnitExists(unit)) then return end
     local id = npcID(UnitGUID and UnitGUID(unit))
     if not id then return end
@@ -77,6 +83,26 @@ driver:SetScript("OnUpdate", function(_, e)
     unitFrame("targettarget", _G.TargetFrameToTTextureFrameName)
 
 end)
+
+local NAME_FS = {
+    target       = "TargetFrameTextureFrameName",
+    focus        = "FocusFrameTextureFrameName",
+    targettarget = "TargetFrameToTTextureFrameName",
+}
+local function restoreEN()
+    for unit, fsName in pairs(NAME_FS) do
+        local fs = _G[fsName]
+        local en = UnitName and (not UnitExists or UnitExists(unit)) and UnitName(unit)
+        if fs and fs.SetText and en and en ~= "" then fs:SetText(en) end
+    end
+end
+
+CoARU_OptHooks.names = function(on)
+    if not on then restoreEN() end
+end
+
+function CoARU_NamesOn() return namesOn() end
+function CoARU_SetNames(on) return CoARU_SetMod("names", on) end
 
 function CoARU_UnitN2R(en) return N2R[en] end
 
