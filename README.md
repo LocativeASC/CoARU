@@ -153,7 +153,7 @@ Conquest of Azeroth, которая должна была пойти на офи
 
 Автор: **Locative**
 
-Поддержать: https://www.donationalerts.com/r/locativeasc
+Поддержать: [https://www.donationalerts.com/r/locativeasc](https://dalink.to/locativeasc)
 
 В игре ссылку покажет приветственное окно кнопкой «Поддержать автора», а также команда
 `/coaru donate`.
