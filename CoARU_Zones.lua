@@ -22,11 +22,17 @@ local NAMES = {
     "WorldMapZoneDropDownText",
 }
 
+local function zoneAllowed(name)
+    local inst = CoARU_ZONE_INST and CoARU_ZONE_INST[name]
+    if inst then return CoARU_ModOn("dungeons") end
+    return CoARU_ModOn("zones")
+end
+
 local function xlate(fs)
-    if not CoARU_ModOn("zones") then return end
     if not fs or not fs.GetText then return end
     local t = fs:GetText()
     if not t or t == "" then return end
+    if not zoneAllowed(t) then return end
     local ru = ZONE[t]
     if ru and ru ~= t then
         fs:SetText(ru)
@@ -51,6 +57,7 @@ do
         local busy = false
         hooksecurefunc(lbl, "SetText", function(self, text)
             if busy or not text or text == "" then return end
+            if not zoneAllowed(text) then return end
             local ru = ZONE[text]
             if ru and ru ~= text then
                 busy = true

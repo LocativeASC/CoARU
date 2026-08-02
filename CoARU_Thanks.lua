@@ -3,6 +3,8 @@ CoARU_THANKS = {
     donate = {
         "Zazer",
         "nikonavr",
+        "KlafilinOFF",
+        "fdish",
     },
 
     data = {
@@ -23,6 +25,13 @@ CoARU_THANKS = {
         "Кабан",
         "Анарх",
         "Tankred",
+
+        "Leitz",
+        "Sanek",
+        "MOZENRATH",
+        "nazar",
+        "T0ad_SAGE",
+        "Billy Butcher",
     },
 
     bugs = {
@@ -42,10 +51,21 @@ CoARU_THANKS = {
         "Chuffa",
         "Tankred",
         "parallax_xxx",
+
+        "Волосатая нежность",
+        "Potip",
+        "Palma",
+        "NeyMey",
+    },
+
+    media = {
+        "Georgy",
+        "Wargul",
+        "EffectSana",
     },
 }
 
-CoARU_THANKS_ANON = 4
+CoARU_THANKS_ANON = 7
 
 function CoARU_ThanksCount()
     local seen, n = {}, 0

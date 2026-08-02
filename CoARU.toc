@@ -1,39 +1,65 @@
-## Interface: 30300
+﻿## Interface: 30300
 ## Title: |cffC495DDCoARU|r by |cffC495DDLocative|r
-## Notes: Русский перевод для Conquest of Azeroth: заклинания, таланты, глифы, чары, баффы, предметы, задания, зоны и имена существ. Числа берутся из живого тултипа и не устаревают после правок баланса.|n|nИмена способностей по умолчанию оставлены латиницей: так их проще найти в чате и в интерфейсе игры. Включить перевод названий и выключить лишние модули можно в настройках: /coaru options|n|n|cffffd100Где взять обновления:|r /coaru link (github.com/LocativeASC/CoARU)|n|cffffd100Помочь переводу:|r /coaru status
+## Notes: Русский перевод для Conquest of Azeroth: заклинания, таланты, глифы, чары, баффы, предметы, задания, зоны и имена существ. Числа берутся из живого тултипа и не устаревают после правок баланса.|n|nПереводится всё, а что оставить английским, решаете вы: имена способностей, названия классов, зоны, подземелья и остальные модули выключаются по отдельности в настройках: /coaru options|n|n|cffffd100Где взять обновления:|r /coaru link (github.com/LocativeASC/CoARU)|n|cffffd100Помочь переводу:|r /coaru status
 ## Author: Locative
-## Version: 1.0.6
+## Version: 2.0
 ## DefaultState: Enabled
 ## SavedVariables: CoARU_DB
 
 LibStub.lua
 LibDeflate.lua
 CoARU_Opts.lua
+CoARU_Skin.lua
+CoARU_WrapProbe.lua
 CoARU_Data.lua
 CoARU_QuestData.lua
 CoARU_QuestDataCustom.lua
 CoARU_QuestDataNarrative.lua
 CoARU_QuestDataVivi.lua
+CoARU_QuestDataSpeech.lua
+CoARU_QuestDataGossip.lua
 CoARU_Items.lua
 CoARU_ItemNameEN.lua
+CoARU_ItemNameCustom.lua
 CoARU_ScanIds.lua
+CoARU_ItemIds.lua
 CoARU_ItemTipData.lua
+CoARU_AscUIData.lua
+CoARU_TradeFilterData.lua
+CoARU_TutData.lua
 CoARU_SpellNames.lua
 CoARU_SkillsData.lua
 CoARU_SkillTerms.lua
+CoARU_NameForms.lua
+CoARU_TermWave.lua
+CoARU_TermGrow.lua
+CoARU_SpecNames.lua
 CoARU_Engine.lua
 CoARU_ItemTip.lua
 CoARU_Scan.lua
 CoARU_QuestScan.lua
 CoARU_Trainer.lua
+CoARU_Merchant.lua
+CoARU_Auction.lua
+CoARU_Consistency.lua
+CoARU_Book.lua
 CoARU_PaperDoll.lua
 CoARU_CA.lua
+CoARU_AscUI.lua
 CoARU_Thanks.lua
 CoARU_Original.lua
 CoARU_Quests.lua
+CoARU_EmoteData.lua
+CoARU_Speech.lua
+CoARU_Broadcast.lua
+CoARU_TitleData.lua
+CoARU_Titles.lua
 CoARU_ZoneData.lua
 CoARU_Zones.lua
 CoARU_UnitData.lua
+CoARU_UnitNamesExtra.lua
+CoARU_UnitCustom.lua
 CoARU_Units.lua
+CoARU_Nameplates.lua
 CoARU_GlossaryData.lua
 CoARU.lua

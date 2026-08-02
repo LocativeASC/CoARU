@@ -2,17 +2,20 @@ local RU = CoARU_ItemTipRU or {}
 local SUB = CoARU_ItemTipSubclass or {}
 local OWN = CoARU_ItemTipOwn or {}
 
+local NUMFMT = "%%[%-%+ #0-9%.]*[dfsi]"
+
 local function unsupported(fmt)
-    for c in fmt:gmatch("%%(.)") do
-        if c ~= "c" and c ~= "d" and c ~= "s" and c ~= "%" then return true end
-    end
-    return false
+
+    if fmt:find("%%%d+%$") then return true end
+    local rest = fmt:gsub("%%%%", ""):gsub("%%c", ""):gsub(NUMFMT, "")
+    return rest:find("%%") ~= nil
 end
 
 local function buildEn(fmt, sign)
     local out = fmt:gsub("%%%%", "\1")
     out = out:gsub("%%c", sign)
-    out = out:gsub("%%[ds]", "#")
+
+    out = out:gsub(NUMFMT, "#")
     return (out:gsub("\1", "%%"))
 end
 
@@ -20,7 +23,7 @@ local function buildRu(fmt, sign)
     local out = fmt:gsub("%%%%", "\1")
     out = out:gsub("%%c", sign)
     local i = 0
-    out = out:gsub("%%[ds]", function()
+    out = out:gsub(NUMFMT, function()
         i = i + 1
         return "{" .. i .. "}"
     end)
@@ -68,7 +71,7 @@ local function put(enKey, ruTmpl)
 end
 
 for key, ru in pairs(RU) do
-    local en = _G[key]
+    local en = CoARU_EN(key)
     if type(en) == "string" and type(ru) == "string" and en ~= ""
         and not unsupported(en) and not unsupported(ru) then
         if en:find("%%c") then
@@ -100,7 +103,7 @@ local function buildErrors()
     if ERR_EXACT then return end
     ERR_EXACT, ERR_PATTERNS = {}, {}
     for key, ru in pairs(CoARU_ErrorsRU or {}) do
-        local en = _G[key]
+        local en = CoARU_EN(key)
         if type(en) == "string" and en ~= "" then
             if not en:find("%%") then
                 ERR_EXACT[en] = ru
@@ -137,6 +140,21 @@ function CoARU_TranslateError(msg)
             end))
         end
     end
+
+    if CoARU_QuestLookup then
+        local ok, ru = pcall(CoARU_QuestLookup, msg)
+
+        if ok and ru then
+            if CoARU_LocalizeNames then
+                local lok, lru = pcall(CoARU_LocalizeNames, ru)
+                if lok and lru then ru = lru end
+            end
+            return ru
+        end
+    end
+    if #msg > 12 and CoARU_NoteMiss and not (CoARU_HasCyrillic and CoARU_HasCyrillic(msg)) then
+        CoARU_NoteMiss("uierror", msg)
+    end
     return nil
 end
 
@@ -151,10 +169,101 @@ local function hookErrors()
     end
 end
 
+local function hookChat()
+    for i = 1, (NUM_CHAT_WINDOWS or 10) do
+        local f = _G["ChatFrame" .. i]
+        if f and f.AddMessage and not f.__coaruLogHooked then
+            f.__coaruLogHooked = true
+            local orig = f.AddMessage
+            f.AddMessage = function(self, msg, ...)
+                local ok, ru = pcall(CoARU_FixLogLine, msg)
+                return orig(self, (ok and ru) or msg, ...)
+            end
+        end
+    end
+end
+
 local errWaiter = CreateFrame("Frame")
 errWaiter:RegisterEvent("PLAYER_LOGIN")
-errWaiter:SetScript("OnEvent", function() hookErrors() end)
+errWaiter:SetScript("OnEvent", function() hookErrors() hookChat() end)
 hookErrors()
+hookChat()
+
+local LABEL_RULES = {
+    { "^Equip: ", "Если на персонаже: " },
+    { "^Use: ", "Использование: " },
+    { "^Chance on hit: ", "Шанс при попадании: " },
+    { "^Set: ", "Комплект: " },
+}
+
+function CoARU_TranslateItemLabel(line)
+    if not line or line == "" then return nil end
+    local color = line:match("^(|[cC]%x%x%x%x%x%x%x%x)")
+    local plain = line
+    if color then
+        plain = plain:gsub("^|[cC]%x%x%x%x%x%x%x%x", "", 1):gsub("|r$", "")
+    end
+    if not plain:find("[\208\209]") then return nil end
+    for _, rule in ipairs(LABEL_RULES) do
+        if plain:find(rule[1]) then
+            local ru = (plain:gsub(rule[1], rule[2], 1))
+            if color then ru = color .. ru .. "|r" end
+            return ru
+        end
+    end
+
+    for _, rule in ipairs(LABEL_RULES) do
+        local head, tail = plain:match("^(" .. rule[2] .. ")(.+)$")
+
+        if head and tail and tail:find("%a%a%a") and not tail:find("[\208\209]")
+           and CoARU_TranslateBlock then
+            local ok, res = pcall(CoARU_TranslateBlock, nil, tail)
+            if ok and res and res ~= tail then
+                local ru = head .. res
+                if color then ru = color .. ru .. "|r" end
+                return ru
+            end
+        end
+    end
+    return nil
+end
+
+function CoARU_TranslateItemLabelBody(line)
+    if not line or line == "" or not CoARU_TranslateBlock then return nil end
+    local color = line:match("^(|[cC]%x%x%x%x%x%x%x%x)")
+    local plain = line
+    if color then
+        plain = plain:gsub("^|[cC]%x%x%x%x%x%x%x%x", "", 1):gsub("|r$", "")
+    end
+
+    if plain:find("[\208\209]") then return nil end
+    for _, rule in ipairs(LABEL_RULES) do
+        local tail = plain:match(rule[1] .. "(.+)$")
+        if tail and tail:find("%a%a%a") then
+            local ok, res = pcall(CoARU_TranslateBlock, nil, tail)
+            if ok and res and res ~= tail then
+                local ru = rule[2] .. res
+                if color then ru = color .. ru .. "|r" end
+                return ru
+            end
+        end
+    end
+    return nil
+end
+
+function CoARU_ItemNameLine(plain)
+    if not plain or not CoARU_ItemNameEN then return nil end
+    local ru = CoARU_ItemNameEN[plain]
+    if ru then return ru end
+    local pad, core = plain:match("^(%s+)(%S.-)%s*$")
+    ru = core and CoARU_ItemNameEN[core]
+    if ru then return pad .. ru end
+
+    local name, cnt = plain:match("^(%S.-)%s*(%(%d+/%d+%))$")
+    ru = name and CoARU_ItemNameEN[name]
+    if ru then return ru .. " " .. cnt end
+    return nil
+end
 
 local PREFIX_RULES = {
     { "^Unique%-Equipped: ", "Уникальная экипировка: " },
@@ -179,7 +288,34 @@ local PATTERN_RULES = {
         "^<Made by (.-)>$",
         "<Изготовитель: {1}>",
     },
+
+    { "^Alt%-Click to send this item to (.-)%.$",
+      "Alt-клик, чтобы отправить предмет игроку {1}." },
+    { "^Recipe could be learned by: (.+)$",
+      "Рецепт может изучить: {1}" },
+
+    { "^Cost: (%d+)%s*$",           "Стоимость: {1}" },
+    { "^Class Points: (%d+)%s*$",   "Очки класса: {1}" },
+    { "^Ability Essence Spent: (%d+)%s*$",
+      "Потрачено эссенции способностей: {1}" },
+    { "^(%d+)%% Threat$",           "{1}% угрозы" },
 }
+
+for _, s in ipairs({
+    { "Fire",   "от магии огня" },
+    { "Frost",  "от магии льда" },
+    { "Shadow", "от магии тьмы" },
+    { "Nature", "от магии природы" },
+    { "Arcane", "от тайной магии" },
+    { "Holy",   "от светлой магии" },
+    { "Physical", "физического урона" },
+}) do
+    PATTERN_RULES[#PATTERN_RULES + 1] = {
+        "^%+(%d+) %- (%d+) " .. s[1] .. " Damage$",
+        s[1] == "Physical" and ("+{1}-{2} ед. " .. s[2])
+                            or ("+{1}-{2} ед. урона " .. s[2]),
+    }
+end
 
 function CoARU_TranslateItemPrefix(line)
     if not line then return nil end
@@ -187,6 +323,15 @@ function CoARU_TranslateItemPrefix(line)
     local plain = line
     if color then
         plain = plain:gsub("^|[cC]%x%x%x%x%x%x%x%x", "", 1):gsub("|r$", "")
+    end
+
+    do
+        local head, tail = plain:match("^(%a[%a%-' ]-) (%(.*)$")
+        local sru = head and SUB[head]
+        if sru then
+            local out = sru .. " " .. tail
+            return color and (color .. out .. "|r") or out
+        end
     end
 
     local ru
@@ -207,7 +352,22 @@ function CoARU_TranslateItemPrefix(line)
             end
         end
     end
+
+    if not ru and CoARU_ItemNameLine and plain:find("[\208\209]") then
+        local head, name, cnt = plain:match("^(.-[\208\209][^:]*: )([^:]+) (%(%d+%))$")
+        if head and name and not name:find("[\208\209]") then
+            local rn = CoARU_ItemNameLine(name)
+            if rn then ru = head .. rn .. " " .. cnt end
+        end
+    end
     if not ru then return nil end
+
+    if CoARU_ItemNameLine then
+        ru = (ru:gsub("^(.-: )(.+) (%(%d+%))$", function(head, name, cnt)
+            local rn = CoARU_ItemNameLine(name)
+            return head .. (rn or name) .. " " .. cnt
+        end))
+    end
     if color then ru = color .. ru .. "|r" end
     return ru
 end

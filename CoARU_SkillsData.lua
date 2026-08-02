@@ -500,7 +500,7 @@ CoARU_SkillRU = {
     ["Blades"] = "Клинки",
     ["Blood Elf Racial"] = "Расовые способности эльфа крови",
     ["Bows"] = "Луки",
-    ["Bushcraft"] = "Выживание",
+    ["Bushcraft"] = "Лесное ремесло",
     ["Cloth"] = "Ткань",
     ["Cooking"] = "Кулинария",
     ["Crossbows"] = "Арбалеты",
@@ -568,6 +568,6 @@ CoARU_SkillRU = {
     ["Undead Horsemanship"] = "Верховая езда нежити",
     ["Wands"] = "Жезлы",
     ["Wolf Riding"] = "Верховая езда на волках",
-    ["Woodcutting"] = "Заготовка древесины",
-    ["Woodworking"] = "Деревообработка",
+    ["Woodcutting"] = "Лесозаготовка",
+    ["Woodworking"] = "Столярное дело",
 }

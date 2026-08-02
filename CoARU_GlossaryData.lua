@@ -7443,19 +7443,19 @@ if t[1021162]==nil then t[1021162]="Боевой шлем могучего" end
 if t[1021183]==nil then t[1021183]="Нагрудный доспех роковой брони" end
 if t[102130]==nil then t[102130]="Украшенная Банковская Расписка" end
 if t[102131]==nil then t[102131]="Сертификат Хранилища Гильдии" end
-if t[102178]==nil then t[102178]="Камень отступления: Бастион Аллерии" end
-if t[102180]==nil then t[102180]="Камень отступления: Кенарийский оплот" end
-if t[102182]==nil then t[102182]="Камень отступления: Вечная роща" end
-if t[102184]==nil then t[102184]="Камень отступления: Гарадар" end
-if t[102185]==nil then t[102185]="Камень отступления: Оплот Чести" end
-if t[102186]==nil then t[102186]="Камень отступления: Огри'ла" end
-if t[102187]==nil then t[102187]="Камень отступления: Прибежище Оребор" end
-if t[102189]==nil then t[102189]="Камень отступления: Деревня Призрачной Луны" end
-if t[102190]==nil then t[102190]="Камень отступления: Форт Камнеломов" end
-if t[102193]==nil then t[102193]="Камень отступления: Телаар" end
-if t[102197]==nil then t[102197]="Камень отступления: Траллмар" end
-if t[102200]==nil then t[102200]="Камень отступления: Цитадель Громового Молота" end
-if t[102201]==nil then t[102201]="Камень отступления: Забра'джин" end
+if t[102178]==nil then t[102178]="Камень возвращения: Бастион Аллерии" end
+if t[102180]==nil then t[102180]="Камень возвращения: Кенарийский оплот" end
+if t[102182]==nil then t[102182]="Камень возвращения: Вечная роща" end
+if t[102184]==nil then t[102184]="Камень возвращения: Гарадар" end
+if t[102185]==nil then t[102185]="Камень возвращения: Оплот Чести" end
+if t[102186]==nil then t[102186]="Камень возвращения: Огри'ла" end
+if t[102187]==nil then t[102187]="Камень возвращения: Прибежище Оребор" end
+if t[102189]==nil then t[102189]="Камень возвращения: Деревня Призрачной Луны" end
+if t[102190]==nil then t[102190]="Камень возвращения: Форт Камнеломов" end
+if t[102193]==nil then t[102193]="Камень возвращения: Телаар" end
+if t[102197]==nil then t[102197]="Камень возвращения: Траллмар" end
+if t[102200]==nil then t[102200]="Камень возвращения: Цитадель Громового Молота" end
+if t[102201]==nil then t[102201]="Камень возвращения: Забра'джин" end
 if t[102309]==nil then t[102309]="Пояс преданности" end
 if t[102326]==nil then t[102326]="Нагрудный доспех роковой брони" end
 if t[1024114]==nil then t[1024114]="Одеяния магистра" end
@@ -12171,8 +12171,8 @@ if t[117552]==nil then t[117552]="Набедренники гладиатора 
 if t[117554]==nil then t[117554]="Мундир гладиатора из шкуры кодо" end
 if t[117558]==nil then t[117558]="Ламеллярные набедренники гладиатора" end
 if t[117561]==nil then t[117561]="Кожаный шлем гладиатора" end
-if t[1175643]==nil then t[1175643]="Камень отступления: Кенарийский оплот" end
-if t[1175644]==nil then t[1175644]="Камень отступления: Вечная роща" end
+if t[1175643]==nil then t[1175643]="Камень возвращения: Кенарийский оплот" end
+if t[1175644]==nil then t[1175644]="Камень возвращения: Вечная роща" end
 if t[1178962]==nil then t[1178962]="Пропитанный кровью пергамент: Зомби из Утробы" end
 if t[1179001]==nil then t[1179001]="Камень Призывателя: Сквернорожденный Архидемон" end
 if t[1179002]==nil then t[1179002]="Камень призывателя: Ледопламенный Архидемон" end
@@ -12597,10 +12597,10 @@ if t[1334547]==nil then t[1334547]="Воинский пояс натиска" en
 if t[1334555]==nil then t[1334555]="Шнурованный ремень Громового Сердца" end
 if t[1334569]==nil then t[1334569]="Кованые сапоги натиска" end
 if t[134984]==nil then t[134984]="Украшенная Банковская Расписка" end
-if t[134987]==nil then t[134987]="Книга мастеров (карманный справочник по профессиям)" end
+if t[134987]==nil then t[134987]="Книга мастеров" end
 if t[134993]==nil then t[134993]="Бесконечный Тайник Меггакрута" end
-if t[134996]==nil then t[134996]="Камень отступления: Оргриммар" end
-if t[134997]==nil then t[134997]="Камень отступления: Штормград" end
+if t[134996]==nil then t[134996]="Камень возвращения: Оргриммар" end
+if t[134997]==nil then t[134997]="Камень возвращения: Штормград" end
 if t[135060]==nil then t[135060]="Зелье Опыта" end
 if t[13563]==nil then t[13563]="Рукавицы из драконьей чешуи" end
 if t[1378765]==nil then t[1378765]="Кольцо матроса" end
@@ -12774,17 +12774,17 @@ if t[172777]==nil then t[172777]="Лабрисса Падшего Гладиат
 if t[1732425]==nil then t[1732425]="Кираса искупления" end
 if t[1732426]==nil then t[1732426]="Рукавицы искупления" end
 if t[1732429]==nil then t[1732429]="Наплечные щитки искупления" end
-if t[1777023]==nil then t[1777023]="Камень отступления: Остров Йоджамба" end
-if t[1777024]==nil then t[1777024]="Камень отступления: Лагерь Мохаче" end
-if t[1777025]==nil then t[1777025]="Камень отступления: Крепость Оперенной Луны" end
-if t[1777026]==nil then t[1777026]="Камень отступления: Крепость Стражей Пустоты" end
-if t[1777027]==nil then t[1777027]="Камень отступления: Каменор" end
+if t[1777023]==nil then t[1777023]="Камень возвращения: Остров Йоджамба" end
+if t[1777024]==nil then t[1777024]="Камень возвращения: Лагерь Мохаче" end
+if t[1777025]==nil then t[1777025]="Камень возвращения: Крепость Оперенной Луны" end
+if t[1777026]==nil then t[1777026]="Камень возвращения: Крепость Стражей Пустоты" end
+if t[1777027]==nil then t[1777027]="Камень возвращения: Каменор" end
 if t[1777031]==nil then t[1777031]="Полумесяц с черепом черного пламени" end
 if t[1777032]==nil then t[1777032]="Полумесяц “Око Тюремщика”" end
-if t[1777036]==nil then t[1777036]="Камень отступления: Заоблачный пик" end
-if t[1777037]==nil then t[1777037]="Камень отступления: Деревня Сломанного Клыка" end
-if t[1777043]==nil then t[1777043]="Камень отступления: Деревня Ночных Охотников" end
-if t[1777044]==nil then t[1777044]="Камень отступления: Высота Найджела" end
+if t[1777036]==nil then t[1777036]="Камень возвращения: Заоблачный пик" end
+if t[1777037]==nil then t[1777037]="Камень возвращения: Деревня Сломанного Клыка" end
+if t[1777043]==nil then t[1777043]="Камень возвращения: Деревня Ночных Охотников" end
+if t[1777044]==nil then t[1777044]="Камень возвращения: Высота Найджела" end
 if t[1777062]==nil then t[1777062]="Воплощение: Чумной Медведь (коричневый)" end
 if t[1777135]==nil then t[1777135]="Мачете Просветленного Ботаника" end
 if t[1777176]==nil then t[1777176]="Дуговой клинок ночнорожденных" end
@@ -12807,52 +12807,52 @@ if t[1777411]==nil then t[1777411]="Освобожденный Элемента�
 if t[1777424]==nil then t[1777424]="Свисток повелителя зверей: Белый медведь" end
 if t[1777999]==nil then t[1777999]="Кровавый кувшин" end
 if t[177925]==nil then t[177925]="Безупречное Облачение Жуткого Писца" end
-if t[1780011]==nil then t[1780011]="Камень отступления: Таланаар" end
-if t[1780012]==nil then t[1780012]="Камень отступления: Застава Вольного Ветра" end
-if t[1780013]==nil then t[1780013]="Камень отступления: Остров Терамор" end
-if t[1780014]==nil then t[1780014]="Камень отступления: Деревня Гиблотопь" end
-if t[1780015]==nil then t[1780015]="Камень отступления: Лагерь Таурахо" end
-if t[1780016]==nil then t[1780016]="Камень отступления: Перекресток" end
-if t[1780017]==nil then t[1780017]="Камень отступления: Лагерь Мор'шан" end
-if t[1780018]==nil then t[1780018]="Камень отступления: Приют у Солнечного Камня" end
-if t[1780019]==nil then t[1780019]="Камень отступления: Пик Каменного Когтя" end
-if t[1780021]==nil then t[1780021]="Камень отступления: Застава Талрендис" end
-if t[1780022]==nil then t[1780022]="Камень отступления: Валормок" end
-if t[1780023]==nil then t[1780023]="Камень отступления: Изумрудное святилище" end
-if t[1780024]==nil then t[1780024]="Камень отступления: Аубердин" end
-if t[1780025]==nil then t[1780025]="Камень отступления: Роща Древних" end
-if t[1780026]==nil then t[1780026]="Камень отступления: Астранаар" end
-if t[1780027]==nil then t[1780027]="Камень отступления: Лесная Песнь" end
-if t[1780028]==nil then t[1780028]="Камень отступления: Застава Расщепленного Дерева" end
-if t[1780029]==nil then t[1780029]="Камень отступления: Форт Зорам'гар" end
-if t[1780030]==nil then t[1780030]="Камень отступления: Темнолесье" end
-if t[1780031]==nil then t[1780031]="Камень отступления: Лесопилка Восточной долины" end
-if t[1780032]==nil then t[1780032]="Камень отступления: Сторожевой холм" end
-if t[1780034]==nil then t[1780034]="Камень отступления: Лагерь Повстанцев" end
-if t[1780035]==nil then t[1780035]="Камень отступления: Экспедиция Эрнестуэя" end
-if t[1780036]==nil then t[1780036]="Камень отступления: Приозерье" end
-if t[1780037]==nil then t[1780037]="Камень отступления: Дозор Моргана" end
-if t[1780038]==nil then t[1780038]="Камень отступления: Каргат" end
-if t[1780039]==nil then t[1780039]="Камень отступления: Раскопки Сталекрута" end
-if t[1780040]==nil then t[1780040]="Камень отступления: Приют Странников" end
-if t[1780041]==nil then t[1780041]="Камень отступления: Телсамар" end
-if t[1780042]==nil then t[1780042]="Камень отступления: Гавань Менетил" end
-if t[1780043]==nil then t[1780043]="Камень отступления: Опорный пункт" end
-if t[1780044]==nil then t[1780044]="Камень отступления: Павший Молот" end
-if t[1780045]==nil then t[1780045]="Камень отступления: Бухта Фальдира" end
-if t[1780046]==nil then t[1780046]="Камень отступления: Южнобережье" end
-if t[1780047]==nil then t[1780047]="Камень отступления: Мельница Таррен" end
-if t[1780048]==nil then t[1780048]="Камень отступления: Гробница" end
-if t[1780049]==nil then t[1780049]="Камень отступления: Каранос" end
-if t[1780050]==nil then t[1780050]="Камень отступления: Брилл" end
-if t[1780051]==nil then t[1780051]="Камень отступления: Златоземье" end
-if t[1780052]==nil then t[1780052]="Камень отступления: Доланаар" end
-if t[1780053]==nil then t[1780053]="Камень отступления: Деревня Сен'джин" end
-if t[1780054]==nil then t[1780054]="Камень отступления: Колючий Холм" end
-if t[1780055]==nil then t[1780055]="Камень отступления: Деревня Кровавого Копыта" end
-if t[1780056]==nil then t[1780056]="Камень отступления: Пламенный Крест" end
-if t[1780057]==nil then t[1780057]="Камень отступления: Прибежище" end
-if t[1780059]==nil then t[1780059]="Камень отступления: Бастион" end
+if t[1780011]==nil then t[1780011]="Камень возвращения: Таланаар" end
+if t[1780012]==nil then t[1780012]="Камень возвращения: Застава Вольного Ветра" end
+if t[1780013]==nil then t[1780013]="Камень возвращения: Остров Терамор" end
+if t[1780014]==nil then t[1780014]="Камень возвращения: Деревня Гиблотопь" end
+if t[1780015]==nil then t[1780015]="Камень возвращения: Лагерь Таурахо" end
+if t[1780016]==nil then t[1780016]="Камень возвращения: Перекресток" end
+if t[1780017]==nil then t[1780017]="Камень возвращения: Лагерь Мор'шан" end
+if t[1780018]==nil then t[1780018]="Камень возвращения: Приют у Солнечного Камня" end
+if t[1780019]==nil then t[1780019]="Камень возвращения: Пик Каменного Когтя" end
+if t[1780021]==nil then t[1780021]="Камень возвращения: Застава Талрендис" end
+if t[1780022]==nil then t[1780022]="Камень возвращения: Валормок" end
+if t[1780023]==nil then t[1780023]="Камень возвращения: Изумрудное святилище" end
+if t[1780024]==nil then t[1780024]="Камень возвращения: Аубердин" end
+if t[1780025]==nil then t[1780025]="Камень возвращения: Роща Древних" end
+if t[1780026]==nil then t[1780026]="Камень возвращения: Астранаар" end
+if t[1780027]==nil then t[1780027]="Камень возвращения: Лесная Песнь" end
+if t[1780028]==nil then t[1780028]="Камень возвращения: Застава Расщепленного Дерева" end
+if t[1780029]==nil then t[1780029]="Камень возвращения: Форт Зорам'гар" end
+if t[1780030]==nil then t[1780030]="Камень возвращения: Темнолесье" end
+if t[1780031]==nil then t[1780031]="Камень возвращения: Лесопилка Восточной долины" end
+if t[1780032]==nil then t[1780032]="Камень возвращения: Сторожевой холм" end
+if t[1780034]==nil then t[1780034]="Камень возвращения: Лагерь Повстанцев" end
+if t[1780035]==nil then t[1780035]="Камень возвращения: Экспедиция Эрнестуэя" end
+if t[1780036]==nil then t[1780036]="Камень возвращения: Приозерье" end
+if t[1780037]==nil then t[1780037]="Камень возвращения: Дозор Моргана" end
+if t[1780038]==nil then t[1780038]="Камень возвращения: Каргат" end
+if t[1780039]==nil then t[1780039]="Камень возвращения: Раскопки Сталекрута" end
+if t[1780040]==nil then t[1780040]="Камень возвращения: Приют Странников" end
+if t[1780041]==nil then t[1780041]="Камень возвращения: Телсамар" end
+if t[1780042]==nil then t[1780042]="Камень возвращения: Гавань Менетил" end
+if t[1780043]==nil then t[1780043]="Камень возвращения: Опорный пункт" end
+if t[1780044]==nil then t[1780044]="Камень возвращения: Павший Молот" end
+if t[1780045]==nil then t[1780045]="Камень возвращения: Бухта Фальдира" end
+if t[1780046]==nil then t[1780046]="Камень возвращения: Южнобережье" end
+if t[1780047]==nil then t[1780047]="Камень возвращения: Мельница Таррен" end
+if t[1780048]==nil then t[1780048]="Камень возвращения: Гробница" end
+if t[1780049]==nil then t[1780049]="Камень возвращения: Каранос" end
+if t[1780050]==nil then t[1780050]="Камень возвращения: Брилл" end
+if t[1780051]==nil then t[1780051]="Камень возвращения: Златоземье" end
+if t[1780052]==nil then t[1780052]="Камень возвращения: Доланаар" end
+if t[1780053]==nil then t[1780053]="Камень возвращения: Деревня Сен'джин" end
+if t[1780054]==nil then t[1780054]="Камень возвращения: Колючий Холм" end
+if t[1780055]==nil then t[1780055]="Камень возвращения: Деревня Кровавого Копыта" end
+if t[1780056]==nil then t[1780056]="Камень возвращения: Пламенный Крест" end
+if t[1780057]==nil then t[1780057]="Камень возвращения: Прибежище" end
+if t[1780059]==nil then t[1780059]="Камень возвращения: Бастион" end
 if t[1816893]==nil then t[1816893]="Короткие штаны Ярости Бури" end
 if t[1816895]==nil then t[1816895]="Кушак Ярости Бури" end
 if t[1816903]==nil then t[1816903]="Пояс Ярости Бури" end
@@ -12874,8 +12874,8 @@ if t[183706]==nil then t[183706]="Оплечье Придворных Клинк
 if t[184088]==nil then t[184088]="Кривой палец Сабрины" end
 if t[184238]==nil then t[184238]="Одеяния темного заклинателя" end
 if t[18570]==nil then t[18570]="Атласные одеяния полевого врача" end
-if t[1880045]==nil then t[1880045]="Камень отступления: Златоземье" end
-if t[1880046]==nil then t[1880046]="Камень отступления: Колючий Холм" end
+if t[1880045]==nil then t[1880045]="Камень возвращения: Златоземье" end
+if t[1880046]==nil then t[1880046]="Камень возвращения: Колючий Холм" end
 if t[1903513]==nil then t[1903513]="Алтарь Мистических Зачарований" end
 if t[191257]==nil then t[191257]="Облачение Ночного Придворного" end
 if t[1913515]==nil then t[1913515]="Портативная Доска Глашатая (Альянс)" end
@@ -21853,7 +21853,7 @@ if t[745641]==nil then t[745641]="Оплечье пророчества" end
 if t[745642]==nil then t[745642]="Оплечье пророчества" end
 if t[745643]==nil then t[745643]="Оплечье пророчества" end
 if t[745644]==nil then t[745644]="Оплечье пророчества" end
-if t[750750]==nil then t[750750]="Книга мастеров (карманный справочник по профессиям)" end
+if t[750750]==nil then t[750750]="Книга мастеров" end
 if t[760006]==nil then t[760006]="Оплечье Придворных Клинков" end
 if t[760014]==nil then t[760014]="Кристалл с пряностями Томалин" end
 if t[760019]==nil then t[760019]="Трофей Перерожденного Костяного Лорда" end
@@ -21889,25 +21889,25 @@ if t[77037]==nil then t[77037]="Головной убор духовного п�
 if t[77038]==nil then t[77038]="Перчатки духовного пути" end
 if t[770415]==nil then t[770415]="Солнцезащитные очки со стразами" end
 if t[77042]==nil then t[77042]="Шлем духовного пути" end
-if t[777000]==nil then t[777000]="Камень отступления: Оргриммар" end
-if t[777001]==nil then t[777001]="Камень отступления: Подгород" end
-if t[777002]==nil then t[777002]="Камень отступления: Громовой Утес" end
-if t[777003]==nil then t[777003]="Камень отступления: Штормград" end
-if t[777004]==nil then t[777004]="Камень отступления: Дарнас" end
-if t[777005]==nil then t[777005]="Камень отступления: Стальгорн" end
-if t[777007]==nil then t[777007]="Камень отступления: Круговзор" end
-if t[777008]==nil then t[777008]="Камень отступления: Пиратская бухта" end
-if t[777009]==nil then t[777009]="Камень отступления: Прибамбасск" end
-if t[777010]==nil then t[777010]="Камень отступления: Кабестан" end
-if t[777011]==nil then t[777011]="Камень отступления: Лагерь Братства Тория" end
-if t[777012]==nil then t[777012]="Камень отступления: Шестермуть" end
-if t[777013]==nil then t[777013]="Камень отступления: Крепость Кенария" end
-if t[777014]==nil then t[777014]="Камень отступления: Луносвет" end
-if t[777016]==nil then t[777016]="Камень отступления: Шаттрат" end
-if t[777017]==nil then t[777017]="Камень отступления: Зона 52" end
-if t[777020]==nil then t[777020]="Камень отступления: Арена Гурубаши" end
-if t[777021]==nil then t[777021]="Камень отступления: Застава Отравленной Крови" end
-if t[777023]==nil then t[777023]="Камень отступления: Азшара" end
+if t[777000]==nil then t[777000]="Камень возвращения: Оргриммар" end
+if t[777001]==nil then t[777001]="Камень возвращения: Подгород" end
+if t[777002]==nil then t[777002]="Камень возвращения: Громовой Утес" end
+if t[777003]==nil then t[777003]="Камень возвращения: Штормград" end
+if t[777004]==nil then t[777004]="Камень возвращения: Дарнас" end
+if t[777005]==nil then t[777005]="Камень возвращения: Стальгорн" end
+if t[777007]==nil then t[777007]="Камень возвращения: Круговзор" end
+if t[777008]==nil then t[777008]="Камень возвращения: Пиратская бухта" end
+if t[777009]==nil then t[777009]="Камень возвращения: Прибамбасск" end
+if t[777010]==nil then t[777010]="Камень возвращения: Кабестан" end
+if t[777011]==nil then t[777011]="Камень возвращения: Лагерь Братства Тория" end
+if t[777012]==nil then t[777012]="Камень возвращения: Шестермуть" end
+if t[777013]==nil then t[777013]="Камень возвращения: Крепость Кенария" end
+if t[777014]==nil then t[777014]="Камень возвращения: Луносвет" end
+if t[777016]==nil then t[777016]="Камень возвращения: Шаттрат" end
+if t[777017]==nil then t[777017]="Камень возвращения: Зона 52" end
+if t[777020]==nil then t[777020]="Камень возвращения: Арена Гурубаши" end
+if t[777021]==nil then t[777021]="Камень возвращения: Застава Отравленной Крови" end
+if t[777023]==nil then t[777023]="Камень возвращения: Азшара" end
 if t[777910]==nil then t[777910]="Колода Раздачи Дилера" end
 if t[777998]==nil then t[777998]="Свиток Торговца" end
 if t[777999]==nil then t[777999]="Кровавый кувшин" end
@@ -22121,7 +22121,7 @@ if t[820121]==nil then t[820121]="Доспехи великих завоеван
 if t[820139]==nil then t[820139]="Боевой доспех чудища" end
 if t[8210120]==nil then t[8210120]="Тлеющие крылья" end
 if t[8210191]==nil then t[8210191]="Двуручный меч Претендента" end
-if t[8210192]==nil then t[8210192]="Алтарь Мистических Зачарований Мастера Сборки (не разделяет время перезарядки с другими алтарями)" end
+if t[8210192]==nil then t[8210192]="Алтарь мистических чар мастера сборки" end
 if t[8210197]==nil then t[8210197]="Предначертанный Мистический Алтарь Зачарования" end
 if t[82313]==nil then t[82313]="Знамя Черного Клинка" end
 if t[82314]==nil then t[82314]="Морознокованая руна отступления" end
@@ -23181,7 +23181,7 @@ if t[96694]==nil then t[96694]="Хауберк знахаря" end
 if t[97318]==nil then t[97318]="Путеводитель по завоеванию Азерота" end
 if t[97333]==nil then t[97333]="Рекомендации Серебряного Рассвета" end
 if t[97390]==nil then t[97390]="Желчнозубый костеглод" end
-if t[975001]==nil then t[975001]="Базарный жетон" end
+if t[975001]==nil then t[975001]="Жетон базара" end
 if t[975153]==nil then t[975153]="Доблестные перчатки ледяного огня" end
 if t[975154]==nil then t[975154]="Доблестные перчатки ледяного огня" end
 if t[975155]==nil then t[975155]="Доблестные перчатки ледяного огня" end
@@ -23697,3 +23697,2745 @@ end
 CoARU_ItemName = CoARU_ItemName or {}
 gi1(CoARU_ItemName)
 gi2(CoARU_ItemName)
+local function gt1(t)
+if t["Ability Purge"]==nil then t["Ability Purge"]="Сброс способностей" end
+if t["Abyssal Emissary's Crystalline Garments"]==nil then t["Abyssal Emissary's Crystalline Garments"]="Кристальные одеяния посланника Бездны" end
+if t["Abyssborn Squire Attire"]==nil then t["Abyssborn Squire Attire"]="Одеяния рожденного в Бездне оруженосца" end
+if t["Accursed Wrathsteed"]==nil then t["Accursed Wrathsteed"]="Проклятый скакун гнева" end
+if t["Adaptive Tabard"]==nil then t["Adaptive Tabard"]="Адаптивная накидка" end
+if t["Adumbral Blink"]==nil then t["Adumbral Blink"]="Сумеречный скачок" end
+if t["Adventurer's Scaled Armor"]==nil then t["Adventurer's Scaled Armor"]="Чешуйчатые доспехи искателя приключений" end
+if t["Aegis Greaves"]==nil then t["Aegis Greaves"]="Наголенники покровительства" end
+if t["Aegis Handguards"]==nil then t["Aegis Handguards"]="Боевые рукавицы покровительства" end
+if t["Ahn'Kahar Blood Hunter's Tunic"]==nil then t["Ahn'Kahar Blood Hunter's Tunic"]="Мундир ан'кахарского охотника за кровью" end
+if t["Alabaster Armor"]==nil then t["Alabaster Armor"]="Алабастровые доспехи" end
+if t["Alabaster Ore-namental Attire"]==nil then t["Alabaster Ore-namental Attire"]="Алабастровые украшенные породой одеяния" end
+if t["Alchemist's Hat - Alchemy Speed Bonus"]==nil then t["Alchemist's Hat - Alchemy Speed Bonus"]="Шляпа алхимика - Бонус к скорости алхимии" end
+if t["Alliance Footman Set"]==nil then t["Alliance Footman Set"]="Набор пехотинца Альянса" end
+if t["Alliance Gladiator's Cache"]==nil then t["Alliance Gladiator's Cache"]="Сундук гладиатора Альянса" end
+if t["Alliance Knight Set"]==nil then t["Alliance Knight Set"]="Набор рыцаря Альянса" end
+if t["Amaranth Garments of the Fallen Sorcerer"]==nil then t["Amaranth Garments of the Fallen Sorcerer"]="Амарантовые одеяния павшего чародея" end
+if t["Amber Ruthless Gladiator's Felweave Armorset"]==nil then t["Amber Ruthless Gladiator's Felweave Armorset"]="Янтарные доспехи беспощадного гладиатора из ткани Скверны" end
+if t["Amethyst Chi-Ji's Battlegear"]==nil then t["Amethyst Chi-Ji's Battlegear"]="Боевое облачение аметистового Чи-Цзи" end
+if t["Amethyst Ore-namental Attire"]==nil then t["Amethyst Ore-namental Attire"]="Аметистовые украшенные породой одеяния" end
+if t["Ancient Garments of the Relentless Tracker"]==nil then t["Ancient Garments of the Relentless Tracker"]="Древние одеяния неумолимого следопыта" end
+if t["Ancient Set of the Old Gods"]==nil then t["Ancient Set of the Old Gods"]="Древние облачения Древних Богов" end
+if t["Ancient Tuskarr Horn"]==nil then t["Ancient Tuskarr Horn"]="Древний клыкаррский рог" end
+if t["Angelic Wind Shear"]==nil then t["Angelic Wind Shear"]="Ангельский пронизывающий ветер" end
+if t["Apprentice Riding Tome"]==nil then t["Apprentice Riding Tome"]="Том верховой езды (ученик)" end
+if t["Aqua-Pulse Trident"]==nil then t["Aqua-Pulse Trident"]="Трезубец пульсирующих вод" end
+if t["Aquamarine Garments of the Fallen Sorcerer"]==nil then t["Aquamarine Garments of the Fallen Sorcerer"]="Аквамариновые одеяния павшего чародея" end
+if t["Ar Relic"]==nil then t["Ar Relic"]="Реликвия \"Ар" end
+if t["Arcana Shard Spire"]==nil then t["Arcana Shard Spire"]="Посох с зачарованным кристаллом" end
+if t["Arcane Orb"]==nil then t["Arcane Orb"]="Чародейский шар" end
+if t["Arcane Rune of Retreat"]==nil then t["Arcane Rune of Retreat"]="Руна отступления тайной магии" end
+if t["Arcane Tempest's Regalia"]==nil then t["Arcane Tempest's Regalia"]="Регалии магического урагана" end
+if t["Arcanist Belt"]==nil then t["Arcanist Belt"]="Пояс чародея" end
+if t["Arcanist Bindings"]==nil then t["Arcanist Bindings"]="Наручники чародея" end
+if t["Arcanist Boots"]==nil then t["Arcanist Boots"]="Сапоги чародея" end
+if t["Arcanite Regalia of Infused Earth"]==nil then t["Arcanite Regalia of Infused Earth"]="Арканитовые регалии наполненной земли" end
+if t["Arcanoweave Boots"]==nil then t["Arcanoweave Boots"]="Сапоги из тайной ткани" end
+if t["Arcanoweave Robe"]==nil then t["Arcanoweave Robe"]="Одеяние из тайной ткани" end
+if t["Archon Cosmetic Set"]==nil then t["Archon Cosmetic Set"]="Косметический набор архонта" end
+if t["Archon's Vestments"]==nil then t["Archon's Vestments"]="Облачение архонта" end
+if t["Arctic Bear Bundle"]==nil then t["Arctic Bear Bundle"]="Набор белого медведя" end
+if t["Arctic Belt"]==nil then t["Arctic Belt"]="Арктический пояс" end
+if t["Arctic Boots"]==nil then t["Arctic Boots"]="Арктические сапоги" end
+if t["Arctic Chestpiece"]==nil then t["Arctic Chestpiece"]="Арктический нагрудник" end
+if t["Arctic Riding Wolf"]==nil then t["Arctic Riding Wolf"]="Полярный верховой волк" end
+if t["Argent Dawn Commendations"]==nil then t["Argent Dawn Commendations"]="Рекомендации Серебряного Рассвета" end
+if t["Armor of Might"]==nil then t["Armor of Might"]="Броня мощи" end
+if t["Armored Frostwolf"]==nil then t["Armored Frostwolf"]="Бронированный Северный Волк" end
+if t["Arsenal of Wrath"]==nil then t["Arsenal of Wrath"]="Арсенал гнева" end
+if t["Ashamane's Vestment of Rebirth"]==nil then t["Ashamane's Vestment of Rebirth"]="Одеяние возрождения Пеплошкурой" end
+if t["Aspiring Aspirant's Vestments (Item Set)"]==nil then t["Aspiring Aspirant's Vestments (Item Set)"]="Одеяния Устремленного Претендента (полный набор трансмогрификации)" end
+if t["Assassination Armor"]==nil then t["Assassination Armor"]="Доспехи ликвидации" end
+if t["Aura of Experience"]==nil then t["Aura of Experience"]="Аура опыта" end
+if t["Aura of Honor"]==nil then t["Aura of Honor"]="Аура чести" end
+if t["Aura of Reputation"]==nil then t["Aura of Reputation"]="Аура репутации" end
+if t["Aureatel Mythic Radiant Lightbringer Scaled Armor"]==nil then t["Aureatel Mythic Radiant Lightbringer Scaled Armor"]="Чешуйчатые доспехи сияющего несущего свет из мифического ордена Ауретелей" end
+if t["Auric Timeless Attire"]==nil then t["Auric Timeless Attire"]="Золотые вневременные одеяния" end
+if t["Autumnal Matriarch's Ceremonial Regalia"]==nil then t["Autumnal Matriarch's Ceremonial Regalia"]="Церемониальные регалии осеннего матриарха" end
+if t["Avatar Raiment"]==nil then t["Avatar Raiment"]="Одежды аватары" end
+if t["Avenger's Breastplate"]==nil then t["Avenger's Breastplate"]="Кираса Мстителя" end
+if t["Azshara Conqueror's Aegis Faceguard"]==nil then t["Azshara Conqueror's Aegis Faceguard"]="Большой шлем покровительства завоевателя Азшары" end
+if t["Azshara Conqueror's Aegis Helm"]==nil then t["Azshara Conqueror's Aegis Helm"]="Шлем покровительства завоевателя Азшары" end
+if t["Azshara Conqueror's Aegis Legguards"]==nil then t["Azshara Conqueror's Aegis Legguards"]="Набедренники покровительства завоевателя Азшары" end
+if t["Azshara Conqueror's Aegis Legplates"]==nil then t["Azshara Conqueror's Aegis Legplates"]="Ножные латы покровительства завоевателя Азшары" end
+if t["Azshara Conqueror's Aegis Spaulders"]==nil then t["Azshara Conqueror's Aegis Spaulders"]="Наплеч покровительства завоевателя Азшары" end
+if t["Azshara Conqueror's Aegis Tunic"]==nil then t["Azshara Conqueror's Aegis Tunic"]="Мундир покровительства завоевателя Азшары" end
+if t["Azshara Conqueror's Circlet of Sanctification"]==nil then t["Azshara Conqueror's Circlet of Sanctification"]="Венец посвящения завоевателя Азшары" end
+if t["Azshara Conqueror's Darkruned Chestguard"]==nil then t["Azshara Conqueror's Darkruned Chestguard"]="Темнорунический нагрудный доспех завоевателя Азшары" end
+if t["Azshara Conqueror's Darkruned Helmet"]==nil then t["Azshara Conqueror's Darkruned Helmet"]="Темнорунический полный шлем завоевателя Азшары" end
+if t["Azshara Conqueror's Darkruned Legplates"]==nil then t["Azshara Conqueror's Darkruned Legplates"]="Темнорунические ножные латы завоевателя Азшары" end
+if t["Azshara Conqueror's Darkruned Shoulderplates"]==nil then t["Azshara Conqueror's Darkruned Shoulderplates"]="Темнорунические латные наплечники завоевателя Азшары" end
+if t["Azshara Conqueror's Deathbringer Gloves"]==nil then t["Azshara Conqueror's Deathbringer Gloves"]="Перчатки несущего смерть завоевателя Азшары" end
+if t["Azshara Conqueror's Deathbringer Hood"]==nil then t["Azshara Conqueror's Deathbringer Hood"]="Капюшон несущего смерть завоевателя Азшары" end
+if t["Azshara Conqueror's Deathbringer Leggings"]==nil then t["Azshara Conqueror's Deathbringer Leggings"]="Поножи несущего смерть завоевателя Азшары" end
+if t["Azshara Conqueror's Deathbringer Shoulderpads"]==nil then t["Azshara Conqueror's Deathbringer Shoulderpads"]="Латные наплечные пластины несущего смерть завоевателя Азшары" end
+if t["Azshara Conqueror's Gloves of Sanctification"]==nil then t["Azshara Conqueror's Gloves of Sanctification"]="Перчатки посвящения завоевателя Азшары" end
+if t["Azshara Conqueror's Handwraps of Sanctification"]==nil then t["Azshara Conqueror's Handwraps of Sanctification"]="Повязки посвящения завоевателя Азшары" end
+if t["Azshara Conqueror's Kirin Tor Hood"]==nil then t["Azshara Conqueror's Kirin Tor Hood"]="Кирин-торский капюшон завоевателя Азшары" end
+if t["Azshara Conqueror's Kirin Tor Shoulderpads"]==nil then t["Azshara Conqueror's Kirin Tor Shoulderpads"]="Кирин-торские наплечные пластины завоевателя Азшары" end
+if t["Azshara Conqueror's Nightsong Gloves"]==nil then t["Azshara Conqueror's Nightsong Gloves"]="Перчатки завоевателя ночной песни Азшары" end
+if t["Azshara Conqueror's Nightsong Headguard"]==nil then t["Azshara Conqueror's Nightsong Headguard"]="Наголовник завоевателя ночной песни Азшары" end
+if t["Azshara Conqueror's Nightsong Leggings"]==nil then t["Azshara Conqueror's Nightsong Leggings"]="Поножи завоевателя ночной песни Азшары" end
+if t["Azshara Conqueror's Nightsong Legguards"]==nil then t["Azshara Conqueror's Nightsong Legguards"]="Набедренники завоевателя ночной песни Азшары" end
+if t["Azshara Conqueror's Nightsong Raiments"]==nil then t["Azshara Conqueror's Nightsong Raiments"]="Облачение завоевателя ночной песни Азшары" end
+if t["Azshara Conqueror's Nightsong Trousers"]==nil then t["Azshara Conqueror's Nightsong Trousers"]="Брюки завоевателя ночной песни Азшары" end
+if t["Azshara Conqueror's Raiments of Sanctification"]==nil then t["Azshara Conqueror's Raiments of Sanctification"]="Одеяния посвящения завоевателя Азшары" end
+if t["Azshara Conqueror's Scourgestalker Tunic"]==nil then t["Azshara Conqueror's Scourgestalker Tunic"]="Кираса преследующего Плеть завоевателя Азшары" end
+if t["Azshara Conqueror's Shoulderpads of Sanctification"]==nil then t["Azshara Conqueror's Shoulderpads of Sanctification"]="Наплечные пластины посвящения завоевателя Азшары" end
+if t["Azshara Conqueror's Siegebreaker Handguards"]==nil then t["Azshara Conqueror's Siegebreaker Handguards"]="Осадные боевые рукавицы завоевателя Азшары" end
+if t["Azshara Conqueror's Siegebreaker Legplates"]==nil then t["Azshara Conqueror's Siegebreaker Legplates"]="Осадные ножные латы завоевателя Азшары" end
+if t["Azshara Conqueror's Terrorblade Helmet"]==nil then t["Azshara Conqueror's Terrorblade Helmet"]="Клинковый полный шлем завоевателя Азшары" end
+if t["Azshara Conqueror's Terrorblade Pauldrons"]==nil then t["Azshara Conqueror's Terrorblade Pauldrons"]="Клинковое наплечье завоевателя Азшары" end
+if t["Azshara Conqueror's Worldbreaker Handguards"]==nil then t["Azshara Conqueror's Worldbreaker Handguards"]="Боевые рукавицы разрушающего миры завоевателя Азшары" end
+if t["Azshara Conqueror's Worldbreaker Shoulderpads"]==nil then t["Azshara Conqueror's Worldbreaker Shoulderpads"]="Наплечные пластины раскалывающего мир завоевателя Азшары" end
+if t["Azshara Conqueror's Worldbreaker Tunic"]==nil then t["Azshara Conqueror's Worldbreaker Tunic"]="Мундир раскалывающего мир завоевателя Азшары" end
+if t["Azure Chi-Ji's Battlegear"]==nil then t["Azure Chi-Ji's Battlegear"]="Лазурное боевое облачение Чи-Цзи" end
+if t["Azure Eagletalon Battlegear"]==nil then t["Azure Eagletalon Battlegear"]="Боевое облачение лазурного орлиного когтя" end
+if t["Azure Torchfiend's Set"]==nil then t["Azure Torchfiend's Set"]="Лазурный набор огнебеса" end
+if t["Azureblaze Regalia of Infused Earth"]==nil then t["Azureblaze Regalia of Infused Earth"]="Лазурно-огненные регалии наполненной земли" end
+if t["Baleful Waves of the Forgotten Reservoir"]==nil then t["Baleful Waves of the Forgotten Reservoir"]="Гибельные волны забытого резервуара" end
+if t["Balespider's Hood"]==nil then t["Balespider's Hood"]="Капюшон паучьей боли" end
+if t["Band of Veiled Shadows"]==nil then t["Band of Veiled Shadows"]="Кольцо сокрытых теней" end
+if t["Battle Horn"]==nil then t["Battle Horn"]="Боевой рог" end
+if t["Battlecast Pants"]==nil then t["Battlecast Pants"]="Штаны боевого заклятья" end
+if t["Battlegear of Radiant Glory (Black)"]==nil then t["Battlegear of Radiant Glory (Black)"]="Боевой доспех блистательной славы (Черное)" end
+if t["Battlegear of Radiant Glory (Gold)"]==nil then t["Battlegear of Radiant Glory (Gold)"]="Боевой доспех блистательной славы (Золотое)" end
+if t["Battlegear of Radiant Glory (Silver)"]==nil then t["Battlegear of Radiant Glory (Silver)"]="Боевой доспех блистательной славы (Серебряное)" end
+if t["Battlegear of Radiant Glory (Valhalla Gold)"]==nil then t["Battlegear of Radiant Glory (Valhalla Gold)"]="Боевой доспех блистательной славы (Золото Вальхаллы)" end
+if t["Battlegear of Unyielding Strength"]==nil then t["Battlegear of Unyielding Strength"]="Снаряжение неукротимой силы" end
+if t["Battlegear of the Red Crane"]==nil then t["Battlegear of the Red Crane"]="Боевой доспех Красного Журавля" end
+if t["Battlemage's Attire"]==nil then t["Battlemage's Attire"]="Наряд боевого мага" end
+if t["Battleplate of Radiant Glory"]==nil then t["Battleplate of Radiant Glory"]="Боевой доспех блистательной славы" end
+if t["Battleplate of the Highlord"]==nil then t["Battleplate of the Highlord"]="Боевой доспех Верховного лорда" end
+if t["Battleplate of the Molten Giant"]==nil then t["Battleplate of the Molten Giant"]="Боевой доспех огненного великана" end
+if t["Battleweaver's Armor"]==nil then t["Battleweaver's Armor"]="Доспехи ткача битв" end
+if t["Bazaar Token"]==nil then t["Bazaar Token"]="Жетон базара" end
+if t["Beast Lord Armor"]==nil then t["Beast Lord Armor"]="Доспехи повелителя зверей" end
+if t["Beast Lord Handguards"]==nil then t["Beast Lord Handguards"]="Боевые рукавицы Владыки зверей" end
+if t["Beast Lord Helm"]==nil then t["Beast Lord Helm"]="Шлем владыки зверей" end
+if t["Beast Lord Mantle"]==nil then t["Beast Lord Mantle"]="Мантия Владыки зверей" end
+if t["Beastmaster's Cap"]==nil then t["Beastmaster's Cap"]="Шапка повелителя зверей" end
+if t["Beastmaster's Gloves"]==nil then t["Beastmaster's Gloves"]="Перчатки повелителя зверей" end
+if t["Beastmaster's Whistle: Arctic Bear"]==nil then t["Beastmaster's Whistle: Arctic Bear"]="Свисток повелителя зверей: Белый медведь" end
+if t["Beastmaster's Whistle: Green Shale Spider"]==nil then t["Beastmaster's Whistle: Green Shale Spider"]="Свисток повелителя зверей: Зеленый сланцевый паук" end
+if t["Beastmaster's Whistle: Hamlet"]==nil then t["Beastmaster's Whistle: Hamlet"]="Свисток повелителя зверей: Гамлета" end
+if t["Beastmaster's Whistle: Orange Shale Spider"]==nil then t["Beastmaster's Whistle: Orange Shale Spider"]="Свисток повелителя зверей: Оранжевый сланцевый паук" end
+if t["Beastmaster's Whistle: Purple Fire Spider"]==nil then t["Beastmaster's Whistle: Purple Fire Spider"]="Свисток повелителя зверей: Фиолетовый огненный паук" end
+if t["Beastmaster's Whistle: Purple Shale Spider"]==nil then t["Beastmaster's Whistle: Purple Shale Spider"]="Свисток повелителя зверей: Фиолетовый сланцевый паук" end
+if t["Beastmaster's Whistle: Spectral Gryphon"]==nil then t["Beastmaster's Whistle: Spectral Gryphon"]="Свисток повелителя зверей: Призрачный грифон" end
+if t["Beastmaster's Whistle: Spectral Spiked Crab"]==nil then t["Beastmaster's Whistle: Spectral Spiked Crab"]="Свисток повелителя зверей: Призрачный шипастый краб" end
+if t["Beastmaster's Whistle: Spectral Wyvern"]==nil then t["Beastmaster's Whistle: Spectral Wyvern"]="Свисток повелителя зверей: Призрачная виверна" end
+if t["Beastmaster's Whistle: Terrorpene"]==nil then t["Beastmaster's Whistle: Terrorpene"]="Свисток повелителя зверей: Калентий" end
+if t["Beastmaster's Whistle: Zebra Lion Seal"]==nil then t["Beastmaster's Whistle: Zebra Lion Seal"]="Свисток повелителя зверей: Зебровый тюлев" end
+if t["Beaststalker's Pants"]==nil then t["Beaststalker's Pants"]="Штаны загонщика" end
+if t["Behemoth Battleplate Armor"]==nil then t["Behemoth Battleplate Armor"]="Боевой доспех чудища" end
+if t["Belt of Might"]==nil then t["Belt of Might"]="Пояс мощи" end
+if t["Belt of Transcendence"]==nil then t["Belt of Transcendence"]="Пояс превосходства" end
+if t["Belt of the Fang"]==nil then t["Belt of the Fang"]="Пояс клыка" end
+if t["Berserker's Abyssal Tattoos"]==nil then t["Berserker's Abyssal Tattoos"]="Бездонные татуировки берсерка" end
+if t["Berserker's Mauve Tattoos"]==nil then t["Berserker's Mauve Tattoos"]="Лиловые татуировки берсерка" end
+if t["Berserker's Mossy Tattoos"]==nil then t["Berserker's Mossy Tattoos"]="Мшистые татуировки берсерка" end
+if t["Berserker's Pale Tattoos"]==nil then t["Berserker's Pale Tattoos"]="Бледные татуировки берсерка" end
+if t["Berserker's Scarlet Tattoos"]==nil then t["Berserker's Scarlet Tattoos"]="Алые татуировки берсерка" end
+if t["Berserker's Sunfire Tattoos"]==nil then t["Berserker's Sunfire Tattoos"]="Татуировки берсерка из солнечного огня" end
+if t["Big Battle Bear"]==nil then t["Big Battle Bear"]="Большой Боевой Медведь" end
+if t["Biletooth Gnasher"]==nil then t["Biletooth Gnasher"]="Желчнозубый костеглод" end
+if t["Black Dragonscale Breastplate"]==nil then t["Black Dragonscale Breastplate"]="Кираса из чешуи черного дракона" end
+if t["Black Dragonscale Shoulders"]==nil then t["Black Dragonscale Shoulders"]="Наплечники из чешуи черного дракона" end
+if t["Black Duskweave Wristwraps"]==nil then t["Black Duskweave Wristwraps"]="Черные напульсники из сумеречной ткани" end
+if t["Black Eyeglasses"]==nil then t["Black Eyeglasses"]="Черное пенсне" end
+if t["Black Riding Wolf"]==nil then t["Black Riding Wolf"]="Черный верховой волк" end
+if t["Black Stallion"]==nil then t["Black Stallion"]="Вороной жеребец" end
+if t["Black War Wolf"]==nil then t["Black War Wolf"]="Черный боевой волк" end
+if t["Blackened Defias Belt"]==nil then t["Blackened Defias Belt"]="Черненый пояс Братства Справедливости" end
+if t["Blackened Defias Boots"]==nil then t["Blackened Defias Boots"]="Черненые сапоги Братства Справедливости" end
+if t["Blackfang Battleweave Helmet"]==nil then t["Blackfang Battleweave Helmet"]="Шлем Черного клыка" end
+if t["Blackflame Skull Crescent"]==nil then t["Blackflame Skull Crescent"]="Полумесяц с черепом черного пламени" end
+if t["Blackrock Clan Battle Regalia"]==nil then t["Blackrock Clan Battle Regalia"]="Боевая регалия клана Черной горы" end
+if t["Blacksmith's Hat - Blacksmithing Speed Bonus"]==nil then t["Blacksmith's Hat - Blacksmithing Speed Bonus"]="Шляпа кузнеца - Бонус скорости кузнечного дела" end
+if t["Blacksteel Battleboar"]==nil then t["Blacksteel Battleboar"]="Закованный в вороненую сталь боевой вепрь" end
+if t["Blademaster's Requiem"]==nil then t["Blademaster's Requiem"]="Реквием мастера клинка" end
+if t["Bladesworn Conjurer's Armor"]==nil then t["Bladesworn Conjurer's Armor"]="Доспехи заклинателя клятвенных клинков" end
+if t["Blessed Breastplate of Undead Slaying"]==nil then t["Blessed Breastplate of Undead Slaying"]="Благословенная кираса истребления нежити" end
+if t["Blessed Greaves of Undead Slaying"]==nil then t["Blessed Greaves of Undead Slaying"]="Благословенные наголенники истребления нежити" end
+if t["Blessed Grips of Undead Slaying"]==nil then t["Blessed Grips of Undead Slaying"]="Благословенные захваты истребления нежити" end
+if t["Blessed Handguards of Undead Slaying"]==nil then t["Blessed Handguards of Undead Slaying"]="Благословенные боевые рукавицы истребления нежити" end
+if t["Blessed Seraph's Radiance"]==nil then t["Blessed Seraph's Radiance"]="Сияние благословленного серафима" end
+if t["Blessed Shoulderpads of Undead Slaying"]==nil then t["Blessed Shoulderpads of Undead Slaying"]="Благословенные наплечные пластины истребления нежити" end
+if t["Blessed Silk Garb"]==nil then t["Blessed Silk Garb"]="Благословленное шелковое одеяние" end
+if t["Blessed Trousers of Undead Cleansing"]==nil then t["Blessed Trousers of Undead Cleansing"]="Благословенные брюки искоренения нежити" end
+if t["Blighted Shadewalker's Silence"]==nil then t["Blighted Shadewalker's Silence"]="Токсичное безмолвие тенехода" end
+if t["Blightweaver's Myconic Shell"]==nil then t["Blightweaver's Myconic Shell"]="Миконическая оболочка пагубного ткача" end
+if t["Blood Guard's Dragonhide Treads"]==nil then t["Blood Guard's Dragonhide Treads"]="Ботфорты кровавого стража из драконьей шкуры" end
+if t["Blood Guard's Leather Treads"]==nil then t["Blood Guard's Leather Treads"]="Кожаные ботфорты кровавого стража" end
+if t["Blood Guard's Leather Vices"]==nil then t["Blood Guard's Leather Vices"]="Кожаные перчатки кровавого стража" end
+if t["Blood Guard's Leather Walkers"]==nil then t["Blood Guard's Leather Walkers"]="Кожаные башмаки кровавого стража" end
+if t["Blood Guard's Plate Boots"]==nil then t["Blood Guard's Plate Boots"]="Латные сапоги кровавого стража" end
+if t["Blood Guard's Satin Handwrap"]==nil then t["Blood Guard's Satin Handwrap"]="Атласные повязки Кровавого стража" end
+if t["Blood Soaked Vellum: Abomination Lord"]==nil then t["Blood Soaked Vellum: Abomination Lord"]="Пропитанный кровью пергамент: Поганище-владыка" end
+if t["Blood Soaked Vellum: Aranakk (Green)"]==nil then t["Blood Soaked Vellum: Aranakk (Green)"]="Пропитанный кровью пергамент: Аранакк (Зеленый)" end
+if t["Blood Soaked Vellum: Bleeding Horror"]==nil then t["Blood Soaked Vellum: Bleeding Horror"]="Пропитанный кровью пергамент: Кровоточащий ужас" end
+if t["Blood Soaked Vellum: Drustvar Beastman (Red)"]==nil then t["Blood Soaked Vellum: Drustvar Beastman (Red)"]="Пропитанный кровью пергамент: Друстварский зверолов (Красный)" end
+if t["Blood Soaked Vellum: Greater Banshee (Blue)"]==nil then t["Blood Soaked Vellum: Greater Banshee (Blue)"]="Пропитанный кровью пергамент: Большая банши (синий)" end
+if t["Blood Soaked Vellum: King Dazar"]==nil then t["Blood Soaked Vellum: King Dazar"]="Пропитанный кровью пергамент: Король Дазар" end
+if t["Blood Soaked Vellum: Maldraxxian Necromancer (Green)"]==nil then t["Blood Soaked Vellum: Maldraxxian Necromancer (Green)"]="Пропитанный кровью пергамент: Малдраксийский некромант (Зеленый)" end
+if t["Blood Soaked Vellum: Maldraxxus Gladiator (Black/Bronze)"]==nil then t["Blood Soaked Vellum: Maldraxxus Gladiator (Black/Bronze)"]="Пропитанный кровью пергамент: Малдраксийский гладиатор (черный/бронзовый)" end
+if t["Blood Soaked Vellum: Maldraxxus Skeleton (Black)"]==nil then t["Blood Soaked Vellum: Maldraxxus Skeleton (Black)"]="Пропитанный кровью пергамент: Малдраксийский скелет (черный)" end
+if t["Blood Soaked Vellum: Maw Shade"]==nil then t["Blood Soaked Vellum: Maw Shade"]="Пропитанный кровью пергамент: Тень Утробы" end
+if t["Blood Soaked Vellum: Maw Zombie"]==nil then t["Blood Soaked Vellum: Maw Zombie"]="Пропитанный кровью пергамент: Зомби из Утробы" end
+if t["Blood Soaked Vellum: Monkey Skeleton Captain"]==nil then t["Blood Soaked Vellum: Monkey Skeleton Captain"]="Пропитанный кровью пергамент: Обезьяний Скелет-Капитан" end
+if t["Bloodflame Elemental Triad Cache"]==nil then t["Bloodflame Elemental Triad Cache"]="Сундук триединства кроваво-огненного элементаля" end
+if t["Bloodforged Dreadful Gladiator's Ironskin Helm"]==nil then t["Bloodforged Dreadful Gladiator's Ironskin Helm"]="Кровокованный и покрытый железом шлем жуткого гладиатора" end
+if t["Bloodgorged Crawg"]==nil then t["Bloodgorged Crawg"]="Напившийся Крови Крог" end
+if t["Bloodied Raiment of the Risen Nightmare"]==nil then t["Bloodied Raiment of the Risen Nightmare"]="Окровавленные одеяния восставшего кошмара" end
+if t["Bloodmage Robe"]==nil then t["Bloodmage Robe"]="Одеяние волшебника крови" end
+if t["Bloodmail Gauntlets"]==nil then t["Bloodmail Gauntlets"]="Кровнолатные рукавицы" end
+if t["Bloodsoul Shoulders"]==nil then t["Bloodsoul Shoulders"]="Наплечники кровавого духа" end
+if t["Bloodstone Ore-namental Attire"]==nil then t["Bloodstone Ore-namental Attire"]="Украшенные кроваво-каменной породой одеяния" end
+if t["Bloodthirsty Charscale Belt"]==nil then t["Bloodthirsty Charscale Belt"]="Залитый кровью пояс из обугленной чешуи" end
+if t["Bloodthirsty Charscale Boots"]==nil then t["Bloodthirsty Charscale Boots"]="Залитые кровью сапоги из обугленной чешуи" end
+if t["Bloodthirsty Charscale Chest"]==nil then t["Bloodthirsty Charscale Chest"]="Залитый кровью нагрудник из обугленной чешуи" end
+if t["Bloodthirsty Charscale Helm"]==nil then t["Bloodthirsty Charscale Helm"]="Залитый кровью шлем из обугленной чешуи" end
+if t["Bloodthirsty Charscale Legs"]==nil then t["Bloodthirsty Charscale Legs"]="Залитые кровью поножи из обугленной чешуи" end
+if t["Bloodthirsty Charscale Shoulders"]==nil then t["Bloodthirsty Charscale Shoulders"]="Залитые кровью наплечники из обугленной чешуи" end
+if t["Bloodthirsty Dragonscale Belt"]==nil then t["Bloodthirsty Dragonscale Belt"]="Залитый кровью пояс из чешуи дракона" end
+if t["Bloodthirsty Dragonscale Chest"]==nil then t["Bloodthirsty Dragonscale Chest"]="Залитый кровью нагрудник из чешуи дракона" end
+if t["Bloodthirsty Dragonscale Gloves"]==nil then t["Bloodthirsty Dragonscale Gloves"]="Залитые кровью перчатки из чешуи дракона" end
+if t["Bloodthirsty Dragonscale Legs"]==nil then t["Bloodthirsty Dragonscale Legs"]="Залитые кровью поножи из чешуи дракона" end
+if t["Bloodthirsty Embersilk Boots"]==nil then t["Bloodthirsty Embersilk Boots"]="Залитые кровью доспехи из угольного шелка" end
+if t["Bloodthirsty Embersilk Robe"]==nil then t["Bloodthirsty Embersilk Robe"]="Залитое кровью одеяние из угольного шелка" end
+if t["Bloodthirsty Fireweave Belt"]==nil then t["Bloodthirsty Fireweave Belt"]="Залитый кровью пояс из огнепряжи" end
+if t["Bloodthirsty Fireweave Gloves"]==nil then t["Bloodthirsty Fireweave Gloves"]="Залитые кровью перчатки из огнепряжи" end
+if t["Bloodthirsty Fireweave Robe"]==nil then t["Bloodthirsty Fireweave Robe"]="Залитое кровью одеяние из огнепряжи" end
+if t["Bloodthirsty Gladiator's Chain"]==nil then t["Bloodthirsty Gladiator's Chain"]="Плетеное одеяние кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Dragonhide"]==nil then t["Bloodthirsty Gladiator's Dragonhide"]="Драконья шкура кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Dragonhide Gloves"]==nil then t["Bloodthirsty Gladiator's Dragonhide Gloves"]="Перчатки кровожадного гладиатора из драконьей шкуры" end
+if t["Bloodthirsty Gladiator's Dragonhide Helm"]==nil then t["Bloodthirsty Gladiator's Dragonhide Helm"]="Шлем кровожадного гладиатора из драконьей шкуры" end
+if t["Bloodthirsty Gladiator's Dragonhide Spaulders"]==nil then t["Bloodthirsty Gladiator's Dragonhide Spaulders"]="Наплеч кровожадного гладиатора из драконьей шкуры" end
+if t["Bloodthirsty Gladiator's Dreadplate"]==nil then t["Bloodthirsty Gladiator's Dreadplate"]="Жуткие латы кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Dreadplate Legguards"]==nil then t["Bloodthirsty Gladiator's Dreadplate Legguards"]="Жуткие латные набедренники кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Felweave"]==nil then t["Bloodthirsty Gladiator's Felweave"]="Покров Скверны кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Felweave Cowl"]==nil then t["Bloodthirsty Gladiator's Felweave Cowl"]="Клобук кровожадного гладиатора из ткани Скверны" end
+if t["Bloodthirsty Gladiator's Felweave Raiment"]==nil then t["Bloodthirsty Gladiator's Felweave Raiment"]="Облачение кровожадного гладиатора из ткани Скверны" end
+if t["Bloodthirsty Gladiator's Leather Armor"]==nil then t["Bloodthirsty Gladiator's Leather Armor"]="Кожаная броня кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Leather Tunic"]==nil then t["Bloodthirsty Gladiator's Leather Tunic"]="Кожаный мундир кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Linked Gauntlets"]==nil then t["Bloodthirsty Gladiator's Linked Gauntlets"]="Клепаные рукавицы кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Mail Spaulders"]==nil then t["Bloodthirsty Gladiator's Mail Spaulders"]="Кольчужный наплеч кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Mooncloth Gloves"]==nil then t["Bloodthirsty Gladiator's Mooncloth Gloves"]="Перчатки кровожадного гладиатора из луноткани" end
+if t["Bloodthirsty Gladiator's Mooncloth Leggings"]==nil then t["Bloodthirsty Gladiator's Mooncloth Leggings"]="Поножи кровожадного гладиатора из луноткани" end
+if t["Bloodthirsty Gladiator's Ornamented Legplates"]==nil then t["Bloodthirsty Gladiator's Ornamented Legplates"]="Украшенные ножные латы гладиатора" end
+if t["Bloodthirsty Gladiator's Plate"]==nil then t["Bloodthirsty Gladiator's Plate"]="Латы кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Ringmail"]==nil then t["Bloodthirsty Gladiator's Ringmail"]="Первобытный доспех кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Ringmail Armor"]==nil then t["Bloodthirsty Gladiator's Ringmail Armor"]="Кольчатый доспех кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Ringmail Helm"]==nil then t["Bloodthirsty Gladiator's Ringmail Helm"]="Кольчатый шлем кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Ringmail Spaulders"]==nil then t["Bloodthirsty Gladiator's Ringmail Spaulders"]="Кольчатый наплеч кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Satin Armor"]==nil then t["Bloodthirsty Gladiator's Satin Armor"]="Атласный доспех кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Satin Robe"]==nil then t["Bloodthirsty Gladiator's Satin Robe"]="Атласное одеяние кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Scaled"]==nil then t["Bloodthirsty Gladiator's Scaled"]="Чешуйчатый доспех кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Scaled Gauntlets"]==nil then t["Bloodthirsty Gladiator's Scaled Gauntlets"]="Чешуйчатые рукавицы кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Scaled Helm"]==nil then t["Bloodthirsty Gladiator's Scaled Helm"]="Чешуйчатый шлем кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Silk"]==nil then t["Bloodthirsty Gladiator's Silk"]="Шелковые регалии кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Silk Robe"]==nil then t["Bloodthirsty Gladiator's Silk Robe"]="Шелковое одеяние кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Silk Trousers"]==nil then t["Bloodthirsty Gladiator's Silk Trousers"]="Шелковые брюки кровожадного гладиатора" end
+if t["Bloodthirsty Gladiator's Wyrmhide Gloves"]==nil then t["Bloodthirsty Gladiator's Wyrmhide Gloves"]="Перчатки кровожадного гладиатора из шкуры змея" end
+if t["Bloodthirsty Gladiator's Wyrmhide Spaulders"]==nil then t["Bloodthirsty Gladiator's Wyrmhide Spaulders"]="Наплеч кровожадного гладиатора из шкуры змея" end
+if t["Bloodthirsty Leather Boots"]==nil then t["Bloodthirsty Leather Boots"]="Залитые кровью кожаные сапоги" end
+if t["Bloodthirsty Leather Chest"]==nil then t["Bloodthirsty Leather Chest"]="Залитый кровью кожаный нагрудник" end
+if t["Bloodthirsty Ornate Pyrium Boots"]==nil then t["Bloodthirsty Ornate Pyrium Boots"]="Залитые кровью изысканные колчедановые сапоги" end
+if t["Bloodthirsty Ornate Pyrium Helm"]==nil then t["Bloodthirsty Ornate Pyrium Helm"]="Залитый кровью изысканный колчедановый шлем" end
+if t["Bloodthirsty Ornate Pyrium Legguards"]==nil then t["Bloodthirsty Ornate Pyrium Legguards"]="Залитые кровью изысканные колчедановые набедренники" end
+if t["Bloodthirsty Ornate Pyrium Shoulders"]==nil then t["Bloodthirsty Ornate Pyrium Shoulders"]="Залитые кровью изысканные колчедановые наплечники" end
+if t["Bloodthirsty Pyrium Helm"]==nil then t["Bloodthirsty Pyrium Helm"]="Залитый кровью колчедановый шлем" end
+if t["Bloodthirsty Wyrmhide Chest"]==nil then t["Bloodthirsty Wyrmhide Chest"]="Залитый кровью нагрудник из шкуры змея" end
+if t["Bloodvine Boots"]==nil then t["Bloodvine Boots"]="Сапоги кровавой лозы" end
+if t["Bloodvine Vest"]==nil then t["Bloodvine Vest"]="Жилет кровавой лозы" end
+if t["Bloody Assassin's Cosmetic Set"]==nil then t["Bloody Assassin's Cosmetic Set"]="Косметический набор кровавого убийцы" end
+if t["Bloody Jar"]==nil then t["Bloody Jar"]="Кровавый кувшин" end
+if t["Bloody King Set"]==nil then t["Bloody King Set"]="Доспехи Кровавого Короля" end
+if t["Blossom Celebrant's Cornsilk Apparel"]==nil then t["Blossom Celebrant's Cornsilk Apparel"]="Кукурузный костюм весеннего торжества" end
+if t["Blossom Celebrant's Cornsilk Collection"]==nil then t["Blossom Celebrant's Cornsilk Collection"]="Кукурузное одеяние весеннего торжества" end
+if t["Blossom Celebrant's Dandelion Apparel"]==nil then t["Blossom Celebrant's Dandelion Apparel"]="Одуванчиковый костюм весеннего торжества" end
+if t["Blossom Celebrant's Dandelion Collection"]==nil then t["Blossom Celebrant's Dandelion Collection"]="Одуванчиковое одеяние весеннего торжества" end
+if t["Blossom Celebrant's Lavender Apparel"]==nil then t["Blossom Celebrant's Lavender Apparel"]="Лавандовый костюм весеннего торжества" end
+if t["Blossom Celebrant's Lavender Collection"]==nil then t["Blossom Celebrant's Lavender Collection"]="Лавандовое одеяние весеннего торжества" end
+if t["Blossom Celebrant's Turquoise Apparel"]==nil then t["Blossom Celebrant's Turquoise Apparel"]="Бирюзовый костюм весеннего торжества" end
+if t["Blossom Celebrant's Turquoise Collection"]==nil then t["Blossom Celebrant's Turquoise Collection"]="Бирюзовое одеяние весеннего торжества" end
+if t["Blue Brewfest Hat"]==nil then t["Blue Brewfest Hat"]="Синяя шляпа Хмельного фестиваля" end
+if t["Blue Christmas Vestments"]==nil then t["Blue Christmas Vestments"]="Синее рождественское облачение" end
+if t["Blue Dragonscale Breastplate"]==nil then t["Blue Dragonscale Breastplate"]="Кираса из чешуи синего дракона" end
+if t["Blue Mechanostrider"]==nil then t["Blue Mechanostrider"]="Синий механодолгоног" end
+if t["Blue Witchwood Stag"]==nil then t["Blue Witchwood Stag"]="Голубой ведьмин олень Чародрев" end
+if t["Bonescythe Bracers"]==nil then t["Bonescythe Bracers"]="Наручи костяной косы" end
+if t["Bonzo Bolt"]==nil then t["Bonzo Bolt"]="Болт Бонзо" end
+if t["Book of Artisans"]==nil then t["Book of Artisans"]="Книга мастеров" end
+if t["Book of Ascension"]==nil then t["Book of Ascension"]="Книга Вознесения" end
+if t["Boots of The Five Thunders"]==nil then t["Boots of The Five Thunders"]="Сапоги пяти громов" end
+if t["Bound Elements Vestments"]==nil then t["Bound Elements Vestments"]="Облачение скованных стихий" end
+if t["Bracelets of Wrath"]==nil then t["Bracelets of Wrath"]="Браслеты гнева" end
+if t["Breastplate of Heroism"]==nil then t["Breastplate of Heroism"]="Кираса героизма" end
+if t["Breastplate of Radiant Glory"]==nil then t["Breastplate of Radiant Glory"]="Кираса блистательной славы" end
+if t["Breastplate of Wrath"]==nil then t["Breastplate of Wrath"]="Кираса гнева" end
+if t["Breeches of Absolution"]==nil then t["Breeches of Absolution"]="Брюки отпущения грехов" end
+if t["Brown Brewfest Hat"]==nil then t["Brown Brewfest Hat"]="Коричневая шляпа Хмельного фестиваля" end
+if t["Brown Horse"]==nil then t["Brown Horse"]="Гнедой конь" end
+if t["Brown Riding Wolf"]==nil then t["Brown Riding Wolf"]="Бурый верховой волк" end
+if t["Brutal Gladiator's Felweave Cowl"]==nil then t["Brutal Gladiator's Felweave Cowl"]="Клобук жестокого гладиатора из ткани Скверны" end
+if t["Brutal Gladiator's Lamellar Helm"]==nil then t["Brutal Gladiator's Lamellar Helm"]="Ламеллярный шлем жестокого гладиатора" end
+if t["Brutal Gladiator's Lamellar Shoulders"]==nil then t["Brutal Gladiator's Lamellar Shoulders"]="Ламеллярные наплечники жестокого гладиатора" end
+if t["Brutal Gladiator's Leather Helm"]==nil then t["Brutal Gladiator's Leather Helm"]="Кожаный шлем жестокого гладиатора" end
+if t["Brutal Gladiator's Linked Armor"]==nil then t["Brutal Gladiator's Linked Armor"]="Клепаный доспех жестокого гладиатора" end
+if t["Brutal Gladiator's Linked Leggings"]==nil then t["Brutal Gladiator's Linked Leggings"]="Клепаные поножи жестокого гладиатора" end
+if t["Brutal Gladiator's Linked Spaulders"]==nil then t["Brutal Gladiator's Linked Spaulders"]="Клепаный наплеч жестокого гладиатора" end
+if t["Brutal Gladiator's Mail Armor"]==nil then t["Brutal Gladiator's Mail Armor"]="Кольчужный доспех жестокого гладиатора" end
+if t["Brutal Gladiator's Mail Spaulders"]==nil then t["Brutal Gladiator's Mail Spaulders"]="Кольчужный наплеч жестокого гладиатора" end
+if t["Brutal Gladiator's Ornamented Chestguard"]==nil then t["Brutal Gladiator's Ornamented Chestguard"]="Украшенный нагрудный доспех жестокого гладиатора" end
+if t["Brutal Gladiator's Ornamented Gloves"]==nil then t["Brutal Gladiator's Ornamented Gloves"]="Украшенные перчатки жестокого гладиатора" end
+if t["Brutal Gladiator's Plate Chestpiece"]==nil then t["Brutal Gladiator's Plate Chestpiece"]="Латный нагрудник жестокого гладиатора" end
+if t["Brutal Gladiator's Plate Gauntlets"]==nil then t["Brutal Gladiator's Plate Gauntlets"]="Латные рукавицы жестокого гладиатора" end
+if t["Brutal Gladiator's Plate Helm"]==nil then t["Brutal Gladiator's Plate Helm"]="Латный шлем жестокого гладиатора" end
+if t["Brutal Gladiator's Ringmail Armor"]==nil then t["Brutal Gladiator's Ringmail Armor"]="Кольчатый доспех жестокого гладиатора" end
+if t["Brutal Gladiator's Ringmail Leggings"]==nil then t["Brutal Gladiator's Ringmail Leggings"]="Кольчатые поножи жестокого гладиатора" end
+if t["Brutal Gladiator's Satin Mantle"]==nil then t["Brutal Gladiator's Satin Mantle"]="Атласное оплечье жестокого гладиатора" end
+if t["Brutal Gladiator's Scaled Chestpiece"]==nil then t["Brutal Gladiator's Scaled Chestpiece"]="Чешуйчатый нагрудник жестокого гладиатора" end
+if t["Brutal Gladiator's Scaled Helm"]==nil then t["Brutal Gladiator's Scaled Helm"]="Чешуйчатый шлем жестокого гладиатора" end
+if t["Brutal Gladiator's Silk Handguards"]==nil then t["Brutal Gladiator's Silk Handguards"]="Шелковые боевые рукавицы жестокого гладиатора" end
+if t["Brutal Gladiator's Silk Raiment"]==nil then t["Brutal Gladiator's Silk Raiment"]="Шелковое облачение жестокого гладиатора" end
+if t["Brutal Gladiator's Wyrmhide Gloves"]==nil then t["Brutal Gladiator's Wyrmhide Gloves"]="Перчатки жестокого гладиатора из шкуры змея" end
+if t["Brutal Gladiator's Wyrmhide Helm"]==nil then t["Brutal Gladiator's Wyrmhide Helm"]="Шлем жестокого гладиатора из шкуры змея" end
+if t["Bucky, The Nut-Stasher"]==nil then t["Bucky, The Nut-Stasher"]="Баки Орешник" end
+if t["Build Master's Mystic Enchanting Altar"]==nil then t["Build Master's Mystic Enchanting Altar"]="Алтарь мистических чар мастера сборки" end
+if t["Buildmaster’s Card"]==nil then t["Buildmaster’s Card"]="Карты мастера сборки" end
+if t["Bulwark of the Seaborn Avatar"]==nil then t["Bulwark of the Seaborn Avatar"]="Оплот аватары моря" end
+if t["Burning Crusade Warchest - Fel Enchanted Warchest"]==nil then t["Burning Crusade Warchest - Fel Enchanted Warchest"]="Сундук Пылающего Похода - Оскверненный зачарованный сундук" end
+if t["Cache of Chosen Legends"]==nil then t["Cache of Chosen Legends"]="Тайник Избранных Легенд" end
+if t["Cache of Unleashed Arcane"]==nil then t["Cache of Unleashed Arcane"]="Сундук Освобожденной Тайны" end
+if t["Cache of Unleashed Earth"]==nil then t["Cache of Unleashed Earth"]="Сундук Освобожденной Земли" end
+if t["Cache of Unleashed Fel"]==nil then t["Cache of Unleashed Fel"]="Сундук Освобожденной Скверны" end
+if t["Cache of Unleashed Fire"]==nil then t["Cache of Unleashed Fire"]="Сундук Освобожденного Пламени" end
+if t["Cache of Unleashed Ice"]==nil then t["Cache of Unleashed Ice"]="Сундук Освобожденного Льда" end
+if t["Cache of Unleashed Lightning"]==nil then t["Cache of Unleashed Lightning"]="Сундук Освобожденной Молнии" end
+if t["Cache of Unleashed Water"]==nil then t["Cache of Unleashed Water"]="Cундук Освобожденной Воды" end
+if t["Cache of the Colossus"]==nil then t["Cache of the Colossus"]="Тайник Колосса" end
+if t["Cache of the Flamekeeper"]==nil then t["Cache of the Flamekeeper"]="Тайник Хранителя Пламени" end
+if t["Cache of the Frostwalker"]==nil then t["Cache of the Frostwalker"]="Тайник Снежного Странника" end
+if t["Cadaverous Gloves"]==nil then t["Cadaverous Gloves"]="Трупные перчатки" end
+if t["Cadaverous Walkers"]==nil then t["Cadaverous Walkers"]="Трупные башмаки" end
+if t["Carrot on a Stick"]==nil then t["Carrot on a Stick"]="Морковка на палочке" end
+if t["Carved Ogre Idol"]==nil then t["Carved Ogre Idol"]="Резной огрский идол" end
+if t["Cataclysm Chestguard"]==nil then t["Cataclysm Chestguard"]="Нагрудный доспех катаклизма" end
+if t["Cataclysm Handgrips"]==nil then t["Cataclysm Handgrips"]="Боевые перчатки катаклизма" end
+if t["Cataclysm Headguard"]==nil then t["Cataclysm Headguard"]="Обруч катаклизма" end
+if t["Cataclysm Leggings"]==nil then t["Cataclysm Leggings"]="Поножи катаклизма" end
+if t["Cataclysmic Gladiator's Chain Gauntlets"]==nil then t["Cataclysmic Gladiator's Chain Gauntlets"]="Плетеные рукавицы гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Decapitator"]==nil then t["Cataclysmic Gladiator's Decapitator"]="Лабрисса гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Dragonhide Gloves"]==nil then t["Cataclysmic Gladiator's Dragonhide Gloves"]="Перчатки из драконьей шкуры гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Dragonhide Helm"]==nil then t["Cataclysmic Gladiator's Dragonhide Helm"]="Шлем из драконьей шкуры гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Dreadplate Chestpiece"]==nil then t["Cataclysmic Gladiator's Dreadplate Chestpiece"]="Жуткий латный нагрудник гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Dreadplate Gauntlets"]==nil then t["Cataclysmic Gladiator's Dreadplate Gauntlets"]="Жуткие латные рукавицы гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Dreadplate Helm"]==nil then t["Cataclysmic Gladiator's Dreadplate Helm"]="Жуткий латный шлем гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Felweave Raiment"]==nil then t["Cataclysmic Gladiator's Felweave Raiment"]="Облачение из ткани Скверны гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Felweave Trousers"]==nil then t["Cataclysmic Gladiator's Felweave Trousers"]="Брюки из ткани Скверны гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Leather Tunic"]==nil then t["Cataclysmic Gladiator's Leather Tunic"]="Кожаный мундир гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Mail Armor"]==nil then t["Cataclysmic Gladiator's Mail Armor"]="Кольчужный доспех гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Mail Leggings"]==nil then t["Cataclysmic Gladiator's Mail Leggings"]="Кольчужные поножи гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Mail Spaulders"]==nil then t["Cataclysmic Gladiator's Mail Spaulders"]="Кольчужный наплеч гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Mooncloth Gloves"]==nil then t["Cataclysmic Gladiator's Mooncloth Gloves"]="Перчатки из луноткани гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Mooncloth Leggings"]==nil then t["Cataclysmic Gladiator's Mooncloth Leggings"]="Поножи из луноткани гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Mooncloth Mantle"]==nil then t["Cataclysmic Gladiator's Mooncloth Mantle"]="Мантия из луноткани гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Mooncloth Robe"]==nil then t["Cataclysmic Gladiator's Mooncloth Robe"]="Одеяние из луноткани гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Ornamented Gloves"]==nil then t["Cataclysmic Gladiator's Ornamented Gloves"]="Украшенные перчатки гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Plate Legguards"]==nil then t["Cataclysmic Gladiator's Plate Legguards"]="Латные набедренники гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Plate Shoulders"]==nil then t["Cataclysmic Gladiator's Plate Shoulders"]="Латные наплечники гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Ringmail Armor"]==nil then t["Cataclysmic Gladiator's Ringmail Armor"]="Кольчатый доспех гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Ringmail Leggings"]==nil then t["Cataclysmic Gladiator's Ringmail Leggings"]="Кольчатые поножи гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Satin Gloves"]==nil then t["Cataclysmic Gladiator's Satin Gloves"]="Атласные перчатки гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Satin Mantle"]==nil then t["Cataclysmic Gladiator's Satin Mantle"]="Атласное оплечье гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Satin Robe"]==nil then t["Cataclysmic Gladiator's Satin Robe"]="Атласное одеяние гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Scaled Gauntlets"]==nil then t["Cataclysmic Gladiator's Scaled Gauntlets"]="Чешуйчатые рукавицы гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Scaled Legguards"]==nil then t["Cataclysmic Gladiator's Scaled Legguards"]="Чешуйчатые набедренники гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Scaled Shoulders"]==nil then t["Cataclysmic Gladiator's Scaled Shoulders"]="Чешуйчатые наплечники гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Silk Cowl"]==nil then t["Cataclysmic Gladiator's Silk Cowl"]="Шелковый клобук гладиатора Катаклизма" end
+if t["Cataclysmic Gladiator's Wyrmhide Gloves"]==nil then t["Cataclysmic Gladiator's Wyrmhide Gloves"]="Перчатки из шкуры змея гладиатора Катаклизма" end
+if t["Celestial Harmony Cloth Armor"]==nil then t["Celestial Harmony Cloth Armor"]="Тканевые доспехи небесной гармонии" end
+if t["Celestial Observer's Adventurer Pack"]==nil then t["Celestial Observer's Adventurer Pack"]="Набор Странствующего Небесного Наблюдателя" end
+if t["Celestial Observer's Elite Warchest"]==nil then t["Celestial Observer's Elite Warchest"]="Элитный Арсенал Небесного Наблюдателя" end
+if t["Celestial Observer's Master Warchest"]==nil then t["Celestial Observer's Master Warchest"]="Мастерский Арсенал Небесного Наблюдателя" end
+if t["Celestial Observer's Supporter's Pack"]==nil then t["Celestial Observer's Supporter's Pack"]="Набор Поддержки Небесного Наблюдателя" end
+if t["Celestial Personal Bank (Exclusive Personal Bank)"]==nil then t["Celestial Personal Bank (Exclusive Personal Bank)"]="Небесный Личный Банк (Эксклюзивный Личный Банк)" end
+if t["Celestial Rod"]==nil then t["Celestial Rod"]="Небесный Жезл" end
+if t["Celestial Skyblade"]==nil then t["Celestial Skyblade"]="Небесный Клинок Звезд" end
+if t["Celestial Steed"]==nil then t["Celestial Steed"]="Небесный конь" end
+if t["Celestial Storage Container"]==nil then t["Celestial Storage Container"]="Небесный Контейнер для Хранения" end
+if t["Cenarion Boots"]==nil then t["Cenarion Boots"]="Кенарийские сапоги" end
+if t["Cenarion Gloves"]==nil then t["Cenarion Gloves"]="Кенарийские перчатки" end
+if t["Cenarion Leggings"]==nil then t["Cenarion Leggings"]="Кенарийские поножи" end
+if t["Cenarion Spaulders"]==nil then t["Cenarion Spaulders"]="Кенарийский наплеч" end
+if t["Cerulean Chi-Ji's Battlegear"]==nil then t["Cerulean Chi-Ji's Battlegear"]="Церемониальное боевое облачение Чи-Цзи" end
+if t["Chain of the Scarlet Crusade"]==nil then t["Chain of the Scarlet Crusade"]="Цепь Алого ордена" end
+if t["Challenger's Book of Ascension (Unique Skin)"]==nil then t["Challenger's Book of Ascension (Unique Skin)"]="Книга Вознесения Претендента (Уникальный внешний вид)" end
+if t["Challenger's Greatsword"]==nil then t["Challenger's Greatsword"]="Двуручный меч Претендента" end
+if t["Challenger's Plate Vestments (Full League 4 Transmog Set)"]==nil then t["Challenger's Plate Vestments (Full League 4 Transmog Set)"]="Латные Одеяния Претендента (полный набор трансмогрификации Лиги 4)" end
+if t["Champion's Chain Headguard"]==nil then t["Champion's Chain Headguard"]="Плетеное оголовье защитника" end
+if t["Champion's Dragonhide Shoulders"]==nil then t["Champion's Dragonhide Shoulders"]="Наплечники защитника из драконьей шкуры" end
+if t["Champion's Dreadweave Hood"]==nil then t["Champion's Dreadweave Hood"]="Капюшон защитника из ткани ужаса" end
+if t["Champion's Lamellar Shoulders"]==nil then t["Champion's Lamellar Shoulders"]="Ламеллярные наплечники защитника" end
+if t["Champion's Leather Mantle"]==nil then t["Champion's Leather Mantle"]="Кожаное оплечье защитника" end
+if t["Champion's Mail Pauldrons"]==nil then t["Champion's Mail Pauldrons"]="Кольчужное наплечье защитника" end
+if t["Champion's Plate Pauldrons"]==nil then t["Champion's Plate Pauldrons"]="Латное наплечье защитника" end
+if t["Champion's Plate Shoulders"]==nil then t["Champion's Plate Shoulders"]="Латные наплечники защитника" end
+if t["Champion's Satin Cowl"]==nil then t["Champion's Satin Cowl"]="Атласный клобук защитника" end
+if t["Champion's Satin Mantle"]==nil then t["Champion's Satin Mantle"]="Атласная мантия защитника" end
+if t["Charnel Raiment of the Risen Nightmare"]==nil then t["Charnel Raiment of the Risen Nightmare"]="Погребальные одеяния восставшего кошмара" end
+if t["Chef's Hat - Cooking Speed Bonus"]==nil then t["Chef's Hat - Cooking Speed Bonus"]="Поварской Колпак - Бонус к Скорости Готовки" end
+if t["Chestguard of the Lost Catacomb"]==nil then t["Chestguard of the Lost Catacomb"]="Нагрудный доспех затерянных подземелий" end
+if t["Chestpiece of Malorne"]==nil then t["Chestpiece of Malorne"]="Зерцало Малорна" end
+if t["Chi-Ji's Battlegear"]==nil then t["Chi-Ji's Battlegear"]="Боевое облачение Чи-Цзи" end
+if t["Circle - Raid Marker"]==nil then t["Circle - Raid Marker"]="Круг - Метка рейда" end
+if t["Circlet of Prophecy"]==nil then t["Circlet of Prophecy"]="Венец пророчества" end
+if t["Circlet of Sanctification"]==nil then t["Circlet of Sanctification"]="Венец посвящения" end
+if t["Claws of Torment"]==nil then t["Claws of Torment"]="Когти мучений" end
+if t["Cloak of the Gathering Storm"]==nil then t["Cloak of the Gathering Storm"]="Плащ надвигающейся бури" end
+if t["Cloth of the Blind Absolution"]==nil then t["Cloth of the Blind Absolution"]="Одеяние слепого отпущения" end
+if t["Coif of The Five Thunders"]==nil then t["Coif of The Five Thunders"]="Капюшон пяти громов" end
+if t["Coin of Many Faces"]==nil then t["Coin of Many Faces"]="Многоликая монетка" end
+if t["Colossal Conquest Armor"]==nil then t["Colossal Conquest Armor"]="Доспехи великих завоеваний" end
+if t["Colossal Dragonplate Armor"]==nil then t["Colossal Dragonplate Armor"]="Доспех из чешуи гигантского дракона" end
+if t["Colossal Dragonplate Handguards"]==nil then t["Colossal Dragonplate Handguards"]="Боевые рукавицы из чешуи гигантского дракона" end
+if t["Colossal Dragonplate Legguards"]==nil then t["Colossal Dragonplate Legguards"]="Набедренники из чешуи гигантского дракона" end
+if t["Combatants' Aegis Breastplate"]==nil then t["Combatants' Aegis Breastplate"]="Бойцовская кираса покровительства" end
+if t["Combatants' Aegis Gauntlets"]==nil then t["Combatants' Aegis Gauntlets"]="Бойцовские рукавицы покровительства" end
+if t["Combatants' Aegis Handguards"]==nil then t["Combatants' Aegis Handguards"]="Бойцовские боевые рукавицы покровительства" end
+if t["Combatants' Aegis Helm"]==nil then t["Combatants' Aegis Helm"]="Бойцовский шлем покровительства" end
+if t["Combatants' Aegis Shoulderplates"]==nil then t["Combatants' Aegis Shoulderplates"]="Бойцовские наплечные щитки покровительства" end
+if t["Combatants' Anaheim Leggings"]==nil then t["Combatants' Anaheim Leggings"]="Бойцовские анахаймские поножи" end
+if t["Combatants' Bonescythe Breastplate"]==nil then t["Combatants' Bonescythe Breastplate"]="Бойцовская кираса костяной косы" end
+if t["Combatants' Bonescythe Helmet"]==nil then t["Combatants' Bonescythe Helmet"]="Бойцовский полный шлем костяной косы" end
+if t["Combatants' Bonescythe Pauldrons"]==nil then t["Combatants' Bonescythe Pauldrons"]="Бойцовское наплечье костяной косы" end
+if t["Combatants' Brazen Gauntlets"]==nil then t["Combatants' Brazen Gauntlets"]="Бойцовские бронзовые рукавицы" end
+if t["Combatants' Cryptstalker Handguards"]==nil then t["Combatants' Cryptstalker Handguards"]="Бойцовские боевые рукавицы расхитителя гробниц" end
+if t["Combatants' Darkruned Battleplate"]==nil then t["Combatants' Darkruned Battleplate"]="Бойцовский темнорунический боевой доспех" end
+if t["Combatants' Darkruned Faceguard"]==nil then t["Combatants' Darkruned Faceguard"]="Бойцовский темнорунический большой шлем" end
+if t["Combatants' Darkruned Legguards"]==nil then t["Combatants' Darkruned Legguards"]="Бойцовские темнорунические набедренники" end
+if t["Combatants' Darkruned Legplates"]==nil then t["Combatants' Darkruned Legplates"]="Бойцовские темнорунические ножные латы" end
+if t["Combatants' Darkruned Shoulderplates"]==nil then t["Combatants' Darkruned Shoulderplates"]="Бойцовские темнорунические латные наплечники" end
+if t["Combatants' Dreadnaught Handguards"]==nil then t["Combatants' Dreadnaught Handguards"]="Бойцовские боевые рукавицы неустрашимости" end
+if t["Combatants' Dreadnaught Legguards"]==nil then t["Combatants' Dreadnaught Legguards"]="Бойцовские набедренники неустрашимости" end
+if t["Combatants' Dreadnaught Legplates"]==nil then t["Combatants' Dreadnaught Legplates"]="Бойцовские ножные латы неустрашимости" end
+if t["Combatants' Dreadnaught Shoulderplates"]==nil then t["Combatants' Dreadnaught Shoulderplates"]="Бойцовские латные наплечники неустрашимости" end
+if t["Combatants' Earthshatter Faceguard"]==nil then t["Combatants' Earthshatter Faceguard"]="Бойцовский большой шлем Землекрушителя" end
+if t["Combatants' Earthshatter Spaulders"]==nil then t["Combatants' Earthshatter Spaulders"]="Бойцовский наплеч Землекрушителя" end
+if t["Combatants' Embersilk  Pants"]==nil then t["Combatants' Embersilk  Pants"]="Бойцовские штаны из угольного шелка" end
+if t["Combatants' Hateshatter Gauntlets"]==nil then t["Combatants' Hateshatter Gauntlets"]="Бойцовские перчатки ненавидящего дробителя" end
+if t["Combatants' Kirin Tor Leggings"]==nil then t["Combatants' Kirin Tor Leggings"]="Бойцовские кирин-торские поножи" end
+if t["Combatants' Redemption Gauntlets"]==nil then t["Combatants' Redemption Gauntlets"]="Бойцовские рукавицы искупления" end
+if t["Combatants' Redemption Handguards"]==nil then t["Combatants' Redemption Handguards"]="Бойцовские боевые рукавицы искупления" end
+if t["Combatants' Redemption Legplates"]==nil then t["Combatants' Redemption Legplates"]="Бойцовские ножные латы искупления" end
+if t["Combatants' Redemption Shoulderplates"]==nil then t["Combatants' Redemption Shoulderplates"]="Бойцовские латные наплечники искупления" end
+if t["Combatants' Redemption Tunic"]==nil then t["Combatants' Redemption Tunic"]="Бойцовский мундир искупления" end
+if t["Combatants' Scourgeborne Helmet"]==nil then t["Combatants' Scourgeborne Helmet"]="Бойцовский кованый Плетью шлем" end
+if t["Combatants' Scourgestalker Headpiece"]==nil then t["Combatants' Scourgestalker Headpiece"]="Бойцовский головной убор преследующего Плеть" end
+if t["Combatants' Scourgestalker Spaulders"]==nil then t["Combatants' Scourgestalker Spaulders"]="Бойцовский наплеч преследующего Плеть" end
+if t["Combatants' Scourgestalker Tunic"]==nil then t["Combatants' Scourgestalker Tunic"]="Бойцовский мундир преследующего Плеть" end
+if t["Combatants' Siegebreaker Battleplate"]==nil then t["Combatants' Siegebreaker Battleplate"]="Бойцовский осадный боевой доспех" end
+if t["Combatants' Siegebreaker Gauntlets"]==nil then t["Combatants' Siegebreaker Gauntlets"]="Бойцовские осадные рукавицы" end
+if t["Combatants' Siegebreaker Legguards"]==nil then t["Combatants' Siegebreaker Legguards"]="Бойцовские осадные набедренники" end
+if t["Combatants' Worldbreaker Chestguard"]==nil then t["Combatants' Worldbreaker Chestguard"]="Бойцовский нагрудный доспех раскалывающего мир" end
+if t["Combatants' Worldbreaker Grips"]==nil then t["Combatants' Worldbreaker Grips"]="Бойцовские захваты раскалывающего мир" end
+if t["Combatants' Worldbreaker Hauberk"]==nil then t["Combatants' Worldbreaker Hauberk"]="Бойцовский хауберк раскалывающего мир" end
+if t["Combatants' Worldbreaker Tunic"]==nil then t["Combatants' Worldbreaker Tunic"]="Бойцовский мундир раскалывающего мир" end
+if t["Conqueror's Aegis Faceguard"]==nil then t["Conqueror's Aegis Faceguard"]="Большой шлем покровительства завоевателя" end
+if t["Conqueror's Aegis Handguards"]==nil then t["Conqueror's Aegis Handguards"]="Боевые рукавицы покровительства завоевателя" end
+if t["Conqueror's Aegis Tunic"]==nil then t["Conqueror's Aegis Tunic"]="Мундир покровительства завоевателя" end
+if t["Conqueror's Battlegear"]==nil then t["Conqueror's Battlegear"]="Броня завоевателя" end
+if t["Conqueror's Darkruned Faceguard"]==nil then t["Conqueror's Darkruned Faceguard"]="Темнорунический большой шлем завоевателя" end
+if t["Conqueror's Handwraps of Sanctification"]==nil then t["Conqueror's Handwraps of Sanctification"]="Повязки посвящения завоевателя" end
+if t["Conqueror's Kirin Tor Hood"]==nil then t["Conqueror's Kirin Tor Hood"]="Кирин-торский капюшон завоевателя" end
+if t["Conqueror's Mantle of Sanctification"]==nil then t["Conqueror's Mantle of Sanctification"]="Оплечье посвящения завоевателя" end
+if t["Conqueror's Nightsong Gloves"]==nil then t["Conqueror's Nightsong Gloves"]="Перчатки завоевателя ночной песни" end
+if t["Conqueror's Nightsong Handguards"]==nil then t["Conqueror's Nightsong Handguards"]="Боевые рукавицы завоевателя ночной песни" end
+if t["Conqueror's Nightsong Legguards"]==nil then t["Conqueror's Nightsong Legguards"]="Набедренники завоевателя ночной песни" end
+if t["Conqueror's Nightsong Mantle"]==nil then t["Conqueror's Nightsong Mantle"]="Оплечье завоевателя ночной песни" end
+if t["Conqueror's Scourgestalker Headpiece"]==nil then t["Conqueror's Scourgestalker Headpiece"]="Головной убор преследующего Плеть завоевателя" end
+if t["Conqueror's Scourgestalker Legguards"]==nil then t["Conqueror's Scourgestalker Legguards"]="Набедренники преследующего Плеть завоевателя" end
+if t["Conqueror's Scourgestalker Tunic"]==nil then t["Conqueror's Scourgestalker Tunic"]="Кираса преследующего Плеть завоевателя" end
+if t["Conqueror's Siegebreaker Gauntlets"]==nil then t["Conqueror's Siegebreaker Gauntlets"]="Осадные рукавицы завоевателя" end
+if t["Conqueror's Siegebreaker Legplates"]==nil then t["Conqueror's Siegebreaker Legplates"]="Осадные ножные латы завоевателя" end
+if t["Conqueror's Terrorblade Gauntlets"]==nil then t["Conqueror's Terrorblade Gauntlets"]="Клинковые рукавицы завоевателя" end
+if t["Conqueror's Terrorblade Helmet"]==nil then t["Conqueror's Terrorblade Helmet"]="Клинковый полный шлем завоевателя" end
+if t["Conqueror's Terrorblade Legplates"]==nil then t["Conqueror's Terrorblade Legplates"]="Клинковые ножные латы завоевателя" end
+if t["Conqueror's Terrorblade Pauldrons"]==nil then t["Conqueror's Terrorblade Pauldrons"]="Клинковое наплечье завоевателя" end
+if t["Conqueror's Worldbreaker Handguards"]==nil then t["Conqueror's Worldbreaker Handguards"]="Боевые рукавицы раскалывающего мир завоевателя" end
+if t["Conqueror's Worldbreaker Headpiece"]==nil then t["Conqueror's Worldbreaker Headpiece"]="Головной убор раскалывающего мир завоевателя" end
+if t["Conqueror's Worldbreaker Spaulders"]==nil then t["Conqueror's Worldbreaker Spaulders"]="Наплеч раскалывающего мир завоевателя" end
+if t["Conquest of Azeroth Travel Guide"]==nil then t["Conquest of Azeroth Travel Guide"]="Путеводитель по завоеванию Азерота" end
+if t["Conquest of Azeroth: Alpha Bundle - (21 Custom Classes)"]==nil then t["Conquest of Azeroth: Alpha Bundle - (21 Custom Classes)"]="Покорение Азерота: Набор Альфа - (21 уникальный класс)" end
+if t["Contender's Belt"]==nil then t["Contender's Belt"]="Претендентский пояс" end
+if t["Contender's Chestguard"]==nil then t["Contender's Chestguard"]="Претендентский нагрудный доспех" end
+if t["Contender's Leather Chestguard"]==nil then t["Contender's Leather Chestguard"]="Претендентский кожаный нагрудный доспех" end
+if t["Contender's Leggings"]==nil then t["Contender's Leggings"]="Претендентские поножи" end
+if t["Contender's Revenant Boots"]==nil then t["Contender's Revenant Boots"]="Претендентские потусторонние сапоги" end
+if t["Contender's Revenant Gauntlets"]==nil then t["Contender's Revenant Gauntlets"]="Претендентские потусторонние рукавицы" end
+if t["Contender's Satin Belt"]==nil then t["Contender's Satin Belt"]="Претендентский атласный пояс" end
+if t["Contender's Satin Cowl"]==nil then t["Contender's Satin Cowl"]="Претендентский атласный клобук" end
+if t["Contender's Satin Cuffs"]==nil then t["Contender's Satin Cuffs"]="Претендентские атласные манжеты" end
+if t["Contender's Scale Belt"]==nil then t["Contender's Scale Belt"]="Претендентский чешуйчатый пояс" end
+if t["Contender's Scale Bracers"]==nil then t["Contender's Scale Bracers"]="Претендентские чешуйчатые наручи" end
+if t["Contender's Scale Gloves"]==nil then t["Contender's Scale Gloves"]="Претендентские чешуйчатые перчатки" end
+if t["Contender's Scale Leggings"]==nil then t["Contender's Scale Leggings"]="Претендентские чешуйчатые поножи" end
+if t["Contender's Scale Shoulders"]==nil then t["Contender's Scale Shoulders"]="Претендентские чешуйчатые наплечники" end
+if t["Contender's Silk Belt"]==nil then t["Contender's Silk Belt"]="Претендентский шелковый пояс" end
+if t["Contender's Silk Cuffs"]==nil then t["Contender's Silk Cuffs"]="Претендентские шелковые манжеты" end
+if t["Contender's Silk Raiment"]==nil then t["Contender's Silk Raiment"]="Претендентское шелковое облачение" end
+if t["Contender's Wyrmhide Bracers"]==nil then t["Contender's Wyrmhide Bracers"]="Претендентские наручи из шкуры змея" end
+if t["Contender's Wyrmhide Gloves"]==nil then t["Contender's Wyrmhide Gloves"]="Претендентские перчатки из шкуры змея" end
+if t["Contender's Wyrmhide Helm"]==nil then t["Contender's Wyrmhide Helm"]="Претендентский шлем из шкуры змея" end
+if t["Corrupted Gladiator's Decapitator"]==nil then t["Corrupted Gladiator's Decapitator"]="Лабрисса Падшего Гладиатора" end
+if t["Corrupted Grinning Reaver"]==nil then t["Corrupted Grinning Reaver"]="Оскверненный Оскаленный разоритель" end
+if t["Corrupted Legacy of Azj'Aqir"]==nil then t["Corrupted Legacy of Azj'Aqir"]="Оскверненное наследие Аз'Акира" end
+if t["Cover of the Haunted Forest"]==nil then t["Cover of the Haunted Forest"]="Убор призрачного леса" end
+if t["Cowl of Absolution"]==nil then t["Cowl of Absolution"]="Клобук отпущения грехов" end
+if t["Cowl of Sanctification"]==nil then t["Cowl of Sanctification"]="Клобук посвящения" end
+if t["Cowl of the Cleansing Flame"]==nil then t["Cowl of the Cleansing Flame"]="Клобук очищающего пламени" end
+if t["Cowl of the Exorcist"]==nil then t["Cowl of the Exorcist"]="Клобук экзорциста" end
+if t["Crafted Dreadful Gladiator's Chain Armor"]==nil then t["Crafted Dreadful Gladiator's Chain Armor"]="Искусно изготовленный плетеный доспех жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Copperskin Helm"]==nil then t["Crafted Dreadful Gladiator's Copperskin Helm"]="Искусно изготовленный покрытый медью шлем жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Dragonhide Gloves"]==nil then t["Crafted Dreadful Gladiator's Dragonhide Gloves"]="Искусно изготовленные перчатки жуткого гладиатора из драконьей шкуры" end
+if t["Crafted Dreadful Gladiator's Dragonhide Spaulders"]==nil then t["Crafted Dreadful Gladiator's Dragonhide Spaulders"]="Искусно изготовленный наплеч жуткого гладиатора из драконьей шкуры" end
+if t["Crafted Dreadful Gladiator's Dreadplate Gauntlets"]==nil then t["Crafted Dreadful Gladiator's Dreadplate Gauntlets"]="Искусно изготовленные жуткие латные рукавицы жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Dreadplate Legguards"]==nil then t["Crafted Dreadful Gladiator's Dreadplate Legguards"]="Искусно изготовленные жуткие латные набедренники жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Felweave Amice"]==nil then t["Crafted Dreadful Gladiator's Felweave Amice"]="Искусно изготовленный нарамник жуткого гладиатора из ткани Скверны" end
+if t["Crafted Dreadful Gladiator's Felweave Cowl"]==nil then t["Crafted Dreadful Gladiator's Felweave Cowl"]="Искусно изготовленный клобук жуткого гладиатора из ткани Скверны" end
+if t["Crafted Dreadful Gladiator's Ironskin Helm"]==nil then t["Crafted Dreadful Gladiator's Ironskin Helm"]="Искусно изготовленный покрытый железом шлем жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Linked Armor"]==nil then t["Crafted Dreadful Gladiator's Linked Armor"]="Искусно изготовленный клепаный доспех жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Linked Helm"]==nil then t["Crafted Dreadful Gladiator's Linked Helm"]="Искусно изготовленный клепаный шлем жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Mail Leggings"]==nil then t["Crafted Dreadful Gladiator's Mail Leggings"]="Искусно изготовленные кольчужные поножи жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Mooncloth Helm"]==nil then t["Crafted Dreadful Gladiator's Mooncloth Helm"]="Искусно изготовленный шлем жуткого гладиатора из луноткани" end
+if t["Crafted Dreadful Gladiator's Mooncloth Leggings"]==nil then t["Crafted Dreadful Gladiator's Mooncloth Leggings"]="Искусно изготовленные поножи жуткого гладиатора из луноткани" end
+if t["Crafted Dreadful Gladiator's Mooncloth Robe"]==nil then t["Crafted Dreadful Gladiator's Mooncloth Robe"]="Искусно изготовленное одеяние жуткого гладиатора из луноткани" end
+if t["Crafted Dreadful Gladiator's Plate Gauntlets"]==nil then t["Crafted Dreadful Gladiator's Plate Gauntlets"]="Искусно изготовленные латные рукавицы жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Plate Shoulders"]==nil then t["Crafted Dreadful Gladiator's Plate Shoulders"]="Искусно изготовленные латные наплечники жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Satin Leggings"]==nil then t["Crafted Dreadful Gladiator's Satin Leggings"]="Искусно изготовленные атласные поножи жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Scaled Chestpiece"]==nil then t["Crafted Dreadful Gladiator's Scaled Chestpiece"]="Искусно изготовленный чешуйчатый нагрудник жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Scaled Helm"]==nil then t["Crafted Dreadful Gladiator's Scaled Helm"]="Искусно изготовленный чешуйчатый шлем жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Silk Cowl"]==nil then t["Crafted Dreadful Gladiator's Silk Cowl"]="Искусно изготовленный шелковый клобук жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Silk Handguards"]==nil then t["Crafted Dreadful Gladiator's Silk Handguards"]="Искусно изготовленные шелковые боевые рукавицы жуткого гладиатора" end
+if t["Crafted Dreadful Gladiator's Wyrmhide Gloves"]==nil then t["Crafted Dreadful Gladiator's Wyrmhide Gloves"]="Искусно изготовленные перчатки жуткого гладиатора из шкуры змея" end
+if t["Crafted Dreadful Gladiator's Wyrmhide Legguards"]==nil then t["Crafted Dreadful Gladiator's Wyrmhide Legguards"]="Искусно изготовленные набедренники жуткого гладиатора из шкуры змея" end
+if t["Craftsman's Codex"]==nil then t["Craftsman's Codex"]="Кодекс ремесленника" end
+if t["Crimson Acolyte Hood"]==nil then t["Crimson Acolyte Hood"]="Капюшон послушника из Багрового Легиона" end
+if t["Crimson Acolyte Mantle"]==nil then t["Crimson Acolyte Mantle"]="Мантия послушника из Багрового Легиона" end
+if t["Crimson Acolyte Pants"]==nil then t["Crimson Acolyte Pants"]="Штаны послушника из Багрового Легиона" end
+if t["Crimson Acolyte Robe"]==nil then t["Crimson Acolyte Robe"]="Одеяние послушника из Багрового Легиона" end
+if t["Crimson Vestments of Empyreal Adornment"]==nil then t["Crimson Vestments of Empyreal Adornment"]="Багровые одеяния небесной красоты" end
+if t["Cross - Raid Marker"]==nil then t["Cross - Raid Marker"]="Крест - Метка рейда" end
+if t["Crown of Eternal Winter"]==nil then t["Crown of Eternal Winter"]="Корона вечной зимы" end
+if t["Crown of Faith"]==nil then t["Crown of Faith"]="Корона веры" end
+if t["Crown of Transcendence"]==nil then t["Crown of Transcendence"]="Корона превосходства" end
+if t["Crusader's Ornamented Spaulders"]==nil then t["Crusader's Ornamented Spaulders"]="Украшенный наплеч рыцаря" end
+if t["Crusader's Scaled Chestpiece"]==nil then t["Crusader's Scaled Chestpiece"]="Чешуйчатый нагрудник рыцаря" end
+if t["Crusader's Scaled Legguards"]==nil then t["Crusader's Scaled Legguards"]="Чешуйчатые набедренники рыцаря" end
+if t["Crusader's Scaled Shoulders"]==nil then t["Crusader's Scaled Shoulders"]="Чешуйчатые наплечники рыцаря" end
+if t["Cryptstalker Boots"]==nil then t["Cryptstalker Boots"]="Сапоги Расхитителя гробниц" end
+if t["Crystal Charmer's Set"]==nil then t["Crystal Charmer's Set"]="Набор Кристального Очарователя" end
+if t["Crystalforge Pauldrons"]==nil then t["Crystalforge Pauldrons"]="Наплечье Хрустальной Кузницы" end
+if t["Crystalforge Raiment"]==nil then t["Crystalforge Raiment"]="Одеяния хрустальной кузницы" end
+if t["Customization Potion"]==nil then t["Customization Potion"]="Зелье кастомизации" end
+if t["Cyclone Faceguard"]==nil then t["Cyclone Faceguard"]="Большой шлем смерча" end
+if t["Cyclone War-Kilt"]==nil then t["Cyclone War-Kilt"]="Боевой килт смерча" end
+if t["Cyclopean Dread (Exclusive Cosmetic Set)"]==nil then t["Cyclopean Dread (Exclusive Cosmetic Set)"]="Циклопий ужас (Эксклюзивный косметический набор)" end
+if t["D.I.S.C.O"]==nil then t["D.I.S.C.O"]="Д.И.С.К.О" end
+if t["Dark Conjurer's Attire"]==nil then t["Dark Conjurer's Attire"]="Одеяния темного заклинателя" end
+if t["Dark Coven Hood"]==nil then t["Dark Coven Hood"]="Капюшон мрачного шабаша" end
+if t["Dark Frostscale Leggings"]==nil then t["Dark Frostscale Leggings"]="Темные поножи из обмерзшей чешуи" end
+if t["Dark Guard's Armaments"]==nil then t["Dark Guard's Armaments"]="Доспехи Темностража" end
+if t["Dark Iceborne Leggings"]==nil then t["Dark Iceborne Leggings"]="Темные поножи жителя льдов" end
+if t["Dark Nerubian Chestpiece"]==nil then t["Dark Nerubian Chestpiece"]="Темный нерубский нагрудник" end
+if t["Dark Phoenix Helmet"]==nil then t["Dark Phoenix Helmet"]="Шлем темного феникса" end
+if t["Dark Phoenix Spaulders"]==nil then t["Dark Phoenix Spaulders"]="Наплеч темного феникса" end
+if t["Dark Ranger's Guise"]==nil then t["Dark Ranger's Guise"]="Обличье Темного Следопыта" end
+if t["Dark Ranger's Guise: Blightcaller"]==nil then t["Dark Ranger's Guise: Blightcaller"]="Обличье Темного Следопыта: Призыватель погибели" end
+if t["Dark Rune of Retreat"]==nil then t["Dark Rune of Retreat"]="Темная Руна Отступления" end
+if t["Dark Shredder's Regalia"]==nil then t["Dark Shredder's Regalia"]="Регалии Темного Шреддера" end
+if t["Darkbrand Bracers"]==nil then t["Darkbrand Bracers"]="Наручи с клеймом тьмы" end
+if t["Darkbrand Leggings"]==nil then t["Darkbrand Leggings"]="Поножи с клеймом Тьмы" end
+if t["Darkmantle Boots"]==nil then t["Darkmantle Boots"]="Сапоги покрова тьмы" end
+if t["Darkmantle Gloves"]==nil then t["Darkmantle Gloves"]="Перчатки покрова Тьмы" end
+if t["Darkmoon Bear (то же, что и Darkmoon Dancing Bear)"]==nil then t["Darkmoon Bear (то же, что и Darkmoon Dancing Bear)"]="(пляшущий) медведь ярмарки Новолуния" end
+if t["Darkruned Battleplate"]==nil then t["Darkruned Battleplate"]="Темнорунический боевой доспех" end
+if t["Darksoul Leggings"]==nil then t["Darksoul Leggings"]="Поножи темного духа" end
+if t["Dawnforge Ram Mount"]==nil then t["Dawnforge Ram Mount"]="Ездовой Овен Солнечного Горна" end
+if t["Dawnforged Battle Bundle"]==nil then t["Dawnforged Battle Bundle"]="Боевой набор Солнечного Горна" end
+if t["Deadly Conjurer's Armor"]==nil then t["Deadly Conjurer's Armor"]="Доспехи смертоносного заклинателя" end
+if t["Deadly Gladiator's Chain Helm"]==nil then t["Deadly Gladiator's Chain Helm"]="Плетеный шлем смертоносного гладиатора" end
+if t["Deadly Gladiator's Dragonhide Gloves"]==nil then t["Deadly Gladiator's Dragonhide Gloves"]="Перчатки смертоносного гладиатора из драконьей шкуры" end
+if t["Deadly Gladiator's Dreadplate Chestpiece"]==nil then t["Deadly Gladiator's Dreadplate Chestpiece"]="Жуткий латный нагрудник смертоносного гладиатора" end
+if t["Deadly Gladiator's Dreadplate Helm"]==nil then t["Deadly Gladiator's Dreadplate Helm"]="Жуткий латный шлем смертоносного гладиатора" end
+if t["Deadly Gladiator's Dreadplate Legguards"]==nil then t["Deadly Gladiator's Dreadplate Legguards"]="Жуткие латные набедренники смертоносного гладиатора" end
+if t["Deadly Gladiator's Dreadplate Shoulders"]==nil then t["Deadly Gladiator's Dreadplate Shoulders"]="Жуткие латные наплечники смертоносного гладиатора" end
+if t["Deadly Gladiator's Felweave Trousers"]==nil then t["Deadly Gladiator's Felweave Trousers"]="Брюки смертоносного гладиатора из ткани Скверны" end
+if t["Deadly Gladiator's Kodohide Gloves"]==nil then t["Deadly Gladiator's Kodohide Gloves"]="Перчатки смертоносного гладиатора из шкуры кодо" end
+if t["Deadly Gladiator's Kodohide Spaulders"]==nil then t["Deadly Gladiator's Kodohide Spaulders"]="Наплеч смертоносного гладиатора из шкуры кодо" end
+if t["Deadly Gladiator's Leather Helm"]==nil then t["Deadly Gladiator's Leather Helm"]="Кожаный шлем смертоносного гладиатора" end
+if t["Deadly Gladiator's Leather Spaulders"]==nil then t["Deadly Gladiator's Leather Spaulders"]="Кожаный наплеч смертоносного гладиатора" end
+if t["Deadly Gladiator's Linked Gauntlets"]==nil then t["Deadly Gladiator's Linked Gauntlets"]="Клепаные рукавицы смертоносного гладиатора" end
+if t["Deadly Gladiator's Linked Helm"]==nil then t["Deadly Gladiator's Linked Helm"]="Клепаный шлем смертоносного гладиатора" end
+if t["Deadly Gladiator's Mail Armor"]==nil then t["Deadly Gladiator's Mail Armor"]="Кольчужный доспех смертоносного гладиатора" end
+if t["Deadly Gladiator's Mail Gauntlets"]==nil then t["Deadly Gladiator's Mail Gauntlets"]="Кольчужные рукавицы смертоносного гладиатора" end
+if t["Deadly Gladiator's Mooncloth Hood"]==nil then t["Deadly Gladiator's Mooncloth Hood"]="Капюшон смертоносного гладиатора из луноткани" end
+if t["Deadly Gladiator's Ornamented Gloves"]==nil then t["Deadly Gladiator's Ornamented Gloves"]="Украшенные перчатки смертоносного гладиатора" end
+if t["Deadly Gladiator's Ornamented Spaulders"]==nil then t["Deadly Gladiator's Ornamented Spaulders"]="Украшенный наплеч смертоносного гладиатора" end
+if t["Deadly Gladiator's Plate Chestpiece"]==nil then t["Deadly Gladiator's Plate Chestpiece"]="Латный нагрудник смертоносного гладиатора" end
+if t["Deadly Gladiator's Plate Gauntlets"]==nil then t["Deadly Gladiator's Plate Gauntlets"]="Латные рукавицы смертоносного гладиатора" end
+if t["Deadly Gladiator's Ringmail Armor"]==nil then t["Deadly Gladiator's Ringmail Armor"]="Кольчатый доспех смертоносного гладиатора" end
+if t["Deadly Gladiator's Wyrmhide Gloves"]==nil then t["Deadly Gladiator's Wyrmhide Gloves"]="Перчатки смертоносного гладиатора из шкуры змея" end
+if t["Deadly Gladiator's Wyrmhide Robes"]==nil then t["Deadly Gladiator's Wyrmhide Robes"]="Одеяние смертоносного гладиатора из шкуры змея" end
+if t["Deadly Gladiator's Wyrmhide Spaulders"]==nil then t["Deadly Gladiator's Wyrmhide Spaulders"]="Наплеч смертоносного гладиатора из шкуры змея" end
+if t["Dealer's Draft Deck"]==nil then t["Dealer's Draft Deck"]="Колода Раздачи Дилера" end
+if t["Death Lotus Crossbow"]==nil then t["Death Lotus Crossbow"]="Арбалет Смертоносного Лотоса" end
+if t["Deathbone Guardian"]==nil then t["Deathbone Guardian"]="Костяной страж" end
+if t["Deathbringer Shoulderpads"]==nil then t["Deathbringer Shoulderpads"]="Наплечные пластины несущего смерть" end
+if t["Deathdealer's Embrace"]==nil then t["Deathdealer's Embrace"]="Объятия торговца смертью" end
+if t["Deathlord's Onslaught"]==nil then t["Deathlord's Onslaught"]="Натиск владыки смерти" end
+if t["Deathlord's Vilebrood Vanquisher"]==nil then t["Deathlord's Vilebrood Vanquisher"]="Нечестивый Завоеватель Владыки Смерти" end
+if t["Deathmantle Handguards"]==nil then t["Deathmantle Handguards"]="Боевые рукавицы мантии смерти" end
+if t["Deathmantle Helm"]==nil then t["Deathmantle Helm"]="Шлем мантии смерти" end
+if t["Deathmist Raiment"]==nil then t["Deathmist Raiment"]="Одеяния тумана смерти" end
+if t["Deathsilk Bracers"]==nil then t["Deathsilk Bracers"]="Смертошелковые наручи" end
+if t["Deathsilk Leggings"]==nil then t["Deathsilk Leggings"]="Смертошелковые поножи" end
+if t["Deathsilk Robe"]==nil then t["Deathsilk Robe"]="Смертошелковое одеяние" end
+if t["Deathspeaker's Master Warchest"]==nil then t["Deathspeaker's Master Warchest"]="Сундук Говорящего со Смертью" end
+if t["Deathtusk Felboar"]==nil then t["Deathtusk Felboar"]="Скверносвин-смертоклык" end
+if t["Deep Earth Handwraps"]==nil then t["Deep Earth Handwraps"]="Повязки подземных глубин" end
+if t["Deep Earth Headpiece"]==nil then t["Deep Earth Headpiece"]="Головной убор подземных глубин" end
+if t["Deep Earth Leggings"]==nil then t["Deep Earth Leggings"]="Поножи подземных глубин" end
+if t["Deep Earth Legguards"]==nil then t["Deep Earth Legguards"]="Набедренники подземных глубин" end
+if t["Defiler's Leather Boots"]==nil then t["Defiler's Leather Boots"]="Кожаные сапоги Осквернителя" end
+if t["Demon Horns - Beast"]==nil then t["Demon Horns - Beast"]="Демонические рога - Чудовище" end
+if t["Demon Horns - Betrayer"]==nil then t["Demon Horns - Betrayer"]="Демонические рога - Предатель" end
+if t["Demon Horns - Dreadlord"]==nil then t["Demon Horns - Dreadlord"]="Демонические рога - Повелитель ужаса" end
+if t["Demon Horns - High"]==nil then t["Demon Horns - High"]="Демонические рога - высокие" end
+if t["Demon Horns - Oni"]==nil then t["Demon Horns - Oni"]="Демонические рога - Они" end
+if t["Demon Horns - Ram"]==nil then t["Demon Horns - Ram"]="Демонические рога - Овен" end
+if t["Demon Stalker Armor"]==nil then t["Demon Stalker Armor"]="Доспехи ловчего демонов" end
+if t["Demon Stalker Harness"]==nil then t["Demon Stalker Harness"]="Куртка Ловчего демонов" end
+if t["Demon Stalker Shoulderguards"]==nil then t["Demon Stalker Shoulderguards"]="Наплечные щитки Ловчего демонов" end
+if t["Destined Book of Ascension"]==nil then t["Destined Book of Ascension"]="Предначертанная Книга Вознесения" end
+if t["Destined Mystic Enchanting Altar"]==nil then t["Destined Mystic Enchanting Altar"]="Предначертанный Мистический Алтарь Зачарования" end
+if t["Destroyer Greathelm"]==nil then t["Destroyer Greathelm"]="Большой шлем Разрушителя" end
+if t["Destroyer Shoulderblades"]==nil then t["Destroyer Shoulderblades"]="Наплечные лезвия Разрушителя" end
+if t["Destroyer Shoulderguards"]==nil then t["Destroyer Shoulderguards"]="Наплечные щитки Разрушителя" end
+if t["Devout Belt"]==nil then t["Devout Belt"]="Пояс преданности" end
+if t["Devout Bracers"]==nil then t["Devout Bracers"]="Наручи преданности" end
+if t["Devout Sandals"]==nil then t["Devout Sandals"]="Сандалии преданности" end
+if t["Devout Skirt"]==nil then t["Devout Skirt"]="Юбка преданности" end
+if t["Diamond - Raid Marker"]==nil then t["Diamond - Raid Marker"]="Алмаз - Метка Рейда" end
+if t["Dire Riding Wolf"]==nil then t["Dire Riding Wolf"]="Верховой лютый волк" end
+if t["Doomcaller's Mantle"]==nil then t["Doomcaller's Mantle"]="Оплечье призывателя рока" end
+if t["Doomcaller's Robes"]==nil then t["Doomcaller's Robes"]="Одеяния призывателя рока" end
+if t["Doomplate Chestguard"]==nil then t["Doomplate Chestguard"]="Нагрудный доспех роковой брони" end
+if t["Dragonhide Bag"]==nil then t["Dragonhide Bag"]="Сумка из драконьей кожи (22 ячейки)" end
+if t["Dragonhide Robe"]==nil then t["Dragonhide Robe"]="Одеяние из драконьей шкуры" end
+if t["Dragonscale Gauntlets"]==nil then t["Dragonscale Gauntlets"]="Рукавицы из драконьей чешуи" end
+if t["Dragonscale Girdle"]==nil then t["Dragonscale Girdle"]="Рукавицы из драконьей чешуи" end
+if t["Dragonscale Hauberk"]==nil then t["Dragonscale Hauberk"]="Хауберк из драконьей чешуи" end
+if t["Dragonstalker's Bracers"]==nil then t["Dragonstalker's Bracers"]="Наручи охотника на драконов" end
+if t["Dragonstalker's Breastplate"]==nil then t["Dragonstalker's Breastplate"]="Кираса охотника на драконов" end
+if t["Dragonstalker's Greaves"]==nil then t["Dragonstalker's Greaves"]="Наголенники охотника на драконов" end
+if t["Dragonstalker's Legguards"]==nil then t["Dragonstalker's Legguards"]="Набедренники охотника на драконов" end
+if t["Dragonstone Enchanting Altar"]==nil then t["Dragonstone Enchanting Altar"]="Алтарь Зачарований Драконьего Камня" end
+if t["Dreadful Gladiator's Chain Armor"]==nil then t["Dreadful Gladiator's Chain Armor"]="Плетеный доспех жуткого гладиатора" end
+if t["Dreadful Gladiator's Copperskin Legguards"]==nil then t["Dreadful Gladiator's Copperskin Legguards"]="Покрытые медью набедренники жуткого гладиатора" end
+if t["Dreadful Gladiator's Copperskin Tunic"]==nil then t["Dreadful Gladiator's Copperskin Tunic"]="Покрытые медью одеяния жуткого гладиатора" end
+if t["Dreadful Gladiator's Dragonhide Gloves"]==nil then t["Dreadful Gladiator's Dragonhide Gloves"]="Перчатки жуткого гладиатора из драконьей шкуры" end
+if t["Dreadful Gladiator's Dragonhide Helm"]==nil then t["Dreadful Gladiator's Dragonhide Helm"]="Шлем жуткого гладиатора из драконьей шкуры" end
+if t["Dreadful Gladiator's Dreadplate Shoulders"]==nil then t["Dreadful Gladiator's Dreadplate Shoulders"]="Жуткие латные наплечники жуткого гладиатора" end
+if t["Dreadful Gladiator's Felweave Trousers"]==nil then t["Dreadful Gladiator's Felweave Trousers"]="Брюки жуткого гладиатора из ткани Скверны" end
+if t["Dreadful Gladiator's Ironskin Helm"]==nil then t["Dreadful Gladiator's Ironskin Helm"]="Покрытый железом шлем жуткого гладиатора" end
+if t["Dreadful Gladiator's Ironskin Tunic"]==nil then t["Dreadful Gladiator's Ironskin Tunic"]="Покрытый железом мундир жуткого гладиатора" end
+if t["Dreadful Gladiator's Linked Helm"]==nil then t["Dreadful Gladiator's Linked Helm"]="Клепаный шлем жуткого гладиатора" end
+if t["Dreadful Gladiator's Mail Gauntlets"]==nil then t["Dreadful Gladiator's Mail Gauntlets"]="Кольчужные рукавицы жуткого гладиатора" end
+if t["Dreadful Gladiator's Mail Helm"]==nil then t["Dreadful Gladiator's Mail Helm"]="Кольчужный шлем жуткого гладиатора" end
+if t["Dreadful Gladiator's Ornamented Gloves"]==nil then t["Dreadful Gladiator's Ornamented Gloves"]="Украшенные перчатки жуткого гладиатора" end
+if t["Dreadful Gladiator's Ornamented Headcover"]==nil then t["Dreadful Gladiator's Ornamented Headcover"]="Украшенный шлем жуткого гладиатора" end
+if t["Dreadful Gladiator's Plate Chestpiece"]==nil then t["Dreadful Gladiator's Plate Chestpiece"]="Латный нагрудник жуткого гладиатора" end
+if t["Dreadful Gladiator's Plate Gauntlets"]==nil then t["Dreadful Gladiator's Plate Gauntlets"]="Латные рукавицы жуткого гладиатора" end
+if t["Dreadful Gladiator's Plate Helm"]==nil then t["Dreadful Gladiator's Plate Helm"]="Латный шлем жуткого гладиатора" end
+if t["Dreadful Gladiator's Plate Legguards"]==nil then t["Dreadful Gladiator's Plate Legguards"]="Латные набедренники жуткого гладиатора" end
+if t["Dreadful Gladiator's Satin Hood"]==nil then t["Dreadful Gladiator's Satin Hood"]="Атласный капюшон жуткого гладиатора" end
+if t["Dreadful Gladiator's Scaled Legguards"]==nil then t["Dreadful Gladiator's Scaled Legguards"]="Чешуйчатые набедренники жуткого гладиатора" end
+if t["Dreadful Gladiator's Scaled Shoulders"]==nil then t["Dreadful Gladiator's Scaled Shoulders"]="Чешуйчатые наплечники жуткого гладиатора" end
+if t["Dreadful Gladiator's Silk Amice"]==nil then t["Dreadful Gladiator's Silk Amice"]="Шелковый нарамник жуткого гладиатора" end
+if t["Dreadful Gladiator's Wyrmhide Gloves"]==nil then t["Dreadful Gladiator's Wyrmhide Gloves"]="Перчатки жуткого гладиатора из шкуры змея" end
+if t["Dreadmist Raiment"]==nil then t["Dreadmist Raiment"]="Одеяния багрового тумана" end
+if t["Dreadmist Wraps"]==nil then t["Dreadmist Wraps"]="Повязки Багрового Тумана" end
+if t["Dreadweave Mantle"]==nil then t["Dreadweave Mantle"]="Мантия из ткани ужаса" end
+if t["Dream Raider's Fiery Charglaives"]==nil then t["Dream Raider's Fiery Charglaives"]="Пылающие глефы вторженца" end
+if t["Dreamwalker Boots"]==nil then t["Dreamwalker Boots"]="Сапоги сновидца" end
+if t["Dreamwalker Girdle"]==nil then t["Dreamwalker Girdle"]="Ремень сновидца" end
+if t["Dreamwalker Gloves"]==nil then t["Dreamwalker Gloves"]="Перчатки сновидца" end
+if t["Dreamwalker Headguard"]==nil then t["Dreamwalker Headguard"]="Наголовник сновидца" end
+if t["Dreamwalker Mantle"]==nil then t["Dreamwalker Mantle"]="Оплечье сновидца" end
+if t["Dreamwalker Trousers"]==nil then t["Dreamwalker Trousers"]="Брюки сновидца" end
+if t["Dreamwalker Wristguards"]==nil then t["Dreamwalker Wristguards"]="Нарукавники сновидца" end
+if t["Dungeon Crawler's Aegis Battleplate"]==nil then t["Dungeon Crawler's Aegis Battleplate"]="Боевой доспех покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Aegis Faceguard"]==nil then t["Dungeon Crawler's Aegis Faceguard"]="Большой шлем покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Aegis Gauntlets"]==nil then t["Dungeon Crawler's Aegis Gauntlets"]="Рукавицы покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Aegis Greaves"]==nil then t["Dungeon Crawler's Aegis Greaves"]="Наголенники покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Aegis Handguards"]==nil then t["Dungeon Crawler's Aegis Handguards"]="Боевые рукавицы покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Aegis Legplates"]==nil then t["Dungeon Crawler's Aegis Legplates"]="Ножные латы покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Aegis Shoulderplates"]==nil then t["Dungeon Crawler's Aegis Shoulderplates"]="Наплечные щитки покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Aegis Spaulders"]==nil then t["Dungeon Crawler's Aegis Spaulders"]="Наплеч покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Aegis Tunic"]==nil then t["Dungeon Crawler's Aegis Tunic"]="Мундир покровительства исследователя подземелий" end
+if t["Dungeon Crawler's Circlet of Faith"]==nil then t["Dungeon Crawler's Circlet of Faith"]="Венец веры исследователя подземелий" end
+if t["Dungeon Crawler's Circlet of Sanctification"]==nil then t["Dungeon Crawler's Circlet of Sanctification"]="Венец посвящения исследователя подземелий" end
+if t["Dungeon Crawler's Darkruned Gauntlets"]==nil then t["Dungeon Crawler's Darkruned Gauntlets"]="Темнорунические рукавицы исследователя подземелий" end
+if t["Dungeon Crawler's Darkruned Handguards"]==nil then t["Dungeon Crawler's Darkruned Handguards"]="Темнорунические боевые рукавицы исследователя подземелий" end
+if t["Dungeon Crawler's Darkruned Pauldrons"]==nil then t["Dungeon Crawler's Darkruned Pauldrons"]="Темноруническое наплечье исследователя подземелий" end
+if t["Dungeon Crawler's Darkruned Shoulderplates"]==nil then t["Dungeon Crawler's Darkruned Shoulderplates"]="Темнорунические латные наплечники исследователя подземелий" end
+if t["Dungeon Crawler's Deathbringer Hood"]==nil then t["Dungeon Crawler's Deathbringer Hood"]="Капюшон несущего смерть исследователя подземелий" end
+if t["Dungeon Crawler's Deathbringer Robe"]==nil then t["Dungeon Crawler's Deathbringer Robe"]="Одеяние несущего смерть исследователя подземелий" end
+if t["Dungeon Crawler's Earthshatter Kilt"]==nil then t["Dungeon Crawler's Earthshatter Kilt"]="Килт Землекрушителя исследователя подземелий" end
+if t["Dungeon Crawler's Frostfire Circlet"]==nil then t["Dungeon Crawler's Frostfire Circlet"]="Венец ледяного огня исследователя подземелий" end
+if t["Dungeon Crawler's Frostfire Gloves"]==nil then t["Dungeon Crawler's Frostfire Gloves"]="Перчатки ледяного огня исследователя подземелий" end
+if t["Dungeon Crawler's Frostfire Leggings"]==nil then t["Dungeon Crawler's Frostfire Leggings"]="Поножи ледяного огня исследователя подземелий" end
+if t["Dungeon Crawler's Gloves of Faith"]==nil then t["Dungeon Crawler's Gloves of Faith"]="Перчатки веры исследователя подземелий" end
+if t["Dungeon Crawler's Gloves of Sanctification"]==nil then t["Dungeon Crawler's Gloves of Sanctification"]="Перчатки посвящения исследователя подземелий" end
+if t["Dungeon Crawler's Handwraps of Faith"]==nil then t["Dungeon Crawler's Handwraps of Faith"]="Повязки веры исследователя подземелий" end
+if t["Dungeon Crawler's Kirin Tor Gauntlets"]==nil then t["Dungeon Crawler's Kirin Tor Gauntlets"]="Кирин-торские рукавицы исследователя подземелий" end
+if t["Dungeon Crawler's Kirin Tor Hood"]==nil then t["Dungeon Crawler's Kirin Tor Hood"]="Кирин-торский капюшон исследователя подземелий" end
+if t["Dungeon Crawler's Kirin Tor Leggings"]==nil then t["Dungeon Crawler's Kirin Tor Leggings"]="Кирин-торские поножи исследователя подземелий" end
+if t["Dungeon Crawler's Kirin Tor Tunic"]==nil then t["Dungeon Crawler's Kirin Tor Tunic"]="Кирин-торский мундир исследователя подземелий" end
+if t["Dungeon Crawler's Mantle of Faith"]==nil then t["Dungeon Crawler's Mantle of Faith"]="Оплечье веры исследователя подземелий" end
+if t["Dungeon Crawler's Mantle of Sanctification"]==nil then t["Dungeon Crawler's Mantle of Sanctification"]="Оплечье посвящения исследователя подземелий" end
+if t["Dungeon Crawler's Pants of Sanctification"]==nil then t["Dungeon Crawler's Pants of Sanctification"]="Штаны посвящения исследователя подземелий" end
+if t["Dungeon Crawler's Plagueheart Circlet"]==nil then t["Dungeon Crawler's Plagueheart Circlet"]="Венец Проклятого Сердца исследователя подземелий" end
+if t["Dungeon Crawler's Plagueheart Leggings"]==nil then t["Dungeon Crawler's Plagueheart Leggings"]="Поножи проклятого сердца исследователя подземелий" end
+if t["Dungeon Crawler's Raiments of Faith"]==nil then t["Dungeon Crawler's Raiments of Faith"]="Облачение веры исследователя подземелий" end
+if t["Dungeon Crawler's Redemption Breastplate"]==nil then t["Dungeon Crawler's Redemption Breastplate"]="Кираса искупления исследователя подземелий" end
+if t["Dungeon Crawler's Redemption Gloves"]==nil then t["Dungeon Crawler's Redemption Gloves"]="Рукавицы искупления исследователя подземелий" end
+if t["Dungeon Crawler's Redemption Headpiece"]==nil then t["Dungeon Crawler's Redemption Headpiece"]="Головной убор искупления исследователя подземелий" end
+if t["Dungeon Crawler's Redemption Shoulderguards"]==nil then t["Dungeon Crawler's Redemption Shoulderguards"]="Наплечные щитки искупления исследователя подземелий" end
+if t["Dungeon Crawler's Redemption Shoulderplates"]==nil then t["Dungeon Crawler's Redemption Shoulderplates"]="Латные наплечники искупления исследователя подземелий" end
+if t["Dungeon Crawler's Redemption Tunic"]==nil then t["Dungeon Crawler's Redemption Tunic"]="Мундир искупления исследователя подземелий" end
+if t["Dungeon Crawler's Scourgeborne Chestguard"]==nil then t["Dungeon Crawler's Scourgeborne Chestguard"]="Кованый Плетью нагрудный доспех исследователя подземелий" end
+if t["Dungeon Crawler's Scourgeborne Faceguard"]==nil then t["Dungeon Crawler's Scourgeborne Faceguard"]="Кованый Плетью большой шлем исследователя подземелий" end
+if t["Dungeon Crawler's Scourgeborne Handguards"]==nil then t["Dungeon Crawler's Scourgeborne Handguards"]="Кованые Плетью боевые рукавицы исследователя подземелий" end
+if t["Dungeon Crawler's Scourgeborne Shoulderplates"]==nil then t["Dungeon Crawler's Scourgeborne Shoulderplates"]="Кованые Плетью латные наплечники исследователя подземелий" end
+if t["Dungeon Crawler's Scourgestalker Handguards"]==nil then t["Dungeon Crawler's Scourgestalker Handguards"]="Боевые рукавицы преследующего Плеть исследователя подземелий" end
+if t["Dungeon Crawler's Scourgestalker Headpiece"]==nil then t["Dungeon Crawler's Scourgestalker Headpiece"]="Головной убор преследующего Плеть исследователя подземелий" end
+if t["Dungeon Crawler's Shoulderpads of Faith"]==nil then t["Dungeon Crawler's Shoulderpads of Faith"]="Наплечные пластины веры исследователя подземелий" end
+if t["Dungeon Crawler's Siegebreaker Gauntlets"]==nil then t["Dungeon Crawler's Siegebreaker Gauntlets"]="Осадные рукавицы исследователя подземелий" end
+if t["Dungeon Crawler's Siegebreaker Greathelm"]==nil then t["Dungeon Crawler's Siegebreaker Greathelm"]="Осадный великий шлем исследователя подземелий" end
+if t["Dungeon Crawler's Siegebreaker Helmet"]==nil then t["Dungeon Crawler's Siegebreaker Helmet"]="Осадный полный шлем исследователя подземелий" end
+if t["Dungeon Crawler's Siegebreaker Legplates"]==nil then t["Dungeon Crawler's Siegebreaker Legplates"]="Осадные ножные латы исследователя подземелий" end
+if t["Dungeon Crawler's Siegebreaker Shoulderplates"]==nil then t["Dungeon Crawler's Siegebreaker Shoulderplates"]="Осадные наплечные щитки исследователя подземелий" end
+if t["Dungeon Crawler's Terrorblade Breastplate"]==nil then t["Dungeon Crawler's Terrorblade Breastplate"]="Клинковая кираса исследователя подземелий" end
+if t["Dungeon Crawler's Terrorblade Gauntlets"]==nil then t["Dungeon Crawler's Terrorblade Gauntlets"]="Клинковые рукавицы исследователя подземелий" end
+if t["Dungeon Crawler's Terrorblade Legplates"]==nil then t["Dungeon Crawler's Terrorblade Legplates"]="Клинковые ножные латы исследователя подземелий" end
+if t["Dungeon Crawler's Worldbreaker Faceguard"]==nil then t["Dungeon Crawler's Worldbreaker Faceguard"]="Большой шлем раскалывающего мир исследователя подземелий" end
+if t["Dungeon Crawler's Worldbreaker Gloves"]==nil then t["Dungeon Crawler's Worldbreaker Gloves"]="Перчатки раскалывающего мир исследователя подземелий" end
+if t["Dungeon Crawler's Worldbreaker Grips"]==nil then t["Dungeon Crawler's Worldbreaker Grips"]="Захваты раскалывающего мир исследователя подземелий" end
+if t["Dungeon Crawler's Worldbreaker Handguards"]==nil then t["Dungeon Crawler's Worldbreaker Handguards"]="Боевые рукавицы раскалывающего мир исследователя подземелий" end
+if t["Dungeon Crawler's Worldbreaker Legguards"]==nil then t["Dungeon Crawler's Worldbreaker Legguards"]="Набедренники раскалывающего мир исследователя подземелий" end
+if t["Dungeon Crawler's Worldbreaker Shoulderpads"]==nil then t["Dungeon Crawler's Worldbreaker Shoulderpads"]="Наплечные пластины раскалывающего мир исследователя подземелий" end
+if t["Dungeon Crawler's Worldbreaker Spaulders"]==nil then t["Dungeon Crawler's Worldbreaker Spaulders"]="Наплеч раскалывающего мир исследователя подземелий" end
+if t["Dungeon Crawler's Worldbreaker War-Kilt"]==nil then t["Dungeon Crawler's Worldbreaker War-Kilt"]="Боевой килт раскалывающего мир исследователя подземелий" end
+if t["Eagletalon Plate Armor"]==nil then t["Eagletalon Plate Armor"]="Пластинчатые доспехи орлиного когтя" end
+if t["Earthen Faceguard"]==nil then t["Earthen Faceguard"]="Большой шлем земли" end
+if t["Earthen Helmet"]==nil then t["Earthen Helmet"]="Шлем земли" end
+if t["Earthen Pauldrons"]==nil then t["Earthen Pauldrons"]="Наплечье земли" end
+if t["Earthfury Boots"]==nil then t["Earthfury Boots"]="Яроземные сапоги" end
+if t["Earthfury Gauntlets"]==nil then t["Earthfury Gauntlets"]="Яроземные рукавицы" end
+if t["Earthfury Helmet"]==nil then t["Earthfury Helmet"]="Яроземный полный шлем" end
+if t["Earthshatter Chestguard"]==nil then t["Earthshatter Chestguard"]="Нагрудный доспех Землекрушителя" end
+if t["Earthshatter Spaulders"]==nil then t["Earthshatter Spaulders"]="Наплеч Землекрушителя" end
+if t["Earthshatter War-Kilt"]==nil then t["Earthshatter War-Kilt"]="Боевой килт Землекрушителя" end
+if t["Earthshatter Wristguards"]==nil then t["Earthshatter Wristguards"]="Накулачники Землекрушителя" end
+if t["Ebon Blade Banner"]==nil then t["Ebon Blade Banner"]="Знамя Черного Клинка" end
+if t["Ebon Netherscale Belt"]==nil then t["Ebon Netherscale Belt"]="Черный пояс из чешуи дракона Пустоты" end
+if t["Ebon Netherscale Breastplate"]==nil then t["Ebon Netherscale Breastplate"]="Черная кираса из чешуи дракона Пустоты" end
+if t["Eldritch Scribe's Pristine Garments"]==nil then t["Eldritch Scribe's Pristine Garments"]="Безупречное Облачение Жуткого Писца" end
+if t["Elementium Deathplate Greaves"]==nil then t["Elementium Deathplate Greaves"]="Элементиевые латные наголенники смерти" end
+if t["Elementium Deathplate Helmet"]==nil then t["Elementium Deathplate Helmet"]="Элементиевый латный полный шлем смерти" end
+if t["Elixir of Greater Stealth Detection"]==nil then t["Elixir of Greater Stealth Detection"]="Эликсир Улучшенного Обнаружения Невидимости" end
+if t["Enchanted Adamantite Belt"]==nil then t["Enchanted Adamantite Belt"]="Зачарованный адамантитовый пояс" end
+if t["Enchanted Adamantite Boots"]==nil then t["Enchanted Adamantite Boots"]="Зачарованные адамантитовые сапоги" end
+if t["Enchanted Adamantite Leggings"]==nil then t["Enchanted Adamantite Leggings"]="Зачарованные адамантитовые поножи" end
+if t["Enchanter's Hat - Enchanting Speed Bonus"]==nil then t["Enchanter's Hat - Enchanting Speed Bonus"]="Шляпа Волшебника - Бонус к Скорости Наложения Чар" end
+if t["Engineer's Goggles - Engineering Speed Bonus"]==nil then t["Engineer's Goggles - Engineering Speed Bonus"]="Очки Инженера - Бонус к Скорости Инженерии" end
+if t["Enigma Robes"]==nil then t["Enigma Robes"]="Одеяния таинства" end
+if t["Enlightened Botanist's Machete"]==nil then t["Enlightened Botanist's Machete"]="Мачете Просветленного Ботаника" end
+if t["Erupting Volcanic Cuirass"]==nil then t["Erupting Volcanic Cuirass"]="Панцирь извергающегося вулкана" end
+if t["Erupting Volcanic Kilt"]==nil then t["Erupting Volcanic Kilt"]="Килт извергающегося вулкана" end
+if t["Erupting Volcanic Legguards"]==nil then t["Erupting Volcanic Legguards"]="Набедренники извергающегося вулкана" end
+if t["Erupting Volcanic Legwraps"]==nil then t["Erupting Volcanic Legwraps"]="Бриджи извергающегося вулкана" end
+if t["Eskhandar's Right Claw"]==nil then t["Eskhandar's Right Claw"]="Правый коготь Эсхандара" end
+if t["Eternal Blossom Grips"]==nil then t["Eternal Blossom Grips"]="Захваты вечного цветения" end
+if t["Eternal Blossom Handguards"]==nil then t["Eternal Blossom Handguards"]="Боевые рукавицы вечного цветения" end
+if t["Eternal Blossom Headpiece"]==nil then t["Eternal Blossom Headpiece"]="Головной убор вечного цветения" end
+if t["Eternal Blossom Legguards"]==nil then t["Eternal Blossom Legguards"]="Набедренники вечного цветения" end
+if t["Eternal Blossom Legwraps"]==nil then t["Eternal Blossom Legwraps"]="Бриджи вечного цветения" end
+if t["Eternal Blossom Shoulderguards"]==nil then t["Eternal Blossom Shoulderguards"]="Наплеч вечного цветения" end
+if t["Eternal Blossom Spaulders"]==nil then t["Eternal Blossom Spaulders"]="Наплеч вечного цветения" end
+if t["Eviscerator's Facemask"]==nil then t["Eviscerator's Facemask"]="Маска потрошителя" end
+if t["Eviscerator's Gauntlets"]==nil then t["Eviscerator's Gauntlets"]="Рукавицы потрошителя" end
+if t["Evoker's Elemental Triad Regalia"]==nil then t["Evoker's Elemental Triad Regalia"]="Регалии триединства стихий Пробудителя" end
+if t["Exclusive Tabard of Frost"]==nil then t["Exclusive Tabard of Frost"]="Эксклюзивная Гербовая Накидка Льда" end
+if t["Executioner's Regalia"]==nil then t["Executioner's Regalia"]="Регалии палача" end
+if t["Executioner's War Cache"]==nil then t["Executioner's War Cache"]="Тайник палача войны" end
+if t["Experience Grenade"]==nil then t["Experience Grenade"]="Граната опыта" end
+if t["Explorer's Dunetrekker"]==nil then t["Explorer's Dunetrekker"]="Дюноброд исследователя" end
+if t["Faceguard of Radiant Glory"]==nil then t["Faceguard of Radiant Glory"]="Большой шлем блистательной славы" end
+if t["Faceguard of Ten Storms"]==nil then t["Faceguard of Ten Storms"]="Большой шлем десяти бурь" end
+if t["Faceguard of the All-Consuming Maw"]==nil then t["Faceguard of the All-Consuming Maw"]="Большой шлем всепоглощающего зева" end
+if t["Faceguard of the Molten Giant"]==nil then t["Faceguard of the Molten Giant"]="Большой шлем огненного великана" end
+if t["Faceguard of the Raging Elements"]==nil then t["Faceguard of the Raging Elements"]="Большой шлем бушующих стихий" end
+if t["Faceguard of the Witch Doctor"]==nil then t["Faceguard of the Witch Doctor"]="Большой шлем знахаря" end
+if t["Faction Change Potion"]==nil then t["Faction Change Potion"]="Зелье Смены Фракции" end
+if t["Fanged Slayer's Set"]==nil then t["Fanged Slayer's Set"]="Набор клыкастого убийцы" end
+if t["Fanged Slayer's Set of Magic"]==nil then t["Fanged Slayer's Set of Magic"]="Украшенные клыками магические доспехи убийцы" end
+if t["Feather of the Ancients: Azeroth"]==nil then t["Feather of the Ancients: Azeroth"]="Перо Древних: Азерот" end
+if t["Feather of the Ancients: Outland"]==nil then t["Feather of the Ancients: Outland"]="Перо Древних: Запределье" end
+if t["Fel Hide"]==nil then t["Fel Hide"]="Скверношкура" end
+if t["Fel Iron Chain Tunic"]==nil then t["Fel Iron Chain Tunic"]="Плетеный мундир из оскверненного железа" end
+if t["Fel Iron Plate Belt"]==nil then t["Fel Iron Plate Belt"]="Латный пояс из оскверненного железа" end
+if t["Fel Iron Plate Boots"]==nil then t["Fel Iron Plate Boots"]="Латные сапоги из оскверненного железа" end
+if t["Fel Iron Plate Gloves"]==nil then t["Fel Iron Plate Gloves"]="Латные перчатки из оскверненного железа" end
+if t["Fel Leather Gloves"]==nil then t["Fel Leather Gloves"]="Перчатки из сквернокожи" end
+if t["Fel-Infused Tabard of Ascension"]==nil then t["Fel-Infused Tabard of Ascension"]="Оскверненная Гербовая накидка Вознесения" end
+if t["Felflame Talbuk"]==nil then t["Felflame Talbuk"]="Огнехвостый талбук" end
+if t["Felheart Belt"]==nil then t["Felheart Belt"]="Пояс Сердца Скверны" end
+if t["Felheart Bracers"]==nil then t["Felheart Bracers"]="Наручи Сердца Скверны" end
+if t["Felheart Raiment"]==nil then t["Felheart Raiment"]="Одеяния сердца Скверны" end
+if t["Felheart Slippers"]==nil then t["Felheart Slippers"]="Туфли Сердца Скверны" end
+if t["Felreaver Deathcycle"]==nil then t["Felreaver Deathcycle"]="Оскверненный Смертоцикл" end
+if t["Felscale Boots"]==nil then t["Felscale Boots"]="Скверночешуйчатые сапоги" end
+if t["Felscale Gloves"]==nil then t["Felscale Gloves"]="Скверночешуйчатые перчатки" end
+if t["Felscale Pants"]==nil then t["Felscale Pants"]="Скверночешуйчатые штаны" end
+if t["Felstalker Belt"]==nil then t["Felstalker Belt"]="Пояс ловца Скверны" end
+if t["Felstalker Breastplate"]==nil then t["Felstalker Breastplate"]="Кираса ловца Скверны" end
+if t["Felsteel Leggings"]==nil then t["Felsteel Leggings"]="Поножи из оскверненной стали" end
+if t["Feralheart Belt"]==nil then t["Feralheart Belt"]="Пояс буйного сердца" end
+if t["Feralheart Cowl"]==nil then t["Feralheart Cowl"]="Клобук буйного сердца" end
+if t["Field Marshal's Coronet"]==nil then t["Field Marshal's Coronet"]="Венок фельдмаршала" end
+if t["Field Marshal's Dragonhide Helmet"]==nil then t["Field Marshal's Dragonhide Helmet"]="Полный шлем фельдмаршала из драконьей шкуры" end
+if t["Field Marshal's Dreadweave Shoulders"]==nil then t["Field Marshal's Dreadweave Shoulders"]="Наплечники фельдмаршала из ткани ужаса" end
+if t["Field Marshal's Felshroud"]==nil then t["Field Marshal's Felshroud"]="Оскверненный покров фельдмаршала" end
+if t["Field Marshal's Leather Epaulets"]==nil then t["Field Marshal's Leather Epaulets"]="Кожаные эполеты фельдмаршала" end
+if t["Field Marshal's Plate Helm"]==nil then t["Field Marshal's Plate Helm"]="Латный шлем фельдмаршала" end
+if t["Field Marshal's Plate Shoulderguards"]==nil then t["Field Marshal's Plate Shoulderguards"]="Латные наплечные щитки фельдмаршала" end
+if t["Field Medic's Hat - First Aid Speed Bonus"]==nil then t["Field Medic's Hat - First Aid Speed Bonus"]="Шляпа Полевого Медика - Бонус к Скорости Оказания Первой Помощи" end
+if t["Field Medic's Satin Vestments"]==nil then t["Field Medic's Satin Vestments"]="Атласные одеяния полевого врача" end
+if t["Finery of Infinite Wisdom"]==nil then t["Finery of Infinite Wisdom"]="Облачение беспредельной мудрости" end
+if t["Fire-Charm Handwraps"]==nil then t["Fire-Charm Handwraps"]="Повязки огненного оберега" end
+if t["Fire-Charm Helm"]==nil then t["Fire-Charm Helm"]="Шлем огненного оберега" end
+if t["Firebird's Gloves"]==nil then t["Firebird's Gloves"]="Перчатки огненной птицы" end
+if t["Fireclad Infiltrator"]==nil then t["Fireclad Infiltrator"]="Огнепокровный лазутчик" end
+if t["Firelord's Leggings"]==nil then t["Firelord's Leggings"]="Поножи повелителя огня" end
+if t["Firelord's Robes"]==nil then t["Firelord's Robes"]="Одеяния повелителя огня" end
+if t["Firestarter Raiment"]==nil then t["Firestarter Raiment"]="Снаряжение поджигателя" end
+if t["Flag of Ownership"]==nil then t["Flag of Ownership"]="Знамя победителя" end
+if t["Flamebane Bracers"]==nil then t["Flamebane Bracers"]="Наручи огненной гибели" end
+if t["Flamebane Gloves"]==nil then t["Flamebane Gloves"]="Перчатки огненной гибели" end
+if t["Flamewaker's Spaulders"]==nil then t["Flamewaker's Spaulders"]="Наплеч поджигателя" end
+if t["Flaming Rune of Retreat"]==nil then t["Flaming Rune of Retreat"]="Огненная Руна Отступления" end
+if t["Flight Master's Whistle"]==nil then t["Flight Master's Whistle"]="Свисток Распорядителя Полетов" end
+if t["Footwraps of the Oracle"]==nil then t["Footwraps of the Oracle"]="Обмотки Оракула" end
+if t["Freezing Rune of Retreat"]==nil then t["Freezing Rune of Retreat"]="Морозная Руна Отступления" end
+if t["Frost Witch's Chestguard"]==nil then t["Frost Witch's Chestguard"]="Нагрудный доспех ледяной ведьмы" end
+if t["Frost Witch's Faceguard"]==nil then t["Frost Witch's Faceguard"]="Большой шлем ледяной ведьмы" end
+if t["Frost Witch's Grips"]==nil then t["Frost Witch's Grips"]="Захваты ледяной ведьмы" end
+if t["Frost Witch's Handguards"]==nil then t["Frost Witch's Handguards"]="Боевые рукавицы ледяной ведьмы" end
+if t["Frost Witch's Headpiece"]==nil then t["Frost Witch's Headpiece"]="Головной убор ледяной ведьмы" end
+if t["Frost Witch's Helm"]==nil then t["Frost Witch's Helm"]="Шлем ледяной ведьмы" end
+if t["Frost Witch's Shoulderpads"]==nil then t["Frost Witch's Shoulderpads"]="Наплечные пластины ледяной ведьмы" end
+if t["Frostcharger"]==nil then t["Frostcharger"]="Морозный скакун" end
+if t["Frostfire Belt"]==nil then t["Frostfire Belt"]="Пояс ледяного огня" end
+if t["Frostfire Leggings"]==nil then t["Frostfire Leggings"]="Поножи ледяного огня" end
+if t["Frostfire Robe"]==nil then t["Frostfire Robe"]="Одеяние ледяного огня" end
+if t["Frostfire Sandals"]==nil then t["Frostfire Sandals"]="Сандалии ледяного огня" end
+if t["Frostforged Rune of Retreat"]==nil then t["Frostforged Rune of Retreat"]="Морознокованая руна отступления" end
+if t["Frostplains Battleboar"]==nil then t["Frostplains Battleboar"]="Боевой вепрь ледяных равнин" end
+if t["Frostsavage Belt"]==nil then t["Frostsavage Belt"]="Пояс ледяной ярости" end
+if t["Frostsavage Boots"]==nil then t["Frostsavage Boots"]="Сапоги ледяной ярости" end
+if t["Frostsavage Bracers"]==nil then t["Frostsavage Bracers"]="Наручи ледяной ярости" end
+if t["Frostsavage Cowl"]==nil then t["Frostsavage Cowl"]="Клобук ледяной ярости" end
+if t["Frostscale Bracers"]==nil then t["Frostscale Bracers"]="Наручи из обмерзшей чешуи" end
+if t["Frostwalker"]==nil then t["Frostwalker"]="Снежный странник" end
+if t["Frostwoven Wristwraps"]==nil then t["Frostwoven Wristwraps"]="Ледотканые напульсники" end
+if t["Frosty Balls"]==nil then t["Frosty Balls"]="Морозные сферы" end
+if t["Furious Gladiator's Chain Gauntlets"]==nil then t["Furious Gladiator's Chain Gauntlets"]="Плетеные рукавицы гневного гладиатора" end
+if t["Furious Gladiator's Chain Helm"]==nil then t["Furious Gladiator's Chain Helm"]="Плетеный шлем гневного гладиатора" end
+if t["Furious Gladiator's Dragonhide Gloves"]==nil then t["Furious Gladiator's Dragonhide Gloves"]="Перчатки гневного гладиатора из драконьей шкуры" end
+if t["Furious Gladiator's Dragonhide Robes"]==nil then t["Furious Gladiator's Dragonhide Robes"]="Одеяние гневного гладиатора из драконьей шкуры" end
+if t["Furious Gladiator's Dreadplate Chestpiece"]==nil then t["Furious Gladiator's Dreadplate Chestpiece"]="Жуткий латный нагрудник гневного гладиатора" end
+if t["Furious Gladiator's Dreadplate Gauntlets"]==nil then t["Furious Gladiator's Dreadplate Gauntlets"]="Жуткие латные рукавицы гневного гладиатора" end
+if t["Furious Gladiator's Dreadplate Shoulders"]==nil then t["Furious Gladiator's Dreadplate Shoulders"]="Жуткие латные наплечники гневного гладиатора" end
+if t["Furious Gladiator's Felweave Raiment"]==nil then t["Furious Gladiator's Felweave Raiment"]="Облачение гневного гладиатора из ткани Скверны" end
+if t["Furious Gladiator's Kodohide Helm"]==nil then t["Furious Gladiator's Kodohide Helm"]="Шлем гневного гладиатора из шкуры кодо" end
+if t["Furious Gladiator's Kodohide Robes"]==nil then t["Furious Gladiator's Kodohide Robes"]="Одеяние гневного гладиатора из шкуры кодо" end
+if t["Furious Gladiator's Kodohide Spaulders"]==nil then t["Furious Gladiator's Kodohide Spaulders"]="Наплеч гневного гладиатора из шкуры кодо" end
+if t["Furious Gladiator's Leather Tunic"]==nil then t["Furious Gladiator's Leather Tunic"]="Кожаный мундир гневного гладиатора" end
+if t["Furious Gladiator's Mail Leggings"]==nil then t["Furious Gladiator's Mail Leggings"]="Кольчужные поножи гневного гладиатора" end
+if t["Furious Gladiator's Mooncloth Gloves"]==nil then t["Furious Gladiator's Mooncloth Gloves"]="Перчатки гневного гладиатора из луноткани" end
+if t["Furious Gladiator's Mooncloth Robe"]==nil then t["Furious Gladiator's Mooncloth Robe"]="Одеяние гневного гладиатора из луноткани" end
+if t["Furious Gladiator's Scaled Chestpiece"]==nil then t["Furious Gladiator's Scaled Chestpiece"]="Чешуйчатый нагрудник гневного гладиатора" end
+if t["Furious Gladiator's Scaled Gauntlets"]==nil then t["Furious Gladiator's Scaled Gauntlets"]="Чешуйчатые рукавицы гневного гладиатора" end
+if t["Furious Gladiator's Scaled Legguards"]==nil then t["Furious Gladiator's Scaled Legguards"]="Чешуйчатые набедренники гневного гладиатора" end
+if t["Furious Gladiator's Silk Raiment"]==nil then t["Furious Gladiator's Silk Raiment"]="Шелковое облачение гневного гладиатора" end
+if t["Furious Gladiator's Silk Trousers"]==nil then t["Furious Gladiator's Silk Trousers"]="Шелковые брюки гневного гладиатора" end
+if t["Furious Gladiator's Wyrmhide Spaulders"]==nil then t["Furious Gladiator's Wyrmhide Spaulders"]="Наплеч гневного гладиатора из шкуры змея" end
+if t["Furnace Seraph's Golden Verdict"]==nil then t["Furnace Seraph's Golden Verdict"]="Золотой вердикт пылающего серафима" end
+if t["Garments of Malevolent Possession"]==nil then t["Garments of Malevolent Possession"]="Облачения злонамеренной одержимости" end
+if t["Garments of Vehement Possession"]==nil then t["Garments of Vehement Possession"]="Облачения неистовой одержимости" end
+if t["Garments of Vengeful Possession"]==nil then t["Garments of Vengeful Possession"]="Облачения мстительной одержимости" end
+if t["Garments of Vexing Possession"]==nil then t["Garments of Vexing Possession"]="Облачения беспокойной одержимости" end
+if t["Garments of Vindictive Possession"]==nil then t["Garments of Vindictive Possession"]="Облачения злопамятной одержимости" end
+if t["Garments of Volatile Possession"]==nil then t["Garments of Volatile Possession"]="Облачения нестабильной одержимости" end
+if t["Garona's Breastplate"]==nil then t["Garona's Breastplate"]="Кираса Гароны" end
+if t["Garona's Breastplate of Hyjal"]==nil then t["Garona's Breastplate of Hyjal"]="Хиджальская кираса Гароны" end
+if t["Garona's Breastplate of Triumph"]==nil then t["Garona's Breastplate of Triumph"]="Кираса триумфа Гароны" end
+if t["Garona's Breastplate of Valiance"]==nil then t["Garona's Breastplate of Valiance"]="Кираса доблести Гароны" end
+if t["Garona's Gauntlets of Conquest"]==nil then t["Garona's Gauntlets of Conquest"]="Рукавицы завоеваний Гароны" end
+if t["Garona's Gauntlets of Hyjal"]==nil then t["Garona's Gauntlets of Hyjal"]="Хиджальские рукавицы Гароны" end
+if t["Garona's Helmet of Hyjal"]==nil then t["Garona's Helmet of Hyjal"]="Хиджальский полный шлем Гароны" end
+if t["Garona's Legplates of Conquest"]==nil then t["Garona's Legplates of Conquest"]="Ножные латы завоеваний Гароны" end
+if t["Garona's Legplates of Hyjal"]==nil then t["Garona's Legplates of Hyjal"]="Хиджальские ножные латы Гароны" end
+if t["Garona's Pauldrons of Triumph"]==nil then t["Garona's Pauldrons of Triumph"]="Наплечье триумфа Гароны" end
+if t["Garona's Pauldrons of Valiance"]==nil then t["Garona's Pauldrons of Valiance"]="Наплечье отваги Гароны" end
+if t["Gauntlets of Ancient Steel"]==nil then t["Gauntlets of Ancient Steel"]="Рукавицы из древней стали" end
+if t["Gauntlets of Kalimdor"]==nil then t["Gauntlets of Kalimdor"]="Рукавицы Калимдора" end
+if t["Gauntlets of Might"]==nil then t["Gauntlets of Might"]="Рукавицы мощи" end
+if t["Gauntlets of Resounding Rings"]==nil then t["Gauntlets of Resounding Rings"]="Рукавицы из резонирующих колец" end
+if t["Gauntlets of Undead Slaying"]==nil then t["Gauntlets of Undead Slaying"]="Рукавицы истребления нежити" end
+if t["Gauntlets of the Lost Catacomb"]==nil then t["Gauntlets of the Lost Catacomb"]="Рукавицы затерянных подземелий" end
+if t["Gavel of the Eredar"]==nil then t["Gavel of the Eredar"]="Эредарский Молоток" end
+if t["Gaze of the First Summoner (Red)"]==nil then t["Gaze of the First Summoner (Red)"]="Злобовзор первого призывателя демонов (красный)" end
+if t["General's Chain Gloves"]==nil then t["General's Chain Gloves"]="Плетеные перчатки генерала" end
+if t["General's Dragonhide Boots"]==nil then t["General's Dragonhide Boots"]="Сапоги генерала из драконьей шкуры" end
+if t["General's Dragonhide Gloves"]==nil then t["General's Dragonhide Gloves"]="Перчатки генерала из драконьей шкуры" end
+if t["General's Dreadweave Gloves"]==nil then t["General's Dreadweave Gloves"]="Перчатки генерала из ткани ужаса" end
+if t["General's Lamellar Boots"]==nil then t["General's Lamellar Boots"]="Ламеллярные сапоги генерала" end
+if t["General's Lamellar Legplates"]==nil then t["General's Lamellar Legplates"]="Ламеллярные ножные латы генерала" end
+if t["General's Leather Legguards"]==nil then t["General's Leather Legguards"]="Кожаные набедренники генерала" end
+if t["General's Leather Mitts"]==nil then t["General's Leather Mitts"]="Кожаные полуперчатки генерала" end
+if t["General's Mail Leggings"]==nil then t["General's Mail Leggings"]="Кольчужные поножи генерала" end
+if t["General's Satin Boots"]==nil then t["General's Satin Boots"]="Атласные сапоги генерала" end
+if t["General's Satin Gloves"]==nil then t["General's Satin Gloves"]="Атласные перчатки генерала" end
+if t["General's Silk Handguards"]==nil then t["General's Silk Handguards"]="Шелковые боевые рукавицы генерала" end
+if t["General's Silk Trousers"]==nil then t["General's Silk Trousers"]="Шелковые брюки генерала" end
+if t["Genesis Boots"]==nil then t["Genesis Boots"]="Сапоги сотворения" end
+if t["Genesis Helm"]==nil then t["Genesis Helm"]="Шлем сотворения" end
+if t["Ghastly Charger"]==nil then t["Ghastly Charger"]="Эфемерный скакун" end
+if t["Giantstalker's Bracers"]==nil then t["Giantstalker's Bracers"]="Наручи истребителя великанов" end
+if t["Giantstalker's Helmet"]==nil then t["Giantstalker's Helmet"]="Полный шлем истребителя великанов" end
+if t["Gladiator's Copperskin Gloves"]==nil then t["Gladiator's Copperskin Gloves"]="Покрытые медью перчатки гладиатора" end
+if t["Gladiator's Copperskin Helm"]==nil then t["Gladiator's Copperskin Helm"]="Покрытый медью шлем гладиатора" end
+if t["Gladiator's Dragonhide Helm"]==nil then t["Gladiator's Dragonhide Helm"]="Шлем гладиатора из драконьей шкуры" end
+if t["Gladiator's Dragonhide Legguards"]==nil then t["Gladiator's Dragonhide Legguards"]="Набедренники гладиатора из драконьей шкуры" end
+if t["Gladiator's Dreadweave Gloves"]==nil then t["Gladiator's Dreadweave Gloves"]="Перчатки гладиатора из ткани ужаса" end
+if t["Gladiator's Felweave Amice"]==nil then t["Gladiator's Felweave Amice"]="Нарамник гладиатора из ткани Скверны" end
+if t["Gladiator's Felweave Handguards"]==nil then t["Gladiator's Felweave Handguards"]="Боевые рукавицы гладиатора из ткани Скверны" end
+if t["Gladiator's Ironskin Spaulders"]==nil then t["Gladiator's Ironskin Spaulders"]="Покрытый железом наплеч гладиатора" end
+if t["Gladiator's Ironskin Tunic"]==nil then t["Gladiator's Ironskin Tunic"]="Покрытый железом мундир гладиатора" end
+if t["Gladiator's Kodohide Legguards"]==nil then t["Gladiator's Kodohide Legguards"]="Набедренники гладиатора из шкуры кодо" end
+if t["Gladiator's Kodohide Robes"]==nil then t["Gladiator's Kodohide Robes"]="Одеяния гладиатора из шкуры кодо" end
+if t["Gladiator's Kodohide Tunic"]==nil then t["Gladiator's Kodohide Tunic"]="Мундир гладиатора из шкуры кодо" end
+if t["Gladiator's Lamellar Legguards"]==nil then t["Gladiator's Lamellar Legguards"]="Ламеллярные набедренники гладиатора" end
+if t["Gladiator's Leather Helm"]==nil then t["Gladiator's Leather Helm"]="Кожаный шлем гладиатора" end
+if t["Gladiator's Leather Tunic"]==nil then t["Gladiator's Leather Tunic"]="Кожаный мундир гладиатора" end
+if t["Gladiator's Linked Armor"]==nil then t["Gladiator's Linked Armor"]="Клепаный доспех гладиатора" end
+if t["Gladiator's Linked Gauntlets"]==nil then t["Gladiator's Linked Gauntlets"]="Клепаные рукавицы гладиатора" end
+if t["Gladiator's Linked Helm"]==nil then t["Gladiator's Linked Helm"]="Клепаный шлем гладиатора" end
+if t["Gladiator's Mail Gauntlets"]==nil then t["Gladiator's Mail Gauntlets"]="Кольчужные рукавицы гладиатора" end
+if t["Gladiator's Mail Leggings"]==nil then t["Gladiator's Mail Leggings"]="Кольчужные поножи гладиатора" end
+if t["Gladiator's Mooncloth Gloves"]==nil then t["Gladiator's Mooncloth Gloves"]="Перчатки гладиатора из луноткани" end
+if t["Gladiator's Mooncloth Robe"]==nil then t["Gladiator's Mooncloth Robe"]="Одеяние гладиатора из луноткани" end
+if t["Gladiator's Plate Helm"]==nil then t["Gladiator's Plate Helm"]="Латный шлем гладиатора" end
+if t["Gladiator's Plate Legguards"]==nil then t["Gladiator's Plate Legguards"]="Латные набедренники гладиатора" end
+if t["Gladiator's Ringmail Helm"]==nil then t["Gladiator's Ringmail Helm"]="Кольчатый шлем гладиатора" end
+if t["Gladiator's Ringmail Leggings"]==nil then t["Gladiator's Ringmail Leggings"]="Кольчатые поножи гладиатора" end
+if t["Gladiator's Satin Gloves"]==nil then t["Gladiator's Satin Gloves"]="Атласные перчатки гладиатора" end
+if t["Gladiator's Satin Mantle"]==nil then t["Gladiator's Satin Mantle"]="Атласная мантия гладиатора" end
+if t["Gladiator's Scaled Chestpiece"]==nil then t["Gladiator's Scaled Chestpiece"]="Чешуйчатый нагрудник гладиатора" end
+if t["Gladiator's Scaled Gauntlets"]==nil then t["Gladiator's Scaled Gauntlets"]="Чешуйчатые рукавицы гладиатора" end
+if t["Gladiator's Scaled Legguards"]==nil then t["Gladiator's Scaled Legguards"]="Чешуйчатые набедренники гладиатора" end
+if t["Gladiator's Scaled Shoulders"]==nil then t["Gladiator's Scaled Shoulders"]="Чешуйчатые наплечники гладиатора" end
+if t["Gladiator's Silk Handguards"]==nil then t["Gladiator's Silk Handguards"]="Шелковые боевые рукавицы гладиатора" end
+if t["Gladiator's Silk Raiment"]==nil then t["Gladiator's Silk Raiment"]="Шелковое облачение гладиатора" end
+if t["Gladiator's Wyrmhide Robes"]==nil then t["Gladiator's Wyrmhide Robes"]="Одеяние гневного гладиатора из шкуры змея" end
+if t["Gladiator's Wyrmhide Spaulders"]==nil then t["Gladiator's Wyrmhide Spaulders"]="Наплеч гладиатора из шкуры змея" end
+if t["Gladiator's Wyrmhide Tunic"]==nil then t["Gladiator's Wyrmhide Tunic"]="Мундир гладиатора из шкуры змея" end
+if t["Glorious Felcrusher"]==nil then t["Glorious Felcrusher"]="Великолепный Сквернопотам" end
+if t["Gloves of Faith"]==nil then t["Gloves of Faith"]="Перчатки веры" end
+if t["Gloves of Prophecy"]==nil then t["Gloves of Prophecy"]="Перчатки пророчества" end
+if t["Gloves of Tirisfal"]==nil then t["Gloves of Tirisfal"]="Тирисфальские перчатки" end
+if t["Gloves of Undead Cleansing"]==nil then t["Gloves of Undead Cleansing"]="Перчатки искоренения нежити" end
+if t["Gloves of the Cleansing Flame"]==nil then t["Gloves of the Cleansing Flame"]="Перчатки очищающего пламени" end
+if t["Gloves of the Corruptor"]==nil then t["Gloves of the Corruptor"]="Одеяния осквернителя" end
+if t["Gnomish Portable Transpolyporter: Raidwide Hearthstone"]==nil then t["Gnomish Portable Transpolyporter: Raidwide Hearthstone"]="Портативный Телепорт Гномов: Камень Возвращения Рейда" end
+if t["Goblin Gumbo Kettle"]==nil then t["Goblin Gumbo Kettle"]="Котелок Гоблинского Супчика" end
+if t["Goggles of Impending Doom"]==nil then t["Goggles of Impending Doom"]="Очки надвигающегося Рока" end
+if t["Golden Lotus Tabard"]==nil then t["Golden Lotus Tabard"]="Гербовая накидка золотого лотоса" end
+if t["Golden Primal Direhorn"]==nil then t["Golden Primal Direhorn"]="Золотистый Древний Дикорог" end
+if t["Golden Spectacles"]==nil then t["Golden Spectacles"]="Золотые Очки" end
+if t["Gordok Ogre Suit"]==nil then t["Gordok Ogre Suit"]="Броня Огров Гордока" end
+if t["Goreforged Staff"]==nil then t["Goreforged Staff"]="Закаленный Плотью Жезл" end
+if t["Grand Marshal's Chain Armor"]==nil then t["Grand Marshal's Chain Armor"]="Плетеный доспех главнокомандующего" end
+if t["Grand Marshal's Chain Leggings"]==nil then t["Grand Marshal's Chain Leggings"]="Плетеные поножи главнокомандующего" end
+if t["Grand Marshal's Chain Spaulders"]==nil then t["Grand Marshal's Chain Spaulders"]="Плетеный наплеч главнокомандующего" end
+if t["Grand Marshal's Dragonhide Gloves"]==nil then t["Grand Marshal's Dragonhide Gloves"]="Перчатки главнокомандующего из драконьей шкуры" end
+if t["Grand Marshal's Dragonhide Legguards"]==nil then t["Grand Marshal's Dragonhide Legguards"]="Набедренники главнокомандующего из шкуры дракона" end
+if t["Grand Marshal's Dreadweave Mantle"]==nil then t["Grand Marshal's Dreadweave Mantle"]="Мантия главнокомандующего из ткани ужаса" end
+if t["Grand Marshal's Kodohide Legguards"]==nil then t["Grand Marshal's Kodohide Legguards"]="Набедренники главнокомандующего из шкуры кодо" end
+if t["Grand Marshal's Lamellar Gauntlets"]==nil then t["Grand Marshal's Lamellar Gauntlets"]="Ламеллярные рукавицы главнокомандующего" end
+if t["Grand Marshal's Lamellar Shoulders"]==nil then t["Grand Marshal's Lamellar Shoulders"]="Ламеллярные наплечники главнокомандующего" end
+if t["Grand Marshal's Leather Spaulders"]==nil then t["Grand Marshal's Leather Spaulders"]="Кожаный наплеч главнокомандующего" end
+if t["Grand Marshal's Linked Armor"]==nil then t["Grand Marshal's Linked Armor"]="Клепаный доспех главнокомандующего" end
+if t["Grand Marshal's Linked Gauntlets"]==nil then t["Grand Marshal's Linked Gauntlets"]="Клепаные рукавицы главнокомандующего" end
+if t["Grand Marshal's Mail Helm"]==nil then t["Grand Marshal's Mail Helm"]="Кольчужный шлем главнокомандующего" end
+if t["Grand Marshal's Mail Spaulders"]==nil then t["Grand Marshal's Mail Spaulders"]="Кольчужный наплеч главнокомандующего" end
+if t["Grand Marshal's Mooncloth Legguards"]==nil then t["Grand Marshal's Mooncloth Legguards"]="Набедренники главнокомандующего из луноткани" end
+if t["Grand Marshal's Mooncloth Shoulderpads"]==nil then t["Grand Marshal's Mooncloth Shoulderpads"]="Наплечные пластины главнокомандующего из луноткани" end
+if t["Grand Marshal's Ornamented Gloves"]==nil then t["Grand Marshal's Ornamented Gloves"]="Украшенные перчатки главнокомандующего" end
+if t["Grand Marshal's Pursuit"]==nil then t["Grand Marshal's Pursuit"]="Облачение главнокомандующего" end
+if t["Grand Marshal's Ringmail Headpiece"]==nil then t["Grand Marshal's Ringmail Headpiece"]="Кольчатый головной убор главнокомандующего" end
+if t["Grand Marshal's Ringmail Legguards"]==nil then t["Grand Marshal's Ringmail Legguards"]="Кольчатые набедренники главнокомандующего" end
+if t["Grand Marshal's Ringmail Shoulders"]==nil then t["Grand Marshal's Ringmail Shoulders"]="Кольчатые наплечники главнокомандующего" end
+if t["Grand Marshal's Satin Hood"]==nil then t["Grand Marshal's Satin Hood"]="Атласный капюшон главнокомандующего" end
+if t["Grand Marshal's Satin Mantle"]==nil then t["Grand Marshal's Satin Mantle"]="Атласное оплечье главнокомандующего" end
+if t["Grand Marshal's Satin Robe"]==nil then t["Grand Marshal's Satin Robe"]="Атласное одеяние главнокомандующего" end
+if t["Grand Marshal's Scaled Gauntlets"]==nil then t["Grand Marshal's Scaled Gauntlets"]="Чешуйчатые рукавицы главнокомандующего" end
+if t["Grand Marshal's Scaled Shoulders"]==nil then t["Grand Marshal's Scaled Shoulders"]="Чешуйчатые наплечники главнокомандующего" end
+if t["Grand Marshal's Silk Raiment"]==nil then t["Grand Marshal's Silk Raiment"]="Шелковое облачение главнокомандующего" end
+if t["Grand Marshal's Wyrmhide Spaulders"]==nil then t["Grand Marshal's Wyrmhide Spaulders"]="Наплеч главнокомандующего из шкуры змея" end
+if t["Grand Runespeakers Staff (Weapon Transmog)"]==nil then t["Grand Runespeakers Staff (Weapon Transmog)"]="Большой посох Руноговора (Трансмогрификация оружия)" end
+if t["Greatsword of Pride's Fall"]==nil then t["Greatsword of Pride's Fall"]="Большой меч разбившейся гордыни" end
+if t["Greatsword of the Inferno"]==nil then t["Greatsword of the Inferno"]="Большой меч преисподней" end
+if t["Greaves of Desolation"]==nil then t["Greaves of Desolation"]="Наголенники опустошения" end
+if t["Green Dragonscale Gauntlets"]==nil then t["Green Dragonscale Gauntlets"]="Рукавицы из чешуи зеленого дракона" end
+if t["Green Longhorn Thunderspine"]==nil then t["Green Longhorn Thunderspine"]="Зеленый Длиннорогий Громоспин" end
+if t["Green Mana-forged Barrier"]==nil then t["Green Mana-forged Barrier"]="Барьер из маны (зеленый)" end
+if t["Green Plainswalker Bearer"]==nil then t["Green Plainswalker Bearer"]="Зеленый Вьючный Равнинный Мамонт" end
+if t["Grey Riding Yak Mount"]==nil then t["Grey Riding Yak Mount"]="Серый Ездовой Як" end
+if t["Gri'lek's Charm of Might"]==nil then t["Gri'lek's Charm of Might"]="Оберег могущества Гри'лека" end
+if t["Grips of the Haunted Forest"]==nil then t["Grips of the Haunted Forest"]="Захваты призрачного леса" end
+if t["Grips of the Raging Elements"]==nil then t["Grips of the Raging Elements"]="Захваты бушующих стихий" end
+if t["Grips of the Witch Doctor"]==nil then t["Grips of the Witch Doctor"]="Захваты знахаря" end
+if t["Gronn Slayer’s Regalia"]==nil then t["Gronn Slayer’s Regalia"]="Регалии истребителя гроннов" end
+if t["Gronnstalker's Helmet"]==nil then t["Gronnstalker's Helmet"]="Полный шлем охотника на гроннов" end
+if t["Gronnstalker's Leggings"]==nil then t["Gronnstalker's Leggings"]="Поножи охотника на гроннов" end
+if t["Grove Runner's Guise: Alleria Windrunner"]==nil then t["Grove Runner's Guise: Alleria Windrunner"]="Обличье Бегущей по лесу - Аллерия Ветрокрылая" end
+if t["Grove Warden's Grace"]==nil then t["Grove Warden's Grace"]="Милость хранителя рощи" end
+if t["Guardian Serpent Gloves"]==nil then t["Guardian Serpent Gloves"]="Перчатки змея-хранителя" end
+if t["Guardian Serpent Handwraps"]==nil then t["Guardian Serpent Handwraps"]="Повязки змея-хранителя" end
+if t["Guardian Serpent Hood"]==nil then t["Guardian Serpent Hood"]="Капюшон змея-хранителя" end
+if t["Guardian Serpent Leggings"]==nil then t["Guardian Serpent Leggings"]="Поножи змея-хранителя" end
+if t["Guardian Serpent Mantle"]==nil then t["Guardian Serpent Mantle"]="Оплечье змея-хранителя" end
+if t["Guardian Serpent Regalia"]==nil then t["Guardian Serpent Regalia"]="Регалии змея-хранителя" end
+if t["Guild Recruitment Banner"]==nil then t["Guild Recruitment Banner"]="Знамя Рекрута Гильдии" end
+if t["Guild Rename Scroll"]==nil then t["Guild Rename Scroll"]="Свиток Переименования Гильдии" end
+if t["Guild Vault Voucher"]==nil then t["Guild Vault Voucher"]="Сертификат Хранилища Гильдии" end
+if t["Guise of the Disguised Hero"]==nil then t["Guise of the Disguised Hero"]="Облик замаскированного героя" end
+if t["Guise of the Mad Scientist"]==nil then t["Guise of the Mad Scientist"]="Облик безумного ученого" end
+if t["Guise of the Warden"]==nil then t["Guise of the Warden"]="Облик cтража" end
+if t["Gul'dan's Gloves of Conquest"]==nil then t["Gul'dan's Gloves of Conquest"]="Перчатки завоеваний Гул'дана" end
+if t["Gul'dan's Gloves of Hyjal"]==nil then t["Gul'dan's Gloves of Hyjal"]="Хиджальские перчатки Гул'дана" end
+if t["Gul'dan's Hood of Conquest"]==nil then t["Gul'dan's Hood of Conquest"]="Капюшон завоеваний Гул'дана" end
+if t["Gul'dan's Hood of Hyjal"]==nil then t["Gul'dan's Hood of Hyjal"]="Хиджальский капюшон Гул’дана" end
+if t["Gul'dan's Hood of Valiance"]==nil then t["Gul'dan's Hood of Valiance"]="Капюшон доблести Гул'дана" end
+if t["Gul'dan's Robe of Hyjal"]==nil then t["Gul'dan's Robe of Hyjal"]="Хиджальское одеяние Гул'дана" end
+if t["Gul'dan's Robe of Valiance"]==nil then t["Gul'dan's Robe of Valiance"]="Одеяние отваги Гул'дана" end
+if t["Gul'dan's Shoulderpads"]==nil then t["Gul'dan's Shoulderpads"]="Наплечные пластины Гул'дана" end
+if t["Gul'dan's Shoulderpads of Hyjal"]==nil then t["Gul'dan's Shoulderpads of Hyjal"]="Хиджальские наплечные пластины Гул'дана" end
+if t["Gul'dan's Shoulderpads of Triumph"]==nil then t["Gul'dan's Shoulderpads of Triumph"]="Наплечные пластины триумфа Гул'дана" end
+if t["Hallowed Garments"]==nil then t["Hallowed Garments"]="Благословенные облачения" end
+if t["Halo of Transcendence"]==nil then t["Halo of Transcendence"]="Ореол превосходства" end
+if t["Halo of the Selfless"]==nil then t["Halo of the Selfless"]="Ореол самоотверженности" end
+if t["Hammer of the Gathering Storm"]==nil then t["Hammer of the Gathering Storm"]="Молот надвигающейся бури" end
+if t["Hand of Gustav"]==nil then t["Hand of Gustav"]="Рука Густава" end
+if t["Handgrips of Assassination"]==nil then t["Handgrips of Assassination"]="Боевые перчатки ликвидации" end
+if t["Handguards of Malorne"]==nil then t["Handguards of Malorne"]="Боевые рукавицы Малорна" end
+if t["Handguards of Transcendence"]==nil then t["Handguards of Transcendence"]="Боевые рукавицы превосходства" end
+if t["Handguards of the Molten Giant"]==nil then t["Handguards of the Molten Giant"]="Боевые рукавицы огненного великана" end
+if t["Handwraps of Transcendence"]==nil then t["Handwraps of Transcendence"]="Повязки превосходства" end
+if t["Handwraps of the Cleansing Flame"]==nil then t["Handwraps of the Cleansing Flame"]="Повязки очищающего пламени" end
+if t["Handwraps of the Exorcist"]==nil then t["Handwraps of the Exorcist"]="Повязки экзорциста" end
+if t["Hat of the First Sister"]==nil then t["Hat of the First Sister"]="Шляпа первой сестры" end
+if t["Hateful Gladiator's Chain Armor"]==nil then t["Hateful Gladiator's Chain Armor"]="Плетеный доспех злобного гладиатора" end
+if t["Hateful Gladiator's Chain Gauntlets"]==nil then t["Hateful Gladiator's Chain Gauntlets"]="Плетеные рукавицы злобного гладиатора" end
+if t["Hateful Gladiator's Chain Leggings"]==nil then t["Hateful Gladiator's Chain Leggings"]="Плетеные поножи злобного гладиатора" end
+if t["Hateful Gladiator's Dragonhide Robes"]==nil then t["Hateful Gladiator's Dragonhide Robes"]="Одеяние злобного гладиатора из драконьей шкуры" end
+if t["Hateful Gladiator's Dreadplate Chestpiece"]==nil then t["Hateful Gladiator's Dreadplate Chestpiece"]="Жуткий латный нагрудник злобного гладиатора" end
+if t["Hateful Gladiator's Dreadplate Gauntlets"]==nil then t["Hateful Gladiator's Dreadplate Gauntlets"]="Жуткие латные рукавицы злобного гладиатора" end
+if t["Hateful Gladiator's Dreadplate Helm"]==nil then t["Hateful Gladiator's Dreadplate Helm"]="Жуткий латный шлем злобного гладиатора" end
+if t["Hateful Gladiator's Felweave Raiment"]==nil then t["Hateful Gladiator's Felweave Raiment"]="Облачение злобного гладиатора из ткани Скверны" end
+if t["Hateful Gladiator's Kodohide Legguards"]==nil then t["Hateful Gladiator's Kodohide Legguards"]="Набедренники злобного гладиатора из шкуры кодо" end
+if t["Hateful Gladiator's Linked Helm"]==nil then t["Hateful Gladiator's Linked Helm"]="Клепаный шлем злобного гладиатора" end
+if t["Hateful Gladiator's Mail Armor"]==nil then t["Hateful Gladiator's Mail Armor"]="Кольчужный доспех злобного гладиатора" end
+if t["Hateful Gladiator's Mail Gauntlets"]==nil then t["Hateful Gladiator's Mail Gauntlets"]="Кольчужные рукавицы злобного гладиатора" end
+if t["Hateful Gladiator's Mooncloth Gloves"]==nil then t["Hateful Gladiator's Mooncloth Gloves"]="Перчатки злобного гладиатора из луноткани" end
+if t["Hateful Gladiator's Ornamented Chestguard"]==nil then t["Hateful Gladiator's Ornamented Chestguard"]="Украшенный нагрудный доспех злобного гладиатора" end
+if t["Hateful Gladiator's Ornamented Gloves"]==nil then t["Hateful Gladiator's Ornamented Gloves"]="Украшенные перчатки злобного гладиатора" end
+if t["Hateful Gladiator's Plate Chestpiece"]==nil then t["Hateful Gladiator's Plate Chestpiece"]="Латный нагрудник злобного гладиатора" end
+if t["Hateful Gladiator's Satin Robe"]==nil then t["Hateful Gladiator's Satin Robe"]="Атласное одеяние злобного гладиатора" end
+if t["Hateful Gladiator's Scaled Chestpiece"]==nil then t["Hateful Gladiator's Scaled Chestpiece"]="Чешуйчатый нагрудник злобного гладиатора" end
+if t["Hateful Gladiator's Wyrmhide Helm"]==nil then t["Hateful Gladiator's Wyrmhide Helm"]="Шлем злобного гладиатора из шкуры змея" end
+if t["Hateful Gladiator's Wyrmhide Spaulders"]==nil then t["Hateful Gladiator's Wyrmhide Spaulders"]="Наплеч злобного гладиатора из шкуры змея" end
+if t["Hauberk of the Witch Doctor"]==nil then t["Hauberk of the Witch Doctor"]="Хауберк знахаря" end
+if t["Haunting Aberrations"]==nil then t["Haunting Aberrations"]="Призрачные аберрации" end
+if t["Headguard of the Haunted Forest"]==nil then t["Headguard of the Haunted Forest"]="Наголовник призрачного леса" end
+if t["Headhunter's Backpack"]==nil then t["Headhunter's Backpack"]="Рюкзак Охотника за головами" end
+if t["Heavenly Onyx Cloud Serpent"]==nil then t["Heavenly Onyx Cloud Serpent"]="Небесный Ониксовый Облачный Змей" end
+if t["Heavy Clefthoof Boots"]==nil then t["Heavy Clefthoof Boots"]="Тяжелые сапоги из шкуры копытня" end
+if t["Heavy Knothide Leather"]==nil then t["Heavy Knothide Leather"]="Толстая узловатая кожа" end
+if t["Heirloom Aged Pauldrons of The Five Thunders"]==nil then t["Heirloom Aged Pauldrons of The Five Thunders"]="Фамильное Старое Наплечье Пяти Громов" end
+if t["Heirloom Balanced Heartseeker"]==nil then t["Heirloom Balanced Heartseeker"]="Фамильный Сбалансированный Пронзатель Сердец" end
+if t["Heirloom Battleworn Thrash Blade"]==nil then t["Heirloom Battleworn Thrash Blade"]="Фамильный Закаленный в Бою Молотящий Клинок" end
+if t["Heirloom Bloodied Arcanite Reaper"]==nil then t["Heirloom Bloodied Arcanite Reaper"]="Фамильный Окровавленный Арканитовый Жнец" end
+if t["Heirloom Champion Herod's Shoulder"]==nil then t["Heirloom Champion Herod's Shoulder"]="Фамильный Наплечник Защитника Ирода" end
+if t["Heirloom Champion's Deathdealer Breastplate"]==nil then t["Heirloom Champion's Deathdealer Breastplate"]="Фамильная Кираса Несущего Смерть Чемпиона" end
+if t["Heirloom Charmed Ancient Bone Bow"]==nil then t["Heirloom Charmed Ancient Bone Bow"]="Фамильный Зачарованный Древний Костяной Лук" end
+if t["Heirloom Devout Aurastone Hammer"]==nil then t["Heirloom Devout Aurastone Hammer"]="Фамильный Каменный Молот Благочестивой Ауры" end
+if t["Heirloom Dignified Headmaster's Charge"]==nil then t["Heirloom Dignified Headmaster's Charge"]="Фамильная Величавая Трость Ректора" end
+if t["Heirloom Discerning Eye of the Beast"]==nil then t["Heirloom Discerning Eye of the Beast"]="Фамильный Прозорливый Глаз Зверя" end
+if t["Heirloom Exceptional Stormshroud Shoulders"]==nil then t["Heirloom Exceptional Stormshroud Shoulders"]="Фамильные Исключительные Наплечники Грозового Покрова" end
+if t["Heirloom Exquisite Sunderseer Mantle"]==nil then t["Heirloom Exquisite Sunderseer Mantle"]="Фамильное Изысканное оплечье провидца в изгнании" end
+if t["Heirloom Grand Staff of Jordan"]==nil then t["Heirloom Grand Staff of Jordan"]="Фамильный Большой Посох Джордана" end
+if t["Heirloom Inherited Insignia of the Alliance"]==nil then t["Heirloom Inherited Insignia of the Alliance"]="Унаследованный Знак Различия Альянса" end
+if t["Heirloom Inherited Insignia of the Horde"]==nil then t["Heirloom Inherited Insignia of the Horde"]="Унаследованный Знак Различия Орды" end
+if t["Heirloom Lasting Feralheart Spaulders"]==nil then t["Heirloom Lasting Feralheart Spaulders"]="Фамильный Долговечный Наплеч Буйного Сердца" end
+if t["Heirloom Mystical Pauldrons of Elements"]==nil then t["Heirloom Mystical Pauldrons of Elements"]="Фамильное Таинственное Наплечье Стихий" end
+if t["Heirloom Mystical Vest of Elements"]==nil then t["Heirloom Mystical Vest of Elements"]="Фамильный Мистический Жилет Стихий" end
+if t["Heirloom Polished Breastplate of Valor"]==nil then t["Heirloom Polished Breastplate of Valor"]="Полированная Кираса Доблести" end
+if t["Heirloom Polished Spaulders of Valor"]==nil then t["Heirloom Polished Spaulders of Valor"]="Фамильный Полированный Наплеч Доблести" end
+if t["Heirloom Preened Ironfeather Breastplate"]==nil then t["Heirloom Preened Ironfeather Breastplate"]="Фамильная Вычищенная Железноперая Кираса" end
+if t["Heirloom Preened Ironfeather Shoulders"]==nil then t["Heirloom Preened Ironfeather Shoulders"]="Фамильные Вычищенные Железноперые Наплечники" end
+if t["Heirloom Pristine Lightforge Spaulders"]==nil then t["Heirloom Pristine Lightforge Spaulders"]="Фамильный Безупречный Наплеч из Светостали" end
+if t["Heirloom Prized Beastmaster's Mantle"]==nil then t["Heirloom Prized Beastmaster's Mantle"]="Фамильное Ценное Оплечье Повелителя Зверей" end
+if t["Heirloom Reforged Truesilver Champion"]==nil then t["Heirloom Reforged Truesilver Champion"]="Фамильный Перекованный Защитник из Истинного Серебра" end
+if t["Heirloom Repurposed Lava Dredger"]==nil then t["Heirloom Repurposed Lava Dredger"]="Фамильный Переналаженный Лавовый Отвал" end
+if t["Heirloom Sharpened Scarlet Kris"]==nil then t["Heirloom Sharpened Scarlet Kris"]="Фамильный Отточенный Алый Крис" end
+if t["Heirloom Stained Shadowcraft Spaulders"]==nil then t["Heirloom Stained Shadowcraft Spaulders"]="Фамильный Испачканный Наплеч Незаметности" end
+if t["Heirloom Stained Shadowcraft Tunic"]==nil then t["Heirloom Stained Shadowcraft Tunic"]="Испачканный Мундир Незаметности" end
+if t["Heirloom Strengthened Stockade Pauldrons"]==nil then t["Heirloom Strengthened Stockade Pauldrons"]="Фамильное Укрепленное Тюремное Наплечье" end
+if t["Heirloom Swift Hand of Justice"]==nil then t["Heirloom Swift Hand of Justice"]="Фамильная Стремительная Рука Правосудия" end
+if t["Heirloom Tattered Dreadmist Mantle"]==nil then t["Heirloom Tattered Dreadmist Mantle"]="Фамильное Изорванное Оплечье Багрового Тумана" end
+if t["Heirloom Tattered Dreadmist Robe"]==nil then t["Heirloom Tattered Dreadmist Robe"]="Фамильное Изорванное Одеяние Багрового Тумана" end
+if t["Heirloom The Blessed Hammer of Grace"]==nil then t["Heirloom The Blessed Hammer of Grace"]="Фамильный Благословенный Молот Милости" end
+if t["Heirloom Upgraded Dwarven Hand Cannon"]==nil then t["Heirloom Upgraded Dwarven Hand Cannon"]="Фамильная Модернизированная Гномья Ручная Пушка" end
+if t["Heirloom Venerable Dal'Rend's Sacred Charge"]==nil then t["Heirloom Venerable Dal'Rend's Sacred Charge"]="Фамильный Священный Заряд Дал'Ренда" end
+if t["Heirloom Venerable Mass of McGowan"]==nil then t["Heirloom Venerable Mass of McGowan"]="Фамильный Древний Молот Макгоуэна" end
+if t["Heirloom Wand of the Forgotten Lich"]==nil then t["Heirloom Wand of the Forgotten Lich"]="Унаследованный Жезл Забытого Лича" end
+if t["Heirloom Weapon Token"]==nil then t["Heirloom Weapon Token"]="Жетон Наследуемого Оружия" end
+if t["Hellscream's Battleplate"]==nil then t["Hellscream's Battleplate"]="Боевой доспех Адского Крика" end
+if t["Hellscream's Battleplate of Hyjal"]==nil then t["Hellscream's Battleplate of Hyjal"]="Хиджальский боевой доспех Адского Крика" end
+if t["Hellscream's Breastplate of Hyjal"]==nil then t["Hellscream's Breastplate of Hyjal"]="Хиджальская кираса Адского Крика" end
+if t["Hellscream's Breastplate of Valiance"]==nil then t["Hellscream's Breastplate of Valiance"]="Кираса отваги Адского Крика" end
+if t["Hellscream's Gauntlets"]==nil then t["Hellscream's Gauntlets"]="Рукавицы Адского Крика" end
+if t["Hellscream's Handguards"]==nil then t["Hellscream's Handguards"]="Боевые рукавицы Адского Крика" end
+if t["Hellscream's Handguards of Triumph"]==nil then t["Hellscream's Handguards of Triumph"]="Боевые рукавицы триумфа Адского Крика" end
+if t["Hellscream's Helmet of Valiance"]==nil then t["Hellscream's Helmet of Valiance"]="Полный шлем отваги Адского Крика" end
+if t["Hellscream's Legguards"]==nil then t["Hellscream's Legguards"]="Набедренники Адского Крика" end
+if t["Hellscream's Legguards of Conquest"]==nil then t["Hellscream's Legguards of Conquest"]="Набедренники завоеваний Адского Крика" end
+if t["Hellscream's Legguards of Hyjal"]==nil then t["Hellscream's Legguards of Hyjal"]="Хиджальские набедренники Адского Крика" end
+if t["Hellscream's Legguards of Triumph"]==nil then t["Hellscream's Legguards of Triumph"]="Набедренники триумфа Адского Крика" end
+if t["Hellscream's Legguards of Valiance"]==nil then t["Hellscream's Legguards of Valiance"]="Набедренники отваги Адского Крика" end
+if t["Hellscream's Legplates of Valiance"]==nil then t["Hellscream's Legplates of Valiance"]="Ножные латы отваги Адского Крика" end
+if t["Hellscream's Pauldrons"]==nil then t["Hellscream's Pauldrons"]="Наплечье Адского Крика" end
+if t["Hellscream's Pauldrons of Hyjal"]==nil then t["Hellscream's Pauldrons of Hyjal"]="Хиджальское наплечье Адского Крика" end
+if t["Hellscream's Shoulderplates"]==nil then t["Hellscream's Shoulderplates"]="Латные наплечники Адского Крика" end
+if t["Hellscream's Shoulderplates of Conquest"]==nil then t["Hellscream's Shoulderplates of Conquest"]="Латные наплечники завоеваний Адского Крика" end
+if t["Hellscream's Shoulderplates of Hyjal"]==nil then t["Hellscream's Shoulderplates of Hyjal"]="Хиджальские латные наплечники Адского Крика" end
+if t["Hellscream's Shoulderplates of Triumph"]==nil then t["Hellscream's Shoulderplates of Triumph"]="Латные наплечники триумфа Адского Крика" end
+if t["Helm of Heroism"]==nil then t["Helm of Heroism"]="Шлем героизма" end
+if t["Helm of Might"]==nil then t["Helm of Might"]="Шлем мощи" end
+if t["Helm of Valor"]==nil then t["Helm of Valor"]="Шлем доблести" end
+if t["Helm of Wrath"]==nil then t["Helm of Wrath"]="Шлем гнева" end
+if t["Helm of the Righteous"]==nil then t["Helm of the Righteous"]="Шлем праведника" end
+if t["Helmet of the All-Consuming Maw"]==nil then t["Helmet of the All-Consuming Maw"]="Шлем всепоглощающего зева" end
+if t["Helmet of the Molten Giant"]==nil then t["Helmet of the Molten Giant"]="Шлем огненного великана" end
+if t["Herbalist's Hat - Herbalism Speed Bonus"]==nil then t["Herbalist's Hat - Herbalism Speed Bonus"]="Повязка Травника - Бонус к Скорости Сбора Трав" end
+if t["Heroes Satchel (Soulbound 20 Slot)"]==nil then t["Heroes Satchel (Soulbound 20 Slot)"]="Сумка Героев (20 ячеек, привязаны к персонажу)" end
+if t["Heroes' Bonescythe Gauntlets"]==nil then t["Heroes' Bonescythe Gauntlets"]="Героические рукавицы костяной косы" end
+if t["Heroes' Dreadnaught Battleplate"]==nil then t["Heroes' Dreadnaught Battleplate"]="Героический боевой доспех неустрашимости" end
+if t["Heroes' Dreadnaught Greathelm"]==nil then t["Heroes' Dreadnaught Greathelm"]="Героический большой шлем неустрашимости" end
+if t["Heroes' Dreadnaught Legguards"]==nil then t["Heroes' Dreadnaught Legguards"]="Героические набедренники неустрашимости" end
+if t["Heroes' Dreadnaught Shoulderplates"]==nil then t["Heroes' Dreadnaught Shoulderplates"]="Героические латные наплечники неустрашимости" end
+if t["Heroes' Dreamwalker Headguard"]==nil then t["Heroes' Dreamwalker Headguard"]="Героический наголовник сновидца" end
+if t["Heroes' Dreamwalker Mantle"]==nil then t["Heroes' Dreamwalker Mantle"]="Героическое оплечье сновидца" end
+if t["Heroes' Dreamwalker Raiments"]==nil then t["Heroes' Dreamwalker Raiments"]="Героические облачения сновидца" end
+if t["Heroes' Dreamwalker Robe"]==nil then t["Heroes' Dreamwalker Robe"]="Героическое одеяние сновидца" end
+if t["Heroes' Dreamwalker Spaulders"]==nil then t["Heroes' Dreamwalker Spaulders"]="Героический наплеч сновидца" end
+if t["Heroes' Earthshatter Grips"]==nil then t["Heroes' Earthshatter Grips"]="Героические захваты Землекрушителя" end
+if t["Heroes' Earthshatter Handguards"]==nil then t["Heroes' Earthshatter Handguards"]="Героические боевые рукавицы Землекрушителя" end
+if t["Heroes' Earthshatter Shoulderguards"]==nil then t["Heroes' Earthshatter Shoulderguards"]="Героические наплечные щитки Землекрушителя" end
+if t["Heroes' Earthshatter Spaulders"]==nil then t["Heroes' Earthshatter Spaulders"]="Героический наплеч Землекрушителя" end
+if t["Heroes' Earthshatter Tunic"]==nil then t["Heroes' Earthshatter Tunic"]="Героический мундир Землекрушителя" end
+if t["Heroes' Frostfire Circlet"]==nil then t["Heroes' Frostfire Circlet"]="Героический венец ледяного огня" end
+if t["Heroes' Frostfire Gloves"]==nil then t["Heroes' Frostfire Gloves"]="Героические перчатки ледяного огня" end
+if t["Heroes' Plagueheart Shoulderpads"]==nil then t["Heroes' Plagueheart Shoulderpads"]="Героические наплечные пластины Проклятого Сердца" end
+if t["Heroes' Redemption Faceguard"]==nil then t["Heroes' Redemption Faceguard"]="Героический большой шлем искупления" end
+if t["Heroes' Redemption Gloves"]==nil then t["Heroes' Redemption Gloves"]="Героические перчатки искупления" end
+if t["Heroes' Redemption Headpiece"]==nil then t["Heroes' Redemption Headpiece"]="Героический головной убор искупления" end
+if t["Heroes' Redemption Legguards"]==nil then t["Heroes' Redemption Legguards"]="Героические наголенники искупления" end
+if t["Heroes' Scourgeborne Chestguard"]==nil then t["Heroes' Scourgeborne Chestguard"]="Героический кованый Плетью нагрудный доспех" end
+if t["Heroes' Scourgeborne Helmet"]==nil then t["Heroes' Scourgeborne Helmet"]="Героический кованый Плетью шлем" end
+if t["Heroes' Scourgeborne Legplates"]==nil then t["Heroes' Scourgeborne Legplates"]="Героические кованые Плетью ножные латы" end
+if t["Hidden Item Bundle"]==nil then t["Hidden Item Bundle"]="Набор скрытых предметов" end
+if t["Hidden Shoulders"]==nil then t["Hidden Shoulders"]="Скрытые Наплечники" end
+if t["Hidden Waist"]==nil then t["Hidden Waist"]="Скрытый Пояс" end
+if t["Hidden Wrists"]==nil then t["Hidden Wrists"]="Скрытые Наручи" end
+if t["High Priest's Lightsworn Seeker"]==nil then t["High Priest's Lightsworn Seeker"]="Верный свету дозорный верховного жреца" end
+if t["High Warlord's Chain Armor"]==nil then t["High Warlord's Chain Armor"]="Плетеный доспех верховного вождя" end
+if t["High Warlord's Dragonhide Gloves"]==nil then t["High Warlord's Dragonhide Gloves"]="Перчатки верховного вождя из драконьей шкуры" end
+if t["High Warlord's Dragonhide Helm"]==nil then t["High Warlord's Dragonhide Helm"]="Шлем верховного вождя из драконьей шкуры" end
+if t["High Warlord's Dragonhide Legguards"]==nil then t["High Warlord's Dragonhide Legguards"]="Набедренники верховного вождя из драконьей шкуры" end
+if t["High Warlord's Lamellar Chestpiece"]==nil then t["High Warlord's Lamellar Chestpiece"]="Ламеллярный нагрудник верховного вождя" end
+if t["High Warlord's Lamellar Helm"]==nil then t["High Warlord's Lamellar Helm"]="Ламеллярный шлем верховного вождя" end
+if t["High Warlord's Lamellar Legguards"]==nil then t["High Warlord's Lamellar Legguards"]="Ламеллярные набедренники верховного вождя" end
+if t["High Warlord's Linked Armor"]==nil then t["High Warlord's Linked Armor"]="Клепаный доспех верховного вождя" end
+if t["High Warlord's Linked Leggings"]==nil then t["High Warlord's Linked Leggings"]="Клепаные поножи верховного вождя" end
+if t["High Warlord's Linked Spaulders"]==nil then t["High Warlord's Linked Spaulders"]="Клепаный наплеч верховного вождя" end
+if t["High Warlord's Mail Armor"]==nil then t["High Warlord's Mail Armor"]="Кольчужный доспех верховного вождя" end
+if t["High Warlord's Mail Helm"]==nil then t["High Warlord's Mail Helm"]="Кольчужный шлем верховного вождя" end
+if t["High Warlord's Mail Leggings"]==nil then t["High Warlord's Mail Leggings"]="Кольчужные поножи верховного вождя" end
+if t["High Warlord's Mail Spaulders"]==nil then t["High Warlord's Mail Spaulders"]="Кольчужный наплеч верховного вождя" end
+if t["High Warlord's Mooncloth Legguards"]==nil then t["High Warlord's Mooncloth Legguards"]="Набедренники верховного вождя из луноткани" end
+if t["High Warlord's Mooncloth Vestments"]==nil then t["High Warlord's Mooncloth Vestments"]="Одежды верховного вождя из луноткани" end
+if t["High Warlord's Ornamented Gloves"]==nil then t["High Warlord's Ornamented Gloves"]="Украшенные перчатки верховного вождя" end
+if t["High Warlord's Plate Shoulders"]==nil then t["High Warlord's Plate Shoulders"]="Латные наплечники верховного вождя" end
+if t["High Warlord's Ringmail Gloves"]==nil then t["High Warlord's Ringmail Gloves"]="Кольчатые перчатки верховного вождя" end
+if t["High Warlord's Ringmail Headpiece"]==nil then t["High Warlord's Ringmail Headpiece"]="Кольчатый головной убор верховного вождя" end
+if t["High Warlord's Ringmail Shoulderpads"]==nil then t["High Warlord's Ringmail Shoulderpads"]="Кольчатые наплечные пластины верховного вождя" end
+if t["High Warlord's Satin Mantle"]==nil then t["High Warlord's Satin Mantle"]="Атласное оплечье верховного вождя" end
+if t["High Warlord's Satin Robe"]==nil then t["High Warlord's Satin Robe"]="Атласное одеяние верховного вождя" end
+if t["High Warlord's Scaled Helm"]==nil then t["High Warlord's Scaled Helm"]="Чешуйчатый шлем верховного вождя" end
+if t["High Warlord's Silk Cowl"]==nil then t["High Warlord's Silk Cowl"]="Шелковый клобук верховного вождя" end
+if t["High Warlord's Silk Trousers"]==nil then t["High Warlord's Silk Trousers"]="Шелковые брюки верховного вождя" end
+if t["High Warlord's Wyrmhide Gloves"]==nil then t["High Warlord's Wyrmhide Gloves"]="Перчатки верховного вождя из шкуры змея" end
+if t["Highlander's Chain Pauldrons"]==nil then t["Highlander's Chain Pauldrons"]="Плетеное наплечье горца" end
+if t["Highlander's Epaulets"]==nil then t["Highlander's Epaulets"]="Эполеты горца" end
+if t["Highlander's Lamellar Girdle"]==nil then t["Highlander's Lamellar Girdle"]="Ламеллярный ремень горца" end
+if t["Highlander's Lamellar Spaulders"]==nil then t["Highlander's Lamellar Spaulders"]="Ламеллярный наплеч горца" end
+if t["Highlander's Leather Girdle"]==nil then t["Highlander's Leather Girdle"]="Кожаный ремень горца" end
+if t["Highlander's Mail Greaves"]==nil then t["Highlander's Mail Greaves"]="Наголенники горца" end
+if t["Highlord's Vigilant Charger"]==nil then t["Highlord's Vigilant Charger"]="Бдительный Скакун Верховного Лорда" end
+if t["Highmountain Elderhorn"]==nil then t["Highmountain Elderhorn"]="Старорог Крутогорья" end
+if t["Holy Rune of Retreat"]==nil then t["Holy Rune of Retreat"]="Священная Руна Отступления" end
+if t["Honeyback Drone"]==nil then t["Honeyback Drone"]="Трутень из Улья Медокрылов" end
+if t["Hood of Dying Light"]==nil then t["Hood of Dying Light"]="Капюшон гаснущего света" end
+if t["Hood of Hungering Darkness"]==nil then t["Hood of Hungering Darkness"]="Капюшон голодной тьмы" end
+if t["Hood of the Chromatic Hydra"]==nil then t["Hood of the Chromatic Hydra"]="Капюшон хроматической гидры" end
+if t["Hood of the Cleansing Flame"]==nil then t["Hood of the Cleansing Flame"]="Капюшон очищающего пламени" end
+if t["Hood of the Faceless Shroud"]==nil then t["Hood of the Faceless Shroud"]="Капюшон безликой пелены" end
+if t["Hyjal Chain Spaulders"]==nil then t["Hyjal Chain Spaulders"]="Хиджальский плетеный наплеч" end
+if t["Hyjal Dreadplate Helm"]==nil then t["Hyjal Dreadplate Helm"]="Хиджальский жуткий латный шлем" end
+if t["Hyjal Felweave Handguards"]==nil then t["Hyjal Felweave Handguards"]="Хиджальские боевые рукавицы из ткани Скверны" end
+if t["Hyjal Kodohide Spaulders"]==nil then t["Hyjal Kodohide Spaulders"]="Хиджальский наплеч из шкуры кодо" end
+if t["Hyjal Mail Helm"]==nil then t["Hyjal Mail Helm"]="Хиджальский кольчужный шлем" end
+if t["Hyjal Mooncloth Gloves"]==nil then t["Hyjal Mooncloth Gloves"]="Хиджальские перчатки из луноткани" end
+if t["Hyjal Mooncloth Hood"]==nil then t["Hyjal Mooncloth Hood"]="Хиджальский капюшон из луноткани" end
+if t["Hyjal Ornamented Gloves"]==nil then t["Hyjal Ornamented Gloves"]="Хиджальские украшенные перчатки" end
+if t["Hyjal Ornamented Headcover"]==nil then t["Hyjal Ornamented Headcover"]="Хиджальский украшенный шлем" end
+if t["Hyjal Ornamented Legplates"]==nil then t["Hyjal Ornamented Legplates"]="Хиджальские украшенные ножные латы" end
+if t["Hyjal Plate Legguards"]==nil then t["Hyjal Plate Legguards"]="Хиджальские латные набедренники" end
+if t["Hyjal Ringmail Leggings"]==nil then t["Hyjal Ringmail Leggings"]="Хиджальские кольчатые поножи" end
+if t["Hyjal Ringmail Spaulders"]==nil then t["Hyjal Ringmail Spaulders"]="Хиджальский кольчатый наплеч" end
+if t["Hyjal Satin Leggings"]==nil then t["Hyjal Satin Leggings"]="Хиджальские атласные поножи" end
+if t["Hyjal Satin Mantle"]==nil then t["Hyjal Satin Mantle"]="Хиджальское атласное оплечье" end
+if t["Hyjal Scaled Legguards"]==nil then t["Hyjal Scaled Legguards"]="Хиджальские чешуйчатые набедренники" end
+if t["Hyjal Silk Cowl"]==nil then t["Hyjal Silk Cowl"]="Хиджальский шелковый клобук" end
+if t["Hyjal Wyrmhide Gloves"]==nil then t["Hyjal Wyrmhide Gloves"]="Хиджальские перчатки из шкуры змея" end
+if t["Hyjal Wyrmhide Helm"]==nil then t["Hyjal Wyrmhide Helm"]="Хиджальский шлем из шкуры змея" end
+if t["Hyjal Wyrmhide Legguards"]==nil then t["Hyjal Wyrmhide Legguards"]="Хиджальские набедренники из шкуры змея" end
+if t["Hyjal Wyrmhide Robes"]==nil then t["Hyjal Wyrmhide Robes"]="Хиджальское одеяние из шкуры змея" end
+if t["Iceborne Belt"]==nil then t["Iceborne Belt"]="Пояс жителя льдов" end
+if t["Iceborne Boots"]==nil then t["Iceborne Boots"]="Сапоги жителя льдов" end
+if t["Iceborne Gloves"]==nil then t["Iceborne Gloves"]="Перчатки жителя льдов" end
+if t["Iceborne Helm"]==nil then t["Iceborne Helm"]="Шлем жителя льдов" end
+if t["Iceborne Wristguards"]==nil then t["Iceborne Wristguards"]="Накулачники жителя льдов" end
+if t["Icebound Tabard of Ascension"]==nil then t["Icebound Tabard of Ascension"]="Ледяная гербовая накидка Вознесения" end
+if t["Icy Ebon Warsword"]==nil then t["Icy Ebon Warsword"]="Большой ледяной боевой меч Черного Клинка" end
+if t["Illidari Felstalker"]==nil then t["Illidari Felstalker"]="Иллидарский Ловец Скверны" end
+if t["Illidari Succubus"]==nil then t["Illidari Succubus"]="Иллидарский Суккуб" end
+if t["Illusion: Executioner"]==nil then t["Illusion: Executioner"]="Иллюзия: Палач" end
+if t["Illusion: Fiery Weapon"]==nil then t["Illusion: Fiery Weapon"]="Иллюзия: Огненное оружие" end
+if t["Illusion: Holy Light"]==nil then t["Illusion: Holy Light"]="Иллюзия: Святой Свет" end
+if t["Illusion: Icy Chill"]==nil then t["Illusion: Icy Chill"]="Иллюзия: Ледяной холод" end
+if t["Illusion: Invisible"]==nil then t["Illusion: Invisible"]="Иллюзия: Невидимость" end
+if t["Illusion: Soulfrost"]==nil then t["Illusion: Soulfrost"]="Иллюзия: Ледяная душа" end
+if t["Illusion: Sunfire"]==nil then t["Illusion: Sunfire"]="Иллюзия: Солнечный огонь" end
+if t["Imbued Netherweave Boots"]==nil then t["Imbued Netherweave Boots"]="Сапоги из прочной ткани Пустоты" end
+if t["Imbued Netherweave Pants"]==nil then t["Imbued Netherweave Pants"]="Штаны из прочной ткани Пустоты" end
+if t["Immolation Headguard"]==nil then t["Immolation Headguard"]="Обжигающий наголовник" end
+if t["Imp in a Ball"]==nil then t["Imp in a Ball"]="Бес в шаре" end
+if t["Imperial Plate Bracers"]==nil then t["Imperial Plate Bracers"]="Императорские латные наручи" end
+if t["Imperial Plate Shoulders"]==nil then t["Imperial Plate Shoulders"]="Имперские латные наплечники" end
+if t["Incanter's Cowl"]==nil then t["Incanter's Cowl"]="Клобук ведуна" end
+if t["Incanter's Regalia"]==nil then t["Incanter's Regalia"]="Регалии кудесника" end
+if t["Incarnate Regalia"]==nil then t["Incarnate Regalia"]="Регалии воплощенного" end
+if t["Incarnation: Acid Arrow"]==nil then t["Incarnation: Acid Arrow"]="Воплощение: Кислотная Стрела" end
+if t["Incarnation: Ancient Zandalari Guardian (Slate)"]==nil then t["Incarnation: Ancient Zandalari Guardian (Slate)"]="Воплощение: Древний Зандаларский Страж (Серый)" end
+if t["Incarnation: Claws of Ursoc (Blonde)"]==nil then t["Incarnation: Claws of Ursoc (Blonde)"]="Воплощение: Когти Урсока (светлый)" end
+if t["Incarnation: Claws of Ursoc (Brown)"]==nil then t["Incarnation: Claws of Ursoc (Brown)"]="Воплощение: Когти Урсока (коричневый)" end
+if t["Incarnation: Doe Travel Form"]==nil then t["Incarnation: Doe Travel Form"]="Воплощение: Походный облик лани" end
+if t["Incarnation: Dolphin Aquatic Form"]==nil then t["Incarnation: Dolphin Aquatic Form"]="Воплощение: Водный облик дельфина" end
+if t["Incarnation: Druid of the Flame"]==nil then t["Incarnation: Druid of the Flame"]="Воплощение: Друид пламени" end
+if t["Incarnation: Drust Thornguard (Brown)"]==nil then t["Incarnation: Drust Thornguard (Brown)"]="Воплощение: Друстский Шипастый Страж (Коричневый)" end
+if t["Incarnation: Drust Thornspeaker (Brown)"]==nil then t["Incarnation: Drust Thornspeaker (Brown)"]="Воплощение: Друстский Терномант (Коричневый)" end
+if t["Incarnation: Fangs of Ashamane (Blue)"]==nil then t["Incarnation: Fangs of Ashamane (Blue)"]="Воплощение: Клыки Пеплошкурой (голубой)" end
+if t["Incarnation: Fire Arrow"]==nil then t["Incarnation: Fire Arrow"]="Воплощение: Огненная Стрела" end
+if t["Incarnation: Highmountain Eagle"]==nil then t["Incarnation: Highmountain Eagle"]="Воплощение: Высокогорный Орел" end
+if t["Incarnation: Highmountain Moonkin Form"]==nil then t["Incarnation: Highmountain Moonkin Form"]="Воплощение: Облик Высокогорного Лунного Совуха" end
+if t["Incarnation: Ice Arrow"]==nil then t["Incarnation: Ice Arrow"]="Воплощение: Ледяная Стрела" end
+if t["Incarnation: Kul'tiran Flight Form"]==nil then t["Incarnation: Kul'tiran Flight Form"]="Воплощение: Кул-тирасский Облик Птицы" end
+if t["Incarnation: Magic Arrow"]==nil then t["Incarnation: Magic Arrow"]="Воплощение: Магическая Стрела" end
+if t["Incarnation: Metamorphosis of Anger"]==nil then t["Incarnation: Metamorphosis of Anger"]="Воплощение: Метаморфоза Гнева" end
+if t["Incarnation: Metamorphosis of Fel"]==nil then t["Incarnation: Metamorphosis of Fel"]="Воплощение: Метаморфоза Скверны" end
+if t["Incarnation: Metamorphosis of Vengeance"]==nil then t["Incarnation: Metamorphosis of Vengeance"]="Воплощение: Метаморфоза Мести" end
+if t["Incarnation: Might of The Grizzlemaw"]==nil then t["Incarnation: Might of The Grizzlemaw"]="Воплощение: Мощь Седоморда" end
+if t["Incarnation: Moonspirit (Blue)"]==nil then t["Incarnation: Moonspirit (Blue)"]="Воплощение: Дух Луны (Голубой)" end
+if t["Incarnation: Plague Bear (Brown)"]==nil then t["Incarnation: Plague Bear (Brown)"]="Воплощение: Чумной Медведь (коричневый)" end
+if t["Incarnation: Stars' Fury"]==nil then t["Incarnation: Stars' Fury"]="Воплощение: Звездная Ярость" end
+if t["Incarnation: Stonepaw (Fuchsia)"]==nil then t["Incarnation: Stonepaw (Fuchsia)"]="Воплощение: Каменная Лапа (Фуксия)" end
+if t["Incarnation: Tree of Wrath (Brown)"]==nil then t["Incarnation: Tree of Wrath (Brown)"]="Воплощение: Древо Гнева (коричневый)" end
+if t["Incarnation: Zandalari Pterrordax"]==nil then t["Incarnation: Zandalari Pterrordax"]="Воплощение: Зандаларский Птерродакс" end
+if t["Incarnation: Zandalari Sabertusk (Graphite)"]==nil then t["Incarnation: Zandalari Sabertusk (Graphite)"]="Воплощение: Зандаларский Саблеклык (Графит)" end
+if t["Iron Strut"]==nil then t["Iron Strut"]="Железная балка" end
+if t["Ironfeather Shoulders"]==nil then t["Ironfeather Shoulders"]="Наплечники из железных перьев" end
+if t["Ironweave Bag"]==nil then t["Ironweave Bag"]="Железотканный Мешочек (26 ячеек)" end
+if t["Ironweave Belt"]==nil then t["Ironweave Belt"]="Железнотканый пояс" end
+if t["Ironweave Boots"]==nil then t["Ironweave Boots"]="Железнотканые сапоги" end
+if t["Ironweave Cowl"]==nil then t["Ironweave Cowl"]="Железнотканый клобук" end
+if t["Jailer's Eye Crescent"]==nil then t["Jailer's Eye Crescent"]="Полумесяц “Око Тюремщика”" end
+if t["Jaina’s Dimensional Bag"]==nil then t["Jaina’s Dimensional Bag"]="Вместительная Сумка Джайны (30 ячеек, привязаны к персонажу)" end
+if t["Jewel of the Firelord"]==nil then t["Jewel of the Firelord"]="Диадема повелителя огня" end
+if t["Jewelcrafter's Hat - Jewelcrafting Speed Bonus"]==nil then t["Jewelcrafter's Hat - Jewelcrafting Speed Bonus"]="Тиара Ювелира - Бонус к Скорости Ювелирного Дела" end
+if t["Journeyman Riding Tome"]==nil then t["Journeyman Riding Tome"]="Том Верховой езды (подмастерье)" end
+if t["Judgement Belt"]==nil then t["Judgement Belt"]="Пояс правосудия" end
+if t["Judgement Crown"]==nil then t["Judgement Crown"]="Корона правосудия" end
+if t["Judgement Spaulders"]==nil then t["Judgement Spaulders"]="Наплеч правосудия" end
+if t["Justicar Breastplate"]==nil then t["Justicar Breastplate"]="Кираса вершителя правосудия" end
+if t["Justicar Diadem"]==nil then t["Justicar Diadem"]="Диадема вершителя правосудия" end
+if t["Justicar Gauntlets"]==nil then t["Justicar Gauntlets"]="Рукавицы вершителя правосудия" end
+if t["Justicar Greaves"]==nil then t["Justicar Greaves"]="Наголенники вершителя правосудия" end
+if t["Ka'Graz' Burning Blade"]==nil then t["Ka'Graz' Burning Blade"]="Пылающий Клинок Ка'граз" end
+if t["Keeper Scroll: Arena Frenzy"]==nil then t["Keeper Scroll: Arena Frenzy"]="Свиток Хранителя: Арена Безумия" end
+if t["Keeper Scroll: Experience Hotspot"]==nil then t["Keeper Scroll: Experience Hotspot"]="Свиток Хранителя: Опыт" end
+if t["Keeper's Scroll: High Risk Events"]==nil then t["Keeper's Scroll: High Risk Events"]="Свиток Хранителя: События High Risk" end
+if t["Keeper’s Scroll: Ancient Enchanting Altar"]==nil then t["Keeper’s Scroll: Ancient Enchanting Altar"]="Свиток Хранителя: Древний Алтарь Зачарований" end
+if t["Keeper’s Scroll: Crafting Speed"]==nil then t["Keeper’s Scroll: Crafting Speed"]="Свиток Хранителя: Скорость Изготовления Предметов" end
+if t["Keeper’s Scroll: Featherfall"]==nil then t["Keeper’s Scroll: Featherfall"]="Свиток Хранителя: Падение Пера" end
+if t["Keeper’s Scroll: Gathering Speed"]==nil then t["Keeper’s Scroll: Gathering Speed"]="Свиток Хранителя: Скорость Собирательства" end
+if t["Keeper’s Scroll: Ghostrunner"]==nil then t["Keeper’s Scroll: Ghostrunner"]="Свиток Хранителя: Бегущий Призрак" end
+if t["Keeper’s Scroll: Steadfast"]==nil then t["Keeper’s Scroll: Steadfast"]="Свиток Хранителя: Стойкость" end
+if t["Kel'Thuzad's Hood of Conquest"]==nil then t["Kel'Thuzad's Hood of Conquest"]="Капюшон завоеваний Кел'Тузада" end
+if t["Kel'Thuzad's Hood of Hyjal"]==nil then t["Kel'Thuzad's Hood of Hyjal"]="Хиджальский капюшон Кел'Тузада" end
+if t["Kel'Thuzad's Robe of Conquest"]==nil then t["Kel'Thuzad's Robe of Conquest"]="Одеяние завоеваний Кел'Тузада" end
+if t["Kel'Thuzad's Robe of Hyjal"]==nil then t["Kel'Thuzad's Robe of Hyjal"]="Хиджальское одеяние Кел’Тузада" end
+if t["Kel'Thuzad's Shoulderpads"]==nil then t["Kel'Thuzad's Shoulderpads"]="Наплечные пластины Кел'Тузада" end
+if t["Kel'Thuzad's Shoulderpads of Hyjal"]==nil then t["Kel'Thuzad's Shoulderpads of Hyjal"]="Хиджальские наплечные пластины Кел'Тузада" end
+if t["Kel'Thuzad's Shoulderpads of Valiance"]==nil then t["Kel'Thuzad's Shoulderpads of Valiance"]="Наплечные пластины отваги Кел'Тузада" end
+if t["Khadgar's Gauntlets"]==nil then t["Khadgar's Gauntlets"]="Рукавицы Кадгара" end
+if t["Khadgar's Hood of Conquest"]==nil then t["Khadgar's Hood of Conquest"]="Капюшон завоеваний Кадгара" end
+if t["Khadgar's Hood of Valiance"]==nil then t["Khadgar's Hood of Valiance"]="Капюшон отваги Кадгара" end
+if t["Khadgar's Leggings"]==nil then t["Khadgar's Leggings"]="Поножи Кадгара" end
+if t["Khadgar's Robe of Conquest"]==nil then t["Khadgar's Robe of Conquest"]="Одеяние завоеваний Кадгара" end
+if t["Khadgar's Robe of Hyjal"]==nil then t["Khadgar's Robe of Hyjal"]="Хиджальское одеяние Кадгара" end
+if t["Khadgar's Shoulderpads of Conquest"]==nil then t["Khadgar's Shoulderpads of Conquest"]="Наплечные пластины завоеваний Кадгара" end
+if t["Khadgar's Shoulderpads of Triumph"]==nil then t["Khadgar's Shoulderpads of Triumph"]="Наплечные пластины триумфа Кадгара" end
+if t["Khadgar's Shoulderpads of Valiance"]==nil then t["Khadgar's Shoulderpads of Valiance"]="Наплечные пластины отваги Кадгара" end
+if t["Knight-Captain's Chain Legguards"]==nil then t["Knight-Captain's Chain Legguards"]="Плетеные набедренники рыцаря-капитана" end
+if t["Knight-Captain's Dragonhide Leggings"]==nil then t["Knight-Captain's Dragonhide Leggings"]="Поножи рыцаря-капитана из драконьей шкуры" end
+if t["Knight-Captain's Dreadweave Legguards"]==nil then t["Knight-Captain's Dreadweave Legguards"]="Набедренники рыцаря-капитана из ткани ужаса" end
+if t["Knight-Captain's Dreadweave Robe"]==nil then t["Knight-Captain's Dreadweave Robe"]="Одеяние рыцаря-капитана из ткани ужаса" end
+if t["Knight-Captain's Lamellar Leggings"]==nil then t["Knight-Captain's Lamellar Leggings"]="Ламеллярные поножи рыцаря-капитана" end
+if t["Knight-Captain's Plate Chestguard"]==nil then t["Knight-Captain's Plate Chestguard"]="Латный нагрудный доспех рыцаря-капитана" end
+if t["Knight-Captain's Plate Leggings"]==nil then t["Knight-Captain's Plate Leggings"]="Латные поножи рыцаря-капитана" end
+if t["Knight-Captain's Silk Leggings"]==nil then t["Knight-Captain's Silk Leggings"]="Шелковые поножи рыцаря-капитана" end
+if t["Knight-Lieutenant's Chain Vices"]==nil then t["Knight-Lieutenant's Chain Vices"]="Плетеные перчатки капитана рыцарей" end
+if t["Knight-Lieutenant's Dragonhide Grips"]==nil then t["Knight-Lieutenant's Dragonhide Grips"]="Захваты рыцаря-лейтенанта из драконьей шкуры" end
+if t["Knight-Lieutenant's Dreadweave Handwraps"]==nil then t["Knight-Lieutenant's Dreadweave Handwraps"]="Повязки рыцаря-лейтенанта из ткани ужаса" end
+if t["Knight-Lieutenant's Dreadweave Walkers"]==nil then t["Knight-Lieutenant's Dreadweave Walkers"]="Башмаки рыцаря-лейтенанта из ткани ужаса" end
+if t["Knight-Lieutenant's Mail Vices"]==nil then t["Knight-Lieutenant's Mail Vices"]="Кольчужные перчатки рыцаря-лейтенанта" end
+if t["Knight-Lieutenant's Satin Gloves"]==nil then t["Knight-Lieutenant's Satin Gloves"]="Атласные перчатки рыцаря-лейтенанта" end
+if t["Knight-Lieutenant's Silk Boots"]==nil then t["Knight-Lieutenant's Silk Boots"]="Шелковые сапоги рыцаря-лейтенанта" end
+if t["Knight-Lieutenant's Silk Walkers"]==nil then t["Knight-Lieutenant's Silk Walkers"]="Шелковые опорки рыцаря-лейтенанта" end
+if t["Kodohide Gloves"]==nil then t["Kodohide Gloves"]="Перчатки из шкуры кодо" end
+if t["Koltira's Battleplate"]==nil then t["Koltira's Battleplate"]="Боевой доспех Кольтиры" end
+if t["Koltira's Battleplate of Triumph"]==nil then t["Koltira's Battleplate of Triumph"]="Боевой доспех триумфа Кольтиры" end
+if t["Koltira's Battleplate of Valiance"]==nil then t["Koltira's Battleplate of Valiance"]="Боевой доспех отваги Кольтиры" end
+if t["Koltira's Chestguard of Hyjal"]==nil then t["Koltira's Chestguard of Hyjal"]="Хиджальский нагрудный доспех Кольтиры" end
+if t["Koltira's Chestguard of Triumph"]==nil then t["Koltira's Chestguard of Triumph"]="Нагрудный доспех триумфа Кольтиры" end
+if t["Koltira's Faceguard of Hyjal"]==nil then t["Koltira's Faceguard of Hyjal"]="Хиджальский большой шлем Кольтиры" end
+if t["Koltira's Gauntlets of Hyjal"]==nil then t["Koltira's Gauntlets of Hyjal"]="Хиджальские рукавицы Кольтиры" end
+if t["Koltira's Gauntlets of Valiance"]==nil then t["Koltira's Gauntlets of Valiance"]="Рукавицы отваги Кольтиры" end
+if t["Koltira's Handguards of Triumph"]==nil then t["Koltira's Handguards of Triumph"]="Боевые рукавицы триумфа Кольтиры" end
+if t["Koltira's Handguards of Valiance"]==nil then t["Koltira's Handguards of Valiance"]="Боевые рукавицы отваги Кольтиры" end
+if t["Koltira's Helmet of Triumph"]==nil then t["Koltira's Helmet of Triumph"]="Полный шлем триумфа Кольтиры" end
+if t["Koltira's Helmet of Valiance"]==nil then t["Koltira's Helmet of Valiance"]="Полный шлем отваги Кольтиры" end
+if t["Koltira's Legplates of Hyjal"]==nil then t["Koltira's Legplates of Hyjal"]="Хиджальские ножные латы Кольтиры" end
+if t["Koltira's Shoulderplates of Conquest"]==nil then t["Koltira's Shoulderplates of Conquest"]="Латные наплечники завоеваний Кольтиры" end
+if t["Kor'kron Juggernaut"]==nil then t["Kor'kron Juggernaut"]="Кор'кронский Крушитель" end
+if t["Lasherweave Gauntlets"]==nil then t["Lasherweave Gauntlets"]="Плеточные рукавицы" end
+if t["Lasherweave Legplates"]==nil then t["Lasherweave Legplates"]="Плеточные ножные латы" end
+if t["Lasherweave Mantle"]==nil then t["Lasherweave Mantle"]="Плеточная мантия" end
+if t["Lasherweave Trousers"]==nil then t["Lasherweave Trousers"]="Плеточные брюки" end
+if t["Latro's Shifting Sword"]==nil then t["Latro's Shifting Sword"]="Изменчивый меч Латро" end
+if t["Laughing Skull Orcs Tabard"]==nil then t["Laughing Skull Orcs Tabard"]="Гербовая накидка клана Веселого Черепа" end
+if t["Lawbringer Legplates"]==nil then t["Lawbringer Legplates"]="Ножные латы законника" end
+if t["Leatherworker's Hat - Leatherworking Speed Bonus"]==nil then t["Leatherworker's Hat - Leatherworking Speed Bonus"]="Шапка Кожевника - Бонус к Скорости Выделки Кожи" end
+if t["Leggings of Dying Light"]==nil then t["Leggings of Dying Light"]="Поножи гаснущего света" end
+if t["Leggings of Ten Storms"]==nil then t["Leggings of Ten Storms"]="Ножные латы десяти бурь" end
+if t["Leggings of Tirisfal"]==nil then t["Leggings of Tirisfal"]="Тирисфальские поножи" end
+if t["Leggings of Transcendence"]==nil then t["Leggings of Transcendence"]="Поножи превосходства" end
+if t["Leggings of the Exorcist"]==nil then t["Leggings of the Exorcist"]="Поножи экзорциста" end
+if t["Leggings of the Haunted Forest"]==nil then t["Leggings of the Haunted Forest"]="Поножи призрачного леса" end
+if t["Leggings of the Malefic"]==nil then t["Leggings of the Malefic"]="Поножи пагубы" end
+if t["Legguards of the Molten Giant"]==nil then t["Legguards of the Molten Giant"]="Набедренники огненного великана" end
+if t["Legion Hound Felhunter"]==nil then t["Legion Hound Felhunter"]="Охотник Скверны Легиона" end
+if t["Legionnaire's Chain Legguards"]==nil then t["Legionnaire's Chain Legguards"]="Плетеные набедренники легионера" end
+if t["Legionnaire's Dreadweave Leggings"]==nil then t["Legionnaire's Dreadweave Leggings"]="Поножи легионера из ткани ужаса" end
+if t["Legionnaire's Dreadweave Robe"]==nil then t["Legionnaire's Dreadweave Robe"]="Одеяние легионера из ткани ужаса" end
+if t["Legionnaire's Dreadweave Tunic"]==nil then t["Legionnaire's Dreadweave Tunic"]="Мундир легионера из ткани ужаса" end
+if t["Legionnaire's Leather Chestpiece"]==nil then t["Legionnaire's Leather Chestpiece"]="Кожаный нагрудник легионера" end
+if t["Legionnaire's Leather Hauberk"]==nil then t["Legionnaire's Leather Hauberk"]="Кожаный хауберк легионера" end
+if t["Legionnaire's Plate Armor"]==nil then t["Legionnaire's Plate Armor"]="Латный доспех легионера" end
+if t["Legionnaire's Plate Hauberk"]==nil then t["Legionnaire's Plate Hauberk"]="Латный хауберк легионера" end
+if t["Legionnaire's Silk Legguards"]==nil then t["Legionnaire's Silk Legguards"]="Шелковые набедренники легионера" end
+if t["Legionnaire's Silk Robes"]==nil then t["Legionnaire's Silk Robes"]="Шелковые одеяния легионера" end
+if t["Legwraps of Dying Light"]==nil then t["Legwraps of Dying Light"]="Бриджи гаснущего света" end
+if t["Legwraps of the Witch Doctor"]==nil then t["Legwraps of the Witch Doctor"]="Бриджи знахаря" end
+if t["Liadrin's Battleplate"]==nil then t["Liadrin's Battleplate"]="Боевой доспех Лиадрин" end
+if t["Liadrin's Battleplate of Hyjal"]==nil then t["Liadrin's Battleplate of Hyjal"]="Хиджальский боевой доспех Лиадрин" end
+if t["Liadrin's Breastplate of Hyjal"]==nil then t["Liadrin's Breastplate of Hyjal"]="Хиджальская кираса Лиадрин" end
+if t["Liadrin's Breastplate of Valiance"]==nil then t["Liadrin's Breastplate of Valiance"]="Кираса отваги Лиадрин" end
+if t["Liadrin's Faceguard of Conquest"]==nil then t["Liadrin's Faceguard of Conquest"]="Большой шлем завоеваний Лиадрин" end
+if t["Liadrin's Faceguard of Hyjal"]==nil then t["Liadrin's Faceguard of Hyjal"]="Хиджальский большой шлем Лиадрин" end
+if t["Liadrin's Faceguard of Triumph"]==nil then t["Liadrin's Faceguard of Triumph"]="Большой шлем триумфа Лиадрин" end
+if t["Liadrin's Faceguard of Valiance"]==nil then t["Liadrin's Faceguard of Valiance"]="Большой шлем отваги Лиадрин" end
+if t["Liadrin's Gauntlets of Hyjal"]==nil then t["Liadrin's Gauntlets of Hyjal"]="Хиджальские рукавицы Лиадрин" end
+if t["Liadrin's Gauntlets of Triumph"]==nil then t["Liadrin's Gauntlets of Triumph"]="Рукавицы триумфа Лиадрин" end
+if t["Liadrin's Gauntlets of Valiance"]==nil then t["Liadrin's Gauntlets of Valiance"]="Рукавицы отваги Лиадрин" end
+if t["Liadrin's Gloves"]==nil then t["Liadrin's Gloves"]="Перчатки Лиадрин" end
+if t["Liadrin's Gloves of Conquest"]==nil then t["Liadrin's Gloves of Conquest"]="Перчатки завоеваний Лиадрин" end
+if t["Liadrin's Gloves of Triumph"]==nil then t["Liadrin's Gloves of Triumph"]="Перчатки триумфа Лиадрин" end
+if t["Liadrin's Greaves"]==nil then t["Liadrin's Greaves"]="Наголенники Лиадрин" end
+if t["Liadrin's Handguards of Hyjal"]==nil then t["Liadrin's Handguards of Hyjal"]="Хиджальские боевые рукавицы Лиадрин" end
+if t["Liadrin's Handguards of Valiance"]==nil then t["Liadrin's Handguards of Valiance"]="Боевые рукавицы отваги Лиадрин" end
+if t["Liadrin's Headpiece"]==nil then t["Liadrin's Headpiece"]="Головной убор Лиадрин" end
+if t["Liadrin's Headpiece of Hyjal"]==nil then t["Liadrin's Headpiece of Hyjal"]="Хиджальский головной убор Лиадрин" end
+if t["Liadrin's Headpiece of Valiance"]==nil then t["Liadrin's Headpiece of Valiance"]="Головной убор отваги Лиадрин" end
+if t["Liadrin's Legguards of Conquest"]==nil then t["Liadrin's Legguards of Conquest"]="Набедренники завоеваний Лиадрин" end
+if t["Liadrin's Legguards of Hyjal"]==nil then t["Liadrin's Legguards of Hyjal"]="Хиджальские набедренники Лиадри" end
+if t["Liadrin's Legguards of Triumph"]==nil then t["Liadrin's Legguards of Triumph"]="Набедренники триумфа Лиадрин" end
+if t["Liadrin's Legplates of Hyjal"]==nil then t["Liadrin's Legplates of Hyjal"]="Хиджальские ножные латы Лиадрин" end
+if t["Liadrin's Legplates of Valiance"]==nil then t["Liadrin's Legplates of Valiance"]="Ножные латы отваги Лиадрин" end
+if t["Liadrin's Shoulderplates of Hyjal"]==nil then t["Liadrin's Shoulderplates of Hyjal"]="Хиджальские латные наплечники Лиадрин" end
+if t["Liadrin's Shoulderplates of Valiance"]==nil then t["Liadrin's Shoulderplates of Valiance"]="Латные наплечники отваги Лиадрин" end
+if t["Liadrin's Spaulders of Conquest"]==nil then t["Liadrin's Spaulders of Conquest"]="Наплеч завоеваний Лиадрин" end
+if t["Liadrin's Spaulders of Triumph"]==nil then t["Liadrin's Spaulders of Triumph"]="Наплеч триумфа Лиадрин" end
+if t["Liadrin's Tunic of Conquest"]==nil then t["Liadrin's Tunic of Conquest"]="Мундир завоеваний Лиадрин" end
+if t["Liadrin's Tunic of Valiance"]==nil then t["Liadrin's Tunic of Valiance"]="Мундир отваги Лиадрин" end
+if t["Liberated Slyvern"]==nil then t["Liberated Slyvern"]="Освобожденная Лиса-Виверна" end
+if t["Lich Lord's War Plate"]==nil then t["Lich Lord's War Plate"]="Пластинчатые боевые доспехи верховного лича" end
+if t["Lieutenant Commander's Chain Helm"]==nil then t["Lieutenant Commander's Chain Helm"]="Плетеный шлем лейтенанта-командора" end
+if t["Lieutenant Commander's Chain Pauldrons"]==nil then t["Lieutenant Commander's Chain Pauldrons"]="Плетеное наплечье лейтенанта-командора" end
+if t["Lieutenant Commander's Crown"]==nil then t["Lieutenant Commander's Crown"]="Корона лейтенанта-командора" end
+if t["Lieutenant Commander's Dreadweave Mantle"]==nil then t["Lieutenant Commander's Dreadweave Mantle"]="Оплечье лейтенанта-командора из ткани ужаса" end
+if t["Lieutenant Commander's Leather Helm"]==nil then t["Lieutenant Commander's Leather Helm"]="Кожаный шлем лейтенанта-командора" end
+if t["Lieutenant Commander's Leather Veil"]==nil then t["Lieutenant Commander's Leather Veil"]="Кожаный покров лейтенанта-командора" end
+if t["Lieutenant Commander's Plate Pauldrons"]==nil then t["Lieutenant Commander's Plate Pauldrons"]="Латное наплечье лейтенанта-командора" end
+if t["Lieutenant Commander's Plate Shoulders"]==nil then t["Lieutenant Commander's Plate Shoulders"]="Латные наплечники лейтенанта-командора" end
+if t["Lieutenant Commander's Satin Hood"]==nil then t["Lieutenant Commander's Satin Hood"]="Атласный капюшон лейтенанта-командора" end
+if t["Lieutenant Commander's Silk Spaulders"]==nil then t["Lieutenant Commander's Silk Spaulders"]="Шелковый наплеч лейтенанта-командора" end
+if t["Light of Ascension"]==nil then t["Light of Ascension"]="Свет Вознесения" end
+if t["Light's Vanguard War Armor"]==nil then t["Light's Vanguard War Armor"]="Боевые доспехи Авангарда Света" end
+if t["Lightbringer Breastplate"]==nil then t["Lightbringer Breastplate"]="Кираса Светоносного" end
+if t["Lightbringer Gloves"]==nil then t["Lightbringer Gloves"]="Перчатки Светоносного" end
+if t["Lightbringer Leggings"]==nil then t["Lightbringer Leggings"]="Поножи Светоносного" end
+if t["Lightbringer Pauldrons"]==nil then t["Lightbringer Pauldrons"]="Наплечье Светоносного" end
+if t["Lightforge Gauntlets"]==nil then t["Lightforge Gauntlets"]="Рукавицы из светлостали" end
+if t["Lightforge Legplates"]==nil then t["Lightforge Legplates"]="Ножные латы из светлостали" end
+if t["Lightforge Spaulders"]==nil then t["Lightforge Spaulders"]="Наплеч из светостали" end
+if t["Lightning Emperor's Chestguard"]==nil then t["Lightning Emperor's Chestguard"]="Нагрудный доспех повелителя молний" end
+if t["Lightning Emperor's Faceguard"]==nil then t["Lightning Emperor's Faceguard"]="Большой шлем повелителя молний" end
+if t["Lightning Emperor's Gauntlets"]==nil then t["Lightning Emperor's Gauntlets"]="Рукавицы повелителя молний" end
+if t["Lightning Emperor's Greaves"]==nil then t["Lightning Emperor's Greaves"]="Наголенники повелителя молний" end
+if t["Lightning Emperor's Legguards"]==nil then t["Lightning Emperor's Legguards"]="Набедренники повелителя молний" end
+if t["Lightsworn Battleplate"]==nil then t["Lightsworn Battleplate"]="Боевой доспех клятвы Свету" end
+if t["Lightsworn Faceguard"]==nil then t["Lightsworn Faceguard"]="Большой шлем клятвы Свету" end
+if t["Lightsworn Gauntlets"]==nil then t["Lightsworn Gauntlets"]="Рукавицы клятвы Свету" end
+if t["Lightsworn Legguards"]==nil then t["Lightsworn Legguards"]="Набедренники клятвы Свету" end
+if t["Lightsworn Spaulders"]==nil then t["Lightsworn Spaulders"]="Наплеч клятвы Свету" end
+if t["Loa-Speaker Tattoos"]==nil then t["Loa-Speaker Tattoos"]="Татуировки Говорящего с Лоа" end
+if t["Loot Transfigurator"]==nil then t["Loot Transfigurator"]="Трансфигуратор добычи" end
+if t["Lucid Nightmare"]==nil then t["Lucid Nightmare"]="Осознанный кошмар" end
+if t["Mace of Unending Life"]==nil then t["Mace of Unending Life"]="Палица бесконечной жизни" end
+if t["Magister's Leggings"]==nil then t["Magister's Leggings"]="Поножи Магистра" end
+if t["Magister's Regalia"]==nil then t["Magister's Regalia"]="Регалии магистра" end
+if t["Magister's Robes"]==nil then t["Magister's Robes"]="Одеяния магистра" end
+if t["Magma Plated Gauntlets"]==nil then t["Magma Plated Gauntlets"]="Рукавицы из магматических пластин" end
+if t["Magma Plated Legguards"]==nil then t["Magma Plated Legguards"]="Набедренники из магматических пластин" end
+if t["Magma Plated Legplates"]==nil then t["Magma Plated Legplates"]="Ножные латы из магматических пластин" end
+if t["Magma Plated Pauldrons"]==nil then t["Magma Plated Pauldrons"]="Наплечье из магматических пластин" end
+if t["Magma-Plated War Armor"]==nil then t["Magma-Plated War Armor"]="Боевые доспехи из магматических пластин" end
+if t["Magmammoth"]==nil then t["Magmammoth"]="Магмамонт" end
+if t["Magmashell"]==nil then t["Magmashell"]="Магмапанцирь" end
+if t["Mag’har Direwolf"]==nil then t["Mag’har Direwolf"]="Лютоволк из Маг'хара" end
+if t["Malevolent Gladiator's Chain Armor"]==nil then t["Malevolent Gladiator's Chain Armor"]="Плетеный доспех злонравного гладиатора" end
+if t["Malevolent Gladiator's Copperskin Legguards"]==nil then t["Malevolent Gladiator's Copperskin Legguards"]="Покрытые медью набедренники злонравного гладиатора" end
+if t["Malevolent Gladiator's Dreadplate Gauntlets"]==nil then t["Malevolent Gladiator's Dreadplate Gauntlets"]="Жуткие латные рукавицы злонравного гладиатора" end
+if t["Malevolent Gladiator's Ironskin Boots (Elite)"]==nil then t["Malevolent Gladiator's Ironskin Boots (Elite)"]="Сапоги из железной шкуры злонамеренного гладиатора (Элитные)" end
+if t["Malevolent Gladiator's Ironskin Gloves"]==nil then t["Malevolent Gladiator's Ironskin Gloves"]="Покрытые железом перчатки злонравного гладиатора" end
+if t["Malevolent Gladiator's Kodohide Legguards"]==nil then t["Malevolent Gladiator's Kodohide Legguards"]="Набедренники злонравного гладиатора из шкуры кодо" end
+if t["Malevolent Gladiator's Leather Gloves"]==nil then t["Malevolent Gladiator's Leather Gloves"]="Кожаные перчатки злонравного гладиатора" end
+if t["Malevolent Gladiator's Linked Armor"]==nil then t["Malevolent Gladiator's Linked Armor"]="Клепаный доспех злонравного гладиатора" end
+if t["Malevolent Gladiator's Linked Spaulders"]==nil then t["Malevolent Gladiator's Linked Spaulders"]="Клепаный наплеч злонравного гладиатора" end
+if t["Malevolent Gladiator's Mail Spaulders"]==nil then t["Malevolent Gladiator's Mail Spaulders"]="Кольчужный наплеч злонравного гладиатора" end
+if t["Malevolent Gladiator's Ornamented Chestguard"]==nil then t["Malevolent Gladiator's Ornamented Chestguard"]="Украшенный нагрудный доспех злонравного гладиатора" end
+if t["Malevolent Gladiator's Ornamented Headcover"]==nil then t["Malevolent Gladiator's Ornamented Headcover"]="Украшенный шлем злонравного гладиатора" end
+if t["Malevolent Gladiator's Plate Chestpiece"]==nil then t["Malevolent Gladiator's Plate Chestpiece"]="Латный нагрудник злонравного гладиатора" end
+if t["Malevolent Gladiator's Plate Gauntlets"]==nil then t["Malevolent Gladiator's Plate Gauntlets"]="Латные рукавицы злонравного гладиатора" end
+if t["Malevolent Gladiator's Plate Shoulders"]==nil then t["Malevolent Gladiator's Plate Shoulders"]="Латные наплечники злонравного гладиатора" end
+if t["Malevolent Gladiator's Ringmail Gauntlets"]==nil then t["Malevolent Gladiator's Ringmail Gauntlets"]="Кольчатые рукавицы злонравного гладиатора" end
+if t["Malevolent Gladiator's Ringmail Spaulders"]==nil then t["Malevolent Gladiator's Ringmail Spaulders"]="Кольчатый наплеч злонравного гладиатора" end
+if t["Malevolent Gladiator's Satin Mantle"]==nil then t["Malevolent Gladiator's Satin Mantle"]="Атласная мантия злонравного гладиатора" end
+if t["Malevolent Gladiator's Scaled Gauntlets"]==nil then t["Malevolent Gladiator's Scaled Gauntlets"]="Чешуйчатые рукавицы злонравного гладиатора" end
+if t["Malevolent Gladiator's Wyrmhide Helm"]==nil then t["Malevolent Gladiator's Wyrmhide Helm"]="Шлем злонравного гладиатора из шкуры змея" end
+if t["Malevolent Gladiator's Wyrmhide Legguards"]==nil then t["Malevolent Gladiator's Wyrmhide Legguards"]="Набедренники злонравного гладиатора из шкуры змея" end
+if t["Malfurion's Cover of Hyjal"]==nil then t["Malfurion's Cover of Hyjal"]="Хиджальский убор Малфуриона" end
+if t["Malfurion's Cover of Valiance"]==nil then t["Malfurion's Cover of Valiance"]="Убор отваги Малфуриона" end
+if t["Malfurion's Gloves of Conquest"]==nil then t["Malfurion's Gloves of Conquest"]="Перчатки завоеваний Малфуриона" end
+if t["Malfurion's Gloves of Hyjal"]==nil then t["Malfurion's Gloves of Hyjal"]="Хиджальские перчатки Малфуриона" end
+if t["Malfurion's Gloves of Valiance"]==nil then t["Malfurion's Gloves of Valiance"]="Перчатки отваги Малфуриона" end
+if t["Malfurion's Handgrips of Hyjal"]==nil then t["Malfurion's Handgrips of Hyjal"]="Хиджальские боевые перчатки Малфуриона" end
+if t["Malfurion's Handguards of Hyjal"]==nil then t["Malfurion's Handguards of Hyjal"]="Хиджальские боевые рукавицы Малфуриона" end
+if t["Malfurion's Handguards of Valiance"]==nil then t["Malfurion's Handguards of Valiance"]="Боевые рукавицы отваги Малфуриона" end
+if t["Malfurion's Headguard"]==nil then t["Malfurion's Headguard"]="Наголовник Малфуриона" end
+if t["Malfurion's Headguard of Valiance"]==nil then t["Malfurion's Headguard of Valiance"]="Наголовник отваги Малфуриона" end
+if t["Malfurion's Headpiece"]==nil then t["Malfurion's Headpiece"]="Головной убор Малфуриона" end
+if t["Malfurion's Headpiece of Hyjal"]==nil then t["Malfurion's Headpiece of Hyjal"]="Хиджальский головной убор Малфуриона" end
+if t["Malfurion's Headpiece of Triumph"]==nil then t["Malfurion's Headpiece of Triumph"]="Головной убор триумфа Малфуриона" end
+if t["Malfurion's Headpiece of Valiance"]==nil then t["Malfurion's Headpiece of Valiance"]="Головной убор отваги Малфуриона" end
+if t["Malfurion's Leggings of Hyjal"]==nil then t["Malfurion's Leggings of Hyjal"]="Хиджальские поножи Малфуриона" end
+if t["Malfurion's Leggings of Triumph"]==nil then t["Malfurion's Leggings of Triumph"]="Поножи триумфа Малфуриона" end
+if t["Malfurion's Legguards of Hyjal"]==nil then t["Malfurion's Legguards of Hyjal"]="Хиджальские набедренники Малфуриона" end
+if t["Malfurion's Legguards of Triumph"]==nil then t["Malfurion's Legguards of Triumph"]="Набедренники триумфа Малфуриона" end
+if t["Malfurion's Legguards of Valiance"]==nil then t["Malfurion's Legguards of Valiance"]="Набедренники отваги Малфуриона" end
+if t["Malfurion's Mantle of Conquest"]==nil then t["Malfurion's Mantle of Conquest"]="Мантия завоеваний Малфуриона" end
+if t["Malfurion's Mantle of Valiance"]==nil then t["Malfurion's Mantle of Valiance"]="Мантия отваги Малфуриона" end
+if t["Malfurion's Raiments of Conquest"]==nil then t["Malfurion's Raiments of Conquest"]="Облачение завоеваний Малфуриона" end
+if t["Malfurion's Robe of Conquest"]==nil then t["Malfurion's Robe of Conquest"]="Одеяние завоеваний Малфуриона" end
+if t["Malfurion's Robe of Hyjal"]==nil then t["Malfurion's Robe of Hyjal"]="Хиджальское одеяние Малфуриона" end
+if t["Malfurion's Robe of Triumph"]==nil then t["Malfurion's Robe of Triumph"]="Одеяние триумфа Малфуриона" end
+if t["Malfurion's Robe of Valiance"]==nil then t["Malfurion's Robe of Valiance"]="Одеяние отваги Малфуриона" end
+if t["Malfurion's Shoulderpads"]==nil then t["Malfurion's Shoulderpads"]="Наплечные пластины Малфуриона" end
+if t["Malfurion's Spaulders of Hyjal"]==nil then t["Malfurion's Spaulders of Hyjal"]="Хиджальский наплеч Малфуриона" end
+if t["Malfurion's Trousers"]==nil then t["Malfurion's Trousers"]="Брюки Малфуриона" end
+if t["Malfurion's Trousers of Hyjal"]==nil then t["Malfurion's Trousers of Hyjal"]="Хиджальские брюки Малфуриона" end
+if t["Malfurion's Vestments of Conquest"]==nil then t["Malfurion's Vestments of Conquest"]="Одежды завоеваний Малфуриона" end
+if t["Malfurion's Vestments of Valiance"]==nil then t["Malfurion's Vestments of Valiance"]="Одежды отваги Малфуриона" end
+if t["Mantle of Court Blades"]==nil then t["Mantle of Court Blades"]="Оплечье Придворных Клинков" end
+if t["Mantle of Faith"]==nil then t["Mantle of Faith"]="Оплечье веры" end
+if t["Mantle of Prophecy"]==nil then t["Mantle of Prophecy"]="Оплечье пророчества" end
+if t["Mantle of Tirisfal"]==nil then t["Mantle of Tirisfal"]="Тирисфальская мантия" end
+if t["Mantle of the Chromatic Hydra"]==nil then t["Mantle of the Chromatic Hydra"]="Оплечье хроматической гидры" end
+if t["Mantle of the Cleansing Flame"]==nil then t["Mantle of the Cleansing Flame"]="Оплечье очищающего пламени" end
+if t["Mantle of the Corruptor"]==nil then t["Mantle of the Corruptor"]="Мантия Осквернителя" end
+if t["Mantle of the Exorcist"]==nil then t["Mantle of the Exorcist"]="Оплечье экзорциста" end
+if t["Mantle of the Faceless Shroud"]==nil then t["Mantle of the Faceless Shroud"]="Оплечье безликой пелены" end
+if t["Mantle of the Fire Festival"]==nil then t["Mantle of the Fire Festival"]="Оплечье Огненного Солнцеворота" end
+if t["Mantle of the Malefic"]==nil then t["Mantle of the Malefic"]="Мантия пагубы" end
+if t["Mantle of the Tempest"]==nil then t["Mantle of the Tempest"]="Мантия урагана" end
+if t["Marauder's Battle Cache"]==nil then t["Marauder's Battle Cache"]="Боевой Тайник Мародера" end
+if t["Marauder's Hacker"]==nil then t["Marauder's Hacker"]="Крушитель Мародера" end
+if t["Marauder's Plate Armor"]==nil then t["Marauder's Plate Armor"]="Пластинчатый доспех мародера" end
+if t["Mark of War"]==nil then t["Mark of War"]="Знак войны" end
+if t["Marshal's Chain Boots"]==nil then t["Marshal's Chain Boots"]="Плетеные сапоги маршала" end
+if t["Marshal's Dragonhide Boots"]==nil then t["Marshal's Dragonhide Boots"]="Сапоги маршала из драконьей шкуры" end
+if t["Marshal's Dragonhide Gauntlets"]==nil then t["Marshal's Dragonhide Gauntlets"]="Рукавицы маршала из драконьей шкуры" end
+if t["Marshal's Dreadweave Leggings"]==nil then t["Marshal's Dreadweave Leggings"]="Поножи маршала из ткани ужаса" end
+if t["Marshal's Lamellar Gloves"]==nil then t["Marshal's Lamellar Gloves"]="Ламеллярные перчатки маршала" end
+if t["Marshal's Plate Boots"]==nil then t["Marshal's Plate Boots"]="Латные сапоги маршала" end
+if t["Marshal's Plate Legguards"]==nil then t["Marshal's Plate Legguards"]="Латные набедренники маршала" end
+if t["Marshal's Satin Sandals"]==nil then t["Marshal's Satin Sandals"]="Атласные сандалии маршала" end
+if t["Marshal's Silk Leggings"]==nil then t["Marshal's Silk Leggings"]="Шелковые поножи маршала" end
+if t["Mechagon Peacekeeper"]==nil then t["Mechagon Peacekeeper"]="Мехагонский миротворец" end
+if t["Mekkatorque's Neverending Storage Contraption"]==nil then t["Mekkatorque's Neverending Storage Contraption"]="Бесконечный Тайник Меггакрута" end
+if t["Merciless Gladiator's Chain Gauntlets"]==nil then t["Merciless Gladiator's Chain Gauntlets"]="Плетеные рукавицы безжалостного гладиатора" end
+if t["Merciless Gladiator's Chain Leggings"]==nil then t["Merciless Gladiator's Chain Leggings"]="Плетеные поножи безжалостного гладиатора" end
+if t["Merciless Gladiator's Dragonhide Gloves"]==nil then t["Merciless Gladiator's Dragonhide Gloves"]="Перчатки безжалостного гладиатора из драконьей шкуры" end
+if t["Merciless Gladiator's Dragonhide Legguards"]==nil then t["Merciless Gladiator's Dragonhide Legguards"]="Набедренники безжалостного гладиатора из драконьей шкуры" end
+if t["Merciless Gladiator's Dragonhide Spaulders"]==nil then t["Merciless Gladiator's Dragonhide Spaulders"]="Наплеч безжалостного гладиатора из драконьей шкуры" end
+if t["Merciless Gladiator's Dreadweave Gloves"]==nil then t["Merciless Gladiator's Dreadweave Gloves"]="Перчатки безжалостного гладиатора из ткани ужаса" end
+if t["Merciless Gladiator's Dreadweave Mantle"]==nil then t["Merciless Gladiator's Dreadweave Mantle"]="Мантия безжалостного гладиатора из ткани ужаса" end
+if t["Merciless Gladiator's Kodohide Helm"]==nil then t["Merciless Gladiator's Kodohide Helm"]="Шлем безжалостного гладиатора из шкуры кодо" end
+if t["Merciless Gladiator's Kodohide Legguards"]==nil then t["Merciless Gladiator's Kodohide Legguards"]="Набедренники безжалостного гладиатора из шкуры кодо" end
+if t["Merciless Gladiator's Kodohide Spaulders"]==nil then t["Merciless Gladiator's Kodohide Spaulders"]="Наплеч безжалостного гладиатора из шкуры кодо" end
+if t["Merciless Gladiator's Lamellar Chestpiece"]==nil then t["Merciless Gladiator's Lamellar Chestpiece"]="Ламеллярный нагрудник безжалостного гладиатора" end
+if t["Merciless Gladiator's Lamellar Helm"]==nil then t["Merciless Gladiator's Lamellar Helm"]="Ламеллярный шлем безжалостного гладиатора" end
+if t["Merciless Gladiator's Linked Gauntlets"]==nil then t["Merciless Gladiator's Linked Gauntlets"]="Клепаные рукавицы безжалостного гладиатора" end
+if t["Merciless Gladiator's Linked Spaulders"]==nil then t["Merciless Gladiator's Linked Spaulders"]="Клепаный наплеч безжалостного гладиатора" end
+if t["Merciless Gladiator's Mail Armor"]==nil then t["Merciless Gladiator's Mail Armor"]="Кольчужный доспех безжалостного гладиатора" end
+if t["Merciless Gladiator's Mail Gauntlets"]==nil then t["Merciless Gladiator's Mail Gauntlets"]="Кольчужные рукавицы безжалостного гладиатора" end
+if t["Merciless Gladiator's Mail Helm"]==nil then t["Merciless Gladiator's Mail Helm"]="Кольчужный шлем безжалостного гладиатора" end
+if t["Merciless Gladiator's Mooncloth Gloves"]==nil then t["Merciless Gladiator's Mooncloth Gloves"]="Перчатки безжалостного гладиатора из луноткани" end
+if t["Merciless Gladiator's Mooncloth Hood"]==nil then t["Merciless Gladiator's Mooncloth Hood"]="Капюшон безжалостного гладиатора из луноткани" end
+if t["Merciless Gladiator's Ornamented Chestguard"]==nil then t["Merciless Gladiator's Ornamented Chestguard"]="Украшенный нагрудный доспех безжалостного гладиатора" end
+if t["Merciless Gladiator's Ornamented Headcover"]==nil then t["Merciless Gladiator's Ornamented Headcover"]="Украшенный шлем безжалостного гладиатора" end
+if t["Merciless Gladiator's Plate Chestpiece"]==nil then t["Merciless Gladiator's Plate Chestpiece"]="Латный нагрудник безжалостного гладиатора" end
+if t["Merciless Gladiator's Ringmail Gauntlets"]==nil then t["Merciless Gladiator's Ringmail Gauntlets"]="Кольчатые рукавицы безжалостного гладиатора" end
+if t["Merciless Gladiator's Satin Gloves"]==nil then t["Merciless Gladiator's Satin Gloves"]="Атласные перчатки безжалостного гладиатора" end
+if t["Merciless Gladiator's Satin Leggings"]==nil then t["Merciless Gladiator's Satin Leggings"]="Атласные поножи безжалостного гладиатора" end
+if t["Merciless Gladiator's Scaled Chestpiece"]==nil then t["Merciless Gladiator's Scaled Chestpiece"]="Чешуйчатый нагрудник безжалостного гладиатора" end
+if t["Merciless Gladiator's Silk Trousers"]==nil then t["Merciless Gladiator's Silk Trousers"]="Шелковые брюки безжалостного гладиатора" end
+if t["Merciless Gladiator's Wyrmhide Gloves"]==nil then t["Merciless Gladiator's Wyrmhide Gloves"]="Перчатки безжалостного гладиатора из шкуры змея" end
+if t["Merciless Gladiator's Wyrmhide Legguards"]==nil then t["Merciless Gladiator's Wyrmhide Legguards"]="Набедренники безжалостного гладиатора из шкуры змея" end
+if t["Mercurial Cowl"]==nil then t["Mercurial Cowl"]="Переменчивый клобук" end
+if t["Mercurial Handwraps"]==nil then t["Mercurial Handwraps"]="Переменчивые повязки" end
+if t["Mercurial Robes"]==nil then t["Mercurial Robes"]="Переменчивые одеяния" end
+if t["Mercurial Vestment"]==nil then t["Mercurial Vestment"]="Переменчивое облачение" end
+if t["Millhouse’s Magical Escape"]==nil then t["Millhouse’s Magical Escape"]="Волшебное Бегство Миллхауса" end
+if t["Millhouse’s Regeneration Matrix"]==nil then t["Millhouse’s Regeneration Matrix"]="Регенерационная Матрица Миллхауса" end
+if t["Miner's Hat - Mining Speed Bonus"]==nil then t["Miner's Hat - Mining Speed Bonus"]="Каска Горняка - Бонус к Скорости Добычи Ресурсов" end
+if t["Minor Rejuvenation"]==nil then t["Minor Rejuvenation"]="Малое Омоложение" end
+if t["Mohawk Grenade"]==nil then t["Mohawk Grenade"]="Индейская граната" end
+if t["Molten Core Hound"]==nil then t["Molten Core Hound"]="Гончая Огненных Недр" end
+if t["Molten Spheres"]==nil then t["Molten Spheres"]="Раскаленные сферы" end
+if t["Moon - Raid Marker"]==nil then t["Moon - Raid Marker"]="Луна - Метка Рейда" end
+if t["Mooncloth Cowl"]==nil then t["Mooncloth Cowl"]="Клобук из луноткани" end
+if t["Mooncloth Vestments"]==nil then t["Mooncloth Vestments"]="Облачение из луноткани" end
+if t["Moonglade Shoulders"]==nil then t["Moonglade Shoulders"]="Наплечники Лунной поляны" end
+if t["Moonkin Incarnation: Astral Form"]==nil then t["Moonkin Incarnation: Astral Form"]="Воплощение Лунного Совуха: Астральный Облик" end
+if t["Moonkin Incarnation: Celestial Observer"]==nil then t["Moonkin Incarnation: Celestial Observer"]="Воплощение Лунного Совуха: Небесный Наблюдатель" end
+if t["Mosshide Riverwallow"]==nil then t["Mosshide Riverwallow"]="Мохошкурый грязеплав" end
+if t["Mystic Enchanting Altar"]==nil then t["Mystic Enchanting Altar"]="Алтарь Мистических Зачарований" end
+if t["Mystic Enchantment: Unlock Preset (Enchant Presets)"]==nil then t["Mystic Enchantment: Unlock Preset (Enchant Presets)"]="Мистические Зачарования: Разблокировка Пресета (Пресеты Зачарований)" end
+if t["Mystic Extract Essence"]==nil then t["Mystic Extract Essence"]="Мистическая Эссенция Извлечения" end
+if t["Mystic Orb"]==nil then t["Mystic Orb"]="Мистическая Сфера" end
+if t["Mystic Rune"]==nil then t["Mystic Rune"]="Мистическая Руна" end
+if t["Mystic Runesaber"]==nil then t["Mystic Runesaber"]="Мистический Руноклык" end
+if t["Mystic Scroll"]==nil then t["Mystic Scroll"]="Мистический свиток" end
+if t["Necromedes, the Death Resonator"]==nil then t["Necromedes, the Death Resonator"]="Некромад, глас смерти" end
+if t["Necropile Boots"]==nil then t["Necropile Boots"]="Сапоги праха" end
+if t["Necropile Mantle"]==nil then t["Necropile Mantle"]="Оплечье праха" end
+if t["Necrotic Boneplate Chestguard"]==nil then t["Necrotic Boneplate Chestguard"]="Некротический костяной нагрудный доспех" end
+if t["Necrotic Boneplate Faceguard"]==nil then t["Necrotic Boneplate Faceguard"]="Некротический костяной большой шлем" end
+if t["Necrotic Boneplate Greaves"]==nil then t["Necrotic Boneplate Greaves"]="Некротические костяные наголенники" end
+if t["Necrotic Book of Ascension"]==nil then t["Necrotic Book of Ascension"]="Книга Вознесения Некроманта" end
+if t["Nerubian Helm"]==nil then t["Nerubian Helm"]="Нерубский шлем" end
+if t["Netherblade"]==nil then t["Netherblade"]="Клинок Пустоты" end
+if t["Netherblade Chestpiece"]==nil then t["Netherblade Chestpiece"]="Нагрудник Клинка Пустоты" end
+if t["Netherfury Leggings"]==nil then t["Netherfury Leggings"]="Поножи неистовства Пустоты" end
+if t["Netherstrike Breastplate"]==nil then t["Netherstrike Breastplate"]="Кираса удара Пустоты" end
+if t["Netherweave Bracers"]==nil then t["Netherweave Bracers"]="Наручи из ткани Пустоты" end
+if t["Netherwind Pants"]==nil then t["Netherwind Pants"]="Штаны ветра Пустоты" end
+if t["Netherwind Robes"]==nil then t["Netherwind Robes"]="Одеяния ветра Пустоты" end
+if t["Night Courtier's Garments"]==nil then t["Night Courtier's Garments"]="Облачение Ночного Придворного" end
+if t["Nightblade's Armor"]==nil then t["Nightblade's Armor"]="Броня ночного клинка" end
+if t["Nightborne Arcsaber"]==nil then t["Nightborne Arcsaber"]="Дуговой клинок ночнорожденных" end
+if t["Nightslayer Boots"]==nil then t["Nightslayer Boots"]="Сапоги ночного убийцы" end
+if t["Nightslayer Bracelets"]==nil then t["Nightslayer Bracelets"]="Браслеты ночного убийцы" end
+if t["Nightslayer Gloves"]==nil then t["Nightslayer Gloves"]="Перчатки ночного убийцы" end
+if t["Nightsong Headguard"]==nil then t["Nightsong Headguard"]="Наголовник ночной песни" end
+if t["Nightsong Raiments"]==nil then t["Nightsong Raiments"]="Облачение ночной песни" end
+if t["Nightsong Vestments"]==nil then t["Nightsong Vestments"]="Одежды ночной песни" end
+if t["Nine-Tailed Gloves"]==nil then t["Nine-Tailed Gloves"]="Перчатки девятихвоста" end
+if t["Nine-Tailed Tunic"]==nil then t["Nine-Tailed Tunic"]="Мундир девятихвоста" end
+if t["Nobundo's Chestguard of Hyjal"]==nil then t["Nobundo's Chestguard of Hyjal"]="Хиджальский нагрудный доспех Нобундо" end
+if t["Nobundo's Chestguard of Triumph"]==nil then t["Nobundo's Chestguard of Triumph"]="Нагрудный доспех триумфа Нобундо" end
+if t["Nobundo's Faceguard of Conquest"]==nil then t["Nobundo's Faceguard of Conquest"]="Большой шлем завоеваний Нобундо" end
+if t["Nobundo's Faceguard of Hyjal"]==nil then t["Nobundo's Faceguard of Hyjal"]="Хиджальский большой шлем Нобундо" end
+if t["Nobundo's Gloves of Hyjal"]==nil then t["Nobundo's Gloves of Hyjal"]="Хиджальские перчатки Нобундо" end
+if t["Nobundo's Gloves of Valiance"]==nil then t["Nobundo's Gloves of Valiance"]="Перчатки отваги Нобундо" end
+if t["Nobundo's Grips of Hyjal"]==nil then t["Nobundo's Grips of Hyjal"]="Хиджальские захваты Нобундо" end
+if t["Nobundo's Grips of Triumph"]==nil then t["Nobundo's Grips of Triumph"]="Захваты триумфа Нобундо" end
+if t["Nobundo's Handguards of Triumph"]==nil then t["Nobundo's Handguards of Triumph"]="Боевые рукавицы триумфа Нобундо" end
+if t["Nobundo's Hauberk of Hyjal"]==nil then t["Nobundo's Hauberk of Hyjal"]="Хиджальский хауберк Нобундо" end
+if t["Nobundo's Hauberk of Valiance"]==nil then t["Nobundo's Hauberk of Valiance"]="Хауберк отваги Нобундо" end
+if t["Nobundo's Headpiece of Valiance"]==nil then t["Nobundo's Headpiece of Valiance"]="Головной убор отваги Нобундо" end
+if t["Nobundo's Helm of Hyjal"]==nil then t["Nobundo's Helm of Hyjal"]="Хиджальский шлем Нобундо" end
+if t["Nobundo's Kilt of Conquest"]==nil then t["Nobundo's Kilt of Conquest"]="Килт завоеваний Нобундо" end
+if t["Nobundo's Kilt of Hyjal"]==nil then t["Nobundo's Kilt of Hyjal"]="Хиджальский килт Нобундо" end
+if t["Nobundo's Kilt of Valiance"]==nil then t["Nobundo's Kilt of Valiance"]="Килт отваги Нобундо" end
+if t["Nobundo's Shoulderguards"]==nil then t["Nobundo's Shoulderguards"]="Наплечные щитки Нобундо" end
+if t["Nobundo's Shoulderguards of Conquest"]==nil then t["Nobundo's Shoulderguards of Conquest"]="Наплечные щитки завоеваний Нобундо" end
+if t["Nobundo's Shoulderguards of Hyjal"]==nil then t["Nobundo's Shoulderguards of Hyjal"]="Хиджальские наплечные щитки Нобундо" end
+if t["Nobundo's Shoulderpads of Conquest"]==nil then t["Nobundo's Shoulderpads of Conquest"]="Наплечные пластины завоеваний Нобундо" end
+if t["Nobundo's Shoulderpads of Valiance"]==nil then t["Nobundo's Shoulderpads of Valiance"]="Наплечные пластины отваги Нобундо" end
+if t["Nobundo's Spaulders"]==nil then t["Nobundo's Spaulders"]="Наплеч Нобундо" end
+if t["Nobundo's Spaulders of Valiance"]==nil then t["Nobundo's Spaulders of Valiance"]="Наплеч отваги Нобундо" end
+if t["Nobundo's Tunic of Hyjal"]==nil then t["Nobundo's Tunic of Hyjal"]="Хиджальский мундир Нобундо" end
+if t["Nobundo's Tunic of Valiance"]==nil then t["Nobundo's Tunic of Valiance"]="Мундир отваги Нобундо" end
+if t["Nordrassil Raiment"]==nil then t["Nordrassil Raiment"]="Одеяния Нордрассила" end
+if t["Obsidian Arborweave Gloves"]==nil then t["Obsidian Arborweave Gloves"]="Обсидиановые древотканые перчатки" end
+if t["Obsidian Arborweave Grips"]==nil then t["Obsidian Arborweave Grips"]="Обсидиановые древотканые захваты" end
+if t["Obsidian Arborweave Mantle"]==nil then t["Obsidian Arborweave Mantle"]="Обсидиановая древотканая мантия" end
+if t["Obsidian Arborweave Tunic"]==nil then t["Obsidian Arborweave Tunic"]="Обсидиановые древотканые одеяния" end
+if t["Ochre Skeletal Warhorse"]==nil then t["Ochre Skeletal Warhorse"]="Коричневый боевой конь-скелет" end
+if t["Ogre Pinata"]==nil then t["Ogre Pinata"]="Огрская Пиньята" end
+if t["Onslaught Greaves"]==nil then t["Onslaught Greaves"]="Наголенники натиска" end
+if t["Onslaught Treads"]==nil then t["Onslaught Treads"]="Кованые сапоги натиска" end
+if t["Onslaught Waistguard"]==nil then t["Onslaught Waistguard"]="Воинский пояс натиска" end
+if t["Opportunist's Battlegear"]==nil then t["Opportunist's Battlegear"]="Броня безпринципного" end
+if t["Opportunist's Leather Helm"]==nil then t["Opportunist's Leather Helm"]="Кожаный шлем Противоречащего" end
+if t["Orange Mana-forged Barrier"]==nil then t["Orange Mana-forged Barrier"]="Барьер из маны (оранжевый)" end
+if t["Ornaments of the Pearlescent Butterfly"]==nil then t["Ornaments of the Pearlescent Butterfly"]="Украшения перламутровой бабочки" end
+if t["Ornate Bank Voucher"]==nil then t["Ornate Bank Voucher"]="Украшенная Банковская Расписка" end
+if t["Ornate Saronite Bracers"]==nil then t["Ornate Saronite Bracers"]="Изысканные саронитовые наручи" end
+if t["Ornate Saronite Gauntlets"]==nil then t["Ornate Saronite Gauntlets"]="Изысканные саронитовые рукавицы" end
+if t["Overcast Chestguard"]==nil then t["Overcast Chestguard"]="Нагрудный доспех угрюмости" end
+if t["Overlord's Onyx Band"]==nil then t["Overlord's Onyx Band"]="Ониксовое кольцо властителя" end
+if t["Painbringer's Back Prison"]==nil then t["Painbringer's Back Prison"]="Заплечная ловушка вестника боли" end
+if t["Pale Dark Hound"]==nil then t["Pale Dark Hound"]="Бледная Темная Гончая" end
+if t["Pale Succubus"]==nil then t["Pale Succubus"]="Бледный Суккуб" end
+if t["Palomino"]==nil then t["Palomino"]="Игреневый конь" end
+if t["Party G.R.E.N.A.D.E."]==nil then t["Party G.R.E.N.A.D.E."]="Праздничная граната" end
+if t["Pauldrons of Radiant Glory"]==nil then t["Pauldrons of Radiant Glory"]="Наплечье блистательной славы" end
+if t["Pauldrons of Ten Storms"]==nil then t["Pauldrons of Ten Storms"]="Наплечье десяти бурь" end
+if t["Pauldrons of Transcendence"]==nil then t["Pauldrons of Transcendence"]="Наплечье превосходства" end
+if t["Pauldrons of the Aldor"]==nil then t["Pauldrons of the Aldor"]="Наплечье Алдоров" end
+if t["Pauldrons of the All-Consuming Maw"]==nil then t["Pauldrons of the All-Consuming Maw"]="Наплечье всепоглощающего зева" end
+if t["Personal Bank Vault"]==nil then t["Personal Bank Vault"]="Личный Банк" end
+if t["Personal Bank Vault Tab Voucher"]==nil then t["Personal Bank Vault Tab Voucher"]="Сертификат Личного Банка" end
+if t["Personal Skyship"]==nil then t["Personal Skyship"]="Небесный Корабль" end
+if t["Phoenix Feathers"]==nil then t["Phoenix Feathers"]="Перья Феникса" end
+if t["Picnic Basket"]==nil then t["Picnic Basket"]="Корзинка для Пикника" end
+if t["Plagueheart Raiment"]==nil then t["Plagueheart Raiment"]="Облачение проклятого сердца" end
+if t["Plaguethrower's Backpack (Purple)"]==nil then t["Plaguethrower's Backpack (Purple)"]="Ранец Чумометчика (фиолетовый)" end
+if t["Plate of the Chosen Dead"]==nil then t["Plate of the Chosen Dead"]="Латы избранных мертвецов" end
+if t["Plate of the Lost Catacomb"]==nil then t["Plate of the Lost Catacomb"]="Пластинчатые доспехи затерянных подземелий" end
+if t["Polished Breastplate of Might"]==nil then t["Polished Breastplate of Might"]="Полированный Нагрудник Силы" end
+if t["Polished Observer's Shield"]==nil then t["Polished Observer's Shield"]="Полированный щит блюстителя" end
+if t["Ponzo's Scheming Topper"]==nil then t["Ponzo's Scheming Topper"]="Хитроумный Головной Убор Понзо" end
+if t["Portable Call Board (Alliance)"]==nil then t["Portable Call Board (Alliance)"]="Портативная Доска Глашатая (Альянс)" end
+if t["Portable Post Tube"]==nil then t["Portable Post Tube"]="Портативный Почтовый Ящик" end
+if t["Posture Check"]==nil then t["Posture Check"]="Проверка осанки" end
+if t["Potion of Experience"]==nil then t["Potion of Experience"]="Зелье Опыта" end
+if t["Potion of Mystic Enchanting"]==nil then t["Potion of Mystic Enchanting"]="Зелье Мистических Зачарований" end
+if t["Potion of Reputation"]==nil then t["Potion of Reputation"]="Зелье Репутации" end
+if t["Pride of the Pit Lord (Green)"]==nil then t["Pride of the Pit Lord (Green)"]="Гордость Властителя Преисподней (в зеленом цвете)" end
+if t["Pride of the Sunstriders (Purple)"]==nil then t["Pride of the Sunstriders (Purple)"]="Гордость Солнечных Скитальцев (фиолетовая)" end
+if t["Primal Batskin Bracers"]==nil then t["Primal Batskin Bracers"]="Наручи из кожи древней летучей мыши" end
+if t["Primal Gladiator's Longbow (Amber)"]==nil then t["Primal Gladiator's Longbow (Amber)"]="Длинный лук необузданного гладиатора" end
+if t["Primalstrike Belt"]==nil then t["Primalstrike Belt"]="Пояс упреждающего удара" end
+if t["Pristine Enchanted South Seas Kelp"]==nil then t["Pristine Enchanted South Seas Kelp"]="Безупречные зачарованные водоросли Южных морей" end
+if t["Pristine Pouch (Soulbound 12 Slot)"]==nil then t["Pristine Pouch (Soulbound 12 Slot)"]="Мешочек Первозданности (12 ячеек, привязаны к персонажу)" end
+if t["Pristine Star Lily"]==nil then t["Pristine Star Lily"]="Чистая звездная лилия" end
+if t["Protector's Judgment (Blue)"]==nil then t["Protector's Judgment (Blue)"]="Приговор Защитника (синий)" end
+if t["Purified Shard of the Scale"]==nil then t["Purified Shard of the Scale"]="Очищенный обломок чешуи" end
+if t["Purity Raiment"]==nil then t["Purity Raiment"]="Одеяние чистоты" end
+if t["Quartz Mage Attire"]==nil then t["Quartz Mage Attire"]="Кварцевые одеяния мага" end
+if t["Race Change Potion"]==nil then t["Race Change Potion"]="Зелье Смены Расы" end
+if t["Ragesteel Shoulders"]==nil then t["Ragesteel Shoulders"]="Наплечники из яростной стали" end
+if t["Raid Marker Remover"]==nil then t["Raid Marker Remover"]="Удаление Метки Рейда" end
+if t["Raid Markers Bundle"]==nil then t["Raid Markers Bundle"]="Набор Меток Рейда" end
+if t["Raider's Cloak"]==nil then t["Raider's Cloak"]="Разбойничий плащ" end
+if t["Raiment of the Exorcist"]==nil then t["Raiment of the Exorcist"]="Облачение экзорциста" end
+if t["Ratstallion"]==nil then t["Ratstallion"]="Крысоконь" end
+if t["Realm-Wide Bank Tab Voucher"]==nil then t["Realm-Wide Bank Tab Voucher"]="Сертификат Банковского Хранилища Сервера" end
+if t["Realm-Wide Bank Vault"]==nil then t["Realm-Wide Bank Vault"]="Банковское Хранилище Всего Сервера" end
+if t["Recruit-a-Friend"]==nil then t["Recruit-a-Friend"]="Свиток “Пригласи друга”" end
+if t["Red Christmas Chest"]==nil then t["Red Christmas Chest"]="Красный рождественский нагрудник" end
+if t["Red Crane Chestguard"]==nil then t["Red Crane Chestguard"]="Нагрудный доспех Красного Журавля" end
+if t["Red Crane Crown"]==nil then t["Red Crane Crown"]="Корона Красного Журавля" end
+if t["Red Crane Gauntlets"]==nil then t["Red Crane Gauntlets"]="Рукавицы Красного Журавля" end
+if t["Red Crane Headpiece"]==nil then t["Red Crane Headpiece"]="Головной убор красного журавля" end
+if t["Red Crane Helm"]==nil then t["Red Crane Helm"]="Шлем Красного Журавля" end
+if t["Red Crane Legwraps"]==nil then t["Red Crane Legwraps"]="Бриджи Красного Журавля" end
+if t["Red Crane Shoulderguards"]==nil then t["Red Crane Shoulderguards"]="Наплечные щитки Красного Журавля" end
+if t["Red Crane Vest"]==nil then t["Red Crane Vest"]="Жилет Красного Журавля" end
+if t["Red Lumberjack Shirt"]==nil then t["Red Lumberjack Shirt"]="Красная рубашка дровосека" end
+if t["Red Riding Wolf"]==nil then t["Red Riding Wolf"]="Рыжий верховой волк" end
+if t["Red Winter Clothes"]==nil then t["Red Winter Clothes"]="Красные зимние одежды" end
+if t["Redemption Breastplate"]==nil then t["Redemption Breastplate"]="Кираса искупления" end
+if t["Redemption Faceguard"]==nil then t["Redemption Faceguard"]="Большой шлем искупления" end
+if t["Redemption Gauntlets"]==nil then t["Redemption Gauntlets"]="Рукавицы искупления" end
+if t["Redemption Girdle"]==nil then t["Redemption Girdle"]="Ремень искупления" end
+if t["Redemption Headpiece"]==nil then t["Redemption Headpiece"]="Головной убор искупления" end
+if t["Redemption Shoulderguards"]==nil then t["Redemption Shoulderguards"]="Наплечные щитки искупления" end
+if t["Redemption Tunic"]==nil then t["Redemption Tunic"]="Мундир искупления" end
+if t["Regalia of the Chromatic Hydra"]==nil then t["Regalia of the Chromatic Hydra"]="Регалии Хроматической Гидры" end
+if t["Regalia of the Firebird"]==nil then t["Regalia of the Firebird"]="Регалии Огненной Птицы" end
+if t["Reinforced Sapphirium Faceguard"]==nil then t["Reinforced Sapphirium Faceguard"]="Усиленный сапфировый большой шлем" end
+if t["Reinforced Sapphirium Legplates"]==nil then t["Reinforced Sapphirium Legplates"]="Усиленные сапфировые ножные латы" end
+if t["Reins of the Arctic Bear"]==nil then t["Reins of the Arctic Bear"]="Поводья Белого Медведя" end
+if t["Reins of the Astral Cloud Serpent"]==nil then t["Reins of the Astral Cloud Serpent"]="Поводья Астрального Облачного Змея" end
+if t["Reins of the Black Moose Bull"]==nil then t["Reins of the Black Moose Bull"]="Поводья Черного Матерого Лося" end
+if t["Reins of the Brown Riding Goat"]==nil then t["Reins of the Brown Riding Goat"]="Поводья Бурого Ездового Козла" end
+if t["Reins of the Goldenback Cloudstrider (Mount)"]==nil then t["Reins of the Goldenback Cloudstrider (Mount)"]="Поводья Златоспиного Облачного Странника (ездовой питомец)" end
+if t["Reins of the Saprophyte Amalgam"]==nil then t["Reins of the Saprophyte Amalgam"]="Поводья Амальгамы Сапрофитов" end
+if t["Reins of the Spectral Steed (2 Seater Mount)"]==nil then t["Reins of the Spectral Steed (2 Seater Mount)"]="Поводья Спектрального Скакуна (2-местный ездовой питомец)" end
+if t["Reins of the Spirited War Steed (Custom League 4 Mount)"]==nil then t["Reins of the Spirited War Steed (Custom League 4 Mount)"]="Поводья Спиритического Боевого Скакуна (уникальный ездовой питомец Лиги 4)" end
+if t["Reins of the Subdued Bat Loa"]==nil then t["Reins of the Subdued Bat Loa"]="Поводья покорной летучей мыши Лоа" end
+if t["Relentless Gladiator's Chain Armor"]==nil then t["Relentless Gladiator's Chain Armor"]="Плетеный доспех неумолимого гладиатора" end
+if t["Relentless Gladiator's Chain Gauntlets"]==nil then t["Relentless Gladiator's Chain Gauntlets"]="Плетеные рукавицы неумолимого гладиатора" end
+if t["Relentless Gladiator's Chain Helm"]==nil then t["Relentless Gladiator's Chain Helm"]="Шлем неумолимого гладиатора" end
+if t["Relentless Gladiator's Dragonhide Legguards"]==nil then t["Relentless Gladiator's Dragonhide Legguards"]="Набедренники неумолимого гладиатора из драконьей шкуры" end
+if t["Relentless Gladiator's Dreadplate Legguards"]==nil then t["Relentless Gladiator's Dreadplate Legguards"]="Жуткие латные набедренники неумолимого гладиатора" end
+if t["Relentless Gladiator's Felweave Handguards"]==nil then t["Relentless Gladiator's Felweave Handguards"]="Боевые рукавицы неумолимого гладиатора из ткани Скверны" end
+if t["Relentless Gladiator's Leather Helm"]==nil then t["Relentless Gladiator's Leather Helm"]="Кожаный шлем неумолимого гладиатора" end
+if t["Relentless Gladiator's Linked Helm"]==nil then t["Relentless Gladiator's Linked Helm"]="Клепаный шлем неумолимого гладиатора" end
+if t["Relentless Gladiator's Linked Spaulders"]==nil then t["Relentless Gladiator's Linked Spaulders"]="Клепаный наплеч неумолимого гладиатора" end
+if t["Relentless Gladiator's Mooncloth Hood"]==nil then t["Relentless Gladiator's Mooncloth Hood"]="Капюшон неумолимого гладиатора из луноткани" end
+if t["Relentless Gladiator's Mooncloth Leggings"]==nil then t["Relentless Gladiator's Mooncloth Leggings"]="Поножи неумолимого гладиатора из луноткани" end
+if t["Relentless Gladiator's Mooncloth Mantle"]==nil then t["Relentless Gladiator's Mooncloth Mantle"]="Мантия неумолимого гладиатора из луноткани" end
+if t["Relentless Gladiator's Mooncloth Robe"]==nil then t["Relentless Gladiator's Mooncloth Robe"]="Одеяние неумолимого гладиатора из луноткани" end
+if t["Relentless Gladiator's Ornamented Chestguard"]==nil then t["Relentless Gladiator's Ornamented Chestguard"]="Украшенный нагрудный доспех неумолимого гладиатора" end
+if t["Relentless Gladiator's Ornamented Legplates"]==nil then t["Relentless Gladiator's Ornamented Legplates"]="Украшенные ножные латы неумолимого гладиатора" end
+if t["Relentless Gladiator's Plate Helm"]==nil then t["Relentless Gladiator's Plate Helm"]="Латный шлем неумолимого гладиатора" end
+if t["Relentless Gladiator's Ringmail Gauntlets"]==nil then t["Relentless Gladiator's Ringmail Gauntlets"]="Кольчатые рукавицы неумолимого гладиатора" end
+if t["Relentless Gladiator's Ringmail Spaulders"]==nil then t["Relentless Gladiator's Ringmail Spaulders"]="Кольчатый наплеч неумолимого гладиатора" end
+if t["Relentless Gladiator's Satin Hood"]==nil then t["Relentless Gladiator's Satin Hood"]="Атласный капюшон неумолимого гладиатора" end
+if t["Relentless Gladiator's Satin Leggings"]==nil then t["Relentless Gladiator's Satin Leggings"]="Атласные поножи неумолимого гладиатора" end
+if t["Relentless Gladiator's Scaled Gauntlets"]==nil then t["Relentless Gladiator's Scaled Gauntlets"]="Чешуйчатые рукавицы неумолимого гладиатора" end
+if t["Relentless Gladiator's Scaled Legguards"]==nil then t["Relentless Gladiator's Scaled Legguards"]="Чешуйчатые набедренники неумолимого гладиатора" end
+if t["Relentless Gladiator's Scaled Shoulders"]==nil then t["Relentless Gladiator's Scaled Shoulders"]="Чешуйчатые наплечники неумолимого гладиатора" end
+if t["Relentless Gladiator's Silk Cowl"]==nil then t["Relentless Gladiator's Silk Cowl"]="Шелковый клобук неумолимого гладиатора" end
+if t["Relentless Gladiator's Silk Handguards"]==nil then t["Relentless Gladiator's Silk Handguards"]="Шелковые боевые рукавицы неумолимого гладиатора" end
+if t["Relentless Gladiator's Silk Trousers"]==nil then t["Relentless Gladiator's Silk Trousers"]="Шелковые брюки неумолимого гладиатора" end
+if t["Relentless Gladiator's Wyrmhide Legguards"]==nil then t["Relentless Gladiator's Wyrmhide Legguards"]="Набедренники неумолимого гладиатора из шкуры змея" end
+if t["Renataki's Charm of Beasts"]==nil then t["Renataki's Charm of Beasts"]="Звериный оберег Ренатаки" end
+if t["Renegade's Dragonhide"]==nil then t["Renegade's Dragonhide"]="Драконья шкура отступника" end
+if t["Resounding Ring of Glory"]==nil then t["Resounding Ring of Glory"]="Резонирующее кольцо славы" end
+if t["Revelations of Y'Shaarj"]==nil then t["Revelations of Y'Shaarj"]="Откровения И'Шараджа" end
+if t["Revenant's Robes"]==nil then t["Revenant's Robes"]="Одеяния Мстителя" end
+if t["Revered Seraph's Radiance"]==nil then t["Revered Seraph's Radiance"]="Сияние почитаемого серафима" end
+if t["Rhinestone Sunglasses"]==nil then t["Rhinestone Sunglasses"]="Солнцезащитные очки со стразами" end
+if t["Riding Tome: Apprentice Riding"]==nil then t["Riding Tome: Apprentice Riding"]="Том Верховой езды: Ученик" end
+if t["Riding Tome: Artisan Flying"]==nil then t["Riding Tome: Artisan Flying"]="Том Верховой езды: Искусник" end
+if t["Riding Tome: Expert Flying"]==nil then t["Riding Tome: Expert Flying"]="Том Верховой езды: Умелец" end
+if t["Riding Tome: Extraordinary Flying"]==nil then t["Riding Tome: Extraordinary Flying"]="Том Верховой Езды: Исключительный Полет" end
+if t["Riding Tome: Journeyman Riding"]==nil then t["Riding Tome: Journeyman Riding"]="Том Верховой езды: Подмастерье" end
+if t["Riding Turtle"]==nil then t["Riding Turtle"]="Верховая Черепаха" end
+if t["Rift Stalker Gauntlets"]==nil then t["Rift Stalker Gauntlets"]="Рукавицы следопыта ущелий" end
+if t["Rift Stalker Hauberk"]==nil then t["Rift Stalker Hauberk"]="Хауберк следопыта ущелий" end
+if t["Rift Stalker Helm"]==nil then t["Rift Stalker Helm"]="Шлем следопыта ущелий" end
+if t["Rift Stalker Leggings"]==nil then t["Rift Stalker Leggings"]="Поножи следопыта ущелий" end
+if t["Rift Stalker Mantle"]==nil then t["Rift Stalker Mantle"]="Мантия следопыта ущелий" end
+if t["Ring of the Cryptstalker"]==nil then t["Ring of the Cryptstalker"]="Кольцо расхитителя гробниц" end
+if t["Ring of the Dreadnaught"]==nil then t["Ring of the Dreadnaught"]="Кольцо неустрашимости" end
+if t["Ritual Armor of the Cycle"]==nil then t["Ritual Armor of the Cycle"]="Ритуальные Доспехи Круговорота" end
+if t["Robe of Faith"]==nil then t["Robe of Faith"]="Одеяние веры" end
+if t["Robe of Oblivion"]==nil then t["Robe of Oblivion"]="Одеяние Забвения" end
+if t["Robe of Undead Cleansing"]==nil then t["Robe of Undead Cleansing"]="Одеяние искоренения нежити" end
+if t["Robes of Transcendence"]==nil then t["Robes of Transcendence"]="Одеяния превосходства" end
+if t["Robes of the Burning Scroll"]==nil then t["Robes of the Burning Scroll"]="Одеяния пылающего свитка" end
+if t["Robes of the Exorcist"]==nil then t["Robes of the Exorcist"]="Одеяния экзорциста" end
+if t["Rocktusk Battleboar"]==nil then t["Rocktusk Battleboar"]="Камнеклыкий боевой вепрь" end
+if t["Royal Snapdragon"]==nil then t["Royal Snapdragon"]="Королевский Морской Варан" end
+if t["Royalfang Widow"]==nil then t["Royalfang Widow"]="Королевская Клыкастая Вдова" end
+if t["Rudolthorn, the red-nosed Elderhorn (Holiday Exclusive)"]==nil then t["Rudolthorn, the red-nosed Elderhorn (Holiday Exclusive)"]="Рудолтхорн, Старорог с красным носом (Эксклюзивный Праздничный)" end
+if t["Rune of Transmogrification"]==nil then t["Rune of Transmogrification"]="Руна Трансмогрификации" end
+if t["Runetotem's Cover of Hyjal"]==nil then t["Runetotem's Cover of Hyjal"]="Хиджальский убор Рунического Тотема" end
+if t["Runetotem's Gloves of Valiance"]==nil then t["Runetotem's Gloves of Valiance"]="Перчатки отваги Рунического Тотема" end
+if t["Runetotem's Handgrips of Conquest"]==nil then t["Runetotem's Handgrips of Conquest"]="Боевые перчатки завоеваний Рунического Тотема" end
+if t["Runetotem's Handgrips of Valiance"]==nil then t["Runetotem's Handgrips of Valiance"]="Боевые перчатки отваги Рунического Тотема" end
+if t["Runetotem's Handguards of Valiance"]==nil then t["Runetotem's Handguards of Valiance"]="Боевые рукавицы отваги Рунического Тотема" end
+if t["Runetotem's Headguard of Conquest"]==nil then t["Runetotem's Headguard of Conquest"]="Наголовник завоеваний Рунического Тотема" end
+if t["Runetotem's Headguard of Hyjal"]==nil then t["Runetotem's Headguard of Hyjal"]="Хиджальский наголовник Рунического Тотема" end
+if t["Runetotem's Headpiece"]==nil then t["Runetotem's Headpiece"]="Головной убор Рунического Тотема" end
+if t["Runetotem's Headpiece of Hyjal"]==nil then t["Runetotem's Headpiece of Hyjal"]="Хиджальский головной убор Рунического Тотема" end
+if t["Runetotem's Headpiece of Triumph"]==nil then t["Runetotem's Headpiece of Triumph"]="Головной убор триумфа Рунического Тотема" end
+if t["Runetotem's Headpiece of Valiance"]==nil then t["Runetotem's Headpiece of Valiance"]="Головной убор отваги Рунического Тотема" end
+if t["Runetotem's Leggings of Valiance"]==nil then t["Runetotem's Leggings of Valiance"]="Поножи отваги Рунического Тотема" end
+if t["Runetotem's Legguards of Triumph"]==nil then t["Runetotem's Legguards of Triumph"]="Набедренники триумфа Рунического Тотема" end
+if t["Runetotem's Mantle of Triumph"]==nil then t["Runetotem's Mantle of Triumph"]="Мантия триумфа Рунического Тотема" end
+if t["Runetotem's Raiments"]==nil then t["Runetotem's Raiments"]="Облачение Рунического Тотема" end
+if t["Runetotem's Raiments of Conquest"]==nil then t["Runetotem's Raiments of Conquest"]="Облачение завоеваний Рунического Тотема" end
+if t["Runetotem's Robe"]==nil then t["Runetotem's Robe"]="Одеяние Рунического Тотема" end
+if t["Runetotem's Spaulders"]==nil then t["Runetotem's Spaulders"]="Наплеч Рунического Тотема" end
+if t["Runetotem's Trousers"]==nil then t["Runetotem's Trousers"]="Брюки Рунического Тотема" end
+if t["Runetotem's Trousers of Hyjal"]==nil then t["Runetotem's Trousers of Hyjal"]="Хиджальские брюки Рунического Тотема" end
+if t["Runetotem's Vestments"]==nil then t["Runetotem's Vestments"]="Одежды Рунического Тотема" end
+if t["Runetotem's Vestments of Hyjal"]==nil then t["Runetotem's Vestments of Hyjal"]="Хиджальские одежды Рунического Тотема" end
+if t["Runetotem's Vestments of Triumph"]==nil then t["Runetotem's Vestments of Triumph"]="Одежды триумфа Рунического Тотема" end
+if t["Ruthless Gladiator's Chain Spaulders"]==nil then t["Ruthless Gladiator's Chain Spaulders"]="Плетеный наплеч беспощадного гладиатора" end
+if t["Ruthless Gladiator's Dreadplate Legguards"]==nil then t["Ruthless Gladiator's Dreadplate Legguards"]="Жуткие латные набедренники беспощадного гладиатора" end
+if t["Ruthless Gladiator's Leather Helm"]==nil then t["Ruthless Gladiator's Leather Helm"]="Кожаный шлем беспощадного гладиатора" end
+if t["Ruthless Gladiator's Leather Spaulders"]==nil then t["Ruthless Gladiator's Leather Spaulders"]="Кожаный наплеч беспощадного гладиатора" end
+if t["Ruthless Gladiator's Mail Gauntlets"]==nil then t["Ruthless Gladiator's Mail Gauntlets"]="Кольчужные рукавицы беспощадного гладиатора" end
+if t["Ruthless Gladiator's Mail Helm"]==nil then t["Ruthless Gladiator's Mail Helm"]="Кольчужный шлем беспощадного гладиатора" end
+if t["Ruthless Gladiator's Mail Leggings"]==nil then t["Ruthless Gladiator's Mail Leggings"]="Кольчужные поножи беспощадного гладиатора" end
+if t["Ruthless Gladiator's Ornamented Chestguard"]==nil then t["Ruthless Gladiator's Ornamented Chestguard"]="Украшенный нагрудный доспех беспощадного гладиатора" end
+if t["Ruthless Gladiator's Ornamented Headcover"]==nil then t["Ruthless Gladiator's Ornamented Headcover"]="Украшенный шлем беспощадного гладиатора" end
+if t["Ruthless Gladiator's Ornamented Legplates"]==nil then t["Ruthless Gladiator's Ornamented Legplates"]="Украшенные ножные латы беспощадного гладиатора" end
+if t["Ruthless Gladiator's Plate Chestpiece"]==nil then t["Ruthless Gladiator's Plate Chestpiece"]="Латный нагрудник беспощадного гладиатора" end
+if t["Ruthless Gladiator's Plate Gauntlets"]==nil then t["Ruthless Gladiator's Plate Gauntlets"]="Латные рукавицы беспощадного гладиатора" end
+if t["Ruthless Gladiator's Plate Shoulders"]==nil then t["Ruthless Gladiator's Plate Shoulders"]="Латные наплечники беспощадного гладиатора" end
+if t["Ruthless Gladiator's Ringmail Armor"]==nil then t["Ruthless Gladiator's Ringmail Armor"]="Кольчатый доспех беспощадного гладиатора" end
+if t["Ruthless Gladiator's Satin Elite"]==nil then t["Ruthless Gladiator's Satin Elite"]="Атласный элитный доспех беспощадного гладиатора" end
+if t["Ruthless Gladiator's Satin Hood"]==nil then t["Ruthless Gladiator's Satin Hood"]="Атласный капюшон беспощадного гладиатора" end
+if t["Ruthless Gladiator's Satin Robe"]==nil then t["Ruthless Gladiator's Satin Robe"]="Атласное одеяние беспощадного гладиатора" end
+if t["Ruthless Gladiator's Scaled Chestpiece"]==nil then t["Ruthless Gladiator's Scaled Chestpiece"]="Чешуйчатый нагрудник беспощадного гладиатора" end
+if t["Ruthless Gladiator's Scaled Helm"]==nil then t["Ruthless Gladiator's Scaled Helm"]="Чешуйчатый шлем беспощадного гладиатора" end
+if t["Ruthless Gladiator's Scaled Legguards"]==nil then t["Ruthless Gladiator's Scaled Legguards"]="Чешуйчатые набедренники беспощадного гладиатора" end
+if t["Ruthless Gladiator's Silk Cowl"]==nil then t["Ruthless Gladiator's Silk Cowl"]="Шелковый клобук беспощадного гладиатора" end
+if t["Ruthless Gladiator's Silk Trousers"]==nil then t["Ruthless Gladiator's Silk Trousers"]="Шелковые брюки беспощадного гладиатора" end
+if t["Ruthless Gladiator's Wyrmhide Gloves"]==nil then t["Ruthless Gladiator's Wyrmhide Gloves"]="Перчатки беспощадного гладиатора из шкуры змея" end
+if t["Ruthless Gladiator's Wyrmhide Spaulders"]==nil then t["Ruthless Gladiator's Wyrmhide Spaulders"]="Наплеч беспощадного гладиатора из шкуры змея" end
+if t["Sabatons of Ten Storms"]==nil then t["Sabatons of Ten Storms"]="Башмаки десяти бурь" end
+if t["Sabatons of Wrath"]==nil then t["Sabatons of Wrath"]="Башмаки гнева" end
+if t["Sabrina's Crooked Finger"]==nil then t["Sabrina's Crooked Finger"]="Кривой палец Сабрины" end
+if t["Sailor's Ring"]==nil then t["Sailor's Ring"]="Кольцо матроса" end
+if t["Sanctified Ahn'Kahar Blood Hunter's Legguards"]==nil then t["Sanctified Ahn'Kahar Blood Hunter's Legguards"]="Освященные набедренники ан'кахарского охотника за кровью" end
+if t["Sanctified Crimson Acolyte Hood"]==nil then t["Sanctified Crimson Acolyte Hood"]="Освященный капюшон послушника из Багрового Легиона" end
+if t["Sanctified Dark Coven Gloves"]==nil then t["Sanctified Dark Coven Gloves"]="Освященные перчатки мрачного шабаша" end
+if t["Sanctified Dark Coven Robe"]==nil then t["Sanctified Dark Coven Robe"]="Освященное одеяние мрачного шабаша" end
+if t["Sanctified Frost Witch's Handguards"]==nil then t["Sanctified Frost Witch's Handguards"]="Освященные боевые рукавицы ледяной ведьмы" end
+if t["Sanctified Frost Witch's Shoulderpads"]==nil then t["Sanctified Frost Witch's Shoulderpads"]="Освященные наплечные пластины ледяной ведьмы" end
+if t["Sanctified Frost Witch's Spaulders"]==nil then t["Sanctified Frost Witch's Spaulders"]="Освященный наплеч ледяной ведьмы" end
+if t["Sanctified Lasherweave Headguard"]==nil then t["Sanctified Lasherweave Headguard"]="Освященный плеточный наголовник" end
+if t["Sanctified Lasherweave Legguards"]==nil then t["Sanctified Lasherweave Legguards"]="Освященные плеточные набедренники" end
+if t["Sanctified Lasherweave Trousers"]==nil then t["Sanctified Lasherweave Trousers"]="Освященные плеточные брюки" end
+if t["Sanctified Lasherweave Vestment"]==nil then t["Sanctified Lasherweave Vestment"]="Освященные плеточные одежды" end
+if t["Sanctified Lightsworn Battleplate"]==nil then t["Sanctified Lightsworn Battleplate"]="Освященный боевой доспех клятвы Свету" end
+if t["Sanctified Lightsworn Chestguard"]==nil then t["Sanctified Lightsworn Chestguard"]="Освященный нагрудный доспех клятвы Свету" end
+if t["Sanctified Lightsworn Faceguard"]==nil then t["Sanctified Lightsworn Faceguard"]="Освященный большой шлем клятвы Свету" end
+if t["Sanctified Lightsworn Headpiece"]==nil then t["Sanctified Lightsworn Headpiece"]="Освященный головной убор клятвы Свету" end
+if t["Sanctified Lightsworn Shoulderguards"]==nil then t["Sanctified Lightsworn Shoulderguards"]="Освященные боевые рукавицы клятвы Свету" end
+if t["Sanctified Scourgelord Battleplate"]==nil then t["Sanctified Scourgelord Battleplate"]="Освященный боевой доспех повелителя Плети" end
+if t["Sanctified Scourgelord Chestguard"]==nil then t["Sanctified Scourgelord Chestguard"]="Освященный нагрудный доспех повелителя Плети" end
+if t["Sanctified Scourgelord Faceguard"]==nil then t["Sanctified Scourgelord Faceguard"]="Освященный большой шлем повелителя Плети" end
+if t["Sanctified Scourgelord Gauntlets"]==nil then t["Sanctified Scourgelord Gauntlets"]="Освященные рукавицы повелителя Плети" end
+if t["Sanctified Scourgelord Handguards"]==nil then t["Sanctified Scourgelord Handguards"]="Освященные боевые рукавицы повелителя Плети" end
+if t["Sanctified Scourgelord Helmet"]==nil then t["Sanctified Scourgelord Helmet"]="Освященный полный шлем повелителя Плети" end
+if t["Sanctified Scourgelord Legguards"]==nil then t["Sanctified Scourgelord Legguards"]="Освященные набедренники повелителя Плети" end
+if t["Sanctified Scourgelord Legplates"]==nil then t["Sanctified Scourgelord Legplates"]="Освященные ножные латы повелителя Плети" end
+if t["Sanctified Scourgelord Shoulderplates"]==nil then t["Sanctified Scourgelord Shoulderplates"]="Освященные латные наплечники повелителя Плети" end
+if t["Sanctified Shadowblade Helmet"]==nil then t["Sanctified Shadowblade Helmet"]="Освященный полный шлем теневого клинка" end
+if t["Sanctified Ymirjar Lord's Handguards"]==nil then t["Sanctified Ymirjar Lord's Handguards"]="Освященные боевые рукавицы имирьярского повелителя" end
+if t["Sanctified Ymirjar Lord's Legguards"]==nil then t["Sanctified Ymirjar Lord's Legguards"]="Освященные набедренники имирьярского повелителя" end
+if t["Sanctified Ymirjar Lord's Shoulderplates"]==nil then t["Sanctified Ymirjar Lord's Shoulderplates"]="Освященные латные наплечники имирьярского повелителя" end
+if t["Sandals of Faith"]==nil then t["Sandals of Faith"]="Сандалии веры" end
+if t["Sandbox Tiger"]==nil then t["Sandbox Tiger"]="Тигр-качалка" end
+if t["Sanguine Workbench: Portable Highrisk Crafting Station"]==nil then t["Sanguine Workbench: Portable Highrisk Crafting Station"]="Кровавый верстак высокого риска" end
+if t["Sapphire Riverbeast"]==nil then t["Sapphire Riverbeast"]="Сапфировое Речное Чудище" end
+if t["Satin Mantle"]==nil then t["Satin Mantle"]="Атласное оплечье" end
+if t["Saurok Stalker's Spaulders"]==nil then t["Saurok Stalker's Spaulders"]="Наплеч охотника на сауроков" end
+if t["Savage Gladiator Chain"]==nil then t["Savage Gladiator Chain"]="Кольчуга свирепого гладиатора" end
+if t["Savage Gladiator's Dragonhide Robes"]==nil then t["Savage Gladiator's Dragonhide Robes"]="Одеяние свирепого гладиатора из драконьей шкуры" end
+if t["Savage Gladiator's Felweave Cowl"]==nil then t["Savage Gladiator's Felweave Cowl"]="Клобук свирепого гладиатора из ткани Скверны" end
+if t["Savage Gladiator's Felweave Raiment"]==nil then t["Savage Gladiator's Felweave Raiment"]="Облачение свирепого гладиатора из ткани Скверны" end
+if t["Savage Gladiator's Felweave Trousers"]==nil then t["Savage Gladiator's Felweave Trousers"]="Брюки свирепого гладиатора из ткани Скверны" end
+if t["Savage Gladiator's Kodohide Spaulders"]==nil then t["Savage Gladiator's Kodohide Spaulders"]="Наплеч свирепого гладиатора из шкуры кодо" end
+if t["Savage Gladiator's Leather Legguards"]==nil then t["Savage Gladiator's Leather Legguards"]="Кожаные набедренники свирепого гладиатора" end
+if t["Savage Gladiator's Linked Helm"]==nil then t["Savage Gladiator's Linked Helm"]="Клепаный шлем свирепого гладиатора" end
+if t["Savage Gladiator's Linked Leggings"]==nil then t["Savage Gladiator's Linked Leggings"]="Клепаные поножи свирепого гладиатора" end
+if t["Savage Gladiator's Mail Armor"]==nil then t["Savage Gladiator's Mail Armor"]="Кольчужный доспех свирепого гладиатора" end
+if t["Savage Gladiator's Mail Helm"]==nil then t["Savage Gladiator's Mail Helm"]="Кольчужный шлем свирепого гладиатора" end
+if t["Savage Gladiator's Mooncloth Gloves"]==nil then t["Savage Gladiator's Mooncloth Gloves"]="Перчатки свирепого гладиатора из луноткани" end
+if t["Savage Gladiator's Mooncloth Hood"]==nil then t["Savage Gladiator's Mooncloth Hood"]="Капюшон свирепого гладиатора из луноткани" end
+if t["Savage Gladiator's Mooncloth Mantle"]==nil then t["Savage Gladiator's Mooncloth Mantle"]="Мантия свирепого гладиатора из луноткани" end
+if t["Savage Gladiator's Ornamented Headcover"]==nil then t["Savage Gladiator's Ornamented Headcover"]="Украшенный головной покров свирепого гладиатора" end
+if t["Savage Gladiator's Plate Chestpiece"]==nil then t["Savage Gladiator's Plate Chestpiece"]="Латный нагрудник свирепого гладиатора" end
+if t["Savage Gladiator's Plate Gauntlets"]==nil then t["Savage Gladiator's Plate Gauntlets"]="Латные рукавицы свирепого гладиатора" end
+if t["Savage Gladiator's Ringmail Armor"]==nil then t["Savage Gladiator's Ringmail Armor"]="Кольчатый доспех свирепого гладиатора" end
+if t["Savage Gladiator's Ringmail Spaulders"]==nil then t["Savage Gladiator's Ringmail Spaulders"]="Кольчатый наплеч свирепого гладиатора" end
+if t["Savage Gladiator's Satin Leggings"]==nil then t["Savage Gladiator's Satin Leggings"]="Атласные поножи свирепого гладиатора" end
+if t["Savage Gladiator's Scaled Gauntlets"]==nil then t["Savage Gladiator's Scaled Gauntlets"]="Чешуйчатые рукавицы свирепого гладиатора" end
+if t["Savage Gladiator's Scaled Helm"]==nil then t["Savage Gladiator's Scaled Helm"]="Чешуйчатый шлем свирепого гладиатора" end
+if t["Savage Gladiator's Scaled Legguards"]==nil then t["Savage Gladiator's Scaled Legguards"]="Чешуйчатые набедренники свирепого гладиатора" end
+if t["Savage Gladiator's Silk Amice"]==nil then t["Savage Gladiator's Silk Amice"]="Шелковый нарамник свирепого гладиатора" end
+if t["Savage Gladiator's Silk Cowl"]==nil then t["Savage Gladiator's Silk Cowl"]="Шелковый клобук свирепого гладиатора" end
+if t["Savage Gladiator's Wyrmhide Gloves"]==nil then t["Savage Gladiator's Wyrmhide Gloves"]="Перчатки свирепого гладиатора из шкуры змея" end
+if t["Savage Gladiator's Wyrmhide Legguards"]==nil then t["Savage Gladiator's Wyrmhide Legguards"]="Набедренники свирепого гладиатора из шкуры змея" end
+if t["Savage Gladiator's Wyrmhide Spaulders"]==nil then t["Savage Gladiator's Wyrmhide Spaulders"]="Наплеч свирепого гладиатора из шкуры змея" end
+if t["Savage Plate Gauntlets"]==nil then t["Savage Plate Gauntlets"]="Латные рукавицы свирепости" end
+if t["Savage Saronite Hauberk"]==nil then t["Savage Saronite Hauberk"]="Саронитовый хауберк свирепости" end
+if t["Savage Saronite Pauldrons"]==nil then t["Savage Saronite Pauldrons"]="Саронитовое наплечье свирепости" end
+if t["Savage Saronite Waistguard"]==nil then t["Savage Saronite Waistguard"]="Саронитовый воинский пояс свирепости" end
+if t["Scaled Draenic Boots"]==nil then t["Scaled Draenic Boots"]="Чешуйчатые дренорские сапоги" end
+if t["Scoundrel's Last Word (Green)"]==nil then t["Scoundrel's Last Word (Green)"]="Последнее слово подлеца (зеленый)" end
+if t["Scourgeborne Battleplate"]==nil then t["Scourgeborne Battleplate"]="Кованый Плетью боевой доспех" end
+if t["Scourgeborne Chestguard"]==nil then t["Scourgeborne Chestguard"]="Кованый Плетью нагрудный доспех" end
+if t["Scourgeborne Handguards"]==nil then t["Scourgeborne Handguards"]="Кованые Плетью боевые рукавицы" end
+if t["Scourgelord Handguards"]==nil then t["Scourgelord Handguards"]="Боевые рукавицы повелителя Плети" end
+if t["Scourgelord Legplates"]==nil then t["Scourgelord Legplates"]="Ножные латы повелителя Плети" end
+if t["Scourgestalker Handguards"]==nil then t["Scourgestalker Handguards"]="Боевые рукавицы преследующего Плеть" end
+if t["Scourgestalker Headpiece"]==nil then t["Scourgestalker Headpiece"]="Головной убор преследующего Плеть" end
+if t["Scribe's Opulent Attire"]==nil then t["Scribe's Opulent Attire"]="Роскошное облачение писца" end
+if t["Scythe of the Unmaker"]==nil then t["Scythe of the Unmaker"]="Коса порабощенного" end
+if t["Seer's Linked Armor"]==nil then t["Seer's Linked Armor"]="Клепаный браслет Провидца" end
+if t["Seer's Linked Gauntlets"]==nil then t["Seer's Linked Gauntlets"]="Клепаные рукавицы Провидца" end
+if t["Seer's Ringmail Gloves"]==nil then t["Seer's Ringmail Gloves"]="Кольчатые перчатки Провидца" end
+if t["Seer's Ringmail Legguards"]==nil then t["Seer's Ringmail Legguards"]="Кольчатые набедренники Провидца" end
+if t["Seer's Ringmail Shoulderpads"]==nil then t["Seer's Ringmail Shoulderpads"]="Кольчатые наплечные пластины провидца" end
+if t["Selfless Wings of the Ascended"]==nil then t["Selfless Wings of the Ascended"]="Самоотверженные крылья перерожденного" end
+if t["Sentinel Voidwalker"]==nil then t["Sentinel Voidwalker"]="Дозорный Демон Бездны" end
+if t["Sha-Skin Gloves"]==nil then t["Sha-Skin Gloves"]="Перчатки из кожи ша" end
+if t["Shadow Fel Hound"]==nil then t["Shadow Fel Hound"]="Теневая Гончая Скверны" end
+if t["Shadow Orbs"]==nil then t["Shadow Orbs"]="Теневые сферы" end
+if t["Shadow Touched Great-Wyrm"]==nil then t["Shadow Touched Great-Wyrm"]="Великий Змей Теней" end
+if t["Shadowblade Helmet"]==nil then t["Shadowblade Helmet"]="Полный шлем теневого клинка" end
+if t["Shadowcraft Gloves"]==nil then t["Shadowcraft Gloves"]="Перчатки незаметности" end
+if t["Shadowcraft Spaulders"]==nil then t["Shadowcraft Spaulders"]="Наплеч незаметности" end
+if t["Shadowflame Handwraps"]==nil then t["Shadowflame Handwraps"]="Повязки пламени Тьмы" end
+if t["Shadowflame Hood"]==nil then t["Shadowflame Hood"]="Капюшон пламени Тьмы" end
+if t["Shadowflame Mantle"]==nil then t["Shadowflame Mantle"]="Оплечье пламени Тьмы" end
+if t["Shadowhide Pearltusk"]==nil then t["Shadowhide Pearltusk"]="Темный жемчужношкурый элекк" end
+if t["Shiny Shard of the Flame"]==nil then t["Shiny Shard of the Flame"]="Блестящая сфера пламени" end
+if t["Shoulderguards of Malorne"]==nil then t["Shoulderguards of Malorne"]="Наплечные щитки Малорна" end
+if t["Shoulderguards of Radiant Glory"]==nil then t["Shoulderguards of Radiant Glory"]="Наплечные щитки блистательной славы" end
+if t["Shoulderguards of the Haunted Forest"]==nil then t["Shoulderguards of the Haunted Forest"]="Наплечные щитки призрачного леса" end
+if t["Shoulderpads of Absolution"]==nil then t["Shoulderpads of Absolution"]="Наплечные пластины отпущения грехов" end
+if t["Shoulderpads of Assassination"]==nil then t["Shoulderpads of Assassination"]="Наплечные пластины ликвидации" end
+if t["Siegebreaker Battleplate"]==nil then t["Siegebreaker Battleplate"]="Осадный боевой доспех" end
+if t["Siegebreaker Gauntlets"]==nil then t["Siegebreaker Gauntlets"]="Осадные рукавицы" end
+if t["Silent Saboteur's Nightshade Nobility"]==nil then t["Silent Saboteur's Nightshade Nobility"]="Ночная тень знатных безмолвных диверсантов" end
+if t["Siltwing Albatross"]==nil then t["Siltwing Albatross"]="Илокрылый альбатрос" end
+if t["Silver Eyeglasses"]==nil then t["Silver Eyeglasses"]="Серебряное Пенсне" end
+if t["Silver Hornstrider"]==nil then t["Silver Hornstrider"]="Серебристый Длиннорог" end
+if t["Silver Spectacles"]==nil then t["Silver Spectacles"]="Серебряные Очки" end
+if t["Silvermist Garments of the Fallen Sorcerer"]==nil then t["Silvermist Garments of the Fallen Sorcerer"]="Одеяния Павшего Чародея Серебряного Тумана" end
+if t["Sinful Gladiator's Plate Vestments (Full League 4 Transmog Set)"]==nil then t["Sinful Gladiator's Plate Vestments (Full League 4 Transmog Set)"]="Латные Доспехи Грешного Гладиатора (полный набор трансмогрификации Лиги 4)" end
+if t["Sinful Gladiator's Silk Armor"]==nil then t["Sinful Gladiator's Silk Armor"]="Шелковые доспехи грешного гладиатора" end
+if t["Sivara's Slitherblade"]==nil then t["Sivara's Slitherblade"]="Скользящий клинок Сивары" end
+if t["Skinner's Hat - Skinning Speed Bonus"]==nil then t["Skinner's Hat - Skinning Speed Bonus"]="Шапка Шкуродера - Бонус к Выделке Шкур" end
+if t["Skull - Raid Marker"]==nil then t["Skull - Raid Marker"]="Череп - Метка Рейда" end
+if t["Skull of the Man'ari"]==nil then t["Skull of the Man'ari"]="Череп Манари" end
+if t["Skyshatter Gloves"]==nil then t["Skyshatter Gloves"]="Перчатки Небокрушителя" end
+if t["Skyshatter Legguards"]==nil then t["Skyshatter Legguards"]="Набедренники Небокрушителя" end
+if t["Skyshatter Raiment"]==nil then t["Skyshatter Raiment"]="Одеяния небокрушителя" end
+if t["Smoldering Wings"]==nil then t["Smoldering Wings"]="Тлеющие крылья" end
+if t["Snapping Crab Claws"]==nil then t["Snapping Crab Claws"]="Щелкающая клешня краба" end
+if t["Softfoot’s Last Resort"]==nil then t["Softfoot’s Last Resort"]="Последняя надежда Легкой Ноги" end
+if t["Sorcerer's Bindings"]==nil then t["Sorcerer's Bindings"]="Наручники волшебника" end
+if t["Sorcerer's Boots"]==nil then t["Sorcerer's Boots"]="Сапоги волшебника" end
+if t["Sorcerer's Mantle"]==nil then t["Sorcerer's Mantle"]="Мантия волшебника" end
+if t["Soul of the Forgotten (Blue)"]==nil then t["Soul of the Forgotten (Blue)"]="Душа Забвенного (в голубом цвете)" end
+if t["Soulblade Shadowhide Armor"]==nil then t["Soulblade Shadowhide Armor"]="Доспехи Клинка Души Тенешкурых" end
+if t["Soulbound Customization Potion"]==nil then t["Soulbound Customization Potion"]="Зелье Кастомизации (Привязано к Персонажу)" end
+if t["Soulbound Potion of Experience"]==nil then t["Soulbound Potion of Experience"]="Зелье Опыта (Привязано к Персонажу)" end
+if t["Soulbound Potion of Reputation"]==nil then t["Soulbound Potion of Reputation"]="Зелье Репутации (Привязано к Персонажу)" end
+if t["Soulbound Race Change Potion"]==nil then t["Soulbound Race Change Potion"]="Зелье Смены Расы (Привязано к Персонажу)" end
+if t["Soulbound Riding Tome: Apprentice Riding"]==nil then t["Soulbound Riding Tome: Apprentice Riding"]="Том Верховой Езды: Ученик (Привязан к Персонажу)" end
+if t["Soulbound Scroll of Unlearning"]==nil then t["Soulbound Scroll of Unlearning"]="Свиток Забвения (Привязан к Персонажу)" end
+if t["Soulbound Talent Purge"]==nil then t["Soulbound Talent Purge"]="Сброс Талантов (Привязан к Персонажу)" end
+if t["Soulcloth Gloves"]==nil then t["Soulcloth Gloves"]="Перчатки из ткани Душ" end
+if t["Soulcloth Shoulders"]==nil then t["Soulcloth Shoulders"]="Наплечники из ткани Душ" end
+if t["Soulforge Bracers"]==nil then t["Soulforge Bracers"]="Наручи закаленного духа" end
+if t["Soulhound"]==nil then t["Soulhound"]="Пожиратель душ" end
+if t["Spaulders of the Haunted Forest"]==nil then t["Spaulders of the Haunted Forest"]="Наплеч призрачного леса" end
+if t["Spaulders of the Raging Elements"]==nil then t["Spaulders of the Raging Elements"]="Наплеч бушующих стихий" end
+if t["Spaulders of the Righteous"]==nil then t["Spaulders of the Righteous"]="Наплеч праведника" end
+if t["Spawn of Galakras"]==nil then t["Spawn of Galakras"]="Детеныш Галакраса" end
+if t["Spellfire Belt"]==nil then t["Spellfire Belt"]="Пояс из огненной чароткани" end
+if t["Spellstrike Pants"]==nil then t["Spellstrike Pants"]="Штаны сокрушительной магии" end
+if t["Spiked Chain Leggings"]==nil then t["Spiked Chain Leggings"]="Шипастые плетеные поножи" end
+if t["Spirit Walker's Wardrobe"]==nil then t["Spirit Walker's Wardrobe"]="Гардероб Служителя Духов" end
+if t["Spiritmend Belt"]==nil then t["Spiritmend Belt"]="Пояс духовного выздоровления" end
+if t["Spiritmend Boots"]==nil then t["Spiritmend Boots"]="Сапоги духовного выздоровления" end
+if t["Spiritwalker's Gloves"]==nil then t["Spiritwalker's Gloves"]="Перчатки духовного пути" end
+if t["Spiritwalker's Headpiece"]==nil then t["Spiritwalker's Headpiece"]="Головной убор духовного пути" end
+if t["Spiritwalker's Helmet"]==nil then t["Spiritwalker's Helmet"]="Шлем духовного пути" end
+if t["Spiritwalker's Mantle"]==nil then t["Spiritwalker's Mantle"]="Мантия духовного пути" end
+if t["Spiritwalker's Shoulderwraps"]==nil then t["Spiritwalker's Shoulderwraps"]="Наплечный покров духовного пути" end
+if t["Square - Raid Marker"]==nil then t["Square - Raid Marker"]="Квадрат - Метка Рейда" end
+if t["Squeakers, the Trickster"]==nil then t["Squeakers, the Trickster"]="Пройдоха Пискун" end
+if t["Stalker's Chain Helm"]==nil then t["Stalker's Chain Helm"]="Плетеный шлем преследователя" end
+if t["Stalker's Chain Spaulders"]==nil then t["Stalker's Chain Spaulders"]="Плетеный наплеч преследователя" end
+if t["Star - Raid Marker"]==nil then t["Star - Raid Marker"]="Звезда - Метка Рейда" end
+if t["Stick on a Carrot"]==nil then t["Stick on a Carrot"]="Палочка с морковкой" end
+if t["Stone of Retreat: Aerie Peak"]==nil then t["Stone of Retreat: Aerie Peak"]="Камень возвращения: Заоблачный пик" end
+if t["Stone of Retreat: Allerian Stronghold"]==nil then t["Stone of Retreat: Allerian Stronghold"]="Камень возвращения: Бастион Аллерии" end
+if t["Stone of Retreat: Area 52"]==nil then t["Stone of Retreat: Area 52"]="Камень возвращения: Зона 52" end
+if t["Stone of Retreat: Astranaar"]==nil then t["Stone of Retreat: Astranaar"]="Камень возвращения: Астранаар" end
+if t["Stone of Retreat: Auberdine"]==nil then t["Stone of Retreat: Auberdine"]="Камень возвращения: Аубердин" end
+if t["Stone of Retreat: Azshara"]==nil then t["Stone of Retreat: Azshara"]="Камень возвращения: Азшара" end
+if t["Stone of Retreat: Bloodhoof Village"]==nil then t["Stone of Retreat: Bloodhoof Village"]="Камень возвращения: Деревня Кровавого Копыта" end
+if t["Stone of Retreat: Bloodvenom Post"]==nil then t["Stone of Retreat: Bloodvenom Post"]="Камень возвращения: Застава Отравленной Крови" end
+if t["Stone of Retreat: Booty Bay"]==nil then t["Stone of Retreat: Booty Bay"]="Камень возвращения: Пиратская бухта" end
+if t["Stone of Retreat: Brackenwall Village"]==nil then t["Stone of Retreat: Brackenwall Village"]="Камень возвращения: Деревня Гиблотопь" end
+if t["Stone of Retreat: Brill"]==nil then t["Stone of Retreat: Brill"]="Камень возвращения: Брилл" end
+if t["Stone of Retreat: Camp Mojache"]==nil then t["Stone of Retreat: Camp Mojache"]="Камень возвращения: Лагерь Мохаче" end
+if t["Stone of Retreat: Camp Taurajo"]==nil then t["Stone of Retreat: Camp Taurajo"]="Камень возвращения: Лагерь Таурахо" end
+if t["Stone of Retreat: Cenarion Hold"]==nil then t["Stone of Retreat: Cenarion Hold"]="Камень возвращения: Крепость Кенария" end
+if t["Stone of Retreat: Cenarion Refuge"]==nil then t["Stone of Retreat: Cenarion Refuge"]="Камень возвращения: Кенарийский оплот" end
+if t["Stone of Retreat: Darkshire"]==nil then t["Stone of Retreat: Darkshire"]="Камень возвращения: Темнолесье" end
+if t["Stone of Retreat: Darnassus"]==nil then t["Stone of Retreat: Darnassus"]="Камень возвращения: Дарнас" end
+if t["Stone of Retreat: Dolanaar"]==nil then t["Stone of Retreat: Dolanaar"]="Камень возвращения: Доланаар" end
+if t["Stone of Retreat: Eastvale Logging Camp"]==nil then t["Stone of Retreat: Eastvale Logging Camp"]="Камень возвращения: Лесопилка Восточной долины" end
+if t["Stone of Retreat: Emerald Sanctuary"]==nil then t["Stone of Retreat: Emerald Sanctuary"]="Камень возвращения: Изумрудное святилище" end
+if t["Stone of Retreat: Evergrove"]==nil then t["Stone of Retreat: Evergrove"]="Камень возвращения: Вечная роща" end
+if t["Stone of Retreat: Everlook"]==nil then t["Stone of Retreat: Everlook"]="Камень возвращения: Круговзор" end
+if t["Stone of Retreat: Exodar"]==nil then t["Stone of Retreat: Exodar"]="Камень возвращения: Экзодар" end
+if t["Stone of Retreat: Faldir's Cove"]==nil then t["Stone of Retreat: Faldir's Cove"]="Камень возвращения: Бухта Фальдира" end
+if t["Stone of Retreat: Farstrider Lodge"]==nil then t["Stone of Retreat: Farstrider Lodge"]="Камень возвращения: Приют Странников" end
+if t["Stone of Retreat: Feathermoon Stronghold"]==nil then t["Stone of Retreat: Feathermoon Stronghold"]="Камень возвращения: Крепость Оперенной Луны" end
+if t["Stone of Retreat: Flame Crest"]==nil then t["Stone of Retreat: Flame Crest"]="Камень возвращения: Пламенный Крест" end
+if t["Stone of Retreat: Forest Song"]==nil then t["Stone of Retreat: Forest Song"]="Камень возвращения: Лесная Песнь" end
+if t["Stone of Retreat: Freewind Post"]==nil then t["Stone of Retreat: Freewind Post"]="Камень возвращения: Застава Вольного Ветра" end
+if t["Stone of Retreat: Gadgetzan"]==nil then t["Stone of Retreat: Gadgetzan"]="Камень возвращения: Прибамбасск" end
+if t["Stone of Retreat: Garadar"]==nil then t["Stone of Retreat: Garadar"]="Камень возвращения: Гарадар" end
+if t["Stone of Retreat: Ghost Walker Post"]==nil then t["Stone of Retreat: Ghost Walker Post"]="Камень возвращения: Застава Скитающихся Духов" end
+if t["Stone of Retreat: Goldshire"]==nil then t["Stone of Retreat: Goldshire"]="Камень возвращения: Златоземье" end
+if t["Stone of Retreat: Grom'gol Base Camp"]==nil then t["Stone of Retreat: Grom'gol Base Camp"]="Камень возвращения: Лагерь Гром'гол" end
+if t["Stone of Retreat: Grove of the Ancients"]==nil then t["Stone of Retreat: Grove of the Ancients"]="Камень возвращения: Роща Древних" end
+if t["Stone of Retreat: Gurubashi Arena"]==nil then t["Stone of Retreat: Gurubashi Arena"]="Камень возвращения: Арена Гурубаши" end
+if t["Stone of Retreat: Hammerfall"]==nil then t["Stone of Retreat: Hammerfall"]="Камень возвращения: Павший Молот" end
+if t["Stone of Retreat: Hammertoe Digsite"]==nil then t["Stone of Retreat: Hammertoe Digsite"]="Камень возвращения: Раскопки Сталекрута" end
+if t["Stone of Retreat: Honor Hold"]==nil then t["Stone of Retreat: Honor Hold"]="Камень возвращения: Оплот Чести" end
+if t["Stone of Retreat: Ironforge"]==nil then t["Stone of Retreat: Ironforge"]="Камень возвращения: Стальгорн" end
+if t["Stone of Retreat: Kargath"]==nil then t["Stone of Retreat: Kargath"]="Камень возвращения: Каргат" end
+if t["Stone of Retreat: Kharanos"]==nil then t["Stone of Retreat: Kharanos"]="Камень возвращения: Каранос" end
+if t["Stone of Retreat: Lakeshire"]==nil then t["Stone of Retreat: Lakeshire"]="Камень возвращения: Приозерье" end
+if t["Stone of Retreat: Light's Hope Chapel"]==nil then t["Stone of Retreat: Light's Hope Chapel"]="Камень возвращения: Часовня Последней Надежды" end
+if t["Stone of Retreat: Marshall's Refuge"]==nil then t["Stone of Retreat: Marshall's Refuge"]="Камень возвращения: Укрытие Маршалла" end
+if t["Stone of Retreat: Menethil Harbor"]==nil then t["Stone of Retreat: Menethil Harbor"]="Камень возвращения: Гавань Менетил" end
+if t["Stone of Retreat: Mor'shan Base Camp"]==nil then t["Stone of Retreat: Mor'shan Base Camp"]="Камень возвращения: Лагерь Мор'шан" end
+if t["Stone of Retreat: Morgan's Vigil"]==nil then t["Stone of Retreat: Morgan's Vigil"]="Камень возвращения: Дозор Моргана" end
+if t["Stone of Retreat: Mudsprocket"]==nil then t["Stone of Retreat: Mudsprocket"]="Камень возвращения: Шестермуть" end
+if t["Stone of Retreat: Nesingwary's Expedition"]==nil then t["Stone of Retreat: Nesingwary's Expedition"]="Камень возвращения: Экспедиция Эрнестуэя" end
+if t["Stone of Retreat: Nethergarde Keep"]==nil then t["Stone of Retreat: Nethergarde Keep"]="Камень возвращения: Крепость Стражей Пустоты" end
+if t["Stone of Retreat: Nijel's Point"]==nil then t["Stone of Retreat: Nijel's Point"]="Камень возвращения: Высота Найджела" end
+if t["Stone of Retreat: Ogri'la"]==nil then t["Stone of Retreat: Ogri'la"]="Камень возвращения: Огри'ла" end
+if t["Stone of Retreat: Orebor Harborage"]==nil then t["Stone of Retreat: Orebor Harborage"]="Камень возвращения: Прибежище Оребор" end
+if t["Stone of Retreat: Orgrimmar"]==nil then t["Stone of Retreat: Orgrimmar"]="Камень возвращения: Оргриммар" end
+if t["Stone of Retreat: Ratchet"]==nil then t["Stone of Retreat: Ratchet"]="Камень возвращения: Кабестан" end
+if t["Stone of Retreat: Razor Hill"]==nil then t["Stone of Retreat: Razor Hill"]="Камень возвращения: Колючий Холм" end
+if t["Stone of Retreat: Rebel Camp"]==nil then t["Stone of Retreat: Rebel Camp"]="Камень возвращения: Лагерь Повстанцев" end
+if t["Stone of Retreat: Refuge Point"]==nil then t["Stone of Retreat: Refuge Point"]="Камень возвращения: Опорный пункт" end
+if t["Stone of Retreat: Revantusk Village"]==nil then t["Stone of Retreat: Revantusk Village"]="Камень возвращения: Деревня Сломанного Клыка" end
+if t["Stone of Retreat: Sen'jin Village"]==nil then t["Stone of Retreat: Sen'jin Village"]="Камень возвращения: Деревня Сен'джин" end
+if t["Stone of Retreat: Sentinel Hill"]==nil then t["Stone of Retreat: Sentinel Hill"]="Камень возвращения: Сторожевой холм" end
+if t["Stone of Retreat: Shadowmoon Village"]==nil then t["Stone of Retreat: Shadowmoon Village"]="Камень возвращения: Деревня Призрачной Луны" end
+if t["Stone of Retreat: Shadowprey Village"]==nil then t["Stone of Retreat: Shadowprey Village"]="Камень возвращения: Деревня Ночных Охотников" end
+if t["Stone of Retreat: Shattrath"]==nil then t["Stone of Retreat: Shattrath"]="Камень возвращения: Шаттрат" end
+if t["Stone of Retreat: Silvermoon City"]==nil then t["Stone of Retreat: Silvermoon City"]="Камень возвращения: Луносвет" end
+if t["Stone of Retreat: Southshore"]==nil then t["Stone of Retreat: Southshore"]="Камень возвращения: Южнобережье" end
+if t["Stone of Retreat: Splintertree Post"]==nil then t["Stone of Retreat: Splintertree Post"]="Камень возвращения: Застава Расщепленного Дерева" end
+if t["Stone of Retreat: Stonard"]==nil then t["Stone of Retreat: Stonard"]="Камень возвращения: Каменор" end
+if t["Stone of Retreat: Stonebreaker Hold"]==nil then t["Stone of Retreat: Stonebreaker Hold"]="Камень возвращения: Форт Камнеломов" end
+if t["Stone of Retreat: Stonetalon Peak"]==nil then t["Stone of Retreat: Stonetalon Peak"]="Камень возвращения: Пик Каменного Когтя" end
+if t["Stone of Retreat: Stormspire"]==nil then t["Stone of Retreat: Stormspire"]="Камень возвращения: Штормовая Вершина" end
+if t["Stone of Retreat: Stormwind"]==nil then t["Stone of Retreat: Stormwind"]="Камень возвращения: Штормград" end
+if t["Stone of Retreat: Sun Rock Retreat"]==nil then t["Stone of Retreat: Sun Rock Retreat"]="Камень возвращения: Приют у Солнечного Камня" end
+if t["Stone of Retreat: Talrendis Point"]==nil then t["Stone of Retreat: Talrendis Point"]="Камень возвращения: Застава Талрендис" end
+if t["Stone of Retreat: Tarren Mill"]==nil then t["Stone of Retreat: Tarren Mill"]="Камень возвращения: Мельница Таррен" end
+if t["Stone of Retreat: Telaar"]==nil then t["Stone of Retreat: Telaar"]="Камень возвращения: Телаар" end
+if t["Stone of Retreat: Thalanaar"]==nil then t["Stone of Retreat: Thalanaar"]="Камень возвращения: Таланаар" end
+if t["Stone of Retreat: The Bulwark"]==nil then t["Stone of Retreat: The Bulwark"]="Камень возвращения: Бастион" end
+if t["Stone of Retreat: The Crossroads"]==nil then t["Stone of Retreat: The Crossroads"]="Камень возвращения: Перекресток" end
+if t["Stone of Retreat: The Harborage"]==nil then t["Stone of Retreat: The Harborage"]="Камень возвращения: Прибежище" end
+if t["Stone of Retreat: The Sepulcher"]==nil then t["Stone of Retreat: The Sepulcher"]="Камень возвращения: Гробница" end
+if t["Stone of Retreat: Thelsamar"]==nil then t["Stone of Retreat: Thelsamar"]="Камень возвращения: Телсамар" end
+if t["Stone of Retreat: Theramore Isle"]==nil then t["Stone of Retreat: Theramore Isle"]="Камень возвращения: Остров Терамор" end
+if t["Stone of Retreat: Thorium Point"]==nil then t["Stone of Retreat: Thorium Point"]="Камень возвращения: Лагерь Братства Тория" end
+if t["Stone of Retreat: Thrallmar"]==nil then t["Stone of Retreat: Thrallmar"]="Камень возвращения: Траллмар" end
+if t["Stone of Retreat: Thunder Bluff"]==nil then t["Stone of Retreat: Thunder Bluff"]="Камень возвращения: Громовой Утес" end
+if t["Stone of Retreat: Undercity"]==nil then t["Stone of Retreat: Undercity"]="Камень возвращения: Подгород" end
+if t["Stone of Retreat: Valormok"]==nil then t["Stone of Retreat: Valormok"]="Камень возвращения: Валормок" end
+if t["Stone of Retreat: Wildhammer Stronghold"]==nil then t["Stone of Retreat: Wildhammer Stronghold"]="Камень возвращения: Цитадель Громового Молота" end
+if t["Stone of Retreat: Yojamba Isle"]==nil then t["Stone of Retreat: Yojamba Isle"]="Камень возвращения: Остров Йоджамба" end
+if t["Stone of Retreat: Zabra'jin"]==nil then t["Stone of Retreat: Zabra'jin"]="Камень возвращения: Забра'джин" end
+if t["Stone of Retreat: Zoram'gar Outpost"]==nil then t["Stone of Retreat: Zoram'gar Outpost"]="Камень возвращения: Форт Зорам'гар" end
+if t["Stormhide Belt"]==nil then t["Stormhide Belt"]="Пояс штормового укрытия" end
+if t["Stormhide Crown"]==nil then t["Stormhide Crown"]="Корона штормового укрытия" end
+if t["Stormhide Hauberk"]==nil then t["Stormhide Hauberk"]="Хауберк штормового укрытия" end
+if t["Stormrage Belt"]==nil then t["Stormrage Belt"]="Пояс Ярости Бури" end
+if t["Stormrage Cover"]==nil then t["Stormrage Cover"]="Убор Ярости Бури" end
+if t["Stormrage Girdle"]==nil then t["Stormrage Girdle"]="Пояс Ярости Бури" end
+if t["Stormrage Sash"]==nil then t["Stormrage Sash"]="Кушак Ярости Бури" end
+if t["Stormrage Woolies"]==nil then t["Stormrage Woolies"]="Короткие штаны Ярости Бури" end
+if t["Stormrider's Cover"]==nil then t["Stormrider's Cover"]="Убор странника бурь" end
+if t["Stormrider's Grips"]==nil then t["Stormrider's Grips"]="Захваты странника бурь" end
+if t["Stormrider's Legguards"]==nil then t["Stormrider's Legguards"]="Набедренники странника бурь" end
+if t["Stormrider's Shoulderwraps"]==nil then t["Stormrider's Shoulderwraps"]="Наплечный покров странника бурь" end
+if t["Stormrider's Spaulders"]==nil then t["Stormrider's Spaulders"]="Наплеч странника бурь" end
+if t["Stormshroud Armor"]==nil then t["Stormshroud Armor"]="Доспех грозового покрова" end
+if t["Stormshroud Gloves"]==nil then t["Stormshroud Gloves"]="Перчатки грозового покрова" end
+if t["Striker's Grab"]==nil then t["Striker's Grab"]="Одеяния бойца" end
+if t["Sturdied Arcanite Spear"]==nil then t["Sturdied Arcanite Spear"]="Укрепленное арканитовое копье" end
+if t["Stylish Backpack"]==nil then t["Stylish Backpack"]="Стильный Рюкзак" end
+if t["Subtle Gambeson"]==nil then t["Subtle Gambeson"]="Тонкий поддоспешник" end
+if t["Summoner's Stone: Felborne Overfiend"]==nil then t["Summoner's Stone: Felborne Overfiend"]="Камень Призывателя: Сквернорожденный Архидемон" end
+if t["Summoner's Stone: Iceflame Overfiend"]==nil then t["Summoner's Stone: Iceflame Overfiend"]="Камень призывателя: Ледопламенный Архидемон" end
+if t["Summoner's Stone: Illidari Satyr"]==nil then t["Summoner's Stone: Illidari Satyr"]="Камень Призывателя: Сатир Иллидари" end
+if t["Summoner's Stone: Shadow of Xavius"]==nil then t["Summoner's Stone: Shadow of Xavius"]="Камень Призывателя: Тень Ксавия" end
+if t["Sunkeeper's Reach (Blue)"]==nil then t["Sunkeeper's Reach (Blue)"]="Предел Хранителя солнца (Голубой)" end
+if t["Sunstrider's Hood"]==nil then t["Sunstrider's Hood"]="Капюшон Солнечного Скитальца" end
+if t["Sunstrider's Leggings of Hyjal"]==nil then t["Sunstrider's Leggings of Hyjal"]="Хиджальские поножи Солнечного Скитальца" end
+if t["Sunstrider's Leggings of Valiance"]==nil then t["Sunstrider's Leggings of Valiance"]="Поножи отваги Солнечного Скитальца" end
+if t["Sunstrider's Robe"]==nil then t["Sunstrider's Robe"]="Одеяние Солнечного Скитальца" end
+if t["Sunstrider's Shoulderpads of Triumph"]==nil then t["Sunstrider's Shoulderpads of Triumph"]="Наплечные пластины триумфа Солнечного Скитальца" end
+if t["Swift Brown Wolf"]==nil then t["Swift Brown Wolf"]="Стремительный бурый волк" end
+if t["Swift Burgundy Wolf"]==nil then t["Swift Burgundy Wolf"]="Стремительный пурпурный волк" end
+if t["Swift Gray Wolf"]==nil then t["Swift Gray Wolf"]="Стремительный серый волк" end
+if t["Swift Horde Wolf"]==nil then t["Swift Horde Wolf"]="Стремительный ордынский волк" end
+if t["Swift Palomino"]==nil then t["Swift Palomino"]="Стремительный игреневый конь" end
+if t["Swift Shorestrider"]==nil then t["Swift Shorestrider"]="Стремительный береговой долгоног" end
+if t["Swift Timber Wolf"]==nil then t["Swift Timber Wolf"]="Стремительный лесной волк" end
+if t["Swift White Ram"]==nil then t["Swift White Ram"]="Стремительный белый баран" end
+if t["Swift Zhevra"]==nil then t["Swift Zhevra"]="Стремительная жевра" end
+if t["Swiftarrow Bracers"]==nil then t["Swiftarrow Bracers"]="Наручи быстрой стрелы" end
+if t["Swiftarrow Helm"]==nil then t["Swiftarrow Helm"]="Шлем быстрой стрелы" end
+if t["Swiftarrow Leggings"]==nil then t["Swiftarrow Leggings"]="Поножи быстрой стрелы" end
+if t["Swiftarrow Shoulderguards"]==nil then t["Swiftarrow Shoulderguards"]="Наплечные щитки быстрой стрелы" end
+if t["Tabard of Blessed Ascension"]==nil then t["Tabard of Blessed Ascension"]="Гербовая накидка Благословенного Вознесения" end
+if t["Tabard of Brew"]==nil then t["Tabard of Brew"]="Гербовая Накидка Хмелевара" end
+if t["Tabard of the Arcane"]==nil then t["Tabard of the Arcane"]="Гербовая Накидка Тайной Магии" end
+if t["Tabard of the Void"]==nil then t["Tabard of the Void"]="Гербовая Накидка Бездны" end
+if t["Taeshalach"]==nil then t["Taeshalach"]="Тайшалак" end
+if t["Tailor's Hat - Tailoring Speed Bonus"]==nil then t["Tailor's Hat - Tailoring Speed Bonus"]="Шапка Портного - Бонус к Скорости Шитья" end
+if t["Tailored Red Tabard"]==nil then t["Tailored Red Tabard"]="Сшитая на заказ красная гербовая накидка" end
+if t["Tamed Skitterfly"]==nil then t["Tamed Skitterfly"]="Прирученная Стрекотуха" end
+if t["Taner's Terrible Spine"]==nil then t["Taner's Terrible Spine"]="Ужасный шип Танера" end
+if t["Tear of Elune"]==nil then t["Tear of Elune"]="Слеза Элуны" end
+if t["Tendrils of Mana"]==nil then t["Tendrils of Mana"]="Нити маны" end
+if t["Tendrils of the Naaru"]==nil then t["Tendrils of the Naaru"]="Нити Наару" end
+if t["Tendrils of the Old Gods"]==nil then t["Tendrils of the Old Gods"]="Нити Древних Богов" end
+if t["Thassarian's Battleplate of Valiance"]==nil then t["Thassarian's Battleplate of Valiance"]="Боевой доспех отваги Тассариана" end
+if t["Thassarian's Chestguard of Conquest"]==nil then t["Thassarian's Chestguard of Conquest"]="Нагрудный доспех завоеваний Тассариана" end
+if t["Thassarian's Chestguard of Valiance"]==nil then t["Thassarian's Chestguard of Valiance"]="Нагрудный доспех отваги Тассариана" end
+if t["Thassarian's Faceguard"]==nil then t["Thassarian's Faceguard"]="Большой шлем Тассариана" end
+if t["Thassarian's Gauntlets of Hyjal"]==nil then t["Thassarian's Gauntlets of Hyjal"]="Хиджальские рукавицы Тассариана" end
+if t["Thassarian's Gauntlets of Valiance"]==nil then t["Thassarian's Gauntlets of Valiance"]="Рукавицы доблести Тассариана" end
+if t["Thassarian's Handguards of Conquest"]==nil then t["Thassarian's Handguards of Conquest"]="Боевые рукавицы завоеваний Тассариана" end
+if t["Thassarian's Handguards of Hyjal"]==nil then t["Thassarian's Handguards of Hyjal"]="Хиджальские боевые рукавицы Тассариана" end
+if t["Thassarian's Handguards of Triumph"]==nil then t["Thassarian's Handguards of Triumph"]="Боевые рукавицы триумфа Тассариана" end
+if t["Thassarian's Handguards of Valiance"]==nil then t["Thassarian's Handguards of Valiance"]="Боевые рукавицы отваги Тассариана" end
+if t["Thassarian's Helmet of Hyjal"]==nil then t["Thassarian's Helmet of Hyjal"]="Хиджальский полный шлем Тассариана" end
+if t["Thassarian's Legguards of Conquest"]==nil then t["Thassarian's Legguards of Conquest"]="Набедренники завоевания Тассариана" end
+if t["Thassarian's Legplates"]==nil then t["Thassarian's Legplates"]="Ножные латы Тассариана" end
+if t["Thassarian's Legplates of Conquest"]==nil then t["Thassarian's Legplates of Conquest"]="Ножные латы завоеваний Тассариана" end
+if t["Thassarian's Legplates of Triumph"]==nil then t["Thassarian's Legplates of Triumph"]="Ножные латы триумфа Тассариана" end
+if t["Thassarian's Legplates of Valiance"]==nil then t["Thassarian's Legplates of Valiance"]="Ножные латы отваги Тассариана" end
+if t["Thassarian's Pauldrons"]==nil then t["Thassarian's Pauldrons"]="Наплечье Тассариана" end
+if t["Thassarian's Pauldrons of Conquest"]==nil then t["Thassarian's Pauldrons of Conquest"]="Наплечье завоевания Тассариана" end
+if t["Thassarian's Pauldrons of Triumph"]==nil then t["Thassarian's Pauldrons of Triumph"]="Наплечье триумфа Тассариана" end
+if t["Thassarian's Pauldrons of Valiance"]==nil then t["Thassarian's Pauldrons of Valiance"]="Наплечье отваги Тассариана" end
+if t["Thassarian's Shoulderplates"]==nil then t["Thassarian's Shoulderplates"]="Латные наплечники Тассариана" end
+if t["Thassarian's Shoulderplates of Hyjal"]==nil then t["Thassarian's Shoulderplates of Hyjal"]="Хиджальские латные наплечники Тассариана" end
+if t["Thassarian's Shoulderplates of Valiance"]==nil then t["Thassarian's Shoulderplates of Valiance"]="Латные наплечники отваги Тассариана" end
+if t["The All-Seeing Eye of Zuldazar"]==nil then t["The All-Seeing Eye of Zuldazar"]="Всевидящее Око Зулдазара" end
+if t["The Assassin's Arsenal"]==nil then t["The Assassin's Arsenal"]="Арсенал Убийцы" end
+if t["The Defiler's Purpose"]==nil then t["The Defiler's Purpose"]="Решимость Осквернителя" end
+if t["The Elements"]==nil then t["The Elements"]="Стихии" end
+if t["The Fifth Eidolon's Soulsteel"]==nil then t["The Fifth Eidolon's Soulsteel"]="Сталь души пятого эйдолона" end
+if t["The Laughing Skull"]==nil then t["The Laughing Skull"]="Веселый Череп" end
+if t["The Party Pack"]==nil then t["The Party Pack"]="Набор для вечеринки" end
+if t["The Pit Lord's Satchel 22-Slot Realm-Bound Bag"]==nil then t["The Pit Lord's Satchel 22-Slot Realm-Bound Bag"]="Сумка властителя преисподней (22 ячейки), привязанная к серверу" end
+if t["The Postmaster"]==nil then t["The Postmaster"]="Почтальон" end
+if t["The Postmaster's Treads"]==nil then t["The Postmaster's Treads"]="Ботфорты Вестника" end
+if t["The Postmaster's Tunic"]==nil then t["The Postmaster's Tunic"]="Мундир Вестника" end
+if t["The Revenant's Coffer"]==nil then t["The Revenant's Coffer"]="Сундук Мстителя" end
+if t["The Skeleton Coin"]==nil then t["The Skeleton Coin"]="Монета Скелета" end
+if t["The Tempest's Treasure"]==nil then t["The Tempest's Treasure"]="Сокровища бури" end
+if t["Thermal Anvil: Portable Anvil and Forge"]==nil then t["Thermal Anvil: Portable Anvil and Forge"]="Термальная Наковальня: Портативная Наковальня и кузница" end
+if t["Thrall's Chestguard of Hyjal"]==nil then t["Thrall's Chestguard of Hyjal"]="Хиджальский нагрудный доспех Тралла" end
+if t["Thrall's Faceguard"]==nil then t["Thrall's Faceguard"]="Большой шлем Тралла" end
+if t["Thrall's Faceguard of Conquest"]==nil then t["Thrall's Faceguard of Conquest"]="Большой шлем завоеваний Тралла" end
+if t["Thrall's Faceguard of Valiance"]==nil then t["Thrall's Faceguard of Valiance"]="Большой шлем отваги Тралла" end
+if t["Thrall's Gloves"]==nil then t["Thrall's Gloves"]="Перчатки Тралла" end
+if t["Thrall's Gloves of Hyjal"]==nil then t["Thrall's Gloves of Hyjal"]="Хиджальские перчатки Тралла" end
+if t["Thrall's Grips of Conquest"]==nil then t["Thrall's Grips of Conquest"]="Захваты завоеваний Тралла" end
+if t["Thrall's Grips of Valiance"]==nil then t["Thrall's Grips of Valiance"]="Захваты отваги Тралла" end
+if t["Thrall's Handguards of Hyjal"]==nil then t["Thrall's Handguards of Hyjal"]="Хиджальские боевые рукавицы Тралла" end
+if t["Thrall's Handguards of Triumph"]==nil then t["Thrall's Handguards of Triumph"]="Боевые рукавицы триумфа Тралла" end
+if t["Thrall's Hauberk"]==nil then t["Thrall's Hauberk"]="Хауберк Тралла" end
+if t["Thrall's Hauberk of Hyjal"]==nil then t["Thrall's Hauberk of Hyjal"]="Хиджальский хауберк Тралла" end
+if t["Thrall's Hauberk of Valiance"]==nil then t["Thrall's Hauberk of Valiance"]="Хауберк отваги Тралла" end
+if t["Thrall's Headpiece of Hyjal"]==nil then t["Thrall's Headpiece of Hyjal"]="Хиджальский головной убор Тралла" end
+if t["Thrall's Helm"]==nil then t["Thrall's Helm"]="Шлем Тралла" end
+if t["Thrall's Helm of Hyjal"]==nil then t["Thrall's Helm of Hyjal"]="Хиджальский шлем Тралла" end
+if t["Thrall's Kilt of Conquest"]==nil then t["Thrall's Kilt of Conquest"]="Килт завоеваний Тралла" end
+if t["Thrall's Kilt of Triumph"]==nil then t["Thrall's Kilt of Triumph"]="Килт триумфа Тралла" end
+if t["Thrall's Legguards of Hyjal"]==nil then t["Thrall's Legguards of Hyjal"]="Хиджальские набедренники Тралла" end
+if t["Thrall's Legguards of Valiance"]==nil then t["Thrall's Legguards of Valiance"]="Набедренники отваги Тралла" end
+if t["Thrall's Shoulderguards of Hyjal"]==nil then t["Thrall's Shoulderguards of Hyjal"]="Хиджальские наплечные щитки Тралла" end
+if t["Thrall's Shoulderguards of Valiance"]==nil then t["Thrall's Shoulderguards of Valiance"]="Наплечные щитки отваги Тралла" end
+if t["Thrall's Shoulderpads of Conquest"]==nil then t["Thrall's Shoulderpads of Conquest"]="Наплечные пластины завоеваний Тралла" end
+if t["Thrall's Shoulderpads of Triumph"]==nil then t["Thrall's Shoulderpads of Triumph"]="Наплечные пластины триумфа Тралла" end
+if t["Thrall's Spaulders"]==nil then t["Thrall's Spaulders"]="Наплеч Тралла" end
+if t["Thrall's Spaulders of Hyjal"]==nil then t["Thrall's Spaulders of Hyjal"]="Хиджальский наплеч Тралла" end
+if t["Thrall's Spaulders of Valiance"]==nil then t["Thrall's Spaulders of Valiance"]="Наплеч отваги Тралла" end
+if t["Thrall's War-Kilt of Hyjal"]==nil then t["Thrall's War-Kilt of Hyjal"]="Хиджальский боевой килт Тралла" end
+if t["Thrall's War-Kilt of Triumph"]==nil then t["Thrall's War-Kilt of Triumph"]="Боевой килт триумфа Тралла" end
+if t["Thrall's War-Kilt of Valiance"]==nil then t["Thrall's War-Kilt of Valiance"]="Боевой килт отваги Тралла" end
+if t["Thun Relic"]==nil then t["Thun Relic"]="Реликвия \"Тун" end
+if t["Thunderheart Chestguard"]==nil then t["Thunderheart Chestguard"]="Нагрудный доспех Громового Сердца" end
+if t["Thunderheart Cord"]==nil then t["Thunderheart Cord"]="Шнурованный ремень Громового Сердца" end
+if t["Thunderheart Pants"]==nil then t["Thunderheart Pants"]="Штаны Громового Сердца" end
+if t["Thunderheart Regalia"]==nil then t["Thunderheart Regalia"]="Регалии Громового Сердца" end
+if t["Thunderheart Spaulders"]==nil then t["Thunderheart Spaulders"]="Наплеч Громового Сердца" end
+if t["Thunderheart Tunic"]==nil then t["Thunderheart Tunic"]="Мундир Громового Сердца" end
+if t["Tidefury Shoulderguards"]==nil then t["Tidefury Shoulderguards"]="Наплечные щитки Яростного прилива" end
+if t["Timber Riding Wolf"]==nil then t["Timber Riding Wolf"]="Верховой лесной волк" end
+if t["Time Lord's Leggings"]==nil then t["Time Lord's Leggings"]="Поножи повелителя времени" end
+if t["Time Lord's Mantle"]==nil then t["Time Lord's Mantle"]="Оплечье повелителя времени" end
+if t["Titan Scroll: Aggramar"]==nil then t["Titan Scroll: Aggramar"]="Свиток Титана: Агграмар" end
+if t["Titan Scroll: Eonar"]==nil then t["Titan Scroll: Eonar"]="Свиток Титана: Эонар" end
+if t["Titan Scroll: Golganneth"]==nil then t["Titan Scroll: Golganneth"]="Свиток Титана: Голганнет" end
+if t["Titan Scroll: Khaz’goroth"]==nil then t["Titan Scroll: Khaz’goroth"]="Свиток Титана: Каз'горот" end
+if t["Titan Scroll: Norgannon"]==nil then t["Titan Scroll: Norgannon"]="Свиток Титана: Норганнон" end
+if t["Tomalin's Seasoning Crystal"]==nil then t["Tomalin's Seasoning Crystal"]="Кристалл с пряностями Томалин" end
+if t["Tome of Specialization"]==nil then t["Tome of Specialization"]="Том специализации" end
+if t["Tradesman's Scroll"]==nil then t["Tradesman's Scroll"]="Свиток Торговца" end
+if t["Transient Gladiator's Chain Helm"]==nil then t["Transient Gladiator's Chain Helm"]="Недолговечный плетеный шлем гладиатора" end
+if t["Transient Gladiator's Chain Leggings"]==nil then t["Transient Gladiator's Chain Leggings"]="Недолговечные плетеные поножи гладиатора" end
+if t["Transient Gladiator's Dragonhide Gloves"]==nil then t["Transient Gladiator's Dragonhide Gloves"]="Недолговечные перчатки гладиатора из драконьей шкуры" end
+if t["Transient Gladiator's Dragonhide Legguards"]==nil then t["Transient Gladiator's Dragonhide Legguards"]="Недолговечные набедренники гладиатора из драконьей шкуры" end
+if t["Transient Gladiator's Dreadplate Chestpiece"]==nil then t["Transient Gladiator's Dreadplate Chestpiece"]="Недолговечный жуткий латный нагрудник гладиатора" end
+if t["Transient Gladiator's Dreadplate Helm"]==nil then t["Transient Gladiator's Dreadplate Helm"]="Недолговечный жуткий латный шлем гладиатора" end
+if t["Transient Gladiator's Felweave Trousers"]==nil then t["Transient Gladiator's Felweave Trousers"]="Недолговечные брюки гладиатора из ткани Скверны" end
+if t["Transient Gladiator's Kodohide Helm"]==nil then t["Transient Gladiator's Kodohide Helm"]="Недолговечный шлем гладиатора из шкуры кодо" end
+if t["Transient Gladiator's Kodohide Legguards"]==nil then t["Transient Gladiator's Kodohide Legguards"]="Недолговечные набедренники гладиатора из шкуры кодо" end
+if t["Transient Gladiator's Kodohide Robes"]==nil then t["Transient Gladiator's Kodohide Robes"]="Недолговечные одеяния гладиатора из шкуры кодо" end
+if t["Transient Gladiator's Kodohide Spaulders"]==nil then t["Transient Gladiator's Kodohide Spaulders"]="Недолговечный наплеч гладиатора из шкуры кодо" end
+if t["Transient Gladiator's Linked Armor"]==nil then t["Transient Gladiator's Linked Armor"]="Недолговечный клепаный доспех гладиатора" end
+if t["Transient Gladiator's Linked Gauntlets"]==nil then t["Transient Gladiator's Linked Gauntlets"]="Недолговечные клепаные рукавицы гладиатора" end
+if t["Transient Gladiator's Linked Helm"]==nil then t["Transient Gladiator's Linked Helm"]="Недолговечный клепаный шлем гладиатора" end
+if t["Transient Gladiator's Linked Leggings"]==nil then t["Transient Gladiator's Linked Leggings"]="Недолговечные клепаные поножи гладиатора" end
+if t["Transient Gladiator's Mail Armor"]==nil then t["Transient Gladiator's Mail Armor"]="Недолговечный кольчужный доспех гладиатора" end
+if t["Transient Gladiator's Mail Gauntlets"]==nil then t["Transient Gladiator's Mail Gauntlets"]="Недолговечные кольчужные рукавицы гладиатора" end
+if t["Transient Gladiator's Mail Leggings"]==nil then t["Transient Gladiator's Mail Leggings"]="Недолговечные кольчужные поножи гладиатора" end
+if t["Transient Gladiator's Mooncloth Leggings"]==nil then t["Transient Gladiator's Mooncloth Leggings"]="Недолговечные поножи гладиатора из луноткани" end
+if t["Transient Gladiator's Mooncloth Robe"]==nil then t["Transient Gladiator's Mooncloth Robe"]="Недолговечные одеяние гладиатора из луноткани" end
+if t["Transient Gladiator's Ornamented Gloves"]==nil then t["Transient Gladiator's Ornamented Gloves"]="Недолговечные украшенные перчатки гладиатора" end
+if t["Transient Gladiator's Ornamented Legplates"]==nil then t["Transient Gladiator's Ornamented Legplates"]="Недолговечные украшенные ножные латы гладиатора" end
+if t["Transient Gladiator's Plate Chestpiece"]==nil then t["Transient Gladiator's Plate Chestpiece"]="Недолговечный латный нагрудник гладиатора" end
+if t["Transient Gladiator's Plate Helm"]==nil then t["Transient Gladiator's Plate Helm"]="Недолговечный латный шлем гладиатора" end
+if t["Transient Gladiator's Plate Legguards"]==nil then t["Transient Gladiator's Plate Legguards"]="Недолговечные латные набедренники гладиатора" end
+if t["Transient Gladiator's Plate Shoulders"]==nil then t["Transient Gladiator's Plate Shoulders"]="Недолговечные латные наплечники гладиатора" end
+if t["Transient Gladiator's Ringmail Armor"]==nil then t["Transient Gladiator's Ringmail Armor"]="Недолговечный кольчатый доспех гладиатора" end
+if t["Transient Gladiator's Ringmail Gauntlets"]==nil then t["Transient Gladiator's Ringmail Gauntlets"]="Недолговечные кольчатые рукавицы гладиатора" end
+if t["Transient Gladiator's Ringmail Helm"]==nil then t["Transient Gladiator's Ringmail Helm"]="Недолговечный кольчатый шлем гладиатора" end
+if t["Transient Gladiator's Ringmail Leggings"]==nil then t["Transient Gladiator's Ringmail Leggings"]="Недолговечные кольчатые поножи гладиатора" end
+if t["Transient Gladiator's Ringmail Spaulders"]==nil then t["Transient Gladiator's Ringmail Spaulders"]="Недолговечный кольчатый наплеч гладиатора" end
+if t["Transient Gladiator's Satin Robe"]==nil then t["Transient Gladiator's Satin Robe"]="Недолговечное атласное одеяние гладиатора" end
+if t["Transient Gladiator's Scaled Chestpiece"]==nil then t["Transient Gladiator's Scaled Chestpiece"]="Недолговечный чешуйчатый нагрудник гладиатора" end
+if t["Transient Gladiator's Scaled Gauntlets"]==nil then t["Transient Gladiator's Scaled Gauntlets"]="Недолговечные чешуйчатые рукавицы гладиатора" end
+if t["Transient Gladiator's Scaled Helm"]==nil then t["Transient Gladiator's Scaled Helm"]="Недолговечный чешуйчатый шлем гладиатора" end
+if t["Transient Gladiator's Scaled Legguards"]==nil then t["Transient Gladiator's Scaled Legguards"]="Недолговечные чешуйчатые набедренники гладиатора" end
+if t["Transient Gladiator's Silk Handguards"]==nil then t["Transient Gladiator's Silk Handguards"]="Недолговечные шелковые боевые рукавицы гладиатора" end
+if t["Transient Gladiator's Silk Trousers"]==nil then t["Transient Gladiator's Silk Trousers"]="Недолговечные шелковые брюки гладиатора" end
+if t["Transient Gladiator's Wyrmhide Helm"]==nil then t["Transient Gladiator's Wyrmhide Helm"]="Недолговечный шлем гладиатора из шкуры змея" end
+if t["Transient Gladiator's Wyrmhide Robes"]==nil then t["Transient Gladiator's Wyrmhide Robes"]="Недолговечные одеяния гладиатора из шкуры змея" end
+if t["Trappings of Vaulted Secrets"]==nil then t["Trappings of Vaulted Secrets"]="Облачение погребенных тайн" end
+if t["Trappings of the Unseen Path"]==nil then t["Trappings of the Unseen Path"]="Ловушки незримого пути" end
+if t["Travel Permit"]==nil then t["Travel Permit"]="Разрешение на путешествие" end
+if t["Traveler's Backpack"]==nil then t["Traveler's Backpack"]="Рюкзак путешественника" end
+if t["Treasure Keeper"]==nil then t["Treasure Keeper"]="Хранитель сокровищ" end
+if t["Treasure Seeker's Chain Gauntlets"]==nil then t["Treasure Seeker's Chain Gauntlets"]="Плетеные рукавицы искателя сокровищ" end
+if t["Treasure Seeker's Chain Leggings"]==nil then t["Treasure Seeker's Chain Leggings"]="Плетеные поножи искателя сокровищ" end
+if t["Treasure Seeker's Chain Spaulders"]==nil then t["Treasure Seeker's Chain Spaulders"]="Плетеный наплеч искателя сокровищ" end
+if t["Treasure Seeker's Dragonhide Helm"]==nil then t["Treasure Seeker's Dragonhide Helm"]="Шлем искателя сокровищ из драконьей шкуры" end
+if t["Treasure Seeker's Dragonhide Legguards"]==nil then t["Treasure Seeker's Dragonhide Legguards"]="Набедренники искателя сокровищ из драконьей шкуры" end
+if t["Treasure Seeker's Dragonhide Robes"]==nil then t["Treasure Seeker's Dragonhide Robes"]="Одеяния искателя сокровищ из драконьей шкуры" end
+if t["Treasure Seeker's Dragonhide Spaulders"]==nil then t["Treasure Seeker's Dragonhide Spaulders"]="Наплеч искателя сокровищ из драконьей шкуры" end
+if t["Treasure Seeker's Dreadplate Chestpiece"]==nil then t["Treasure Seeker's Dreadplate Chestpiece"]="Жуткий латный нагрудник искателя сокровищ" end
+if t["Treasure Seeker's Dreadplate Legguards"]==nil then t["Treasure Seeker's Dreadplate Legguards"]="Жуткие латные набедренники искателя сокровищ" end
+if t["Treasure Seeker's Dreadplate Shoulders"]==nil then t["Treasure Seeker's Dreadplate Shoulders"]="Жуткие латные наплечники искателя сокровищ" end
+if t["Treasure Seeker's Felweave Cowl"]==nil then t["Treasure Seeker's Felweave Cowl"]="Клобук искателя сокровищ из ткани Скверны" end
+if t["Treasure Seeker's Felweave Handguards"]==nil then t["Treasure Seeker's Felweave Handguards"]="Боевые рукавицы искателя сокровищ из ткани Скверны" end
+if t["Treasure Seeker's Kodohide Legguards"]==nil then t["Treasure Seeker's Kodohide Legguards"]="Набедренники искателя сокровищ из шкуры кодо" end
+if t["Treasure Seeker's Kodohide Robes"]==nil then t["Treasure Seeker's Kodohide Robes"]="Одеяния искателя сокровищ из шкуры кодо" end
+if t["Treasure Seeker's Leather Legguards"]==nil then t["Treasure Seeker's Leather Legguards"]="Кожаные набедренники искателя сокровищ" end
+if t["Treasure Seeker's Linked Gauntlets"]==nil then t["Treasure Seeker's Linked Gauntlets"]="Клепаные рукавицы искателя сокровищ" end
+if t["Treasure Seeker's Linked Helm"]==nil then t["Treasure Seeker's Linked Helm"]="Клепаный шлем искателя сокровищ" end
+if t["Treasure Seeker's Linked Spaulders"]==nil then t["Treasure Seeker's Linked Spaulders"]="Клепаный наплеч искателя сокровищ" end
+if t["Treasure Seeker's Mail Helm"]==nil then t["Treasure Seeker's Mail Helm"]="Кольчужный шлем искателя сокровищ" end
+if t["Treasure Seeker's Mail Leggings"]==nil then t["Treasure Seeker's Mail Leggings"]="Кольчужные поножи искателя сокровищ" end
+if t["Treasure Seeker's Mooncloth Gloves"]==nil then t["Treasure Seeker's Mooncloth Gloves"]="Перчатки искателя сокровищ из луноткани" end
+if t["Treasure Seeker's Mooncloth Hood"]==nil then t["Treasure Seeker's Mooncloth Hood"]="Капюшон искателя сокровищ из луноткани" end
+if t["Treasure Seeker's Mooncloth Robe"]==nil then t["Treasure Seeker's Mooncloth Robe"]="Одеяние искателя сокровищ из луноткани" end
+if t["Treasure Seeker's Ornamented Gloves"]==nil then t["Treasure Seeker's Ornamented Gloves"]="Украшенные перчатки искателя сокровищ" end
+if t["Treasure Seeker's Plate Chestpiece"]==nil then t["Treasure Seeker's Plate Chestpiece"]="Латный нагрудник искателя сокровищ" end
+if t["Treasure Seeker's Plate Helm"]==nil then t["Treasure Seeker's Plate Helm"]="Латный шлем искателя сокровищ" end
+if t["Treasure Seeker's Plate Legguards"]==nil then t["Treasure Seeker's Plate Legguards"]="Латные набедренники искателя сокровищ" end
+if t["Treasure Seeker's Plate Shoulders"]==nil then t["Treasure Seeker's Plate Shoulders"]="Латные наплечники искателя сокровищ" end
+if t["Treasure Seeker's Ringmail Armor"]==nil then t["Treasure Seeker's Ringmail Armor"]="Кольчатый доспех искателя сокровищ" end
+if t["Treasure Seeker's Ringmail Gauntlets"]==nil then t["Treasure Seeker's Ringmail Gauntlets"]="Кольчатые рукавицы искателя сокровищ" end
+if t["Treasure Seeker's Satin Gloves"]==nil then t["Treasure Seeker's Satin Gloves"]="Атласные перчатки искателя сокровищ" end
+if t["Treasure Seeker's Satin Mantle"]==nil then t["Treasure Seeker's Satin Mantle"]="Атласная мантия искателя сокровищ" end
+if t["Treasure Seeker's Scaled Chestpiece"]==nil then t["Treasure Seeker's Scaled Chestpiece"]="Чешуйчатый нагрудник искателя сокровищ" end
+if t["Treasure Seeker's Scaled Shoulders"]==nil then t["Treasure Seeker's Scaled Shoulders"]="Чешуйчатые наплечники искателя сокровищ" end
+if t["Treasure Seeker's Silk Amice"]==nil then t["Treasure Seeker's Silk Amice"]="Шелковый нарамник искателя сокровищ" end
+if t["Treasure Seeker's Silk Cowl"]==nil then t["Treasure Seeker's Silk Cowl"]="Шелковый клобук искателя сокровищ" end
+if t["Treasure Seeker's Silk Handguards"]==nil then t["Treasure Seeker's Silk Handguards"]="Шелковые боевые рукавицы искателя сокровищ" end
+if t["Treasure Seeker's Silk Raiment"]==nil then t["Treasure Seeker's Silk Raiment"]="Шелковое облачение искателя сокровищ" end
+if t["Treasure Seeker's Wyrmhide Gloves"]==nil then t["Treasure Seeker's Wyrmhide Gloves"]="Перчатки искателя сокровищ из шкуры змея" end
+if t["Treasure Seeker's Wyrmhide Legguards"]==nil then t["Treasure Seeker's Wyrmhide Legguards"]="Набедренники искателя сокровищ из шкуры змея" end
+if t["Tree of Life Incarnation: Forest Guardian"]==nil then t["Tree of Life Incarnation: Forest Guardian"]="Воплощение Древа Жизни: Лесной Страж" end
+if t["Triangle - Raid Marker"]==nil then t["Triangle - Raid Marker"]="Треугольник - Метка Рейда" end
+if t["Triumphant Slayer's Apparel"]==nil then t["Triumphant Slayer's Apparel"]="Одеяния торжествующего убийцы" end
+if t["Trophy of the Reborn Bonelord"]==nil then t["Trophy of the Reborn Bonelord"]="Трофей Перерожденного Костяного Лорда" end
+if t["Trousers of the Incarnate"]==nil then t["Trousers of the Incarnate"]="Брюки Воплощенного" end
+if t["Tsunami Helm"]==nil then t["Tsunami Helm"]="Шлем цунами" end
+if t["Tunic of the Haunted Forest"]==nil then t["Tunic of the Haunted Forest"]="Туника призрачного леса" end
+if t["Turalyon's Battleplate of Valiance"]==nil then t["Turalyon's Battleplate of Valiance"]="Боевой доспех отваги Туралиона" end
+if t["Turalyon's Breastplate of Hyjal"]==nil then t["Turalyon's Breastplate of Hyjal"]="Хиджальская кираса Туралиона" end
+if t["Turalyon's Faceguard"]==nil then t["Turalyon's Faceguard"]="Хиджальский большой шлем Туралиона" end
+if t["Turalyon's Faceguard of Triumph"]==nil then t["Turalyon's Faceguard of Triumph"]="Большой шлем триумфа Туралиона" end
+if t["Turalyon's Gauntlets of Triumph"]==nil then t["Turalyon's Gauntlets of Triumph"]="Рукавицы триумфа Туралиона" end
+if t["Turalyon's Gloves of Conquest"]==nil then t["Turalyon's Gloves of Conquest"]="Перчатки завоеваний Туралиона" end
+if t["Turalyon's Gloves of Hyjal"]==nil then t["Turalyon's Gloves of Hyjal"]="Хиджальские перчатки Туралиона" end
+if t["Turalyon's Gloves of Valiance"]==nil then t["Turalyon's Gloves of Valiance"]="Перчатки отваги Туралиона" end
+if t["Turalyon's Greaves of Hyjal"]==nil then t["Turalyon's Greaves of Hyjal"]="Хиджальские наголенники Туралиона" end
+if t["Turalyon's Greaves of Triumph"]==nil then t["Turalyon's Greaves of Triumph"]="Наголенники триумфа Туралиона" end
+if t["Turalyon's Greaves of Valiance"]==nil then t["Turalyon's Greaves of Valiance"]="Наголенники отваги Туралиона" end
+if t["Turalyon's Handguards of Triumph"]==nil then t["Turalyon's Handguards of Triumph"]="Боевые рукавицы триумфа Туралиона" end
+if t["Turalyon's Headpiece of Hyjal"]==nil then t["Turalyon's Headpiece of Hyjal"]="Хиджальский головной убор Туралиона" end
+if t["Turalyon's Headpiece of Valiance"]==nil then t["Turalyon's Headpiece of Valiance"]="Головной убор отваги Туралиона" end
+if t["Turalyon's Helm"]==nil then t["Turalyon's Helm"]="Шлем Туралиона" end
+if t["Turalyon's Helm of Conquest"]==nil then t["Turalyon's Helm of Conquest"]="Шлем завоеваний Туралиона" end
+if t["Turalyon's Helm of Hyjal"]==nil then t["Turalyon's Helm of Hyjal"]="Хиджальский шлем Туралиона" end
+if t["Turalyon's Helm of Triumph"]==nil then t["Turalyon's Helm of Triumph"]="Шлем триумфа Туралиона" end
+if t["Turalyon's Helm of Valiance"]==nil then t["Turalyon's Helm of Valiance"]="Шлем отваги Туралиона" end
+if t["Turalyon's Legguards of Triumph"]==nil then t["Turalyon's Legguards of Triumph"]="Набедренники триумфа Туралиона" end
+if t["Turalyon's Legguards of Valiance"]==nil then t["Turalyon's Legguards of Valiance"]="Набедренники отваги Туралиона" end
+if t["Turalyon's Legplates of Valiance"]==nil then t["Turalyon's Legplates of Valiance"]="Ножные латы отваги Туралиона" end
+if t["Turalyon's Shoulderguards"]==nil then t["Turalyon's Shoulderguards"]="Наплечные щитки Туралиона" end
+if t["Turalyon's Shoulderguards of Hyjal"]==nil then t["Turalyon's Shoulderguards of Hyjal"]="Хиджальские наплечные щитки Туралиона" end
+if t["Turalyon's Shoulderplates of Hyjal"]==nil then t["Turalyon's Shoulderplates of Hyjal"]="Хиджальские латные наплечники Туралиона" end
+if t["Turalyon's Shoulderplates of Valiance"]==nil then t["Turalyon's Shoulderplates of Valiance"]="Латные наплечники отваги Туралиона" end
+if t["Turalyon's Spaulders of Hyjal"]==nil then t["Turalyon's Spaulders of Hyjal"]="Хиджальский наплеч Туралиона" end
+if t["Turalyon's Spaulders of Valiance"]==nil then t["Turalyon's Spaulders of Valiance"]="Наплеч отваги Туралиона" end
+if t["Turalyon's Tunic"]==nil then t["Turalyon's Tunic"]="Мундир Туралиона" end
+if t["Turalyon's Tunic of Conquest"]==nil then t["Turalyon's Tunic of Conquest"]="Мундир завоеваний Туралиона" end
+if t["Turalyon's Tunic of Valiance"]==nil then t["Turalyon's Tunic of Valiance"]="Мундир доблести Туралиона" end
+if t["Tuskarr Shoreglider"]==nil then t["Tuskarr Shoreglider"]="Клыкарский Брегоплан" end
+if t["Tyrannical Gladiator's Dreadplate Gauntlets"]==nil then t["Tyrannical Gladiator's Dreadplate Gauntlets"]="Жуткие латные рукавицы деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Dreadplate Helm"]==nil then t["Tyrannical Gladiator's Dreadplate Helm"]="Жуткий латный шлем деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Felweave Cowl"]==nil then t["Tyrannical Gladiator's Felweave Cowl"]="Клобук деспотичного гладиатора из ткани Скверны" end
+if t["Tyrannical Gladiator's Felweave Handguards"]==nil then t["Tyrannical Gladiator's Felweave Handguards"]="Боевые рукавицы деспотичного гладиатора из ткани Скверны" end
+if t["Tyrannical Gladiator's Kodohide Robes"]==nil then t["Tyrannical Gladiator's Kodohide Robes"]="Одеяния из шкуры кодо деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Leather Gloves"]==nil then t["Tyrannical Gladiator's Leather Gloves"]="Кожаные перчатки деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Leather Legguards"]==nil then t["Tyrannical Gladiator's Leather Legguards"]="Кожаные набедренники деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Leather Spaulders"]==nil then t["Tyrannical Gladiator's Leather Spaulders"]="Кожаный наплеч деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Linked Gauntlets"]==nil then t["Tyrannical Gladiator's Linked Gauntlets"]="Клепаные рукавицы деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Linked Helm"]==nil then t["Tyrannical Gladiator's Linked Helm"]="Клепаный шлем деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Mail Helm"]==nil then t["Tyrannical Gladiator's Mail Helm"]="Кольчужный шлем деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Mail Spaulders"]==nil then t["Tyrannical Gladiator's Mail Spaulders"]="Кольчужный наплеч деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Mooncloth Helm"]==nil then t["Tyrannical Gladiator's Mooncloth Helm"]="Шлем деспотичного гладиатора из луноткани" end
+if t["Tyrannical Gladiator's Ornamented Gloves"]==nil then t["Tyrannical Gladiator's Ornamented Gloves"]="Украшенные перчатки деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Plate Chestpiece"]==nil then t["Tyrannical Gladiator's Plate Chestpiece"]="Латный нагрудник деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Plate Shoulders"]==nil then t["Tyrannical Gladiator's Plate Shoulders"]="Латные наплечники деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Ringmail Helm"]==nil then t["Tyrannical Gladiator's Ringmail Helm"]="Кольчатый шлем деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Ringmail Leggings"]==nil then t["Tyrannical Gladiator's Ringmail Leggings"]="Кольчатые поножи деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Silk Cowl"]==nil then t["Tyrannical Gladiator's Silk Cowl"]="Шелковый клобук деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Wyrmhide Helm"]==nil then t["Tyrannical Gladiator's Wyrmhide Helm"]="Шлем из шкуры змея деспотичного гладиатора" end
+if t["Tyrannical Gladiator's Wyrmhide Spaulders"]==nil then t["Tyrannical Gladiator's Wyrmhide Spaulders"]="Наплеч деспотичного гладиатора из шкуры змея" end
+if t["Unleashed Book of Ascension"]==nil then t["Unleashed Book of Ascension"]="Освобожденная Книга Вознесения" end
+if t["Unleashed Elemental Armor Cache (Season 8 Set)"]==nil then t["Unleashed Elemental Armor Cache (Season 8 Set)"]="Сундук Освобожденных Элементальных Доспехов (набор Сезона 8)" end
+if t["Unleashed Elemental: Elemental Lodestone"]==nil then t["Unleashed Elemental: Elemental Lodestone"]="Освобожденный Элементаль: Элементальный Магнит" end
+if t["Unyielding Girdle"]==nil then t["Unyielding Girdle"]="Ремень непреклонности" end
+if t["Urn of Aspiring Light"]==nil then t["Urn of Aspiring Light"]="Урна стремящегося света" end
+if t["Valarjar Stormwing"]==nil then t["Valarjar Stormwing"]="Штормокрыл Валарьяров" end
+if t["Valiant Bloodmage Gloves"]==nil then t["Valiant Bloodmage Gloves"]="Отважные перчатки волшебника крови" end
+if t["Valiant Bloodmage Hood"]==nil then t["Valiant Bloodmage Hood"]="Отважный капюшон волшебника крови" end
+if t["Valiant Crimson Acolyte Gloves"]==nil then t["Valiant Crimson Acolyte Gloves"]="Отважные перчатки послушника из Багрового Легиона" end
+if t["Valiant Crimson Acolyte Handwraps"]==nil then t["Valiant Crimson Acolyte Handwraps"]="Отважные повязки послушника из Багрового Легиона" end
+if t["Valiant Crimson Acolyte Helm"]==nil then t["Valiant Crimson Acolyte Helm"]="Отважный шлем послушника из Багрового Легиона" end
+if t["Valiant Crimson Acolyte Pants"]==nil then t["Valiant Crimson Acolyte Pants"]="Отважные штаны послушника из Багрового Легиона" end
+if t["Valiant Crimson Acolyte Robe"]==nil then t["Valiant Crimson Acolyte Robe"]="Отважное одеяние послушника из Багрового Легиона" end
+if t["Valiant Crimson Acolyte Shoulderpads"]==nil then t["Valiant Crimson Acolyte Shoulderpads"]="Отважные наплечные пластины послушника из Багрового Легиона" end
+if t["Valiant Dark Coven Gloves"]==nil then t["Valiant Dark Coven Gloves"]="Отважные перчатки мрачного шабаша" end
+if t["Valiant Dark Coven Leggings"]==nil then t["Valiant Dark Coven Leggings"]="Отважные поножи мрачного шабаша" end
+if t["Valiant Dark Coven Shoulderpads"]==nil then t["Valiant Dark Coven Shoulderpads"]="Отважные наплечные пластины мрачного шабаша" end
+if t["Valiant Frost Witch's Chestguard"]==nil then t["Valiant Frost Witch's Chestguard"]="Отважный нагрудный доспех ледяной ведьмы" end
+if t["Valiant Frost Witch's Gloves"]==nil then t["Valiant Frost Witch's Gloves"]="Отважные перчатки ледяной ведьмы" end
+if t["Valiant Frost Witch's Headpiece"]==nil then t["Valiant Frost Witch's Headpiece"]="Отважный головной убор ледяной ведьмы" end
+if t["Valiant Frost Witch's Legguards"]==nil then t["Valiant Frost Witch's Legguards"]="Отважные набедренники ледяной ведьмы" end
+if t["Valiant Frost Witch's Spaulders"]==nil then t["Valiant Frost Witch's Spaulders"]="Отважный наплеч ледяной ведьмы" end
+if t["Valiant Lasherweave Cover"]==nil then t["Valiant Lasherweave Cover"]="Отважный плеточный убор" end
+if t["Valiant Lasherweave Gloves"]==nil then t["Valiant Lasherweave Gloves"]="Отважные плеточные перчатки" end
+if t["Valiant Lasherweave Headguard"]==nil then t["Valiant Lasherweave Headguard"]="Отважный плеточный наголовник" end
+if t["Valiant Lasherweave Helmet"]==nil then t["Valiant Lasherweave Helmet"]="Отважный плеточный полный шлем" end
+if t["Valiant Lasherweave Legguards"]==nil then t["Valiant Lasherweave Legguards"]="Отважные плеточные набедренники" end
+if t["Valiant Lasherweave Legplates"]==nil then t["Valiant Lasherweave Legplates"]="Отважные плеточные ножные латы" end
+if t["Valiant Lasherweave Pauldrons"]==nil then t["Valiant Lasherweave Pauldrons"]="Отважное плеточное наплечье" end
+if t["Valiant Lasherweave Raiment"]==nil then t["Valiant Lasherweave Raiment"]="Отважное плеточное облачение" end
+if t["Valiant Lasherweave Robes"]==nil then t["Valiant Lasherweave Robes"]="Отважные плеточные одеяния" end
+if t["Valiant Lasherweave Trousers"]==nil then t["Valiant Lasherweave Trousers"]="Отважные плеточные брюки" end
+if t["Valiant Scourgelord Battleplate"]==nil then t["Valiant Scourgelord Battleplate"]="Отважный боевой доспех повелителя Плети" end
+if t["Valiant Scourgelord Chestguard"]==nil then t["Valiant Scourgelord Chestguard"]="Отважный нагрудный доспех повелителя Плети" end
+if t["Valiant Scourgelord Faceguard"]==nil then t["Valiant Scourgelord Faceguard"]="Отважный большой шлем повелителя Плети" end
+if t["Valiant Scourgelord Handguards"]==nil then t["Valiant Scourgelord Handguards"]="Отважные боевые рукавицы повелителя Плети" end
+if t["Valiant Scourgelord Helmet"]==nil then t["Valiant Scourgelord Helmet"]="Отважный полный шлем повелителя Плети" end
+if t["Valiant Scourgelord Legplates"]==nil then t["Valiant Scourgelord Legplates"]="Отважные ножные латы повелителя Плети" end
+if t["Valiant Scourgelord Shoulderplates"]==nil then t["Valiant Scourgelord Shoulderplates"]="Отважные латные наплечники повелителя Плети" end
+if t["Valiant Shadowblade Gauntlets"]==nil then t["Valiant Shadowblade Gauntlets"]="Отважные рукавицы теневого клинка" end
+if t["Valiant Shadowblade Helmet"]==nil then t["Valiant Shadowblade Helmet"]="Отважный полный шлем теневого клинка" end
+if t["Valiant Ymirjar Lord's Battleplate"]==nil then t["Valiant Ymirjar Lord's Battleplate"]="Отважный боевой доспех имирьярского повелителя" end
+if t["Valiant Ymirjar Lord's Breastplate"]==nil then t["Valiant Ymirjar Lord's Breastplate"]="Отважная кираса имирьярского повелителя" end
+if t["Valiant Ymirjar Lord's Helmet"]==nil then t["Valiant Ymirjar Lord's Helmet"]="Отважный полный шлем имирьярского повелителя" end
+if t["Valiant Ymirjar Lord's Legguards"]==nil then t["Valiant Ymirjar Lord's Legguards"]="Отважные набедренники имирьярского повелителя" end
+if t["Valiant Ymirjar Lord's Shoulderplates"]==nil then t["Valiant Ymirjar Lord's Shoulderplates"]="Отважные латные наплечники имирьярского повелителя" end
+if t["Valorous Aegis Battleplate"]==nil then t["Valorous Aegis Battleplate"]="Доблестный боевой доспех покровительства" end
+if t["Valorous Aegis Gauntlets"]==nil then t["Valorous Aegis Gauntlets"]="Доблестные рукавицы покровительства" end
+if t["Valorous Aegis Handguards"]==nil then t["Valorous Aegis Handguards"]="Доблестные боевые рукавицы покровительства" end
+if t["Valorous Aegis Headpiece"]==nil then t["Valorous Aegis Headpiece"]="Доблестный головной убор покровительства" end
+if t["Valorous Aegis Legplates"]==nil then t["Valorous Aegis Legplates"]="Доблестные ножные латы покровительства" end
+if t["Valorous Aegis Spaulders"]==nil then t["Valorous Aegis Spaulders"]="Доблестный наплеч покровительства" end
+if t["Valorous Bonescythe Breastplate"]==nil then t["Valorous Bonescythe Breastplate"]="Доблестная кираса костяной косы" end
+if t["Valorous Bonescythe Helmet"]==nil then t["Valorous Bonescythe Helmet"]="Доблестный шлем костяной косы" end
+if t["Valorous Bonescythe Legplates"]==nil then t["Valorous Bonescythe Legplates"]="Доблестные ножные латы костяной косы" end
+if t["Valorous Charger"]==nil then t["Valorous Charger"]="Доблестный скакун" end
+if t["Valorous Cowl of Sanctification"]==nil then t["Valorous Cowl of Sanctification"]="Доблестный клобук посвящения" end
+if t["Valorous Cryptstalker Legguards"]==nil then t["Valorous Cryptstalker Legguards"]="Доблестные набедренники расхитителя гробниц" end
+if t["Valorous Darkruned Gauntlets"]==nil then t["Valorous Darkruned Gauntlets"]="Доблестные темнорунические рукавицы" end
+if t["Valorous Darkruned Legguards"]==nil then t["Valorous Darkruned Legguards"]="Доблестные темнорунические набедренники" end
+if t["Valorous Deathbringer Shoulderpads"]==nil then t["Valorous Deathbringer Shoulderpads"]="Доблестные наплечные пластины несущего смерть" end
+if t["Valorous Dreadnaught Greathelm"]==nil then t["Valorous Dreadnaught Greathelm"]="Доблестный великий шлем неустрашимости" end
+if t["Valorous Dreadnaught Shoulderplates"]==nil then t["Valorous Dreadnaught Shoulderplates"]="Доблестные латные наплечники неустрашимости" end
+if t["Valorous Dreamwalker Cover"]==nil then t["Valorous Dreamwalker Cover"]="Доблестный убор сновидца" end
+if t["Valorous Dreamwalker Handguards"]==nil then t["Valorous Dreamwalker Handguards"]="Доблестные боевые рукавицы сновидца" end
+if t["Valorous Dreamwalker Legguards"]==nil then t["Valorous Dreamwalker Legguards"]="Доблестные набедренники сновидца" end
+if t["Valorous Dreamwalker Robe"]==nil then t["Valorous Dreamwalker Robe"]="Доблестное атласное одеяние сновидца" end
+if t["Valorous Dreamwalker Spaulders"]==nil then t["Valorous Dreamwalker Spaulders"]="Доблестный наплеч сновидца" end
+if t["Valorous Earthshatter Faceguard"]==nil then t["Valorous Earthshatter Faceguard"]="Доблестный большой шлем Землекрушителя" end
+if t["Valorous Earthshatter Handguards"]==nil then t["Valorous Earthshatter Handguards"]="Доблестные боевые рукавицы Землекрушителя" end
+if t["Valorous Frostfire Gloves"]==nil then t["Valorous Frostfire Gloves"]="Доблестные перчатки ледяного огня" end
+if t["Valorous Frostfire Robe"]==nil then t["Valorous Frostfire Robe"]="Доблестное атласное одеяние ледяного огня" end
+if t["Valorous Nightsong Gloves"]==nil then t["Valorous Nightsong Gloves"]="Доблестные перчатки ночной песни" end
+if t["Valorous Nightsong Handgrips"]==nil then t["Valorous Nightsong Handgrips"]="Доблестные боевые перчатки ночной песни" end
+if t["Valorous Nightsong Headpiece"]==nil then t["Valorous Nightsong Headpiece"]="Доблестный головной убор ночной песни" end
+if t["Valorous Nightsong Trousers"]==nil then t["Valorous Nightsong Trousers"]="Доблестные брюки ночной песни" end
+if t["Valorous Nightsong Vestments"]==nil then t["Valorous Nightsong Vestments"]="Доблестные одежды ночной песни" end
+if t["Valorous Plagueheart Circlet"]==nil then t["Valorous Plagueheart Circlet"]="Доблестный венец проклятого сердца" end
+if t["Valorous Redemption Faceguard"]==nil then t["Valorous Redemption Faceguard"]="Доблестный большой шлем искупления" end
+if t["Valorous Redemption Gloves"]==nil then t["Valorous Redemption Gloves"]="Доблестные перчатки искупления" end
+if t["Valorous Redemption Greaves"]==nil then t["Valorous Redemption Greaves"]="Доблестные наголенники искупления" end
+if t["Valorous Redemption Handguards"]==nil then t["Valorous Redemption Handguards"]="Доблестные боевые рукавицы искупления" end
+if t["Valorous Redemption Headpiece"]==nil then t["Valorous Redemption Headpiece"]="Доблестный головной убор искупления" end
+if t["Valorous Redemption Tunic"]==nil then t["Valorous Redemption Tunic"]="Доблестный мундир искупления" end
+if t["Valorous Scourgeborne Helmet"]==nil then t["Valorous Scourgeborne Helmet"]="Доблестные кованый Плетью шлем" end
+if t["Valorous Scourgeborne Legguards"]==nil then t["Valorous Scourgeborne Legguards"]="Доблестные кованые Плетью набедренники" end
+if t["Valorous Scourgestalker Spaulders"]==nil then t["Valorous Scourgestalker Spaulders"]="Доблестный наплеч преследующего Плеть" end
+if t["Valorous Siegebreaker Battleplate"]==nil then t["Valorous Siegebreaker Battleplate"]="Доблестный осадный боевой доспех" end
+if t["Valorous Siegebreaker Helmet"]==nil then t["Valorous Siegebreaker Helmet"]="Доблестный осадный полный шлем" end
+if t["Valorous Siegebreaker Legplates"]==nil then t["Valorous Siegebreaker Legplates"]="Доблестные осадные ножные латы" end
+if t["Valorous Siegebreaker Shoulderplates"]==nil then t["Valorous Siegebreaker Shoulderplates"]="Доблестные осадные наплечные щитки" end
+if t["Valorous Worldbreaker Gloves"]==nil then t["Valorous Worldbreaker Gloves"]="Доблестные перчатки раскалывающего мир" end
+if t["Valorous Worldbreaker Hauberk"]==nil then t["Valorous Worldbreaker Hauberk"]="Доблестный хауберк раскалывающего мир" end
+if t["Valorous Worldbreaker Headpiece"]==nil then t["Valorous Worldbreaker Headpiece"]="Доблестный головной убор раскалывающего мир" end
+if t["Valorous Worldbreaker Helm"]==nil then t["Valorous Worldbreaker Helm"]="Доблестный шлем раскалывающего мир" end
+if t["Valorous Worldbreaker Kilt"]==nil then t["Valorous Worldbreaker Kilt"]="Доблестный килт раскалывающего мир" end
+if t["Valorous Worldbreaker Shoulderguards"]==nil then t["Valorous Worldbreaker Shoulderguards"]="Доблестные наплечные щитки разрушителя миров" end
+if t["VanCleef's Breastplate"]==nil then t["VanCleef's Breastplate"]="Кираса ван Клифа" end
+if t["VanCleef's Breastplate of Triumph"]==nil then t["VanCleef's Breastplate of Triumph"]="Кираса триумфа ван Клифа" end
+if t["VanCleef's Breastplate of Valiance"]==nil then t["VanCleef's Breastplate of Valiance"]="Кираса отваги ван Клифа" end
+if t["VanCleef's Helmet of Hyjal"]==nil then t["VanCleef's Helmet of Hyjal"]="Хиджальский полный шлем ван Клифа" end
+if t["VanCleef's Helmet of Triumph"]==nil then t["VanCleef's Helmet of Triumph"]="Полный шлем триумфа ван Клифа" end
+if t["VanCleef's Helmet of Valiance"]==nil then t["VanCleef's Helmet of Valiance"]="Полный шлем отваги ван Клифа" end
+if t["VanCleef's Legplates of Hyjal"]==nil then t["VanCleef's Legplates of Hyjal"]="Хиджальские ножные латы ван Клифа" end
+if t["VanCleef's Pauldrons of Valiance"]==nil then t["VanCleef's Pauldrons of Valiance"]="Наплечье отваги ван Клифа" end
+if t["Velen's Circlet of Conquest"]==nil then t["Velen's Circlet of Conquest"]="Венец завоеваний Велена" end
+if t["Velen's Circlet of Hyjal"]==nil then t["Velen's Circlet of Hyjal"]="Хиджальский венец Велена" end
+if t["Velen's Circlet of Triumph"]==nil then t["Velen's Circlet of Triumph"]="Венец триумфа Велена" end
+if t["Velen's Circlet of Valiance"]==nil then t["Velen's Circlet of Valiance"]="Венец отваги Велена" end
+if t["Velen's Cowl"]==nil then t["Velen's Cowl"]="Клобук Велена" end
+if t["Velen's Cowl of Triumph"]==nil then t["Velen's Cowl of Triumph"]="Клобук триумфа Велена" end
+if t["Velen's Gloves of Valiance"]==nil then t["Velen's Gloves of Valiance"]="Перчатки отваги Велена" end
+if t["Velen's Handwraps of Conquest"]==nil then t["Velen's Handwraps of Conquest"]="Повязки завоеваний Велена" end
+if t["Velen's Handwraps of Hyjal"]==nil then t["Velen's Handwraps of Hyjal"]="Хиджальские повязки Велена" end
+if t["Velen's Handwraps of Valiance"]==nil then t["Velen's Handwraps of Valiance"]="Повязки отваги Велена" end
+if t["Velen's Leggings"]==nil then t["Velen's Leggings"]="Поножи Велена" end
+if t["Velen's Mantle of Conquest"]==nil then t["Velen's Mantle of Conquest"]="Мантия завоеваний Велена" end
+if t["Velen's Pants"]==nil then t["Velen's Pants"]="Штаны Велена" end
+if t["Velen's Pants of Conquest"]==nil then t["Velen's Pants of Conquest"]="Штаны завоеваний Велена" end
+if t["Velen's Pants of Triumph"]==nil then t["Velen's Pants of Triumph"]="Штаны триумфа Велена" end
+if t["Velen's Pants of Valiance"]==nil then t["Velen's Pants of Valiance"]="Штаны отваги Велена" end
+if t["Velen's Raiments of Conquest"]==nil then t["Velen's Raiments of Conquest"]="Облачение завоеваний Велена" end
+if t["Velen's Raiments of Hyjal"]==nil then t["Velen's Raiments of Hyjal"]="Хиджальское облачение Велена" end
+if t["Velen's Robe"]==nil then t["Velen's Robe"]="Одеяние Велена" end
+if t["Velen's Robe of Conquest"]==nil then t["Velen's Robe of Conquest"]="Одеяние завоеваний Велена" end
+if t["Velen's Robe of Triumph"]==nil then t["Velen's Robe of Triumph"]="Одеяние триумфа Велена" end
+if t["Velen's Robe of Valiance"]==nil then t["Velen's Robe of Valiance"]="Одеяние отваги Велена" end
+if t["Velen's Shoulderpads of Conquest"]==nil then t["Velen's Shoulderpads of Conquest"]="Наплечные пластины завоеваний Велена" end
+if t["Velen's Shoulderpads of Valiance"]==nil then t["Velen's Shoulderpads of Valiance"]="Наплечные пластины отваги Велена" end
+if t["Vengeful Gladiator's Chain Leggings"]==nil then t["Vengeful Gladiator's Chain Leggings"]="Плетеные поножи мстительного гладиатора" end
+if t["Vengeful Gladiator's Dragonhide Gloves"]==nil then t["Vengeful Gladiator's Dragonhide Gloves"]="Перчатки мстительного гладиатора из драконьей шкуры" end
+if t["Vengeful Gladiator's Dragonhide Spaulders"]==nil then t["Vengeful Gladiator's Dragonhide Spaulders"]="Наплеч мстительного гладиатора из драконьей шкуры" end
+if t["Vengeful Gladiator's Dreadweave Mantle"]==nil then t["Vengeful Gladiator's Dreadweave Mantle"]="Мантия мстительного гладиатора из ткани ужаса" end
+if t["Vengeful Gladiator's Felweave Amice"]==nil then t["Vengeful Gladiator's Felweave Amice"]="Нарамник мстительного гладиатора из ткани Скверны" end
+if t["Vengeful Gladiator's Felweave Raiment"]==nil then t["Vengeful Gladiator's Felweave Raiment"]="Облачение мстительного гладиатора из ткани Скверны" end
+if t["Vengeful Gladiator's Kodohide Legguards"]==nil then t["Vengeful Gladiator's Kodohide Legguards"]="Набедренники мстительного гладиатора из шкуры кодо" end
+if t["Vengeful Gladiator's Kodohide Spaulders"]==nil then t["Vengeful Gladiator's Kodohide Spaulders"]="Наплеч мстительного гладиатора из шкуры кодо" end
+if t["Vengeful Gladiator's Lamellar Gauntlets"]==nil then t["Vengeful Gladiator's Lamellar Gauntlets"]="Ламеллярные рукавицы мстительного гладиатора" end
+if t["Vengeful Gladiator's Lamellar Helm"]==nil then t["Vengeful Gladiator's Lamellar Helm"]="Ламеллярный шлем мстительного гладиатора" end
+if t["Vengeful Gladiator's Lamellar Legguards"]==nil then t["Vengeful Gladiator's Lamellar Legguards"]="Ламеллярные набедренники мстительного гладиатора" end
+if t["Vengeful Gladiator's Leather Legguards"]==nil then t["Vengeful Gladiator's Leather Legguards"]="Кожаные набедренники мстительного гладиатора" end
+if t["Vengeful Gladiator's Mail Helm"]==nil then t["Vengeful Gladiator's Mail Helm"]="Кольчужный шлем мстительного гладиатора" end
+if t["Vengeful Gladiator's Mail Spaulders"]==nil then t["Vengeful Gladiator's Mail Spaulders"]="Кольчужный наплеч мстительного гладиатора" end
+if t["Vengeful Gladiator's Mooncloth Mantle"]==nil then t["Vengeful Gladiator's Mooncloth Mantle"]="Оплечье мстительного гладиатора из луноткани" end
+if t["Vengeful Gladiator's Ornamented Legplates"]==nil then t["Vengeful Gladiator's Ornamented Legplates"]="Украшенные ножные латы мстительного гладиатора" end
+if t["Vengeful Gladiator's Plate Gauntlets"]==nil then t["Vengeful Gladiator's Plate Gauntlets"]="Латные рукавицы мстительного гладиатора" end
+if t["Vengeful Gladiator's Ringmail Gauntlets"]==nil then t["Vengeful Gladiator's Ringmail Gauntlets"]="Кольчатые рукавицы мстительного гладиатора" end
+if t["Vengeful Gladiator's Scaled Helm"]==nil then t["Vengeful Gladiator's Scaled Helm"]="Чешуйчатый шлем мстительного гладиатора" end
+if t["Vengeful Gladiator's Silk Amice"]==nil then t["Vengeful Gladiator's Silk Amice"]="Шелковый нарамник мстительного гладиатора" end
+if t["Vengeful Gladiator's Silk Cowl"]==nil then t["Vengeful Gladiator's Silk Cowl"]="Шелковый клобук мстительного гладиатора" end
+if t["Vengeful Gladiator's Wyrmhide Legguards"]==nil then t["Vengeful Gladiator's Wyrmhide Legguards"]="Набедренники мстительного гладиатора из шкуры змея" end
+if t["Venture Co. Flame Slicer"]==nil then t["Venture Co. Flame Slicer"]="Пламерезка Торговой Компании" end
+if t["Verdant Spheres"]==nil then t["Verdant Spheres"]="Зеленеющая сфера" end
+if t["Vest of The Five Thunders"]==nil then t["Vest of The Five Thunders"]="Жилет пяти громов" end
+if t["Vestments of Ascension (Exclusive Cosmetic Set)"]==nil then t["Vestments of Ascension (Exclusive Cosmetic Set)"]="Облачение Вознесения (Эксклюзивный косметический набор)" end
+if t["Vestments of Insatiable Appetite"]==nil then t["Vestments of Insatiable Appetite"]="Облачения ненасытного аппетита" end
+if t["Vestments of Insatiable Corruption"]==nil then t["Vestments of Insatiable Corruption"]="Облачения ненасытной порчи" end
+if t["Vestments of Insatiable Desire"]==nil then t["Vestments of Insatiable Desire"]="Облачения ненасытной страсти" end
+if t["Vestments of Insatiable Greed"]==nil then t["Vestments of Insatiable Greed"]="Облачения ненасытной жадности" end
+if t["Vestments of Insatiable Malice"]==nil then t["Vestments of Insatiable Malice"]="Облачения ненасытной злобы" end
+if t["Vestments of Insatiable Thirst"]==nil then t["Vestments of Insatiable Thirst"]="Облачения ненасытной жажды" end
+if t["Vestments of the Avatar"]==nil then t["Vestments of the Avatar"]="Одежды Аватары" end
+if t["Vestments of the Devout"]==nil then t["Vestments of the Devout"]="Одеяния преданности" end
+if t["Vicious Gladiator's Chain Leggings"]==nil then t["Vicious Gladiator's Chain Leggings"]="Плетеные поножи яростного гладиатора" end
+if t["Vicious Gladiator's Chain Spaulders"]==nil then t["Vicious Gladiator's Chain Spaulders"]="Плетеный наплеч яростного гладиатора" end
+if t["Vicious Gladiator's Dragonhide Spaulders"]==nil then t["Vicious Gladiator's Dragonhide Spaulders"]="Наплеч яростного гладиатора из драконьей шкуры" end
+if t["Vicious Gladiator's Dreadplate Chestpiece"]==nil then t["Vicious Gladiator's Dreadplate Chestpiece"]="Жуткий латный нагрудник яростного гладиатора" end
+if t["Vicious Gladiator's Dreadplate Helm"]==nil then t["Vicious Gladiator's Dreadplate Helm"]="Жуткий латный шлем яростного гладиатора" end
+if t["Vicious Gladiator's Dreadplate Legguards"]==nil then t["Vicious Gladiator's Dreadplate Legguards"]="Жуткие латные набедренники яростного гладиатора" end
+if t["Vicious Gladiator's Felweave Amice"]==nil then t["Vicious Gladiator's Felweave Amice"]="Нарамник яростного гладиатора из ткани Скверны" end
+if t["Vicious Gladiator's Felweave Trousers"]==nil then t["Vicious Gladiator's Felweave Trousers"]="Брюки яростного гладиатора из ткани Скверны" end
+if t["Vicious Gladiator's Kodohide Robes"]==nil then t["Vicious Gladiator's Kodohide Robes"]="Одеяния яростного гладиатора из шкуры кодо" end
+if t["Vicious Gladiator's Kodohide Spaulders"]==nil then t["Vicious Gladiator's Kodohide Spaulders"]="Наплеч яростного гладиатора из шкуры кодо" end
+if t["Vicious Gladiator's Leather Gloves"]==nil then t["Vicious Gladiator's Leather Gloves"]="Кожаные перчатки яростного гладиатора" end
+if t["Vicious Gladiator's Leather Spaulders"]==nil then t["Vicious Gladiator's Leather Spaulders"]="Кожаный наплеч яростного гладиатора" end
+if t["Vicious Gladiator's Linked Leggings"]==nil then t["Vicious Gladiator's Linked Leggings"]="Клепаные поножи яростного гладиатора" end
+if t["Vicious Gladiator's Mail Leggings"]==nil then t["Vicious Gladiator's Mail Leggings"]="Кольчужные поножи яростного гладиатора" end
+if t["Vicious Gladiator's Mail Spaulders"]==nil then t["Vicious Gladiator's Mail Spaulders"]="Кольчужный наплеч яростного гладиатора" end
+if t["Vicious Gladiator's Ornamented Chestguard"]==nil then t["Vicious Gladiator's Ornamented Chestguard"]="Украшенный нагрудный доспех яростного гладиатора" end
+if t["Vicious Gladiator's Plate Chestpiece"]==nil then t["Vicious Gladiator's Plate Chestpiece"]="Латный нагрудник яростного гладиатора" end
+if t["Vicious Gladiator's Ringmail Leggings"]==nil then t["Vicious Gladiator's Ringmail Leggings"]="Кольчатые поножи яростного гладиатора" end
+if t["Vicious Gladiator's Ringmail Spaulders"]==nil then t["Vicious Gladiator's Ringmail Spaulders"]="Кольчатый наплеч яростного гладиатора" end
+if t["Vicious Gladiator's Satin Gloves"]==nil then t["Vicious Gladiator's Satin Gloves"]="Атласные перчатки яростного гладиатора" end
+if t["Vicious Gladiator's Scaled Gauntlets"]==nil then t["Vicious Gladiator's Scaled Gauntlets"]="Чешуйчатые рукавицы яростного гладиатора" end
+if t["Vicious Gladiator's Scaled Shoulders"]==nil then t["Vicious Gladiator's Scaled Shoulders"]="Чешуйчатые наплечники яростного гладиатора" end
+if t["Vicious Gladiator's Silk Amice"]==nil then t["Vicious Gladiator's Silk Amice"]="Шелковый нарамник яростного гладиатора" end
+if t["Vicious Gladiator's Wyrmhide Helm"]==nil then t["Vicious Gladiator's Wyrmhide Helm"]="Шлем яростного гладиатора из шкуры змея" end
+if t["Vicious Gladiator's Wyrmhide Legguards"]==nil then t["Vicious Gladiator's Wyrmhide Legguards"]="Набедренники яростного гладиатора из шкуры змея" end
+if t["Vicious Sabertooth (Horde)"]==nil then t["Vicious Sabertooth (Horde)"]="Свирепый саблезуб (Орда)" end
+if t["Violet Dreamer"]==nil then t["Violet Dreamer"]="Фиолетовый Дракон Грез" end
+if t["Virtuous Gloves"]==nil then t["Virtuous Gloves"]="Перчатки добродетели" end
+if t["Virtuous Robe"]==nil then t["Virtuous Robe"]="Одеяние добродетели" end
+if t["Virtuous Skirt"]==nil then t["Virtuous Skirt"]="Юбка добродетели" end
+if t["Voidheart Crown"]==nil then t["Voidheart Crown"]="Корона пустого сердца" end
+if t["Voidheart Mantle"]==nil then t["Voidheart Mantle"]="Мантия пустого сердца" end
+if t["Vulpin Hyena"]==nil then t["Vulpin Hyena"]="Лисохвостая Гиена" end
+if t["Wandering Ancient"]==nil then t["Wandering Ancient"]="Древень-Скиталец" end
+if t["War Paint Gloves"]==nil then t["War Paint Gloves"]="Перчатки боевой раскраски" end
+if t["Warbringer Breastplate"]==nil then t["Warbringer Breastplate"]="Кираса вестника войны" end
+if t["Warbringer Greaves"]==nil then t["Warbringer Greaves"]="Наголенники вестника войны" end
+if t["Warcache of Radiant Glory"]==nil then t["Warcache of Radiant Glory"]="Боевой Тайник Блистательной Славы" end
+if t["Warglaive of Azzinoth"]==nil then t["Warglaive of Azzinoth"]="Боевой клинок Аззинота" end
+if t["Warglaives"]==nil then t["Warglaives"]="Боевые клинки" end
+if t["Warhelm of the Bold"]==nil then t["Warhelm of the Bold"]="Боевой шлем могучего" end
+if t["Warlord's Leather Helm"]==nil then t["Warlord's Leather Helm"]="Кожаный шлем вождя" end
+if t["Warlord's Plate Shoulders"]==nil then t["Warlord's Plate Shoulders"]="Латные наплечники вождя" end
+if t["Warlord's Silk Raiment"]==nil then t["Warlord's Silk Raiment"]="Шелковое облачение вождя" end
+if t["Wastewalker Shoulderpads"]==nil then t["Wastewalker Shoulderpads"]="Наплечные пластины странника пустошей" end
+if t["Westfall Donkey"]==nil then t["Westfall Donkey"]="Ослик из Западного Края" end
+if t["White Ram"]==nil then t["White Ram"]="Белый баран" end
+if t["White Stallion"]==nil then t["White Stallion"]="Белый жеребец" end
+if t["White Tiger Breastplate"]==nil then t["White Tiger Breastplate"]="Кираса Белого Тигра" end
+if t["White Tiger Gloves"]==nil then t["White Tiger Gloves"]="Перчатки белого тигра" end
+if t["White Tiger Headguard"]==nil then t["White Tiger Headguard"]="Шлем белого тигра" end
+if t["White Tiger Legplates"]==nil then t["White Tiger Legplates"]="Ножные латы Белого Тигра" end
+if t["White Wind Eagle"]==nil then t["White Wind Eagle"]="Белый орел ветра" end
+if t["Wild Draenish Leggings"]==nil then t["Wild Draenish Leggings"]="Поножи дренейского дикаря" end
+if t["Windhawk Belt"]==nil then t["Windhawk Belt"]="Пояс легкокрылого ястреба" end
+if t["Windrunner's Battlegear"]==nil then t["Windrunner's Battlegear"]="Броня Ветрокрылых" end
+if t["Windrunner's Handguards of Conquest"]==nil then t["Windrunner's Handguards of Conquest"]="Боевые рукавицы завоеваний Ветрокрылых" end
+if t["Windrunner's Handguards of Hyjal"]==nil then t["Windrunner's Handguards of Hyjal"]="Хиджальские боевые рукавицы Ветрокрылых" end
+if t["Windrunner's Legguards of Hyjal"]==nil then t["Windrunner's Legguards of Hyjal"]="Хиджальские набедренники Ветрокрылых" end
+if t["Windrunner's Tunic"]==nil then t["Windrunner's Tunic"]="Мундир Ветрокрылых" end
+if t["Windrunner's Tunic of Hyjal"]==nil then t["Windrunner's Tunic of Hyjal"]="Хиджальский мундир Ветрокрылых" end
+if t["Windrunner's Tunic of Valiance"]==nil then t["Windrunner's Tunic of Valiance"]="Мундир отваги Ветрокрылых" end
+if t["Winter Boots"]==nil then t["Winter Boots"]="Зимние сапоги" end
+if t["Winter Veil Pepe (Holiday Exclusive)"]==nil then t["Winter Veil Pepe (Holiday Exclusive)"]="Пепе Зимнего Покрова (Эксклюзивный Праздничный)" end
+if t["Witch Doctor's Facade"]==nil then t["Witch Doctor's Facade"]="Облик знахаря" end
+if t["Worldbreaker Faceguard"]==nil then t["Worldbreaker Faceguard"]="Большой шлем раскалывающего мир" end
+if t["Worldbreaker Gloves"]==nil then t["Worldbreaker Gloves"]="Перчатки раскалывающего мир" end
+if t["Worldbreaker Shoulderguards"]==nil then t["Worldbreaker Shoulderguards"]="Наплечные щитки раскалывающего мир" end
+if t["Worldforged Scroll"]==nil then t["Worldforged Scroll"]="Мирокованный свиток" end
+if t["Wrathful Gladiator's Chain Armor"]==nil then t["Wrathful Gladiator's Chain Armor"]="Плетеный доспех разгневанного гладиатора" end
+if t["Wrathful Gladiator's Chain Helm"]==nil then t["Wrathful Gladiator's Chain Helm"]="Плетеный шлем разгневанного гладиатора" end
+if t["Wrathful Gladiator's Chain Spaulders"]==nil then t["Wrathful Gladiator's Chain Spaulders"]="Плетеный наплеч разгневанного гладиатора" end
+if t["Wrathful Gladiator's Dragonhide Gloves"]==nil then t["Wrathful Gladiator's Dragonhide Gloves"]="Перчатки разгневанного гладиатора из драконьей шкуры" end
+if t["Wrathful Gladiator's Dragonhide Helm"]==nil then t["Wrathful Gladiator's Dragonhide Helm"]="Шлем разгневанного гладиатора из драконьей шкуры" end
+if t["Wrathful Gladiator's Dreadplate Gauntlets"]==nil then t["Wrathful Gladiator's Dreadplate Gauntlets"]="Жуткие латные рукавицы разгневанного гладиатора" end
+if t["Wrathful Gladiator's Dreadplate Shoulders"]==nil then t["Wrathful Gladiator's Dreadplate Shoulders"]="Жуткие латные наплечники разгневанного гладиатора" end
+if t["Wrathful Gladiator's Felweave Handguards"]==nil then t["Wrathful Gladiator's Felweave Handguards"]="Боевые рукавицы разгневанного гладиатора из ткани Скверны" end
+if t["Wrathful Gladiator's Felweave Trousers"]==nil then t["Wrathful Gladiator's Felweave Trousers"]="Брюки разгневанного гладиатора из ткани Скверны" end
+if t["Wrathful Gladiator's Kodohide Legguards"]==nil then t["Wrathful Gladiator's Kodohide Legguards"]="Набедренники разгневанного гладиатора из шкуры кодо" end
+if t["Wrathful Gladiator's Leather Spaulders"]==nil then t["Wrathful Gladiator's Leather Spaulders"]="Кожаный наплеч разгневанного гладиатора" end
+if t["Wrathful Gladiator's Linked Leggings"]==nil then t["Wrathful Gladiator's Linked Leggings"]="Клепаные поножи разгневанного гладиатора" end
+if t["Wrathful Gladiator's Mooncloth Gloves"]==nil then t["Wrathful Gladiator's Mooncloth Gloves"]="Перчатки разгневанного гладиатора из луноткани" end
+if t["Wrathful Gladiator's Mooncloth Hood"]==nil then t["Wrathful Gladiator's Mooncloth Hood"]="Капюшон разгневанного гладиатора из луноткани" end
+if t["Wrathful Gladiator's Mooncloth Robe"]==nil then t["Wrathful Gladiator's Mooncloth Robe"]="Одеяние разгневанного гладиатора из луноткани" end
+if t["Wrathful Gladiator's Ornamented Legplates"]==nil then t["Wrathful Gladiator's Ornamented Legplates"]="Украшенные ножные латы разгневанного гладиатора" end
+if t["Wrathful Gladiator's Plate Chestpiece"]==nil then t["Wrathful Gladiator's Plate Chestpiece"]="Латный нагрудник разгневанного гладиатора" end
+if t["Wrathful Gladiator's Plate Gauntlets"]==nil then t["Wrathful Gladiator's Plate Gauntlets"]="Латные рукавицы разгневанного гладиатора" end
+if t["Wrathful Gladiator's Plate Helm"]==nil then t["Wrathful Gladiator's Plate Helm"]="Латный шлем разгневанного гладиатора" end
+if t["Wrathful Gladiator's Ringmail Armor"]==nil then t["Wrathful Gladiator's Ringmail Armor"]="Кольчатый доспех разгневанного гладиатора" end
+if t["Wrathful Gladiator's Ringmail Gauntlets"]==nil then t["Wrathful Gladiator's Ringmail Gauntlets"]="Кольчатые рукавицы разгневанного гладиатора" end
+if t["Wrathful Gladiator's Ringmail Helm"]==nil then t["Wrathful Gladiator's Ringmail Helm"]="Кольчатый шлем разгневанного гладиатора" end
+if t["Wrathful Gladiator's Satin Leggings"]==nil then t["Wrathful Gladiator's Satin Leggings"]="Атласные поножи разгневанного гладиатора" end
+if t["Wrathful Gladiator's Scaled Legguards"]==nil then t["Wrathful Gladiator's Scaled Legguards"]="Чешуйчатые набедренники разгневанного гладиатора" end
+if t["Wrathful Gladiator's Silk Amice"]==nil then t["Wrathful Gladiator's Silk Amice"]="Шелковый нарамник разгневанного гладиатора" end
+if t["Wrathful Gladiator's Silk Raiment"]==nil then t["Wrathful Gladiator's Silk Raiment"]="Шелковое облачение разгневанного гладиатора" end
+if t["Wrathful Gladiator's Wyrmhide Legguards"]==nil then t["Wrathful Gladiator's Wyrmhide Legguards"]="Набедренники разгневанного гладиатора из шкуры змея" end
+if t["Wrathion's Backpack"]==nil then t["Wrathion's Backpack"]="Рюкзак Гневиона" end
+if t["Wristguards of Undead Slaying"]==nil then t["Wristguards of Undead Slaying"]="Накулачники истребления нежити" end
+if t["Wristwraps of Undead Slaying"]==nil then t["Wristwraps of Undead Slaying"]="Напульсники истребления нежити" end
+if t["Wrynn's Battleplate of Conquest"]==nil then t["Wrynn's Battleplate of Conquest"]="Боевой доспех завоеваний Ринна" end
+if t["Wrynn's Breastplate of Hyjal"]==nil then t["Wrynn's Breastplate of Hyjal"]="Хиджальская кираса Ринна" end
+if t["Wrynn's Gauntlets of Conquest"]==nil then t["Wrynn's Gauntlets of Conquest"]="Рукавицы завоеваний Ринна" end
+if t["Wrynn's Greathelm of Hyjal"]==nil then t["Wrynn's Greathelm of Hyjal"]="Хиджальский великий шлем Ринна" end
+if t["Wrynn's Handguards of Valiance"]==nil then t["Wrynn's Handguards of Valiance"]="Боевые рукавицы отваги Ринна" end
+if t["Wrynn's Helmet"]==nil then t["Wrynn's Helmet"]="Полный шлем Ринна" end
+if t["Wrynn's Legguards of Conquest"]==nil then t["Wrynn's Legguards of Conquest"]="Набедренники завоеваний Ринна" end
+if t["Wrynn's Legplates of Triumph"]==nil then t["Wrynn's Legplates of Triumph"]="Ножные латы триумфа Ринна" end
+if t["Wrynn's Pauldrons of Conquest"]==nil then t["Wrynn's Pauldrons of Conquest"]="Наплечье завоеваний Ринна" end
+if t["Wrynn's Shoulderplates of Hyjal"]==nil then t["Wrynn's Shoulderplates of Hyjal"]="Хиджальские латные наплечники Ринна" end
+if t["Wrynn's Shoulderplates of Valiance"]==nil then t["Wrynn's Shoulderplates of Valiance"]="Латные наплечники отваги Ринна" end
+if t["Wushoolay's Charm of Spirits"]==nil then t["Wushoolay's Charm of Spirits"]="Амулет Духов Вушулая" end
+if t["Wyrmstalker Battlegear"]==nil then t["Wyrmstalker Battlegear"]="Доспехи охотника на змеев" end
+if t["Xal’atoh, Desecrated Image of Gorehowl"]==nil then t["Xal’atoh, Desecrated Image of Gorehowl"]="Ксал'ато, оскверненный образ Кровавого воя" end
+if t["Xu'tenash, Glaive of Ruin"]==nil then t["Xu'tenash, Glaive of Ruin"]="Ксу'тенаш, глефа разрушения" end
+if t["Yaungol Slayer Battlegear"]==nil then t["Yaungol Slayer Battlegear"]="Боевое Снаряжение Убийцы Яунголов" end
+if t["Yaungol Slayer's Gloves"]==nil then t["Yaungol Slayer's Gloves"]="Перчатки убийцы яунголов" end
+if t["Yellow Scouting Ottuk"]==nil then t["Yellow Scouting Ottuk"]="Желтый Выдрек-Разведчик" end
+if t["Ymirjar Lord's Gauntlets"]==nil then t["Ymirjar Lord's Gauntlets"]="Отважные рукавицы имирьярского повелителя" end
+if t["Zabra's Circlet"]==nil then t["Zabra's Circlet"]="Венец Забры" end
+if t["Zabra's Circlet of Hyjal"]==nil then t["Zabra's Circlet of Hyjal"]="Хиджальский венец Забры" end
+if t["Zabra's Circlet of Valiance"]==nil then t["Zabra's Circlet of Valiance"]="Венец отваги Забры" end
+if t["Zabra's Cowl"]==nil then t["Zabra's Cowl"]="Клобук Забры" end
+if t["Zabra's Gloves of Conquest"]==nil then t["Zabra's Gloves of Conquest"]="Перчатки завоеваний Забры" end
+if t["Zabra's Gloves of Hyjal"]==nil then t["Zabra's Gloves of Hyjal"]="Хиджальские перчатки Забры" end
+if t["Zabra's Gloves of Triumph"]==nil then t["Zabra's Gloves of Triumph"]="Перчатки триумфа Забры" end
+if t["Zabra's Handwraps"]==nil then t["Zabra's Handwraps"]="Повязки Забры" end
+if t["Zabra's Handwraps of Hyjal"]==nil then t["Zabra's Handwraps of Hyjal"]="Хиджальские повязки Забры" end
+if t["Zabra's Handwraps of Triumph"]==nil then t["Zabra's Handwraps of Triumph"]="Повязки триумфа Забры" end
+if t["Zabra's Leggings of Conquest"]==nil then t["Zabra's Leggings of Conquest"]="Поножи завоеваний Забры" end
+if t["Zabra's Leggings of Hyjal"]==nil then t["Zabra's Leggings of Hyjal"]="Хиджальские поножи Забры" end
+if t["Zabra's Mantle of Hyjal"]==nil then t["Zabra's Mantle of Hyjal"]="Хиджальская мантия Забры" end
+if t["Zabra's Mantle of Valiance"]==nil then t["Zabra's Mantle of Valiance"]="Мантия отваги Забры" end
+if t["Zabra's Pants of Valiance"]==nil then t["Zabra's Pants of Valiance"]="Штаны отваги Забры" end
+if t["Zabra's Robe of Conquest"]==nil then t["Zabra's Robe of Conquest"]="Одеяние завоеваний Забры" end
+if t["Zabra's Robe of Hyjal"]==nil then t["Zabra's Robe of Hyjal"]="Хиджальское одеяние Забры" end
+if t["Zabra's Shoulderpads"]==nil then t["Zabra's Shoulderpads"]="Наплечные пластины Забры" end
+if t["Zabra's Shoulderpads of Hyjal"]==nil then t["Zabra's Shoulderpads of Hyjal"]="Хиджальские наплечные пластины Забры" end
+if t["Zabra's Shoulderpads of Triumph"]==nil then t["Zabra's Shoulderpads of Triumph"]="Наплечные пластины триумфа Забры" end
+if t["Zandalar Augur's Bracers"]==nil then t["Zandalar Augur's Bracers"]="Наручи зандаларского авгура" end
+if t["Zandalar Augur's Hauberk"]==nil then t["Zandalar Augur's Hauberk"]="Хауберк зандаларского авгура" end
+if t["Zandalar Demoniac's Mantle"]==nil then t["Zandalar Demoniac's Mantle"]="Оплечье зандаларского фанатика" end
+if t["Zandalar Freethinker's Belt"]==nil then t["Zandalar Freethinker's Belt"]="Пояс зандаларского вольнодумца" end
+if t["Zandalar Haruspex's Tunic"]==nil then t["Zandalar Haruspex's Tunic"]="Мундир зандаларского гаруспика" end
+if t["Zandalar Madcap's Bracers"]==nil then t["Zandalar Madcap's Bracers"]="Наручи зандаларского безумца" end
+if t["Zandalar Madcap's Tunic"]==nil then t["Zandalar Madcap's Tunic"]="Мундир зандаларского безумца" end
+if t["Zandalar Predator's Bracers"]==nil then t["Zandalar Predator's Bracers"]="Наручи зандаларского хищника" end
+if t["Zandalar Predator's Mantle"]==nil then t["Zandalar Predator's Mantle"]="Оплечье зандаларского хищника" end
+if t["Zandalar Vindicator's Armguards"]==nil then t["Zandalar Vindicator's Armguards"]="Боевые наручи зандаларского воздаятеля" end
+if t["Zandalar Vindicator's Belt"]==nil then t["Zandalar Vindicator's Belt"]="Пояс зандаларского воздаятеля" end
+if t["Zandalarian Voodoo Mask"]==nil then t["Zandalarian Voodoo Mask"]="Зандаларская маска вуду" end
+end
+CoARU_ItemNameEN = CoARU_ItemNameEN or {}
+gt1(CoARU_ItemNameEN)

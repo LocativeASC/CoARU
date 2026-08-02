@@ -205,15 +205,15 @@ local function buildMap()
         if MAP[en] == nil then MAP[en] = ru end
     end
 
-    for key, ru in pairs(SHORT) do put(_G[key], ru) end
+    for key, ru in pairs(SHORT) do put(CoARU_EN(key), ru) end
     for en, ru in pairs(SHORT_PLAIN) do put(en, ru) end
 
     for en, ru in pairs(PLAIN) do put(en, ru) end
-    for key, ru in pairs(KEYS) do put(_G[key], ru) end
+    for key, ru in pairs(KEYS) do put(CoARU_EN(key), ru) end
 
     for en, ru in pairs(CoARU_SkillRU or {}) do put(en, ru) end
 
-    for key, ru in pairs(CoARU_StatLabelRU or {}) do put(_G[key], ru) end
+    for key, ru in pairs(CoARU_StatLabelRU or {}) do put(CoARU_EN(key), ru) end
     for en, ru in pairs(CoARU_StatLabelOwn or {}) do put(en, ru) end
 
     for en in pairs(CoARU_SkillNever or {}) do MAP[en] = nil end
@@ -259,7 +259,7 @@ local function scopedMap(name)
         if scopeCache[name] then return scopeCache[name] end
         local m = {}
         for key, ru in pairs((CoARU_ScopedRU or {})[name] or {}) do
-            local en = _G[key]
+            local en = CoARU_EN(key)
             if type(en) == "string" and en ~= "" and m[en] == nil then
                 m[en] = ru
             end
@@ -274,7 +274,7 @@ local function bindingMap()
     if BINDINGS then return BINDINGS end
     BINDINGS = {}
     for key, ru in pairs(CoARU_BindingRU or {}) do
-        local en = _G[key]
+        local en = CoARU_EN(key)
         if type(en) == "string" and en ~= "" and BINDINGS[en] == nil then
             BINDINGS[en] = ru
         end
@@ -514,7 +514,7 @@ local function translateTips()
     tipsDone = true
     local n = 0
     for key, ru in pairs(TIPS) do
-        local en = _G[key]
+        local en = CoARU_EN(key)
         if type(en) == "string" and en ~= "" then
 
             for _, info in pairs(tips) do
@@ -529,7 +529,7 @@ local function translateTips()
     local buttons = _G["HelpTip"] and _G["HelpTip"].Buttons
     if type(buttons) == "table" then
         for key, ru in pairs(TIP_BUTTONS) do
-            local en = _G[key]
+            local en = CoARU_EN(key)
             if type(en) == "string" and en ~= "" then
                 for _, style in pairs(buttons) do
                     if type(style) == "table" and style.text == en then

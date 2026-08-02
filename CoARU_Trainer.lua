@@ -17,7 +17,20 @@ local function fsApply(fs)
     if not CoARU_ModOn("trainer") then return end
     local t = fs and fs.GetText and fs:GetText()
     if not t or #t < 2 then return end
-    if isNameFS(fs.GetName and fs:GetName()) then return end
+
+    if isNameFS(fs.GetName and fs:GetName()) then
+        if CoARU_ModOn("spellnames") and CoARU_SPELL_NAME_RU then
+            local nm = CoARU_StripCodes(t):gsub("^%s+", ""):gsub("%s+$", "")
+            if CoARU_IsSpecName and CoARU_IsSpecName(nm) then return end
+            local ru = nm ~= "" and CoARU_SPELL_NAME_RU[nm]
+
+            if ru and ru ~= nm then
+                local s, e = t:find(nm, 1, true)
+                if s then fs:SetText(t:sub(1, s - 1) .. ru .. t:sub(e + 1)) end
+            end
+        end
+        return
+    end
 
     if CoARU_NoteBlockMisses then
         local nm = fs.GetName and fs:GetName()

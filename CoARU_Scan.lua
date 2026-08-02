@@ -320,6 +320,63 @@ local scanDesc = false
 function CoARU_SetScanDesc(v)
     scanDesc = v and true or false
 end
+
+local COLOR_CAP = 3000
+
+local colorStat = { spells = 0, lines = 0, spansEn = 0, spansLost = 0, lossLines = 0, rows = 0 }
+
+function CoARU_ColorStat()
+    return colorStat
+end
+
+local scanColor = false
+function CoARU_SetScanColor(v)
+    scanColor = v and true or false
+
+    if scanColor then
+        colorStat.spells, colorStat.lines, colorStat.spansEn = 0, 0, 0
+        colorStat.spansLost, colorStat.lossLines, colorStat.rows = 0, 0, 0
+    end
+end
+
+local function countSpans(s)
+    local n = 0
+    for _ in s:gmatch("|[cC]%x%x%x%x%x%x%x%x") do n = n + 1 end
+    return n
+end
+
+function CoARU_RecordColorLoss(id)
+    local name, _, text = CoARU_CaptureSpell(id)
+    if not text or not text:find("|", 1, true) then return false end
+    CoARU_DB.colormiss = CoARU_DB.colormiss or {}
+    local found = false
+    colorStat.spells = colorStat.spells + 1
+    for line in text:gmatch("[^\n]+") do
+        local en = countSpans(line)
+
+        if en > 0 and not (en == 1 and line:find("^|[cC]%x%x%x%x%x%x%x%x")) then
+            local ru = CoARU_TranslateBlock(id, line)
+
+            if ru and ru ~= line then
+                local got = countSpans(ru)
+                colorStat.lines = colorStat.lines + 1
+                colorStat.spansEn = colorStat.spansEn + en
+                if got < en then
+                    colorStat.lossLines = colorStat.lossLines + 1
+                    colorStat.spansLost = colorStat.spansLost + (en - got)
+
+                    if colorStat.rows < COLOR_CAP then
+                        CoARU_DB.colormiss[tostring(id) .. "#" .. colorStat.rows] =
+                            { id = id, name = name, en = line, ru = ru }
+                        colorStat.rows = colorStat.rows + 1
+                    end
+                    found = true
+                end
+            end
+        end
+    end
+    return found
+end
 local nextTick = 0
 
 local scanTick, scanBatch, scanBudget = 0.05, 50, nil
@@ -376,9 +433,28 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
             local total = 0
             for _ in pairs(CoARU_DB.dump or {}) do total = total + 1 end
             local secs = math.max(1, GetTime() - scanStart)
+            if scanColor then
+                local st = CoARU_ColorStat()
+
+                CoARU_DB.colorstat = {
+                    spells = st.spells, lines = st.lines, spansEn = st.spansEn,
+                    spansLost = st.spansLost, lossLines = st.lossLines, rows = st.rows,
+                    seen = scanSeen, capped = (st.rows >= COLOR_CAP) and 1 or 0,
+                }
+                print(("|cffC495DDCoARU|r: скан подсветки завершен за %d:%02d. Просмотрено %d (%d ID/сек), спеллов с потерей цвета: %d, строк записано: %d."):format(
+                    math.floor(secs / 60), math.floor(secs % 60), scanSeen,
+                    math.floor(scanSeen / secs), scanFound, st.rows))
+                print(("|cffC495DDCoARU|r: ПО ВСЕМУ ОБХОДУ (потолок на это не влияет): строк с подсветкой %d, внутренних спанов %d, потеряно %d (%.1f%%), строк с потерей %d."):format(
+                    st.lines, st.spansEn, st.spansLost,
+                    st.spansEn > 0 and (st.spansLost / st.spansEn * 100) or 0, st.lossLines))
+                if st.rows >= COLOR_CAP then
+                    print("|cffC495DDCoARU|r: потолок ПРИМЕРОВ достигнут — часть находок не сохранена, но числа выше посчитаны по всему обходу. Больше примеров: сканируй окнами, /coaru scanall color fast 100 500000-800000")
+                end
+            else
             print(("|cffC495DDCoARU|r: скан завершен за %d:%02d. Просмотрено %d (%d ID/сек), новых непереведенных: %d, всего в дампе: %d."):format(
                 math.floor(secs / 60), math.floor(secs % 60), scanSeen,
                 math.floor(scanSeen / secs), scanFound, total))
+            end
 
             if scanSkipped > 0 then
                 print(("|cffC495DDCoARU|r: пропущено без тултипа (нет в клиентском DBC): %d. Полный проход: /coaru scanall deep"):format(scanSkipped))
@@ -387,15 +463,26 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
             if scanDeep then
                 print(("|cffC495DDCoARU|r: ПРИЗРАКОВ (нет в клиентском DBC, но тултип есть): %d. Если ноль, дешевый отсев ничего не теряет."):format(scanGhost))
             end
-            if scanReal > 0 then
+
+            if scanReal > 0 and not scanColor then
                 print(("|cffC495DDCoARU|r: спеллов с тултипом: %d, из них с непереведенными строками: %d. ПОКРЫТИЕ ПО ЖИВОМУ ТЕКСТУ: %.1f%%"):format(
                     scanReal, scanFound, 100 * (scanReal - scanFound) / scanReal))
+            elseif scanReal > 0 then
+                print(("|cffC495DDCoARU|r: спеллов с тултипом: %d. Скан цвета покрытие перевода НЕ меряет — для него /coaru scanall fast 100 500000"):format(scanReal))
             end
             print("|cffC495DDCoARU|r: сделай /reload (или выйди из игры), чтобы дамп записался в SavedVariables.")
             return
         end
 
-        if scanDesc then
+        if scanColor then
+
+            if (not GetSpellInfo) or GetSpellInfo(id) ~= nil then
+                scanReal = scanReal + 1
+                if CoARU_RecordColorLoss(id) then scanFound = scanFound + 1 end
+            else
+                scanSkipped = scanSkipped + 1
+            end
+        elseif scanDesc then
 
             local d
             if GetSpellDescription then
@@ -446,8 +533,13 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
         nextTick = nextTick + math.floor(scanTotal / 20)
         local secs = math.max(1, GetTime() - scanStart)
         local rate = math.max(1, scanSeen / secs)
-        print(("|cffC495DDCoARU|r: скан %d%%  (%d из %d, найдено %d, %d ID/сек, осталось ~%d мин)"):format(
-            math.floor(scanSeen * 100 / scanTotal), scanSeen, scanTotal, scanFound,
+
+        local extra = ""
+        if scanColor then
+            extra = (", спеллов %d, потерь %d"):format(colorStat.spells, colorStat.spansLost)
+        end
+        print(("|cffC495DDCoARU|r: скан %d%%  (%d из %d, найдено %d%s, %d ID/сек, осталось ~%d мин)"):format(
+            math.floor(scanSeen * 100 / scanTotal), scanSeen, scanTotal, scanFound, extra,
             math.floor(rate), math.ceil((scanTotal - scanSeen) / rate / 60)))
     end
 end)
@@ -518,6 +610,11 @@ function CoARU_StartScanRanges(ranges, includeAll, fastMs, minId, maxId)
     end
 end
 
+function CoARU_ScanProgress()
+    if not scanRanges then return nil end
+    return ("%d/%d"):format(scanSeen, scanTotal)
+end
+
 function CoARU_ScanBook(includeAll)
 
     local ids, entries = CoARU_CollectCAIds()
@@ -570,4 +667,102 @@ function CoARU_Probe()
     CoARU_DB.probe = { info = out, frames = hits }
     for _, line in ipairs(out) do print("|cffC495DDCoARU probe|r: " .. line) end
     print(("|cffC495DDCoARU probe|r: найдено %d фреймов/таблиц Spellbook/Collection (в CoARU_DB.probe.frames, попадут в SavedVariables после /reload)."):format(#hits))
+end
+
+local itemFrame = CreateFrame("Frame")
+itemFrame:Hide()
+local iIdx, iPass, iPending, iSeen, iOk, iEmpty, iStart, iBudget, iNext = 1, 1, {}, 0, 0, 0, 0, 100, 0
+
+local function itemList()
+    return CoARU_ITEM_IDS or {}
+end
+
+local function recordItem(id)
+    local name, body, st = CoARU_CaptureItem(id)
+    if st == "pending" then
+        iPending[#iPending + 1] = id
+        return
+    end
+    if st ~= "ok" then
+        iEmpty = iEmpty + 1
+        return
+    end
+    iOk = iOk + 1
+    if name and not (CoARU_ItemName and CoARU_ItemName[id]) then
+        if CoARU_NoteMiss and not (CoARU_HasCyrillic and CoARU_HasCyrillic(name)) then
+            CoARU_NoteMiss("itemname", name, "ItemScan")
+        end
+    end
+    if body and CoARU_NoteBlockMisses then
+
+        CoARU_NoteBlockMisses("item", nil, body)
+    end
+end
+
+itemFrame:SetScript("OnUpdate", function(self)
+    local t0 = debugprofilestop and debugprofilestop() or nil
+    local list = (iPass == 1) and itemList() or iPending
+    local n = 0
+    while true do
+        if iIdx > #list then
+            if iPass == 1 and #iPending > 0 then
+
+                iPass, iIdx = 2, 1
+                print(("|cffC495DDCoARU|r: второй проход, предметов из кэша сервера: %d")
+                    :format(#iPending))
+                return
+            end
+            self:Hide()
+            local secs = math.max(1, GetTime() - iStart)
+            print(("|cffC495DDCoARU|r: скан предметов завершен за %d:%02d. Просмотрено %d (%d ID/сек), с тултипом %d, пусто %d.")
+                :format(math.floor(secs / 60), math.floor(secs % 60), iSeen,
+                        math.floor(iSeen / secs), iOk, iEmpty))
+
+            if (CoARU_MissDropped or 0) > 0 then
+                print(("|cffC495DDCoARU|r: |cffff0000ПОТЕРЯНО ИЗ-ЗА ПОТОЛКА КОПИЛКИ: %d строк.|r Подними: /coaru misscap 30000 и повтори скан.")
+                    :format(CoARU_MissDropped))
+            end
+            print("|cffC495DDCoARU|r: /reload и пришли SavedVariables — непереведенное лежит в копилке.")
+            return
+        end
+        recordItem(list[iIdx])
+        iIdx = iIdx + 1
+        iSeen = iSeen + 1
+        n = n + 1
+        if t0 then
+            if n % 32 == 0 then
+                local dt = debugprofilestop() - t0
+                if dt < 0 or dt >= iBudget then break end
+            end
+        elseif n >= 200 then
+            break
+        end
+    end
+    if iSeen >= iNext then
+        iNext = iNext + 2000
+        local secs = math.max(1, GetTime() - iStart)
+        print(("|cffC495DDCoARU|r: предметы %d/%d, с тултипом %d, %d ID/сек")
+            :format(iSeen, #itemList(), iOk, math.floor(iSeen / secs)))
+    end
+end)
+
+function CoARU_ItemScanStart(fastMs)
+    local list = itemList()
+    if #list == 0 then
+        print("|cffC495DDCoARU|r: нет CoARU_ITEM_IDS. Собери список: python tools/Build-ItemIds.py")
+        return
+    end
+    iIdx, iPass, iPending, iSeen, iOk, iEmpty, iNext = 1, 1, {}, 0, 0, 0, 0
+    iBudget = math.max(1, math.min(1000, tonumber(fastMs) or 100))
+    iStart = GetTime()
+    CoARU_MissDropped = 0
+    if debugprofilestart then debugprofilestart() end
+    print(("|cffC495DDCoARU|r: скан предметов, номеров %d, бюджет %d мс на кадр. Играть в это время нельзя.")
+        :format(#list, iBudget))
+    itemFrame:Show()
+end
+
+function CoARU_ItemScanStop()
+    itemFrame:Hide()
+    print("|cffC495DDCoARU|r: скан предметов остановлен.")
 end
