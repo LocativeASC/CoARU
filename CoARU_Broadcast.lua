@@ -69,28 +69,167 @@ local PATTERNS = {
     { "^(.-)has spawned in (.+)!$",
       function(head, where) return ("%sпоявляется в зоне %s!"):format(head, where) end },
 
-    { "^Server uptime: (%d+) Hour%(s%) (%d+) Minute%(s%) (%d+) Second%(s%)%.$",
-      function(h, m, s)
-          return ("Время работы сервера: %s ч. %s мин. %s сек."):format(h, m, s)
+    { "^Server uptime: (.+)%.$",
+      function(rest)
+          local ru = rest:gsub("(%d+) Day%(s%)", "%1 дн.")
+                         :gsub("(%d+) Hour%(s%)", "%1 ч.")
+                         :gsub("(%d+) Minute%(s%)", "%1 мин.")
+                         :gsub("(%d+) Second%(s%)", "%1 сек.")
+
+          if ru:find("%(s%)") then return nil end
+          return "Время работы сервера: " .. ru
       end },
+
+    { "^%[SERVER%] Restart in (.-)%s*%-%s*Updates! (%d+)min downtime!$",
+      function(left, mins)
+          local ru = left:gsub("(%d+) Minute%(s%)", "%1 мин."):gsub("(%d+) Second%(s%)", "%1 сек.")
+          if ru:find("%(s%)") then return nil end
+
+          ru = ru:gsub("[%.%s]+$", "")
+          return ("[SERVER] Перезапуск через %s. Обновления, простой %s мин."):format(ru, mins)
+      end },
+
+    { "^(.-)has completed their Trial!$",
+      function(head) return ("%sзавершает испытание!"):format(head) end },
+
+    { "^(.-)has died in (.+)!$",
+      function(head, where) return ("%sпогибает в зоне %s!"):format(head, where) end },
+
+    { "^(.-) has been captured by (.+)!$",
+      function(head, who) return ("%s теперь у %s!"):format(head, who) end },
+
+    { "^(|Huierror:|h.-)UI Error:(.-)an interface error occured%. Click here and send the error to a developer%.(|h)$",
+      function(a, b, c)
+          return ("%sОшибка интерфейса:%sнажмите здесь, чтобы отправить отчет разработчику.%s")
+              :format(a, b, c)
+      end },
+
+    { "^(.-)|h%[You died%.%]|h(.*)$",
+      function(a, b) return ("%s|h[Вы погибли.]|h%s"):format(a, b) end },
+
+    { "^(.+) has selected Greed for: (.+)$",
+      function(who, item) return ("Разыгрывается: %s. %s: «Не откажусь»."):format(item, who) end },
+    { "^(.+) has selected Need for: (.+)$",
+      function(who, item) return ("Разыгрывается: %s. %s: «Мне это нужно»."):format(item, who) end },
+    { "^Greed Roll %- (%d+) for (.+) by (.+)$",
+      function(n, item, who)
+          return ("Результат броска %s («Не откажусь») за предмет %s: %s."):format(who, item, n)
+      end },
+    { "^Need Roll %- (%d+) for (.+) by (.+)$",
+      function(n, item, who)
+          return ("Результат броска %s («Нужно») за предмет %s: %s."):format(who, item, n)
+      end },
+
+    { "^Received (%d+) of item: (.+)%.$",
+      function(n, item) return ("Вы получаете предмет: %sx%s."):format(item, n) end },
+
+    { "^%[BAN%] (.+) has been permanently banned%. Reason: (.+)$",
+      function(who, why) return ("[BAN] %s забанен навсегда. Причина: %s"):format(who, why) end },
+    { "^%[BAN%] (.+) has been banned for (.+)%. Reason: (.+)$",
+      function(who, term, why)
+          return ("[BAN] %s забанен на %s. Причина: %s"):format(who, term, why)
+      end },
+
     { "^Welcome to Ascension!$", function() return "Добро пожаловать в Ascension!" end },
+}
+
+local TIPS = {
+    ["When you are low on Mystic Resources, Guardian of Time will offer you these resources in exchange for Marks of Ascension."] =
+        "Когда мистических ресурсов мало, Guardian of Time обменяет их на «Marks of Ascension».",
+    ["Please select a target."] = "Выберите цель.",
+
+    ["Hello, at the Ethereal Recovery Services we help you correct tragic error.r"] =
+        "Здравствуйте! Служба Ethereal Recovery Services поможет исправить трагическую ошибку.",
+}
+
+local function tipsRU(msg)
+    local head, body = msg:match("^(.-Tips & Tricks: )(.+)$")
+    if not head then return nil end
+    local tail = ""
+    if body:sub(-2) == "|r" then tail = "|r"; body = body:sub(1, -3) end
+    local ru = TIPS[body]
+    if not ru then return nil end
+    return head .. ru .. tail
+end
+
+local FIXED = {
+    ["You are not in a guild."] = "Вы не состоите в гильдии.",
+
+    ["You have unspent Ability Essence!"] = "У вас остались нераспределенные Ability Essence!",
+    ["You have unspent Talent Essence!"] = "У вас остались нераспределенные Talent Essence!",
+
+    ["You can recover items you have lost, characters deleted, items you've vendored and much, much morer"] =
+        "Вы можете вернуть потерянные предметы, удаленных персонажей, проданные торговцу вещи и многое, многое другое",
+    ["For the small price. . |r"] = "За небольшую плату. . |r",
+    ["Transfers from Voljin to Rexxar are now live on the website!"] =
+        "Перенос персонажей с Voljin на Rexxar открыт на сайте!",
 }
 
 local ANNOUNCE = {
     ['The "char list" command was removed. You can activate and deactivate characters on your character selection screen!'] =
         'Команда «char list» убрана. Включать и отключать персонажей теперь можно прямо на экране выбора персонажа!',
-    ['[Worldforged] Over 1,800 hidden treasures scattered across Azeroth! Venture off the beaten path to discover Worldforged gear tucked away in forgotten caves, ancient towers, and remote corners of the world. Treasure Spoils and Adventure awaits the bold!'] =
-        '[Worldforged] По Азероту разбросано больше 1800 тайников! Сойдите с торной тропы: снаряжение Worldforged спрятано в забытых пещерах, древних башнях и глухих углах мира. Смелых ждут добыча и приключения!',
-    ['[Group Up!] Group Experience Rates are boosted and Quest Items are shared to all party members! Grouping up together will allow you to progress together and have friends to enjoy the journey.'] =
-        '[Group Up!] В группе опыт идет быстрее, а предметы заданий достаются всем участникам! Вместе вы продвигаетесь дальше, и дорога веселее.',
+    ['Over 1,800 hidden treasures scattered across Azeroth! Venture off the beaten path to discover Worldforged gear tucked away in forgotten caves, ancient towers, and remote corners of the world. Treasure Spoils and Adventure awaits the bold!'] =
+        'По Азероту разбросано больше 1800 тайников! Сойдите с торной тропы: снаряжение Worldforged спрятано в забытых пещерах, древних башнях и глухих углах мира. Смелых ждут добыча и приключения!',
+    ['Group Experience Rates are boosted and Quest Items are shared to all party members! Grouping up together will allow you to progress together and have friends to enjoy the journey.'] =
+        'В группе опыт идет быстрее, а предметы заданий достаются всем участникам! Вместе вы продвигаетесь дальше, и дорога веселее.',
+    ["Every creature drops the exact gear they're wearing with matching stats! Want spell power? Slay casters. Need defense? Take down armored warriors with shields. The gear has the stats you'd expect from that creature type, letting you look EXACTLY like the enemies you defeat!"] =
+        'С каждого существа падает ровно то снаряжение, которое на нем надето, и с теми же характеристиками! Нужна сила заклинаний? Бейте заклинателей. Нужна защита? Валите бронированных воинов со щитами. Характеристики вещи соответствуют типу существа, так что вы можете выглядеть В ТОЧНОСТИ как побежденные враги!',
+    ['You can queue for Battlegrounds and Dungeons at the same time on Ascension!'] =
+        'На Ascension можно одновременно стоять в очереди на поля сражений и в подземелья!',
+    ['Crafting on Ascension has been overhauled! Every crafted item gains bonus affix stats and you can upgrade ALL crafted gear by using crafting upgrade kits taught from trainers!'] =
+        'Ремесло на Ascension переработано! Каждая созданная вещь получает дополнительные характеристики от аффиксов, а ЛЮБОЕ созданное снаряжение улучшается наборами для улучшения, которым учат тренеры!',
+    ["Mystic Runes and Mystic Orbs can be used to Reroll Enchants on your Items at a Mystic Enchanting Altar. If you don't have Mystic Runes or Mystic Orbs, you can use gold instead!"] =
+        'Мистические руны и мистические сферы перебрасывают зачарования на ваших вещах у алтаря мистического зачарования. Нет ни рун, ни сфер? Можно заплатить золотом!',
+    ["If you're experiencing FPS issues or lag, Third-Party Addons are the primary cause of these issues. Try updating your addons on the launcher or disabling them."] =
+        'Если у вас падает частота кадров или идут лаги, главная причина этого сторонние аддоны. Обновите их в лаунчере или отключите.',
+    ['If you are experiencing FPS drops, try toggling Hardware Cursor in video settings. A recent Nvidia driver update caused this issue.'] =
+        'Если частота кадров падает, попробуйте переключить аппаратный курсор в настройках графики. Причина в недавнем обновлении драйверов Nvidia.',
+    ['Looking for a place to enable or disable level scaling? The Destiny Weaver can help you, located in Capital City Banks and starting areas. Ask a guard for directions!'] =
+        'Ищете, где включить или выключить масштабирование уровней? Вам поможет Destiny Weaver: он стоит в банках столиц и в стартовых зонах. Дорогу спросите у стражника!',
+    ['Testing of Wrath of the Lich King is underway! If you want access to WOTLK Alpha you can buy a Northrend Travel Guide from players or grab the Wotlk Alpha Bundle from the Ascension Store!'] =
+        'Идет тестирование Wrath of the Lich King! Чтобы получить доступ к альфе WOTLK, купите «Northrend Travel Guide» у игроков или возьмите «Wotlk Alpha Bundle» в магазине Ascension.',
+    ['Keep up with the latest news, changes and events by following us on Facebook: https://facebook.com/OfficialAscension - X: https://x.com/AscensionFeed - Discord: https://discord.gg/classless'] =
+        'Свежие новости, изменения и события: Facebook https://facebook.com/OfficialAscension, X https://x.com/AscensionFeed, Discord https://discord.gg/classless',
+
+    ['Did you know that you can now join our discord by clicking this chat link? Join and chat with the community! |Hdiscord:mm6YC9zpqV|h[Discord: Ascension]|h'] =
+        'Знаете ли вы, что теперь в наш Discord можно зайти прямо по ссылке в чате? Заходите и общайтесь с сообществом! |cff5865f2|Hdiscord:mm6YC9zpqV|h[Discord: Ascension]|h|r',
+
+    ["|Hdiscord:2AVAEzpWgr|h[Newcomer's Corner]|h Looking for some answers? Join The Ascension discord and read through our Newcomer's Corner guides and frequently asked questions! |Hdiscord:2AVAEzpWgr|h[Discord: Newcomer's FAQ]|h"] =
+        "|Hdiscord:2AVAEzpWgr|h[Newcomer's Corner]|h Ищете ответы? Загляните в Discord Ascension и почитайте руководства раздела Newcomer's Corner и ответы на частые вопросы! |Hdiscord:2AVAEzpWgr|h[Discord: Newcomer's FAQ]|h",
 }
 
+local function lastPlain(s, needle)
+    local last, i = nil, 1
+    while true do
+        local a, b = s:find(needle, i, true)
+        if not a then break end
+        last, i = b, a + 1
+    end
+    return last
+end
+
+local function announceKey(s)
+    return (s:gsub("|[cC]%x%x%x%x%x%x%x%x", ""):gsub("|[rR]", "")
+             :gsub("|T.-|t", ""):gsub("%s+", " "):gsub("^ ", ""):gsub(" $", ""))
+end
+
 local function announceRU(msg)
-    local body = msg:match("^%[Ascension Autobroadcast%]:%s*(.+)$")
-    if not body then return nil end
-    local ru = ANNOUNCE[(body:gsub("%s+", " "):gsub("%s+$", ""))]
+    if not msg:find("Autobroadcast", 1, true) then return nil end
+    local cut = select(2, msg:find("]: ", 1, true))
+    if not cut then return nil end
+
+    local icon = lastPlain(msg, "|t ")
+    if icon and icon > cut then cut = icon end
+    local head, body = msg:sub(1, cut), msg:sub(cut + 1)
+
+    local tail = ""
+    if body:sub(-2) == "|r" then tail = "|r"; body = body:sub(1, -3) end
+
+    local c = body:match("^|[cC]%x%x%x%x%x%x%x%x")
+    if c then head, body = head .. c, body:sub(#c + 1) end
+    local ru = ANNOUNCE[announceKey(body)]
     if not ru then return nil end
-    return "[Ascension Autobroadcast]: " .. ru
+    return head .. ru .. tail
 end
 
 function CoARU_BroadcastRU(msg)
@@ -99,6 +238,9 @@ function CoARU_BroadcastRU(msg)
 
     local fixed = announceRU(msg)
     if fixed then return fixed end
+    if FIXED[msg] then return FIXED[msg] end
+    local tip = tipsRU(msg)
+    if tip then return tip end
 
     local s = linkText(msg, resolveName)
     for i = 1, #PATTERNS do

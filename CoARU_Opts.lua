@@ -33,18 +33,16 @@ CoARU_MODULES = {
       hint = "названия подземелий, рейдов, полей боя и арен" },
 
     { key = "names", group = "names", sub = "СУЩЕСТВА",   label = "Имена существ в тултипе",
-      hint = "тултип наведения и рамка цели; над головой — отдельно, см. ниже" },
+      hint = "тултип наведения и рамка цели; над головой имена меняет батник" },
 
-    { key = "nameplates", group = "names", sub = "СУЩЕСТВА", label = "Имена на плашках",
-      off = true,
-      hint = "плашка с полоской здоровья; надпись под НПС меняет батник, а не галка" },
     { key = "ca", group = "ui",      label = "Экран развития",       hint = "специализации Character Advancement" },
     { key = "trainer", group = "ui", label = "Окно тренера",         hint = "список умений у учителя" },
     { key = "spellnames", group = "names", sub = "ПРЕДМЕТЫ И СПОСОБНОСТИ", label = "Имена способностей",
       hint = "выключите, если ищете способности по английским названиям в чате и гайдах" },
 
-    { key = "classes", group = "names", sub = "ПРЕДМЕТЫ И СПОСОБНОСТИ", label = "Названия классов",
-      hint = "Necromancer, Tinker, Ranger и остальные 18 классов CoA" },
+    { key = "specnames", group = "names", sub = "ПРЕДМЕТЫ И СПОСОБНОСТИ", label = "Имена специализаций",
+      off = true,
+      hint = "заголовки веток на экране развития: Brewing, Godblade и остальные" },
 
     { key = "ascui", group = "ui",   label = "Интерфейс Ascension",
       hint = "окна сервера: доска заданий" },
@@ -55,11 +53,11 @@ CoARU_PRESETS = {
       hint = "перевод везде, где он есть" },
 
     { key = "textonly", label = "Имена английские",
-      off = { "spellnames", "classes", "names", "zones", "dungeons", "nameplates" },
+      off = { "spellnames", "specnames", "names", "zones", "dungeons" },
       hint = "описания и задания переведены, названия оставлены как в чате и гайдах" },
     { key = "ui", label = "Только интерфейс",
-      off = { "spells", "items", "quests", "speech", "spellnames", "classes", "names",
-              "zones", "dungeons", "nameplates", "titles" },
+      off = { "spells", "items", "quests", "speech", "spellnames", "specnames",
+              "names", "zones", "dungeons", "titles" },
       hint = "переведены только окна: персонаж, тренер, развитие, Ascension" },
 }
 

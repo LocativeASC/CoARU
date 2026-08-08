@@ -24,6 +24,28 @@ local function namesOn()
     return CoARU_ModOn("names")
 end
 
+local function setRU(fs, en, ru)
+    if CoARU_SetTranslated then
+        CoARU_SetTranslated(fs, en, ru)
+    else
+        fs:SetText(ru)
+    end
+end
+
+local N2E
+local function enForRU(ru)
+    if not N2E then
+        N2E = {}
+        for en, r in pairs(N2R) do
+            if en ~= r then
+                if N2E[r] == nil then N2E[r] = en else N2E[r] = false end
+            end
+        end
+    end
+    local en = N2E[ru]
+    if en then return en end
+end
+
 local function tipUnit(tip)
     if not namesOn() then return end
     local _, unit = tip:GetUnit()
@@ -33,13 +55,21 @@ local function tipUnit(tip)
     local name = tip:GetName()
     local l1 = _G[name .. "TextLeft1"]
     local t1 = l1 and l1:GetText()
-    if t1 and RU[id] and not hasCyr(t1) then l1:SetText(RU[id]) end
+    if t1 and RU[id] then
+        if not hasCyr(t1) then
+            setRU(l1, t1, RU[id])
+        elseif t1 == RU[id] then
+
+            local en = enForRU(t1)
+            if en then setRU(l1, en, t1) end
+        end
+    end
     if SUB[id] then
         local l2 = _G[name .. "TextLeft2"]
         local t2 = l2 and l2:GetText()
 
         if t2 and not hasCyr(t2) and not t2:match("^Level") and not t2:match("^%-?Уровень") then
-            l2:SetText(SUB[id])
+            setRU(l2, t2, SUB[id])
         end
     end
 end
@@ -54,8 +84,13 @@ local function unitFrame(unit, fs)
     if not id then return end
     local ru = RU[id]
     if not ru then return end
+
     local en = UnitName and UnitName(unit)
-    if en and not N2R[en] then N2R[en] = ru end
+    if en and not hasCyr(en) and not N2R[en] then
+        N2R[en] = ru
+
+        if N2E and N2E[ru] ~= en then N2E[ru] = (N2E[ru] == nil) and en or false end
+    end
     if fs and fs.GetText then
         local t = fs:GetText()
         if t and t ~= "" and not hasCyr(t) then fs:SetText(ru) end

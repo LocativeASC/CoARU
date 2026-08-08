@@ -3,6 +3,9 @@ local function msg(text) print(PREFIX .. text) end
 
 CoARU_DB = CoARU_DB or {}
 
+CoARU_DB.ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or "?"
+CoARU_DB.verat = (date and date("%d.%m.%Y %H:%M")) or nil
+
 local function unmask(s)
     local out = {}
     for i = 1, #s do out[i] = string.char((s:byte(i) - 90) % 256) end
@@ -11,7 +14,9 @@ end
 
 local DONATE_URL = unmask("\194\206\206\202\205\148\137\137\190\187\198\195\200\197\136\206\201\137\198\201\189\187\206\195\208\191\187\205\189")
 
-GITHUB_URL = unmask("\194\206\206\202\205\148\137\137\193\195\206\194\207\188\136\189\201\199\137\166\201\189\187\206\195\208\191\155\173\157\137\157\201\155\172\175")
+CoARU_GITHUB_URL = unmask("\194\206\206\202\205\148\137\137\193\195\206\194\207\188\136\189\201\199\137\166\201\189\187\206\195\208\191\155\173\157\137\157\201\155\172\175")
+
+CoARU_DISCORD_URL = unmask("\194\206\206\202\205\148\137\137\190\195\205\189\201\204\190\136\193\193\137\146\204\211\178\207\168\180\199\145\165")
 
 local UNOFFICIAL = "|cffff4040В этой сборке CoARU подменены ссылки. Она НЕ официальная.|r"
 local function official(kind, url)
@@ -19,7 +24,10 @@ local function official(kind, url)
     return nil
 end
 local DONATE_OK = official("donate", DONATE_URL)
-local GITHUB_OK = official("github", GITHUB_URL)
+local GITHUB_OK = official("github", CoARU_GITHUB_URL)
+
+CoARU_DISCORD_OK = official("discord", CoARU_DISCORD_URL)
+
 CoARU_UNOFFICIAL = not (DONATE_OK and GITHUB_OK)
 
 local function whereOriginal()
@@ -45,6 +53,33 @@ local function groupNum(n)
     end
     return out
 end
+
+local nLines
+local function countLines()
+    if nLines then return nLines end
+    local single = { "CoARU_LOC_RU", "CoARU_QUEST", "CoARU_SPELL_NAME_RU", "CoARU_UNIT_SUB",
+        "CoARU_ItemDesc", "CoARU_ZONE", "CoARU_TUT", "CoARU_ASCUI", "CoARU_ItemTipRU",
+        "CoARU_ErrorsRU", "CoARU_EMOTE", "CoARU_TITLE_PRE", "CoARU_ITEM_SUFFIX_TEXT" }
+
+    local pairsOfMaps = { { "CoARU_ItemNameEN", "CoARU_ItemName" },
+        { "CoARU_UNIT_RU", "CoARU_UNIT_N2R" } }
+    local function size(name)
+        local t = _G[name]
+        if type(t) ~= "table" then return 0 end
+        local n = 0
+        for _ in pairs(t) do n = n + 1 end
+        return n
+    end
+    local total = 0
+    for _, name in ipairs(single) do total = total + size(name) end
+    for _, two in ipairs(pairsOfMaps) do
+        local a, b = size(two[1]), size(two[2])
+        total = total + (a > b and a or b)
+    end
+    nLines = total
+    return nLines
+end
+CoARU_CountLines = countLines
 
 local function runStatusReport()
     local fn = SlashCmdList and SlashCmdList["COARU"]
@@ -334,6 +369,13 @@ end
 local welcomeFrame
 local welcomeSuspended = false
 
+local optionsSuspended = false
+local function restoreOptions()
+    if not optionsSuspended then return end
+    optionsSuspended = false
+    if CoARU_ShowOptions then CoARU_ShowOptions() end
+end
+
 local donateFrame
 local function ensureDonateFrame()
     if donateFrame then return donateFrame end
@@ -437,10 +479,44 @@ local function ensureDonateFrame()
     altText:SetWidth(INNER - CARD_PAD * 2 - BTN_W - 16)
     altText:SetJustifyH("LEFT")
 
-    altText:SetText("Встретил непереведенное или ошибку?\n"
-        .. "Собери отчет и пришли файл в Discord |cffC495DDlocativeds|r.")
+    altText:SetText("Встретил непереведенное или ошибку?")
     altText:SetTextColor(0.66, 0.66, 0.72)
     if CoARU_SkinFont then CoARU_SkinFont(altText, 11) end
+
+    local a2 = help:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    a2:SetPoint("TOPLEFT", altText, "BOTTOMLEFT", 0, -2)
+    a2:SetText("Собери отчет и пришли файл в ")
+    a2:SetTextColor(0.66, 0.66, 0.72)
+    if CoARU_SkinFont then CoARU_SkinFont(a2, 11) end
+
+    local dBtn = CreateFrame("Button", "CoARUDonateDiscordLink", help)
+    dBtn:SetPoint("LEFT", a2, "RIGHT", 0, 0)
+    dBtn:SetHeight(14)
+
+    local dLink = dBtn:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    dLink:SetPoint("LEFT", dBtn, "LEFT", 0, 0)
+    dLink:SetText("Discord")
+
+    dLink:SetTextColor(0.77, 0.58, 0.87)
+    if CoARU_SkinFont then CoARU_SkinFont(dLink, 11) end
+
+    dBtn:SetWidth((dLink:GetStringWidth() or 40) + 1)
+
+    local dUnder = dBtn:CreateTexture(nil, "ARTWORK")
+    dUnder:SetTexture(0.77, 0.58, 0.87, 0.5)
+    dUnder:SetHeight(1)
+    dUnder:SetPoint("TOPLEFT", dLink, "BOTTOMLEFT", 0, 1)
+    dUnder:SetPoint("TOPRIGHT", dLink, "BOTTOMRIGHT", 0, 1)
+
+    dBtn:SetScript("OnEnter", function() dLink:SetTextColor(0.90, 0.76, 0.98) end)
+    dBtn:SetScript("OnLeave", function() dLink:SetTextColor(0.77, 0.58, 0.87) end)
+    dBtn:SetScript("OnClick", function() CoARU_ShowDiscord() end)
+
+    local a3 = help:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    a3:SetPoint("LEFT", dBtn, "RIGHT", 0, 0)
+    a3:SetText(", канал |cffC495DD#обсуждение-coaru|r.")
+    a3:SetTextColor(0.66, 0.66, 0.72)
+    if CoARU_SkinFont then CoARU_SkinFont(a3, 11) end
 
     local report = styledButton(help, BTN_W, CTRL_H, "Собрать отчет", false,
         "CoARUDonateReportButton")
@@ -448,6 +524,9 @@ local function ensureDonateFrame()
     report:SetScript("OnClick", runStatusReport)
 
     local lastCard = help
+
+    local stateLast = iconRow
+    local stateLinkFirst, stateLinkPrev
     local total = CoARU_ThanksCount and CoARU_ThanksCount() or 0
     if total > 0 then
 
@@ -492,7 +571,8 @@ local function ensureDonateFrame()
 
         local hLead = thanks:GetStringHeight() or 0
         local hHint = hint:GetStringHeight() or 0
-        local hAlt = altText:GetStringHeight() or 0
+
+        local hAlt = (altText:GetStringHeight() or 0) + (a2:GetStringHeight() or 0) + 2
         local hH1 = money.head:GetStringHeight() or 0
         local hH2 = help.head:GetStringHeight() or 0
         if hLead <= 0 or hHint <= 0 or hAlt <= 0 or hH1 <= 0 or hH2 <= 0 then return end
@@ -512,6 +592,7 @@ local function ensureDonateFrame()
     end
 
     f:SetScript("OnHide", function()
+        restoreOptions()
         if welcomeSuspended then
             welcomeSuspended = false
             if welcomeFrame then welcomeFrame:Show() end
@@ -601,6 +682,7 @@ local function ensureLinkFrame()
     end)
 
     f:Hide()
+    f:SetScript("OnHide", restoreOptions)
     linkFrame = f
     return f
 end
@@ -610,6 +692,71 @@ CoARU_BuildLinkFrame = ensureLinkFrame
 local function showLink()
     msg("аддон и обновления: " .. GITHUB_TEXT)
     ensureLinkFrame():Show()
+end
+
+local discordFrame
+local function ensureDiscordFrame()
+    if discordFrame then return discordFrame end
+    local PAD, CTRL_H, BTN_W, FOOTER_H = 24, 26, 148, 52
+    local INNER = 480 - PAD * 2
+
+    local f = makePanel("CoARUDiscordFrame", "FULLSCREEN_DIALOG", 480, 232,
+        "Discord", "CoARU, русификатор Conquest of Azeroth")
+
+    local d = f:Divider(-72)
+
+    local hint = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+    hint:SetPoint("TOPLEFT", d, "BOTTOMLEFT", 2, -12)
+    hint:SetWidth(INNER)
+    hint:SetJustifyH("LEFT")
+    hint:SetText("Новости, багрепорты и помощь. Нажми на ссылку, "
+        .. "затем скопируй ее через |cffffd100Ctrl+C|r.")
+    hint:SetTextColor(0.84, 0.84, 0.88)
+
+    local eb = CreateFrame("EditBox", "CoARUDiscordEdit", f, "InputBoxTemplate")
+    eb:SetWidth(INNER - 12)
+    eb:SetHeight(CTRL_H)
+    eb:SetPoint("TOPLEFT", hint, "BOTTOMLEFT", 6, -10)
+    eb:SetAutoFocus(false)
+    eb:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+
+    eb:SetScript("OnTextChanged", function(self)
+        if self:GetText() ~= CoARU_DISCORD_URL then
+            self:SetText(CoARU_DISCORD_URL)
+            self:HighlightText()
+        end
+    end)
+    eb:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
+
+    local note = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    note:SetPoint("TOPLEFT", eb, "BOTTOMLEFT", -6, -12)
+    note:SetWidth(INNER)
+    note:SetJustifyH("LEFT")
+    note:SetText("Отчеты о непереведенном и ошибках — канал "
+        .. "|cffC495DD#обсуждение-coaru|r.")
+    note:SetTextColor(0.72, 0.72, 0.78)
+
+    local btn = styledButton(f, BTN_W, CTRL_H, "Закрыть")
+    btn:SetPoint("BOTTOMRIGHT", -PAD, (FOOTER_H - CTRL_H) / 2)
+    btn:SetScript("OnClick", function() f:Hide() end)
+
+    f:SetScript("OnShow", function()
+        eb:SetText(CoARU_DISCORD_URL)
+        eb:SetCursorPosition(0)
+        eb:HighlightText()
+        eb:SetFocus()
+    end)
+
+    f:Hide()
+    f:SetScript("OnHide", restoreOptions)
+    discordFrame = f
+    return f
+end
+
+CoARU_BuildDiscordFrame = ensureDiscordFrame
+
+function CoARU_ShowDiscord()
+    ensureDiscordFrame():Show()
 end
 
 local function ensureWelcomeFrame()
@@ -630,8 +777,7 @@ local function ensureWelcomeFrame()
     local INK_HEAD = { 0.95, 0.95, 0.97 }
     local INK_BODY = { 0.74, 0.74, 0.81 }
 
-    local nTr = 0
-    for _ in pairs(CoARU_LOC_EN or {}) do nTr = nTr + 1 end
+    local nTr = countLines()
 
     local lead = f:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
     lead:SetPoint("TOPLEFT", PAD, -84)
@@ -712,6 +858,7 @@ local function ensureWelcomeFrame()
     end)
 
     f:SetScript("OnHide", function()
+        restoreOptions()
         CoARU_DB.opts = CoARU_DB.opts or {}
         if cb:GetChecked() then CoARU_DB.opts.welcomeVer = verStr end
     end)
@@ -899,6 +1046,7 @@ local function ensureThanksFrame()
     end)
 
     f:SetScript("OnHide", function()
+        restoreOptions()
         if thanksParent then
             local p = thanksParent
             thanksParent = nil
@@ -1211,7 +1359,52 @@ local function ensureOptionsFrame()
         local who = styledButton(pState, 130, 26, "Кто помог", false,
             "CoARUOptionsThanksButton")
         who:SetPoint("LEFT", hlp, "RIGHT", 14, 0)
-        who:SetScript("OnClick", function() CoARU_ShowThanks() end)
+        who:SetScript("OnClick", function()
+            if f and f.IsShown and f:IsShown() then
+                optionsSuspended = true
+                f:Hide()
+            end
+            CoARU_ShowThanks()
+        end)
+        stateLast = hlp
+    end
+
+    local sub3 = CoARU_SkinSubHeader(pState, "ОКНА И ССЫЛКИ", PANE_W - 240)
+    sub3:SetPoint("TOPLEFT", stateLast, "BOTTOMLEFT", stateLast == iconRow and -2 or -4, -18)
+
+    local LINK_W, LINK_H, LINK_GAP = 168, 26, 10
+    local links = {
+        { "Поддержать автора", showDonate,  "CoARUOptionsDonateButton" },
+        { "Discord",           CoARU_ShowDiscord, "CoARUOptionsDiscordButton" },
+        { "Обновления",        showLink,    "CoARUOptionsUpdateButton" },
+        { "Приветствие",       showWelcome, "CoARUOptionsWelcomeButton" },
+        { "Собрать отчет",     runStatusReport,   "CoARUOptionsReportButton" },
+    }
+
+    local function openFromOptions(open)
+        return function()
+            if f and f.IsShown and f:IsShown() then
+                optionsSuspended = true
+                f:Hide()
+            end
+            open()
+        end
+    end
+
+    for i = 1, #links do
+        local b = styledButton(pState, LINK_W, LINK_H, links[i][1], i == 1, links[i][3])
+        if i == 1 then
+            b:SetPoint("TOPLEFT", sub3, "BOTTOMLEFT", 2, -12)
+        elseif i == 4 then
+            b:SetPoint("TOPLEFT", stateLinkFirst, "BOTTOMLEFT", 0, -LINK_GAP)
+        else
+            b:SetPoint("LEFT", stateLinkPrev, "RIGHT", LINK_GAP, 0)
+        end
+
+        b:SetScript("OnClick", links[i][3] == "CoARUOptionsReportButton"
+            and links[i][2] or openFromOptions(links[i][2]))
+        if i == 1 then stateLinkFirst = b end
+        stateLinkPrev = b
     end
     order[#order + 1] = { label = "Состояние" }
 
@@ -1598,6 +1791,8 @@ local function noteOneLine(kind, line, owner)
     local rec = m[norm]
     if rec then
         rec.n = (rec.n or 1) + 1
+
+        rec.at = (date and date("%d.%m %H:%M")) or rec.at
         return
     end
     local n = 0
@@ -1617,11 +1812,31 @@ local function noteOneLine(kind, line, owner)
         end
     end
 
-    m[norm] = { n = 1, k = kind, ex = plain, own = owner, ts = (time and time()) or 0 }
+    m[norm] = { n = 1, k = kind, ex = plain, own = owner, ts = (time and time()) or 0,
+                at = (date and date("%d.%m %H:%M")) or nil }
+end
+
+local GUILD_UNITS = { "mouseover", "target", "focus", "player" }
+
+function CoARU_IsGuildLine(t)
+    if type(t) ~= "string" or t == "" or not GetGuildInfo then return false end
+    local plain = CoARU_StripCodes and CoARU_StripCodes(t) or t
+    for i = 1, #GUILD_UNITS do
+        local u = GUILD_UNITS[i]
+        if not UnitExists or UnitExists(u) then
+            local ok, g = pcall(GetGuildInfo, u)
+            if ok and type(g) == "string" and g ~= "" and (g == plain or g == t) then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 function CoARU_NoteMiss(kind, text, owner)
     if not text then return end
+
+    if CoARU_IsGuildLine(text) then return end
     if not text:find("\n") then
         noteOneLine(kind, text, owner)
         return
@@ -1819,6 +2034,92 @@ end
 local DELTA_HEADER_EN = "If you replace this item"
 local DELTA_HEADER_RU = "Если заменить этот предмет"
 
+local FOREIGN_BLOCK = { "Stat Summary", "Сводка характеристик" }
+
+local FOREIGN_LABELS = {
+    ["Stat Summary"] = "Сводка характеристик",
+    ["Health"] = "Здоровье",
+    ["Mana"] = "Мана",
+    ["Armor"] = "Броня",
+    ["Attack Power"] = "Сила атаки",
+    ["Feral Attack Power"] = "Сила атаки в облике зверя",
+    ["Spell Power"] = "Сила заклинаний",
+    ["Spell Damage"] = "Урон от заклинаний",
+    ["Healing"] = "Исцеление",
+    ["Mana Regen"] = "Восполнение маны",
+    ["Health Regen"] = "Восстановление здоровья",
+    ["Strength"] = "Сила",
+    ["Agility"] = "Ловкость",
+    ["Stamina"] = "Выносливость",
+    ["Intellect"] = "Интеллект",
+    ["Spirit"] = "Дух",
+    ["Defense"] = "Защита",
+    ["Expertise"] = "Мастерство",
+    ["Resilience"] = "Устойчивость",
+    ["Armor Penetration"] = "Пробивание брони",
+
+    ["Spell Penetration"] = "Проникающая способность заклинаний",
+    ["Block Value"] = "Блокирование",
+    ["Weapon Skill"] = "Владение оружием",
+
+    ["Feral Сила атаки"] = "Сила атаки в облике зверя",
+    ["Hit Chance(%)"] = "Меткость(%)",
+    ["Магия Hit Chance(%)"] = "Меткость заклинаний(%)",
+    ["Магия Урон"] = "Урон заклинаниями",
+    ["Магия Крит. удар(%)"] = "Крит. удар заклинаний(%)",
+    ["Магия Исцеление"] = "Исцеление заклинаниями",
+}
+
+local function foreignBlockLine(t)
+    if not t then return false end
+    for i = 1, #FOREIGN_BLOCK do
+        if t:find(FOREIGN_BLOCK[i], 1, true) then return true end
+    end
+    return false
+end
+
+local function foreignLabelRU(t)
+    if not t then return nil end
+    local plain = CoARU_StripCodes and CoARU_StripCodes(t) or t
+    plain = plain:match("^%s*(.-)%s*$")
+    local ru = FOREIGN_LABELS[plain]
+    if ru and ru ~= plain then return ru end
+
+    local bare = plain:gsub("^[^A-Za-z]+", "")
+    if bare ~= plain then
+        ru = FOREIGN_LABELS[bare]
+        if ru and ru ~= bare then
+            local head = plain:sub(1, #plain - #bare)
+            return head .. ru
+        end
+    end
+    return nil
+end
+
+local function translateForeignBlock(tip, name)
+    if not tip or not name or not tip.NumLines then return false end
+    local seen, changed = false, false
+    for i = 1, tip:NumLines() do
+        local fs = _G[name .. "TextLeft" .. i]
+        local t = fs and fs.GetText and fs:GetText()
+        if t and t ~= "" then
+            if not seen and foreignBlockLine(t) then seen = true end
+            if seen then
+                local ru = foreignLabelRU(t)
+                if ru then
+                    CoARU_SetTranslated(fs, t, ru)
+                    changed = true
+                elseif CoARU_NoteMiss and not (CoARU_HasCyrillic and CoARU_HasCyrillic(t))
+                    and t:find("%a%a%a") then
+
+                    CoARU_NoteMiss("tip", t, "StatSummary")
+                end
+            end
+        end
+    end
+    return changed
+end
+
 local function colorizeDelta(ru)
 
     local body = ru:match("^|[cC]%x%x%x%x%x%x%x%x(.*)$") or ru
@@ -1891,7 +2192,44 @@ function CoARU_RefreshTooltip(tip)
     if ok and link and onTooltipSetItem then pcall(onTooltipSetItem, tip) end
 end
 
+local orderHooked
+local function orderPut(line)
+    if not (CoARU_DB and CoARU_DB.opts and CoARU_DB.opts.order) then return end
+    CoARU_DB.order = CoARU_DB.order or {}
+    if #CoARU_DB.order >= 400 then return end
+    CoARU_DB.order[#CoARU_DB.order + 1] = line
+end
+
+function CoARU_NoteOrder(stage, tip)
+    if not (CoARU_DB and CoARU_DB.opts and CoARU_DB.opts.order) then return end
+    local name = tip and tip.GetName and tip:GetName()
+    if not name then return end
+    local fs = _G[name .. "TextLeft2"]
+    orderPut(("CoARU %s %s: строка2=[%s]"):format(name, stage, tostring(fs and fs:GetText())))
+end
+
+function CoARU_HookOrderChat()
+    if orderHooked or not DEFAULT_CHAT_FRAME or not DEFAULT_CHAT_FRAME.AddMessage then return end
+    orderHooked = true
+    hooksecurefunc(DEFAULT_CHAT_FRAME, "AddMessage", function(_, msg)
+        if type(msg) == "string" then orderPut("ЧУЖОЕ " .. msg) end
+    end)
+end
+
+function CoARU_SplitItemSuffix(itemName, suffixID)
+    if type(itemName) ~= "string" or itemName == "" then return nil end
+    if not (CoARU_ITEM_SUFFIX and CoARU_ITEM_SUFFIX_TEXT) then return nil end
+    local pair = CoARU_ITEM_SUFFIX_TEXT[CoARU_ITEM_SUFFIX[suffixID] or 0]
+    if not pair then return nil end
+
+    local tail = " " .. pair[1]
+    if #itemName <= #tail then return nil end
+    if itemName:sub(-#tail):lower() ~= tail:lower() then return nil end
+    return itemName:sub(1, #itemName - #tail), pair[2]
+end
+
 function onTooltipSetItem(tip)
+    CoARU_NoteOrder("OnTooltipSetItem вход", tip)
     if not CoARU_ModOn("items") then return end
     local name = tip:GetName()
     if not name or not tip.GetItem then return end
@@ -1899,6 +2237,8 @@ function onTooltipSetItem(tip)
     if not ok or not link then return end
     local id = tonumber(link:match("item:(%d+)"))
     if not id then return end
+
+    tip.coaruSetItemDone = link
 
     local snapFS = snapshotTip(tip, name, id)
 
@@ -1908,8 +2248,23 @@ function onTooltipSetItem(tip)
         "item:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:(%-?%d+)"))
     local hasSuffix = suffixID ~= nil and suffixID ~= 0
 
-    local ru = (not hasSuffix) and CoARU_ModOn("itemnames")
+    local askName, suffRU = itemName, nil
+    if hasSuffix and CoARU_ModOn("itemnames") then
+        local baseEN, suff = CoARU_SplitItemSuffix(itemName, suffixID)
+        if baseEN then askName, suffRU = baseEN, suff end
+    end
+
+    local nameOK = (not hasSuffix) or (suffRU ~= nil)
+    local ru = nameOK and CoARU_ModOn("itemnames")
         and CoARU_ItemName and CoARU_ItemName[id] or nil
+
+    if not ru and nameOK and CoARU_ModOn("itemnames")
+        and CoARU_ItemNameEN and type(askName) == "string" and askName ~= "" then
+        local byText = CoARU_ItemNameEN[askName]
+        if byText and byText ~= askName then ru = byText end
+    end
+
+    if ru and suffRU then ru = ru .. " " .. suffRU end
     if ru and type(itemName) == "string" and itemName ~= "" then
         local last = math.min(tip:NumLines() or 1, 3)
         for i = 1, last do
@@ -1921,15 +2276,27 @@ function onTooltipSetItem(tip)
                 break
             end
         end
+
+    elseif CoARU_NoteMiss and nameOK and CoARU_ModOn("itemnames")
+        and type(askName) == "string" and askName ~= ""
+        and not CoARU_HasCyrillic(askName) and askName:find("%a%a%a") then
+        CoARU_NoteMiss("itemname", askName)
     end
 
     local desc = CoARU_ItemDesc and CoARU_ItemDesc[id]
 
     local inDelta = false
+    local foreign = false
     for i = 2, tip:NumLines() do
+
+        if foreign then break end
         for _, side in ipairs({ "TextLeft", "TextRight" }) do
             local fs = _G[name .. side .. i]
             local t = fs and fs:GetText()
+            if t and side == "TextLeft" and foreignBlockLine(t) then foreign = true end
+            if foreign then break end
+
+            if t and CoARU_IsGuildLine and CoARU_IsGuildLine(t) then t = nil end
             if t and side == "TextLeft" and t:find("%S")
                 and (t:find(DELTA_HEADER_EN, 1, true) or t:find(DELTA_HEADER_RU, 1, true)) then
                 inDelta = true
@@ -1990,6 +2357,8 @@ function onTooltipSetItem(tip)
         end
     end
 
+    if translateForeignBlock(tip, name) then changed = true end
+
     for i = 1, 4 do
         local pf = _G[name .. "MoneyFrame" .. i .. "PrefixText"]
         local t = pf and pf:GetText()
@@ -2042,6 +2411,7 @@ local SCHOOL_OWNER = "AscensionCharacterStatsPanel"
 
 local inReprocess = false
 local function onTooltipShow(tip)
+    CoARU_NoteOrder("Show вход", tip)
     if inReprocess then return end
     if CoARU_ScanRaw then return end
     local name = tip:GetName()
@@ -2060,11 +2430,13 @@ local function onTooltipShow(tip)
         end
     end
 
-    local itemName
+    local itemName, itemLink
     if tip.GetItem then
-        local ok, n = pcall(tip.GetItem, tip)
-        if ok then itemName = n end
+        local ok, n, l = pcall(tip.GetItem, tip)
+        if ok then itemName, itemLink = n, l end
     end
+
+    if itemLink and tip.coaruSetItemDone ~= itemLink then return end
 
     local isSpellTip = false
     if tip.GetSpell then
@@ -2091,10 +2463,17 @@ local function onTooltipShow(tip)
         or (ownerName ~= nil and ownerName:find(SCHOOL_OWNER, 1, true) ~= nil))
     local changed = false
     local inDelta = false
+    local foreign = false
     for i = 1, tip:NumLines() do
+
+        if foreign then break end
         for _, side in ipairs({ "TextLeft", "TextRight" }) do
             local fs = _G[name .. side .. i]
             local t = fs and fs:GetText()
+            if t and side == "TextLeft" and foreignBlockLine(t) then foreign = true end
+            if foreign then break end
+
+            if t and CoARU_IsGuildLine and CoARU_IsGuildLine(t) then t = nil end
             local polluted
 
             if t and CoARU_Unlocalize and CoARU_HasCyrillic(t)
@@ -2152,6 +2531,14 @@ local function onTooltipShow(tip)
                     if not (ru and ru ~= t) and CoARU_TranslateItemLabelBody then
                         ru = CoARU_TranslateItemLabelBody(t)
                     end
+
+                    if not (ru and ru ~= t) and CoARU_TranslateUnitLine then
+                        ru = CoARU_TranslateUnitLine(t)
+                    end
+
+                    if not (ru and ru ~= t) and CoARU_TranslateObjectiveLine then
+                        ru = CoARU_TranslateObjectiveLine(t)
+                    end
                     if ru and ru ~= t then
                         if inDelta then ru = colorizeDelta(ru) end
                         CoARU_SetTranslated(fs, t, ru)
@@ -2179,6 +2566,10 @@ local function onTooltipShow(tip)
                     if not (ru and ru ~= t) and CoARU_TimeRemaining then
                         ru, ten = CoARU_TimeRemaining(t)
                     end
+
+                    if not (ru and ru ~= t) and CoARU_FixTimeUnits then
+                        ru = CoARU_FixTimeUnits(t)
+                    end
                     if ru and ru ~= t then
                         CoARU_SetTranslated(fs, ten or t, ru)
                         changed = true
@@ -2196,6 +2587,8 @@ local function onTooltipShow(tip)
             end
         end
     end
+
+    if translateForeignBlock(tip, name) then changed = true end
 
     if changed and CoARU_AddHint and name == "GameTooltip" then
         CoARU_AddHint(tip)
@@ -2292,6 +2685,8 @@ local function installHooks()
                          WorldMapTooltip }) do
         if f and f.HookScript then
             f:HookScript("OnTooltipSetItem", onTooltipSetItem)
+
+            f:HookScript("OnTooltipCleared", function(self) self.coaruSetItemDone = nil end)
         end
     end
 
@@ -2341,8 +2736,7 @@ local function slash(cmd)
         return
     end
     if cmd == "" then
-        local t = 0
-        for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
+        local t = CoARU_CountLines and CoARU_CountLines() or 0
 
         msg(("русификатор Conquest of Azeroth. Переведено строк: %d."):format(t))
 
@@ -2351,6 +2745,7 @@ local function slash(cmd)
         print(("  |cffffd100%s|r над тултипом — показать оригинал на английском (сменить клавишу: /coaru original ctrl)"):format(key))
         print("  |cffffd100/coaru options|r — что переводить: предметы, статы, задания, имена (или значок у миникарты)")
         print("  |cffffd100/coaru link|r — где взять аддон и обновления")
+        print("  |cffffd100/coaru discord|r — сервер: новости, багрепорты, помощь")
         print("  поддержать автора: " .. DONATE_LINK)
         return
     end
@@ -2362,6 +2757,19 @@ local function slash(cmd)
     if cmd == "link" or cmd == "github" or cmd == "гит" or cmd == "ссылка"
        or cmd == "update" or cmd == "обновление" or cmd == "обновления" then
         showLink()
+        return
+    end
+
+    if cmd == "discord" or cmd == "дискорд" or cmd == "сервер" or cmd == "чат"
+       or cmd == "баг" or cmd == "багрепорт" or cmd == "помощь" then
+        msg("Discord-сервер: новости, багрепорты, предложения по переводу, помощь.")
+        if CoARU_DISCORD_OK then
+            print("|cff00ff00" .. CoARU_DISCORD_OK .. "|r")
+        else
+
+            print("  сервер |cffC495DDAscension Addons RU|r")
+        end
+        print("  отчёты о непереведённом: канал |cffC495DD#обсуждение-coaru|r")
         return
     end
     if isOptionsCmd(cmd) then
@@ -2550,7 +2958,15 @@ local function slash(cmd)
             print("  |cffffd1002.|r найди файл в папке игры:")
             print("|cff00ff00resources\\ascension-live\\WTF\\Account\\<аккаунт>"
                   .. "\\SavedVariables\\CoARU.lua|r")
-            print("  |cffffd1003.|r пришли его в Discord: |cffC495DDlocativeds|r")
+
+            if CoARU_DISCORD_OK then
+                print("  |cffffd1003.|r пришли его в Discord, канал "
+                      .. "|cffC495DD#обсуждение-coaru|r:")
+                print("|cff00ff00" .. CoARU_DISCORD_OK .. "|r")
+            else
+                print("  |cffffd1003.|r пришли его в Discord, канал "
+                      .. "|cffC495DD#обсуждение-coaru|r (сервер Ascension Addons RU)")
+            end
 
             return
         end
@@ -2572,6 +2988,12 @@ local function slash(cmd)
                     CoARU_PACK_VERSION, CoARU_INTERFACE_PACK or "?",
                     CoARU_PACK_STAMP or "|cffff0000нет (пакет старой сборки)|r")
                 or "|cffff0000не установлен|r"))
+
+        if CoARU_ChunkCacheStat then
+            local en, ru, q, cap = CoARU_ChunkCacheStat()
+            msg(("кэш кусков базы: описания %d+%d, задания %d, потолок %d на ячейку")
+                :format(en, ru, q, cap))
+        end
 
         if CoARU_PaperDollStatus then
             local n, where, fs = CoARU_PaperDollStatus()
@@ -2633,31 +3055,23 @@ local function slash(cmd)
         end
     elseif cmd == "clear" then
 
-        CoARU_DB.dump = {}
-        CoARU_DB.classids = nil
-        CoARU_DB.probe = nil
-        CoARU_DB.castrings = nil
-        CoARU_DB.specinfo = nil
-        CoARU_DB.catext = nil
-        CoARU_DB.trainerdump = nil
-        CoARU_DB.trainercolor = nil
-        CoARU_DB.gossipdbg = nil
-        CoARU_DB.trainerscan = nil
-        CoARU_DB.uimiss = nil
-        CoARU_DB.uimissrc = nil
-        CoARU_DB.origmiss = nil
-        CoARU_DB.lines = nil
-        CoARU_DB.questdump = nil
-        CoARU_DB.geom = nil
-        CoARU_DB.tipgeom = nil
-        CoARU_DB.altdump = nil
-        CoARU_DB.frames = nil
-        CoARU_DB.colormiss = nil
-        CoARU_DB.bcraw = nil
-        CoARU_DB.colorstat = nil
+        local KEEP = {
+            opts = true,
+            ver = true,
+            uirec = true,
+            hitch = true,
+        }
+        local wiped = {}
+        for k in pairs(CoARU_DB) do
+            if not KEEP[k] then wiped[#wiped + 1] = k end
+        end
+        table.sort(wiped)
 
+        for i = 1, #wiped do CoARU_DB[wiped[i]] = nil end
+        CoARU_DB.dump = {}
         CoARU_DB.miss = {}
-        msg("дамп очищен (включая собранные дыры).")
+        msg(("дамп очищен: секций %d (%s), собранные дыры тоже.")
+            :format(#wiped, table.concat(wiped, ", ")))
     elseif cmd == "plates" then
 
         if CoARU_AscUI_Nameplates then
@@ -3063,6 +3477,137 @@ local function slash(cmd)
                     r.gap, r.scan or "нет", r.mem, r.zone or "?"))
             end
         end
+    elseif cmd == "packnew" then
+
+        local new = CoARU_PACK_NEW
+        if not new then
+            msg("пакет не загружен либо он старее 2026-08-04 (нет CoARU_PACK_NEW)")
+            msg("скопируй свежий: Interface\\PTRXML и Interface\\CoARU_Loc, потом полный перезаход")
+        else
+            CoARU_DB.packnew = {}
+            for i = 1, #new do CoARU_DB.packnew[i] = new[i] end
+            msg(("ключей, которых у клиента НЕТ (пакет их НЕ ставит): %d"):format(#new))
+            for i = 1, math.min(#new, 20) do
+                msg(("  %s = %q"):format(new[i], tostring(_G[new[i]])))
+            end
+            if #new > 20 then msg(("  ... ещё %d, полный список в SavedVariables"):format(#new - 20)) end
+        end
+    elseif cmd:match("^order") then
+
+        local a = cmd:match("^order%s+(%S+)")
+        if a == "off" then
+            CoARU_DB.opts.order = nil
+            msg("запись порядка хуков выключена")
+        elseif a == "on" then
+            CoARU_DB.opts.order = true
+            CoARU_DB.order = {}
+            CoARU_HookOrderChat()
+            msg("запись порядка хуков включена. Наведи мышь на предмет, потом /reload")
+            msg("строки соседа тоже попадут в запись — включи его отладку (/lcwf debug)")
+            msg("выхлоп: SavedVariables, ключ order. Выключить: /coaru order off")
+        else
+            local n = #(CoARU_DB.order or {})
+            msg(("запись порядка хуков: %s, строк %d"):format(
+                CoARU_DB.opts.order and "ВКЛ" or "выкл", n))
+            for i = 1, math.min(n, 12) do msg("  " .. CoARU_DB.order[i]) end
+        end
+    elseif cmd == "foreign" then
+
+        local tip = CoARU_ForeignTip
+        if not tip then
+            tip = CreateFrame("GameTooltip", "CoARU_ForeignTip", nil, "GameTooltipTemplate")
+            CoARU_ForeignTip = tip
+        end
+
+        local function pat(s)
+            if type(s) ~= "string" then return nil end
+            local ok, p = pcall(string.format, s, "")
+            return ok and p or nil
+        end
+        local ruPat = pat(ITEM_CLASSES_ALLOWED)
+        local enPat = pat(CoARU_EN and CoARU_EN("ITEM_CLASSES_ALLOWED"))
+        local function hit(text, p)
+            if not text or not p then return false end
+            local ok, m = pcall(strmatch, text, p)
+
+            if not ok then return nil end
+            return m and true or false
+        end
+        CoARU_DB.foreigntip = {}
+        local items, withNil, reached, drawnEn, drawnRu, patErr = 0, 0, 0, 0, 0, 0
+        for bag = 0, NUM_BAG_FRAMES do
+            for slot = 1, (GetContainerNumSlots(bag) or 0) do
+                local id = GetContainerItemID and GetContainerItemID(bag, slot)
+                local link, ty
+                if id then
+
+                    local _, l, _, _, _, t6 = GetItemInfo(id)
+                    link, ty = l, t6
+                end
+                if link and (ty == "Armor" or ty == "Weapon") then
+                    items = items + 1
+                    tip:SetOwner(UIParent, "ANCHOR_NONE")
+                    tip:SetHyperlink(link)
+                    local n = tip:NumLines()
+                    local nils, firstNil, ruAt, enAt, clsText = {}, nil, nil, nil, nil
+                    for i = 1, n do
+                        local fs = _G["CoARU_ForeignTipTextLeft" .. i]
+                        local t = fs and fs:GetText()
+                        if t == nil then
+                            nils[#nils + 1] = i
+                            firstNil = firstNil or i
+                        else
+                            local r, e = hit(t, ruPat), hit(t, enPat)
+                            if r == nil or e == nil then patErr = patErr + 1 end
+                            if r and not ruAt then ruAt, clsText = i, t end
+                            if e and not enAt then enAt, clsText = i, clsText or t end
+                        end
+                    end
+                    if #nils > 0 then withNil = withNil + 1 end
+                    if enAt and not ruAt then drawnEn = drawnEn + 1 end
+                    if ruAt then drawnRu = drawnRu + 1 end
+
+                    if firstNil and (not ruAt or ruAt > firstNil) then reached = reached + 1 end
+                    if #nils > 0 or (enAt and not ruAt) then
+
+                        local txt = {}
+                        for i = 1, n do
+                            local lf = _G["CoARU_ForeignTipTextLeft" .. i]
+                            local rf = _G["CoARU_ForeignTipTextRight" .. i]
+                            local lt = lf and lf:GetText()
+                            local rt = rf and rf:GetText()
+                            txt[#txt + 1] = ("%d L=%s%s"):format(
+                                i, lt == nil and "<НЕТ ТЕКСТА>" or ("[" .. lt .. "]"),
+                                rt and (" R=[" .. rt .. "]") or "")
+                        end
+                        CoARU_DB.foreigntip[#CoARU_DB.foreigntip + 1] = {
+                            link = link, lines = n, nils = table.concat(nils, ","),
+                            ruAt = ruAt, enAt = enAt, cls = clsText,
+                            text = table.concat(txt, " | "),
+                        }
+                    end
+                end
+            end
+        end
+        msg(("предметов брони и оружия в сумках: %d"):format(items))
+        msg(("  со строкой БЕЗ текста: %d (у соседа это nil в strmatch)"):format(withNil))
+        msg(("  сосед реально дойдёт до неё: %d"):format(reached))
+        msg(("  строку «Классы» клиент нарисовал по-русски: %d, по-английски: %d")
+            :format(drawnRu, drawnEn))
+        if patErr > 0 then
+            msg(("  ОТДЕЛЬНО: strmatch упал на %d строках — в надписи магия шаблона Lua")
+                :format(patErr))
+        end
+        msg(("шаблон соседа: %q | английский эталон: %q"):format(
+            tostring(ruPat), tostring(enPat)))
+
+        if ruPat == enPat then
+            msg("эталон совпал с текущей глобалкой: снимка пакета нет, деление по языку не мерено")
+        end
+        if items == 0 then
+            msg("сумок не видно или брони с оружием в них нет — это НЕ «дефекта нет»")
+        end
+        msg("подробности после /reload: SavedVariables, ключ foreigntip")
     elseif cmd == "who" then
 
         local tip = GameTooltip
@@ -3374,6 +3919,21 @@ local function announceVersion()
     if IsInGuild and IsInGuild() then say("GUILD") end
 end
 
+CoARU_InstallHooks = installHooks
+
+local hookTimer
+function CoARU_DeferHooks()
+    if hookTimer then return end
+    hookTimer = CreateFrame("Frame")
+    local left = 2
+    hookTimer:SetScript("OnUpdate", function(self)
+        left = left - 1
+        if left > 0 then return end
+        self:SetScript("OnUpdate", nil)
+        CoARU_InstallHooks()
+    end)
+end
+
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:RegisterEvent("PLAYER_LOGIN")
@@ -3402,9 +3962,8 @@ f:SetScript("OnEvent", function(self, event, arg1, arg2, arg3, arg4)
 
         pcall(announceVersion)
     elseif event == "PLAYER_LOGIN" then
-        installHooks()
-        local t = 0
-        for _ in pairs(CoARU_LOC_EN or {}) do t = t + 1 end
+        CoARU_DeferHooks()
+        local t = CoARU_CountLines and CoARU_CountLines() or 0
         local ver = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")) or ""
         local author = (GetAddOnMetadata and GetAddOnMetadata("CoARU", "Author")) or "Locative"
 

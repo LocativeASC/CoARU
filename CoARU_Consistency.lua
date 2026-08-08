@@ -27,7 +27,8 @@ probe:SetScript("OnEvent", function(_, ev)
 end)
 
 function CoARU_ModBlocked(key)
-    if (key == "names" or key == "nameplates") and CoARU_CacheRu() then
+
+    if key == "names" and CoARU_CacheRu() then
 
         return "имена стоят из пропатченного кэша, тумблер их не вернет"
     end

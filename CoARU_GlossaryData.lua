@@ -7927,7 +7927,7 @@ if t[1067074]==nil then t[1067074]="Клобук ведуна" end
 if t[1067075]==nil then t[1067075]="Шлем праведника" end
 if t[1067106]==nil then t[1067106]="Боевой шлем могучего" end
 if t[1067127]==nil then t[1067127]="Нагрудный доспех роковой брони" end
-if t[106948]==nil then t[106948]="Руна отступления тайной магии" end
+if t[106948]==nil then t[106948]="Руна возвращения тайной магии" end
 if t[106949]==nil then t[106949]="Огненная Руна Отступления" end
 if t[106950]==nil then t[106950]="Морозная Руна Отступления" end
 if t[106951]==nil then t[106951]="Темная Руна Отступления" end
@@ -22124,7 +22124,7 @@ if t[8210191]==nil then t[8210191]="Двуручный меч Претенден
 if t[8210192]==nil then t[8210192]="Алтарь мистических чар мастера сборки" end
 if t[8210197]==nil then t[8210197]="Предначертанный Мистический Алтарь Зачарования" end
 if t[82313]==nil then t[82313]="Знамя Черного Клинка" end
-if t[82314]==nil then t[82314]="Морознокованая руна отступления" end
+if t[82314]==nil then t[82314]="Морознокованая руна возвращения" end
 if t[82423]==nil then t[82423]="Претендентское шелковое облачение" end
 if t[82426]==nil then t[82426]="Претендентские шелковые манжеты" end
 if t[82428]==nil then t[82428]="Претендентский шелковый пояс" end
@@ -23728,7 +23728,7 @@ if t["Aquamarine Garments of the Fallen Sorcerer"]==nil then t["Aquamarine Garme
 if t["Ar Relic"]==nil then t["Ar Relic"]="Реликвия \"Ар" end
 if t["Arcana Shard Spire"]==nil then t["Arcana Shard Spire"]="Посох с зачарованным кристаллом" end
 if t["Arcane Orb"]==nil then t["Arcane Orb"]="Чародейский шар" end
-if t["Arcane Rune of Retreat"]==nil then t["Arcane Rune of Retreat"]="Руна отступления тайной магии" end
+if t["Arcane Rune of Retreat"]==nil then t["Arcane Rune of Retreat"]="Руна возвращения тайной магии" end
 if t["Arcane Tempest's Regalia"]==nil then t["Arcane Tempest's Regalia"]="Регалии магического урагана" end
 if t["Arcanist Belt"]==nil then t["Arcanist Belt"]="Пояс чародея" end
 if t["Arcanist Bindings"]==nil then t["Arcanist Bindings"]="Наручники чародея" end
@@ -24558,7 +24558,7 @@ if t["Frostfire Belt"]==nil then t["Frostfire Belt"]="Пояс ледяного 
 if t["Frostfire Leggings"]==nil then t["Frostfire Leggings"]="Поножи ледяного огня" end
 if t["Frostfire Robe"]==nil then t["Frostfire Robe"]="Одеяние ледяного огня" end
 if t["Frostfire Sandals"]==nil then t["Frostfire Sandals"]="Сандалии ледяного огня" end
-if t["Frostforged Rune of Retreat"]==nil then t["Frostforged Rune of Retreat"]="Морознокованая руна отступления" end
+if t["Frostforged Rune of Retreat"]==nil then t["Frostforged Rune of Retreat"]="Морознокованая руна возвращения" end
 if t["Frostplains Battleboar"]==nil then t["Frostplains Battleboar"]="Боевой вепрь ледяных равнин" end
 if t["Frostsavage Belt"]==nil then t["Frostsavage Belt"]="Пояс ледяной ярости" end
 if t["Frostsavage Boots"]==nil then t["Frostsavage Boots"]="Сапоги ледяной ярости" end

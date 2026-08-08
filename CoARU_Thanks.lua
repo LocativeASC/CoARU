@@ -5,6 +5,8 @@ CoARU_THANKS = {
         "nikonavr",
         "KlafilinOFF",
         "fdish",
+
+        "crush71",
     },
 
     data = {

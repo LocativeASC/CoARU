@@ -3,7 +3,9 @@ local MAX_DEPTH = 12
 local TICK = 0
 
 local ROOTS = { "CallBoardUI", "PathToAscensionFrame", "TradeSkillFrame", "ChallengesFrame",
-                "ProgressionFrame" }
+                "ProgressionFrame", "KeyboundDialog" }
+
+local PANELS = { "Collections", "ToastContainer", "CoAClassBundleStore", "RestartTimerFrame" }
 
 local POOL = {}
 for i = 1, 8 do
@@ -13,14 +15,16 @@ end
 local MISS_CAP = 3000
 
 local function noteMiss(t)
-    if not CoARU_DB then return end
+    if not CoARU_DB then return false end
     CoARU_DB.uimiss = CoARU_DB.uimiss or {}
     local m = CoARU_DB.uimiss
-    if m[t] then return end
+    if m[t] then return false end
     local n = 0
     for _ in pairs(m) do n = n + 1 end
-    if n >= MISS_CAP then return end
-    m[t] = true
+    if n >= MISS_CAP then return false end
+
+    m[t] = (date and date("%d.%m %H:%M")) or true
+    return true
 end
 
 local function looksEnglish(t)
@@ -28,7 +32,99 @@ local function looksEnglish(t)
     return t:find("%a%a%a") ~= nil
 end
 
-local function lookup(t)
+local function zoneRU(name)
+    if type(name) ~= "string" or name == "" or not CoARU_ZONE then return nil end
+    local key
+    if CoARU_ZONE[name] then
+        key = name
+    elseif CoARU_ZONE["The " .. name] then
+        key = "The " .. name
+    else
+        return nil
+    end
+    local inst = CoARU_ZONE_INST and (CoARU_ZONE_INST[key] or CoARU_ZONE_INST[name])
+    if inst then
+        if not CoARU_ModOn("dungeons") then return nil end
+    else
+        if not CoARU_ModOn("zones") then return nil end
+    end
+    return CoARU_ZONE[key]
+end
+
+local function expandCaps(rep, ...)
+    local caps, n = { ... }, select("#", ...)
+    return (rep:gsub("%%(.)", function(c)
+        if c == "%" then return "%" end
+        local i = tonumber(c)
+        if not i or i < 1 or i > n then return "%" .. c end
+        local v = caps[i]
+        if type(v) ~= "string" then return tostring(v) end
+        return zoneRU(v) or v
+    end))
+end
+
+local lookupCache, lookupN = {}, 0
+
+local DIFFICULTY = {
+
+    Heroic = "героический",
+    Mythic = "эпохальный",
+    Normal = "обычный",
+}
+
+local function wrapNameRU(n)
+    if type(n) ~= "string" or n == "" then return nil end
+
+    if n:find("%.$") or not n:find("^[A-Z]") then return nil end
+    local words = 0
+    for _ in n:gmatch("%S+") do
+        words = words + 1
+        if words > 5 then return nil end
+    end
+    local ru = (CoARU_ItemNameEN and CoARU_ItemNameEN[n])
+        or (CoARU_UNIT_N2R and CoARU_UNIT_N2R[n])
+        or (CoARU_OBJ_N2R and CoARU_OBJ_N2R[n])
+        or (CoARU_SPELL_NAME_RU and CoARU_SPELL_NAME_RU[n])
+    if ru and ru ~= n then return ru end
+    return nil
+end
+
+local function nameInWrapper(t)
+
+    local head, body = t:match("^(%s*%-%s+)(.+)$")
+    if body then
+        local ru = wrapNameRU(body)
+        if ru then return head .. ru end
+    end
+
+    body = t:match("^Defeat:%s+(.+)$")
+    if body then
+        local ru = wrapNameRU(body)
+        if ru then return "Победить: " .. ru end
+    end
+
+    body = t:match("^Slay%s+(.+)$")
+    if body then
+        local suffix = ""
+        local d, tail = body:match("^(%a+)%s+(.+)$")
+        if d and DIFFICULTY[d] then
+            body, suffix = tail, " (" .. DIFFICULTY[d] .. ")"
+        end
+        local ru = wrapNameRU(body)
+        if ru then return "Убить: " .. ru .. suffix end
+    end
+
+    local pre, core, post = t:match("^(.-)%[(.-)%](.-)$")
+    if core and core ~= ""
+       and (pre == "" or pre:find("^|[cC]%x%x%x%x%x%x%x%x$"))
+       and (post == "" or post:find("^|[rR]$")) then
+        local ru = wrapNameRU(core)
+        if ru then return pre .. "[" .. ru .. "]" .. post end
+    end
+    return nil
+end
+
+local function lookupUncached(t)
 
     local ru = CoARU_TUT and CoARU_TUT[t]
     if ru then return ru end
@@ -46,7 +142,9 @@ local function lookup(t)
         for i = 1, #CoARU_ASCUI_P do
             local e = CoARU_ASCUI_P[i]
             if trimmed:find(e.p) then
-                local out = trimmed:gsub(e.p, e.r)
+                local out = trimmed:gsub(e.p, function(...)
+                    return expandCaps(e.r, ...)
+                end)
                 if out and out ~= trimmed then return out end
             end
         end
@@ -56,7 +154,32 @@ local function lookup(t)
         local ok, res = pcall(CoARU_TranslateBlock, nil, t)
         if ok and res and res ~= t then return res end
     end
+
+    if CoARU_SpecNameRU then
+        local ru = CoARU_SpecNameRU(trimmed)
+        if ru then return ru end
+    end
+
+    local wrapped = nameInWrapper(t)
+    if wrapped then return wrapped end
     return nil
+end
+
+local LOOKUP_CAP = 4000
+
+local function lookup(t)
+    local hit = lookupCache[t]
+    if hit ~= nil then
+        if hit == false then return nil end
+        return hit
+    end
+    local ru = lookupUncached(t)
+    if lookupN >= LOOKUP_CAP then
+        lookupCache, lookupN = {}, 0
+    end
+    lookupCache[t] = ru or false
+    lookupN = lookupN + 1
+    return ru
 end
 
 local function chunkKey(s)
@@ -210,10 +333,13 @@ local function tutParagraphs(t)
     return table.concat(out)
 end
 
-local function setText(fs, s)
+local function setText(fs, s, en)
     if fs.SetDynamicText then
         local ok = pcall(fs.SetDynamicText, fs, s)
         if ok then return true end
+    end
+    if en and CoARU_SetTranslated then
+        return (pcall(CoARU_SetTranslated, fs, en, s))
     end
     return (pcall(fs.SetText, fs, s))
 end
@@ -229,7 +355,7 @@ local function retextOne(fs)
     if tradeMode and CoARU_TRADE_FILTER then
         local ru = CoARU_TRADE_FILTER[t:match("^%s*(.-)%s*$")]
         if ru then
-            setText(fs, ru)
+            setText(fs, ru, t)
             return
         end
     end
@@ -237,7 +363,7 @@ local function retextOne(fs)
     if t:find("<[^>]->") or t:find("{[^}]-}") then
         local html = translateHtml(t)
         if html then
-            setText(fs, html)
+            setText(fs, html, t)
             return
         end
     end
@@ -246,11 +372,10 @@ local function retextOne(fs)
 
     if not ru and CoARU_TUT_CHUNK then ru = tutParagraphs(t) end
     if ru then
-        setText(fs, ru)
+        setText(fs, ru, t)
     else
-        noteMiss(t)
 
-        if CoARU_DB then
+        if noteMiss(t) and CoARU_DB then
             CoARU_DB.uimissrc = CoARU_DB.uimissrc or {}
             local root = fs
             for _ = 1, 12 do
@@ -303,36 +428,60 @@ local function stillEnglish(html)
     return false
 end
 
-local function retext(frame, depth)
+local retext
+
+local function doRegions(...)
+    for i = 1, select("#", ...) do
+        local r = select(i, ...)
+        if r and r.GetObjectType and r:GetObjectType() == "FontString" then
+            retextOne(r)
+        end
+    end
+end
+
+local function regionsOf(frame)
+    return doRegions(frame:GetRegions())
+end
+
+local function objType(o)
+    return o.GetObjectType and o:GetObjectType()
+end
+
+local function isShown(o)
+    if not o.IsShown then return nil end
+    return o:IsShown() and true or false
+end
+
+local function doChildren(depth, ...)
+    for i = 1, select("#", ...) do
+        local c = select(i, ...)
+
+        local shownOk, shown = pcall(isShown, c)
+        if shownOk and shown == false then
+
+        else
+        local o, kind = pcall(objType, c)
+        if o and kind == "SimpleHTML" then
+
+            hookHtml(c)
+            retextOne(c)
+
+            if stillEnglish(c) then retext(c, depth + 1) end
+        else
+            retext(c, depth + 1)
+        end
+        end
+    end
+end
+
+local function childrenOf(frame, depth)
+    return doChildren(depth, frame:GetChildren())
+end
+
+retext = function(frame, depth)
     if not frame or depth > MAX_DEPTH then return end
-    if frame.GetRegions then
-        local ok, regions = pcall(function() return { frame:GetRegions() } end)
-        if ok then
-            for _, r in ipairs(regions) do
-                if r and r.GetObjectType and r:GetObjectType() == "FontString" then
-                    retextOne(r)
-                end
-            end
-        end
-    end
-    if frame.GetChildren then
-        local ok, children = pcall(function() return { frame:GetChildren() } end)
-        if ok then
-            for _, c in ipairs(children) do
-
-                local o, kind = pcall(function() return c.GetObjectType and c:GetObjectType() end)
-                if o and kind == "SimpleHTML" then
-
-                    hookHtml(c)
-                    retextOne(c)
-
-                    if stillEnglish(c) then retext(c, depth + 1) end
-                else
-                    retext(c, depth + 1)
-                end
-            end
-        end
-    end
+    if frame.GetRegions then pcall(regionsOf, frame) end
+    if frame.GetChildren then pcall(childrenOf, frame, depth) end
 end
 
 function CoARU_AscUI_Probe()
@@ -350,7 +499,8 @@ function CoARU_AscUI_Probe()
             out[#out + 1] = {
                 path = path .. "/" .. name, kind = kind,
                 readable = txt ~= nil and #tostring(txt) > 0,
-                sample = txt and tostring(txt):sub(1, 60) or nil,
+
+                sample = txt and CoARU_Utf8Sub(tostring(txt), 60) or nil,
             }
         end
         if f.GetRegions then
@@ -430,6 +580,10 @@ function CoARU_AscUI_Sweep()
         local f = _G[name]
         if f and f.IsShown and f:IsShown() then retext(f, 0) end
     end
+    for _, name in ipairs(PANELS) do
+        local f = _G[name]
+        if f and f.IsShown and f:IsShown() then retext(f, 0) end
+    end
     for _, name in ipairs(POOL) do
         local f = _G[name]
         if f and f.IsShown and f:IsShown() then retext(f, 0) end
@@ -453,6 +607,51 @@ for _, fn in ipairs({ "TradeSkillFrame_Update", "TradeSkillFrame_SetSelection",
                       "TradeSkillFrame_Show", "UIDropDownMenu_Refresh", "ToggleDropDownMenu" }) do
     if type(_G[fn]) == "function" then
         pcall(hooksecurefunc, fn, CoARU_TradeSkillRetext)
+    end
+end
+
+local function popupOne(dialog)
+    if not dialog or not dialog.GetName then return end
+    local ok, name = pcall(dialog.GetName, dialog)
+    if not ok or type(name) ~= "string" then return end
+    local fs = _G[name .. "Text"]
+    if not fs or not fs.GetText then return end
+    local ok2, t = pcall(fs.GetText, fs)
+    if not ok2 or type(t) ~= "string" or not t:find("%S") then return end
+
+    if not looksEnglish(t) then return end
+
+    local ru = lookup(t)
+    if not ru or ru == t then
+        noteMiss(t)
+        if CoARU_DB then
+            CoARU_DB.uimissrc = CoARU_DB.uimissrc or {}
+            CoARU_DB.uimissrc[t] = name
+        end
+        return
+    end
+
+    if not CoARU_SetTranslated then return end
+    CoARU_SetTranslated(fs, t, ru)
+
+    if dialog.which and type(_G.StaticPopup_Resize) == "function" then
+        pcall(_G.StaticPopup_Resize, dialog, dialog.which)
+    end
+end
+
+function CoARU_StaticPopupRetext()
+    if not CoARU_ModOn("ascui") then return end
+
+    local n = _G.STATICPOPUP_NUMDIALOGS or 4
+    for i = 1, n do
+        local d = _G["StaticPopup" .. i]
+        if d and d.IsShown and d:IsShown() then popupOne(d) end
+    end
+end
+
+for _, fn in ipairs({ "StaticPopup_Show", "StaticPopup_UpdateText", "StaticPopup_OnShow" }) do
+    if type(_G[fn]) == "function" then
+        pcall(hooksecurefunc, fn, CoARU_StaticPopupRetext)
     end
 end
 
@@ -490,34 +689,49 @@ local function recNote(t, owner)
     CoARU_DB.uimissrc[t] = owner
 end
 
-local function recWalk(f, depth, owner, t0)
+local recWalk
+
+local function recRegions(owner, ...)
+    for i = 1, select("#", ...) do
+        local r = select(i, ...)
+        if r and r.GetObjectType and r:GetObjectType() == "FontString" then
+            local o, t = pcall(r.GetText, r)
+            if o then recNote(t, owner) end
+        end
+    end
+end
+
+local function recRegionsOf(f, owner)
+    return recRegions(owner, f:GetRegions())
+end
+
+local function recKids(depth, owner, t0, ...)
+    for i = 1, select("#", ...) do
+        local c = select(i, ...)
+        local shownOk, shown = pcall(isShown, c)
+        if shownOk and shown == false then
+
+        else
+            local o, kind = pcall(objType, c)
+            if o and kind == "SimpleHTML" then
+                local o2, t = pcall(c.GetText, c)
+                if o2 then recNote(t, owner) end
+            end
+            recWalk(c, depth + 1, owner, t0)
+        end
+    end
+end
+
+local function recKidsOf(f, depth, owner, t0)
+    return recKids(depth, owner, t0, f:GetChildren())
+end
+
+recWalk = function(f, depth, owner, t0)
     if not f or depth > REC_DEPTH then return end
     local dt = debugprofilestop() - t0
     if dt < 0 or dt > REC_BUDGET then return end
-    if f.GetRegions then
-        local ok, rs = pcall(function() return { f:GetRegions() } end)
-        if ok then
-            for _, r in ipairs(rs) do
-                if r and r.GetObjectType and r:GetObjectType() == "FontString" then
-                    local o, t = pcall(r.GetText, r)
-                    if o then recNote(t, owner) end
-                end
-            end
-        end
-    end
-    if f.GetChildren then
-        local ok, cs = pcall(function() return { f:GetChildren() } end)
-        if ok then
-            for _, c in ipairs(cs) do
-                local o, kind = pcall(function() return c.GetObjectType and c:GetObjectType() end)
-                if o and kind == "SimpleHTML" then
-                    local o2, t = pcall(c.GetText, c)
-                    if o2 then recNote(t, owner) end
-                end
-                recWalk(c, depth + 1, owner, t0)
-            end
-        end
-    end
+    if f.GetRegions then pcall(recRegionsOf, f, owner) end
+    if f.GetChildren then pcall(recKidsOf, f, depth, owner, t0) end
 end
 
 function CoARU_AscUI_Record(frame, owner)
@@ -606,6 +820,25 @@ local function tryHook()
             end
         end
     end
+
+    for _, name in ipairs(PANELS) do
+        local f = _G[name]
+        if f and not hooked[name] and f.HookScript then
+            hooked[name] = true
+            f:HookScript("OnShow", function(self)
+                if CoARU_ModOn("ascui") then retext(self, 0) end
+            end)
+            local acc = 0
+            f:HookScript("OnUpdate", function(self, elapsed)
+                acc = acc + (elapsed or 0)
+                if acc >= TICK then
+                    acc = 0
+                    if CoARU_ModOn("ascui") then retext(self, 0) end
+                end
+            end)
+            if f:IsShown() then retext(f, 0) end
+        end
+    end
 end
 
 local waiter = CreateFrame("Frame")
@@ -615,7 +848,9 @@ waiter:SetScript("OnUpdate", function(_, elapsed)
     if acc < 1 then return end
     acc = 0
     tryHook()
+
     local all = true
     for _, name in ipairs(ROOTS) do if not hooked[name] then all = false end end
+    for _, name in ipairs(PANELS) do if not hooked[name] then all = false end end
     if all then waiter:SetScript("OnUpdate", nil) end
 end)

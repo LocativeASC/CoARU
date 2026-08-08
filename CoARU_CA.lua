@@ -210,10 +210,16 @@ local function retext(frame, depth)
                     local t = r:GetText()
                     if t then
                         local base, color = stripColor(t)
-                        local ru = T[base]
+
+                        local ru = T[base] or (CoARU_SpecNameRU and CoARU_SpecNameRU(base))
                         if ru then
-                            if color then ru = color .. ru .. "|r" end
-                            pcall(function() r:SetText(ru) end)
+                            local shown = color and (color .. ru .. "|r") or ru
+
+                            if CoARU_SetTranslated then
+                                CoARU_SetTranslated(r, t, shown)
+                            else
+                                pcall(function() r:SetText(shown) end)
+                            end
                         end
                     end
                 end

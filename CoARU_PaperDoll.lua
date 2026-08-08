@@ -150,6 +150,9 @@ local PLAIN = {
     ["Enhancements"]    = "Улучшения",
     ["Item Level"]      = "Уровень предметов",
     ["Prestige Level"]  = "Уровень престижа",
+
+    ["PvE Power"]       = "Сила PvE",
+    ["PvP Power"]       = "Сила PvP",
 }
 
 local TIPS = {

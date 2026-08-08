@@ -152,6 +152,21 @@ function CoARU_TranslateError(msg)
             return ru
         end
     end
+
+    local zone, boss = msg:match("^You have entered (.+)%. Slay (.+) to complete the dungeon%.$")
+    if zone and boss then
+        return ("Вы вошли в подземелье %s. Цель: убить %s."):format(zone, boss)
+    end
+
+    if CoARU_TranslateObjectiveLine then
+        local ok, ru = pcall(CoARU_TranslateObjectiveLine, msg)
+        if ok and ru and ru ~= msg then return ru end
+    end
+
+    if CoARU_TranslateBlock then
+        local ok, ru = pcall(CoARU_TranslateBlock, nil, msg)
+        if ok and ru and ru ~= msg then return ru end
+    end
     if #msg > 12 and CoARU_NoteMiss and not (CoARU_HasCyrillic and CoARU_HasCyrillic(msg)) then
         CoARU_NoteMiss("uierror", msg)
     end
@@ -266,7 +281,8 @@ function CoARU_ItemNameLine(plain)
 end
 
 local PREFIX_RULES = {
-    { "^Unique%-Equipped: ", "Уникальная экипировка: " },
+
+    { "^Unique%-Equipped: ", "Уникальный использующийся: " },
 
     { "^Transmogrified to: ", "Внешность предмета: " },
 }

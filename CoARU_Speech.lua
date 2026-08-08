@@ -135,13 +135,22 @@ local function bubbleText(frame)
     return fs
 end
 
+local kids = {}
+
+local function collect(...)
+    local n = select("#", ...)
+    for i = 1, n do kids[i] = (select(i, ...)) end
+    for i = n + 1, #kids do kids[i] = nil end
+    return n
+end
+
 local function walkBubbles(en, ru)
     local wf = _G.WorldFrame
     if not wf or not wf.GetChildren then return end
-    local ok, cnt = pcall(function() return select("#", wf:GetChildren()) end)
+    local ok, cnt = pcall(function() return collect(wf:GetChildren()) end)
     if not ok then return end
     for i = 1, cnt do
-        local child = select(i, wf:GetChildren())
+        local child = kids[i]
         if child and not (child.GetName and child:GetName()) then
             local fs = bubbleText(child)
             local t = fs and fs.GetText and fs:GetText()

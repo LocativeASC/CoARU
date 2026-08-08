@@ -94,17 +94,43 @@ local ITEM_OBJ = {
     "^(%s*%-?%s*)(.-)(:%s*)(%d+%s*/%s*%d+)%s*$",
 }
 
+local OBJ_VERBS = {
+    { "^(.-)%s+[Ss]lain$",        "убито" },
+    { "^(.-)%s+Put to Rest$",     "упокоено" },
+    { "^(.-)%s+[Dd]efeated$",     "побеждено" },
+}
+
+local function objNameRU(name)
+    local ru = CoARU_ItemNameEN and CoARU_ItemNameEN[name]
+    if not ru then ru = CoARU_UNIT_N2R and CoARU_UNIT_N2R[name] end
+    if ru and ru ~= name then return ru end
+    return nil
+end
+
 local function objectiveItemRU(t)
-    if not CoARU_ItemNameEN then return nil end
+    if not CoARU_ItemNameEN and not CoARU_UNIT_N2R then return nil end
     for i = 1, #ITEM_OBJ do
         local head, body, sep, cnt = t:match(ITEM_OBJ[i])
         if body and body ~= "" then
-            local ru = CoARU_ItemNameEN[body]
+            local ru = objNameRU(body)
             if ru then return head .. ru .. sep .. cnt end
+
+            for k = 1, #OBJ_VERBS do
+                local name = body:match(OBJ_VERBS[k][1])
+                if name and name ~= "" then
+                    return head .. (objNameRU(name) or name) .. " " .. OBJ_VERBS[k][2]
+                        .. sep .. cnt
+                end
+            end
+
+            local qru = CoARU_QuestLookup and CoARU_QuestLookup(body)
+            if qru and qru ~= body then return head .. qru .. sep .. cnt end
         end
     end
     return nil
 end
+
+CoARU_TranslateObjectiveLine = objectiveItemRU
 
 local lookupCache, lookupN = {}, 0
 
@@ -143,22 +169,79 @@ local function qlookup(t)
     return ru
 end
 
+local RACE_RU = {
+    ["Human"] = "человек", ["Dwarf"] = "дворф", ["Night Elf"] = "ночной эльф",
+    ["Gnome"] = "гном", ["Draenei"] = "дреней", ["Worgen"] = "ворген",
+    ["Orc"] = "орк", ["Undead"] = "нежить", ["Scourge"] = "нежить",
+    ["Tauren"] = "таурен", ["Troll"] = "тролль", ["Blood Elf"] = "эльф крови",
+    ["Goblin"] = "гоблин", ["Pandaren"] = "пандарен",
+}
+
+local CLASS_RU_ONE = {
+    ["Warrior"] = "воин", ["Paladin"] = "паладин", ["Hunter"] = "охотник",
+    ["Rogue"] = "разбойник", ["Priest"] = "жрец", ["Shaman"] = "шаман",
+    ["Mage"] = "маг", ["Warlock"] = "чернокнижник", ["Druid"] = "друид",
+    ["Death Knight"] = "рыцарь смерти",
+}
+
+local function capFirst(s)
+    local b1, b2 = s:byte(1, 2)
+    if b1 == 208 and b2 and b2 >= 176 and b2 <= 191 then
+        return string.char(208, b2 - 32) .. s:sub(3)
+    elseif b1 == 209 and b2 and b2 >= 128 and b2 <= 143 then
+        return string.char(208, b2 + 32) .. s:sub(3)
+    end
+    return s
+end
+local function lowFirst(s)
+    local b1, b2 = s:byte(1, 2)
+    if b1 == 208 and b2 and b2 >= 144 and b2 <= 159 then
+        return string.char(208, b2 + 32) .. s:sub(3)
+    elseif b1 == 208 and b2 and b2 >= 160 and b2 <= 175 then
+        return string.char(209, b2 - 32) .. s:sub(3)
+    end
+    return s
+end
+
 local function expand(ru)
     ru = ru:gsub("%$[Bb]", "\n")
     local sex = UnitSex and UnitSex("player")
+
+    ru = ru:gsub("%$[Gg]([^:;]*):([^:;]*):[^;]*;", sex == 3 and "%2" or "%1")
     ru = ru:gsub("%$[Gg]([^:]*):([^;]*);", sex == 3 and "%2" or "%1")
+
+    ru = ru:gsub("|3%-%d+%((.-)%)", function(inner) return inner end)
     local pname = UnitName and UnitName("player")
     if pname then
         ru = ru:gsub("<name>", pname):gsub("%$[Nn]", pname)
     end
+
     local cls = UnitClass and UnitClass("player")
-    if cls then ru = ru:gsub("<class>", cls):gsub("%$[Cc]", cls) end
+    if cls then
+
+        local one = CLASS_RU_ONE[cls]
+        if CoARU_IsClassName and CoARU_IsClassName(cls) then one = nil end
+        local low = one and lowFirst(one) or cls
+        local up = one and capFirst(lowFirst(one)) or cls
+        ru = ru:gsub("<class>", function() return low end)
+        ru = ru:gsub("%$c", function() return low end)
+        ru = ru:gsub("%$C", function() return up end)
+    end
     local rc = UnitRace and UnitRace("player")
-    if rc then ru = ru:gsub("<race>", rc):gsub("%$[Rr]", rc) end
+    if rc then
+        local one = RACE_RU[rc]
+        local low = one or rc
+        local up = one and capFirst(one) or rc
+        ru = ru:gsub("<race>", function() return low end)
+        ru = ru:gsub("%$r", function() return low end)
+        ru = ru:gsub("%$R", function() return up end)
+    end
 
     if CoARU_LocalizeNames then ru = CoARU_LocalizeNames(ru) end
     return ru
 end
+
+function CoARU_QuestTestExpand(s) return expand(s) end
 
 local function process(fs, field)
     if not CoARU_ModOn("quests") then return end
@@ -228,13 +311,41 @@ end
 local function doProgress() for _, n in ipairs(PROGRESS_FS) do process(_G[n], n) end end
 local function doGreeting() for _, n in ipairs(GREETING_FS) do process(_G[n], n) end end
 
+local function directQuestRU(s)
+    local ru = qlookup(s) or (CoARU_ZONE and CoARU_ZONE[s]) or UI[s] or byPattern(s)
+             or objectiveItemRU(s)
+    if ru and ru ~= s then return expand(ru) end
+    return nil
+end
+
 local function xlateQuestText(t)
     if not CoARU_ModOn("quests") then return nil end
     if not t or #t < 2 then return nil end
     if CoARU_HasCyrillic and CoARU_HasCyrillic(t) and not hasEnglishTail(t) then return nil end
-    local ru = qlookup(t) or (CoARU_ZONE and CoARU_ZONE[t]) or UI[t] or byPattern(t)
-             or objectiveItemRU(t)
-    if ru and ru ~= t then return expand(ru) end
+    local ru = directQuestRU(t)
+    if ru then return ru end
+
+    local head, num = t:match("^(.-)%s+%-%s+(%d+)%s*$")
+    if head and head ~= "" then
+        local inner = directQuestRU(head)
+        if inner then return inner .. " - " .. num end
+    end
+
+    local body, punct = t:match("^(.-)([%.!%?]+)$")
+    if body and #body > 1 then
+        local inner = directQuestRU(body) or directQuestRU(body .. ".")
+        if inner then
+            return (inner:gsub("[%.!%?]+$", "")) .. punct
+        end
+    end
+
+    if t:find(" and ", 1, true) then
+        local alt = directQuestRU((t:gsub(" and ", " & ")))
+        if alt then return alt end
+    elseif t:find(" & ", 1, true) then
+        local alt = directQuestRU((t:gsub(" & ", " and ")))
+        if alt then return alt end
+    end
     return nil
 end
 
@@ -512,6 +623,39 @@ local function tailRU(tail)
     return (tail:gsub("%(.-%)", "(Требуется " .. n .. " уровень)", 1))
 end
 
+local shownPairs, shownN = {}, 0
+
+local function notePair(en, ru)
+    if type(en) ~= "string" or type(ru) ~= "string" or en == ru or ru == "" then return end
+
+    if shownN >= 64 then shownPairs, shownN = {}, 0 end
+    shownN = shownN + 1
+    shownPairs[shownN] = { en, ru }
+end
+
+local function replacePlain(s, from, to)
+    local a, b = s:find(from, 1, true)
+    if not a then return nil end
+    return s:sub(1, a - 1) .. to .. s:sub(b + 1)
+end
+
+local function bindOriginal(fs)
+    if not CoARU_SetTranslated then return end
+    if not fs or not fs.GetText then return end
+    local ok, t = pcall(fs.GetText, fs)
+    if not ok or not t or t == "" then return end
+
+    local best, bestLen = nil, -1
+    for i = 1, shownN do
+        local ru = shownPairs[i][2]
+        if #ru > bestLen then
+            local en = replacePlain(t, ru, shownPairs[i][1])
+            if en then best, bestLen = en, #ru end
+        end
+    end
+    if best then CoARU_SetTranslated(fs, best, t) end
+end
+
 function CoARU_GossipLog(line)
     if DEFAULT_CHAT_FRAME then
         DEFAULT_CHAT_FRAME:AddMessage("|cffC495DDgossip|r " .. line)
@@ -536,7 +680,9 @@ local function gossipRU(t, isOption)
     end
     if ok and ru then
 
-        return pre .. wrap .. ru .. (wrap ~= "" and "|r" or "") .. tailRU(tail)
+        local full = pre .. wrap .. ru .. (wrap ~= "" and "|r" or "") .. tailRU(tail)
+        notePair(core, ru)
+        return full
     end
 
     if not isOption and core:find("\r?\n") then
@@ -554,7 +700,9 @@ local function gossipRU(t, isOption)
         end
 
         if any and not miss then
-            return pre .. wrap .. table.concat(out) .. (wrap ~= "" and "|r" or "") .. tailRU(tail)
+            local body = table.concat(out)
+            notePair(core, body)
+            return pre .. wrap .. body .. (wrap ~= "" and "|r" or "") .. tailRU(tail)
         end
     end
     t = core
@@ -593,6 +741,93 @@ if type(GetGossipOptions) == "function" then
     function GetGossipOptions()
         return xlateVarargs(2, orig())
     end
+end
+
+local function questTitleRU(t)
+    if type(t) ~= "string" or #t < 2 then return nil end
+    local pre, wrap, core, tail = splitChrome(t)
+    local ok, ru = pcall(xlateQuestText, core)
+    if ok and ru then
+        notePair(core, ru)
+        return pre .. wrap .. ru .. (wrap ~= "" and "|r" or "") .. tailRU(tail)
+    end
+
+    if CoARU_NoteMiss and not (CoARU_HasCyrillic and CoARU_HasCyrillic(core)) then
+        CoARU_NoteMiss("questtitle", core)
+    end
+    return nil
+end
+
+local function xlateTitleList(step, ...)
+    local n = select('#', ...)
+    if n == 0 then return end
+    local out = {}
+    for i = 1, n do
+        local v = select(i, ...)
+        if type(v) == "string" and (i % step) == 1 then
+            v = questTitleRU(v) or v
+        end
+        out[i] = v
+    end
+    return unpack(out, 1, n)
+end
+
+if type(GetGossipAvailableQuests) == "function" then
+    local orig = GetGossipAvailableQuests
+    function GetGossipAvailableQuests() return xlateTitleList(5, orig()) end
+end
+if type(GetGossipActiveQuests) == "function" then
+    local orig = GetGossipActiveQuests
+    function GetGossipActiveQuests() return xlateTitleList(4, orig()) end
+end
+
+local function fixFirstTitle(t, ...)
+    if type(t) == "string" then return questTitleRU(t) or t, ... end
+    return t, ...
+end
+if type(GetAvailableTitle) == "function" then
+    local orig = GetAvailableTitle
+    function GetAvailableTitle(i) return fixFirstTitle(orig(i)) end
+end
+if type(GetActiveTitle) == "function" then
+    local orig = GetActiveTitle
+    function GetActiveTitle(i) return fixFirstTitle(orig(i)) end
+end
+
+if type(GetGreetingText) == "function" then
+    local orig = GetGreetingText
+    function GetGreetingText()
+        local t = orig()
+        return gossipRU(t) or t
+    end
+end
+
+local function bindButtons(prefix, limit)
+    for i = 1, limit do
+        local b = _G[prefix .. i]
+        if not b then break end
+        if (not b.IsShown or b:IsShown()) and b.GetFontString then
+            local ok, fs = pcall(b.GetFontString, b)
+            if ok then bindOriginal(fs) end
+        end
+    end
+end
+
+if type(GossipFrameUpdate) == "function" then
+    hooksecurefunc("GossipFrameUpdate", function()
+        if not CoARU_ModOn("quests") then return end
+        bindOriginal(_G.GossipGreetingText)
+        bindButtons("GossipTitleButton", NUMGOSSIPBUTTONS or 32)
+        shownPairs, shownN = {}, 0
+    end)
+end
+if type(QuestFrameGreetingPanel_OnShow) == "function" then
+    hooksecurefunc("QuestFrameGreetingPanel_OnShow", function()
+        if not CoARU_ModOn("quests") then return end
+        bindOriginal(_G.GreetingText)
+        bindButtons("QuestTitleButton", MAX_NUM_QUESTS or 32)
+        shownPairs, shownN = {}, 0
+    end)
 end
 
 if type(QuestLogTitleButton_Resize) == "function" then

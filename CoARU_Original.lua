@@ -392,7 +392,15 @@ local function swapOne(fs)
     if want == other then return false end
 
     if cur == want then return false end
-    if cur ~= other then noteSwapMiss(cur, rec) return false end
+
+    if cur ~= other then
+        if #cur > #other and cur:sub(1, #other) == other then
+            fs:SetText(want .. cur:sub(#other + 1))
+            return true
+        end
+        noteSwapMiss(cur, rec)
+        return false
+    end
     fs:SetText(want)
     return true
 end
@@ -436,6 +444,12 @@ end
 local function swapTip(tip, allowShow)
     local name = tip.GetName and tip:GetName()
     if not name then return end
+
+    local ok, owner = pcall(function() return tip.GetOwner and tip:GetOwner() end)
+    if ok and owner and owner.GetName then
+        local oname = owner:GetName()
+        if type(oname) == "string" and oname:find("^CoARU") then return end
+    end
     local changed = false
     local mine, nmine = {}, 0
     local shot = allowShow and dumpStart() or nil
@@ -533,7 +547,8 @@ end
 
 local function geomKey(name, head)
     local plain = head:gsub("|[cC]%x%x%x%x%x%x%x%x", ""):gsub("|[rR]", "")
-    return name .. " | " .. plain:sub(1, 40)
+
+    return name .. " | " .. CoARU_Utf8Sub(plain, 40)
 end
 
 local function geomSampleTip(tip)
@@ -588,7 +603,7 @@ local function geomSampleTip(tip)
                         rec.outLine  = sides[si] .. i
                         rec.outMode  = CoARU_OriginalMode and "en" or "ru"
                         rec.outWhere = outB > outR and "ниже рамки" or "правее рамки"
-                        rec.outText  = txt:sub(1, 60)
+                        rec.outText  = CoARU_Utf8Sub(txt, 60)
 
                         rec.suspect  = (out > w) or nil
                     end
