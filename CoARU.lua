@@ -2899,6 +2899,45 @@ local function slash(cmd)
         CoARU_GOSSIP_DBG = not CoARU_GOSSIP_DBG
         msg("лог окна разговора: " .. (CoARU_GOSSIP_DBG and
             "|cff00ff00ВКЛ|r — открой окно НПС, строки напечатаются сюда" or "|cffff0000ВЫКЛ|r"))
+    elseif cmd == "callboard" then
+
+        local B = _G["CallBoardUI"]
+        if not B then
+            msg("окно доски не найдено. Подойди к доске заданий, ОТКРОЙ её и повтори команду.")
+        else
+            local d = { opts = {}, internal = {}, seen = {}, quests = {}, cats = {} }
+            local function grab(fn) local ok, v = pcall(fn) if ok then return v end return nil end
+            for k, v in pairs(B.gossipOptions or {}) do d.opts[k] = v end
+            for k, v in pairs(B.internalGossipOptions or {}) do d.internal[k] = v end
+
+            local seen = grab(function() return { GetGossipOptions() } end) or {}
+            for i = 1, #seen, 2 do d.seen[#d.seen + 1] = tostring(seen[i]) end
+            d.raw = {}
+            if CoARU_GossipOptionsOrig then
+                local raw = grab(function() return { CoARU_GossipOptionsOrig() } end) or {}
+                for i = 1, #raw, 2 do d.raw[#d.raw + 1] = tostring(raw[i]) end
+            end
+            d.numAvail = grab(GetNumGossipAvailableQuests)
+            d.numActive = grab(GetNumGossipActiveQuests)
+            for i, q in ipairs(B.questList or {}) do
+                d.quests[i] = ("%s | id=%s | active=%s"):format(
+                    tostring(q.name), tostring(q.ID), tostring(q.isActive))
+            end
+            for cat in pairs(B.TemporalContractsMap or {}) do d.cats[#d.cats + 1] = tostring(cat) end
+            local page = B.content and B.content.ExtraSlotsCategorized
+            d.pageShown = page and grab(function() return page:IsVisible() end)
+            d.pageItems = 0
+            for _ in pairs((page and page.items) or {}) do d.pageItems = d.pageItems + 1 end
+            for _ in pairs(B.categorizedQuestList or {}) do d.catQuests = (d.catQuests or 0) + 1 end
+            d.category = tostring(page and page.category)
+            d.delayed = tostring(B.delayedOption)
+            d.tab = grab(function() return B.CurrentTabButton:GetName() end)
+            d.version = GetAddOnMetadata and GetAddOnMetadata("CoARU", "Version")
+            CoARU_DB.callboard = d
+            msg(("снято: вариантов %d (до обёртки %d), заданий %d, категорий %d, страница %s.")
+                :format(#d.seen, #d.raw, #d.quests, #d.cats, tostring(d.pageShown)))
+            msg("сделай |cffffd100/reload|r и пришли SavedVariables\\CoARU.lua")
+        end
     elseif cmd == "probe" then
         CoARU_Probe()
     elseif cmd == "classes" then
@@ -3808,6 +3847,7 @@ local function slash(cmd)
         print("  /coaru tipgeom on|off — замер геометрии ТУЛТИПА: вылет текста за рамку и ширина ru против en")
         print("  /coaru who — кто перевел каждую строку тултипа: база, карта аддона, пакет или никто")
         print("  /coaru frames — имена ОТКРЫТЫХ окон (открой нужные окна и повтори)")
+        print("  /coaru callboard — снимок доски заданий: варианты разговора, список заданий, категории (открой доску)")
         print("  /coaru cafit — проверить верстку русских описаний спеков (все 70, альты не нужны)")
         print("  /coaru questscan <A-B> [зап/сек] — спросить у сервера текст квестов по номерам (кэш -> Parse-WdbCache.py)")
         print("  /coaru questprobe <id> — сырые строки тултипа одного квеста (диагностика скана)")

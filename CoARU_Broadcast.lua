@@ -61,6 +61,9 @@ local PATTERNS = {
           return ("%s применяет %s и усиливает зону: %s!"):format(head, item, buff)
       end },
 
+    { "^(.-)The Crow's Treasure has been looted by (.+)$",
+      function(head, who) return ("%sСокровище Ворона достается: %s"):format(head, who) end },
+
     { "^(.-)has ended, but unfortunately none survived!$",
       function(head) return ("%sзавершилось, и не выжил никто!"):format(head) end },
     { "^(.-)has ended!$",
@@ -87,6 +90,14 @@ local PATTERNS = {
 
           ru = ru:gsub("[%.%s]+$", "")
           return ("[SERVER] Перезапуск через %s. Обновления, простой %s мин."):format(ru, mins)
+      end },
+
+    { "^%[SERVER%] Restart in (.-)%s*%-%s*(.+)$",
+      function(left, tail)
+          local ru = left:gsub("(%d+) Minute%(s%)", "%1 мин."):gsub("(%d+) Second%(s%)", "%1 сек.")
+          if ru:find("%(s%)") then return nil end
+          ru = ru:gsub("[%.%s]+$", "")
+          return ("[SERVER] Перезапуск через %s. %s"):format(ru, tail)
       end },
 
     { "^(.-)has completed their Trial!$",
@@ -196,6 +207,14 @@ local ANNOUNCE = {
 
     ["|Hdiscord:2AVAEzpWgr|h[Newcomer's Corner]|h Looking for some answers? Join The Ascension discord and read through our Newcomer's Corner guides and frequently asked questions! |Hdiscord:2AVAEzpWgr|h[Discord: Newcomer's FAQ]|h"] =
         "|Hdiscord:2AVAEzpWgr|h[Newcomer's Corner]|h Ищете ответы? Загляните в Discord Ascension и почитайте руководства раздела Newcomer's Corner и ответы на частые вопросы! |Hdiscord:2AVAEzpWgr|h[Discord: Newcomer's FAQ]|h",
+
+    ['To join the discord go to https://ascension.gg/user/discord OR join directly at discord.gg/ascensiondisc'] =
+        'Зайти в наш Discord можно по ссылке https://ascension.gg/user/discord или напрямую discord.gg/ascensiondisc',
+    ["Did you know all quest drops are shared in parties and you lose significantly less experience for grouping on Ascension? It's always worth questing and leveling with friends!"] =
+        'Знаете ли вы, что на Ascension добыча с заданий общая для всей группы, а опыта за игру в группе теряется заметно меньше? Проходить задания и качаться с друзьями всегда выгодно!',
+
+    ['Need a break? Rested Experience accumulates much faster on Ascension. Resting in an inn for 15 minutes will grant you a small experience boost for 2 hours! Safe Travels!'] =
+        'Нужен перерыв? Отдых на Ascension копится гораздо быстрее. Отдохните на постоялом дворе 15 минут и получите небольшую прибавку к опыту на 2 часа. Доброго пути!',
 }
 
 local function lastPlain(s, needle)

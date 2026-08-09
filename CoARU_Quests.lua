@@ -722,6 +722,38 @@ if type(GetGossipText) == "function" then
     end
 end
 
+local GOSSIP_OWNERS = { "CallBoardUI", "LotteryUI", "SkillCardExchangeUI", "PrestigeModeUI" }
+
+local function clientComparesIt(text)
+    local low = text:lower()
+    for i = 1, #GOSSIP_OWNERS do
+        local f = _G[GOSSIP_OWNERS[i]]
+        if type(f) == "table" then
+            local keys = f.internalGossipOptions
+            if type(keys) == "table" and keys[low] ~= nil then return true end
+            local tw = f.timeWalkingFormat
+            if type(tw) == "string" and low:match(tw) then return true end
+            local inst = f.instancesFormat
+            if type(inst) == "string" and text:match(inst) then return true end
+            local msgs = f.MSGS
+            if type(msgs) == "table" then
+                for k, v in pairs(msgs) do
+                    if type(k) == "string" and type(v) == "string" and v ~= ""
+                       and k:find("GOSSIP", 1, true) then
+                        if v == text then return true end
+
+                        local ok, hit = pcall(string.match, text, v)
+                        if ok and hit then return true end
+                    end
+                end
+            end
+        end
+    end
+    return false
+end
+
+CoARU_GossipOptionIsKey = clientComparesIt
+
 local function xlateVarargs(step, ...)
     local n = select('#', ...)
     if n == 0 then return end
@@ -729,7 +761,10 @@ local function xlateVarargs(step, ...)
     for i = 1, n do
         local v = select(i, ...)
         if type(v) == "string" and (i % step) == 1 then
-            v = gossipRU(v, true) or v
+            local ok, isKey = pcall(clientComparesIt, v)
+            if not (ok and isKey) then
+                v = gossipRU(v, true) or v
+            end
         end
         out[i] = v
     end
@@ -738,6 +773,8 @@ end
 
 if type(GetGossipOptions) == "function" then
     local orig = GetGossipOptions
+
+    CoARU_GossipOptionsOrig = orig
     function GetGossipOptions()
         return xlateVarargs(2, orig())
     end

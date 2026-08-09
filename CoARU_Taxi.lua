@@ -1,9 +1,47 @@
+local ALIAS = {
+
+    ["Arathi"] = "Arathi Highlands",
+    ["Borean"] = "Borean Tundra",
+    ["Elwynn"] = "Elwynn Forest",
+    ["Redridge"] = "Redridge Mountains",
+    ["Stranglethorn"] = "Stranglethorn Vale",
+    ["Theramore"] = "Theramore Isle",
+    ["Tirisfal"] = "Tirisfal Glades",
+    ["Feathermoon"] = "Feathermoon Stronghold",
+    ["Moa'ki"] = "Moa'ki Harbor",
+    ["Northshire"] = "Northshire Valley",
+    ["Westfall Brigade"] = "Westfall Brigade Encampment",
+
+    ["Dun Nifflelem"] = "Dun Niffelem",
+    ["Kor'koron Vanguard"] = "Kor'kron Vanguard",
+    ["Valgarde Port"] = "Valgarde",
+}
+
+local OWN = {
+    ["Warsong Camp"] = "Лагерь Песни Войны",
+    ["Valiance Landing Camp"] = "Лагерь высадки Отваги",
+    ["Spinebreaker Ridge"] = "Гряда Хребтолома",
+    ["Coldarra Ledge"] = "Уступ Хладарры",
+    ["Camp Onequah"] = "Лагерь Онекуа",
+    ["Dun Kazad"] = "Дун Казад",
+    ["Fishing Village"] = "Рыбацкая деревня",
+}
+
+CoARU_TaxiOwn = OWN
+
 local function zoneRU(name)
     if not name or name == "" then return nil end
     local Z = CoARU_ZONE
     if not Z then return nil end
 
-    return Z[name] or Z["The " .. name] or Z[name .. " City"]
+    local ru = Z[name] or Z["The " .. name] or Z[name .. " City"]
+    if ru then return ru end
+    local full = ALIAS[name]
+    if full then
+        ru = Z[full] or Z["The " .. full] or Z[full .. " City"]
+        if ru then return ru end
+    end
+    return OWN[name]
 end
 
 local function xlateNode(text)

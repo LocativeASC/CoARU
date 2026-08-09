@@ -1624,6 +1624,50 @@ local function isPlayerTag(tag)
     return tag == "Player" or tag == "игрок"
 end
 
+local function raceClassSplit(rest)
+    local best, bestRu
+    for en, ru in pairs(UNIT_RACE) do
+        if rest:sub(1, #en) == en and (not best or #en > #best) then
+            best, bestRu = en, ru
+        end
+    end
+    if not best then return nil end
+    local cls = rest:sub(#best + 1):match("^%s*(.-)%s*$")
+    return bestRu, cls
+end
+
+function CoARU_TranslateRaceClass(line)
+    if type(line) ~= "string" or line == "" then return nil end
+    local plain = CoARU_StripCodes(line):match("^%s*(.-)%s*$")
+    if not plain or plain == "" then return nil end
+
+    local tag
+    local body = plain:match("^(.-)%s*%(.-%)$")
+    if body then
+        tag = plain:match("%((.-)%)$")
+        plain = body
+    end
+
+    local lvl, rest = plain:match("^Level%s+(%d+)%s+(.+)$")
+    if not rest then rest = plain end
+
+    local ru, cls = raceClassSplit(rest)
+
+    if not ru or cls == "" or not CLASS_NAME[cls] then return nil end
+
+    if tag and not isPlayerTag(tag) then return nil end
+
+    local out
+    if lvl then
+        out = lvl .. "-й уровень, " .. ru .. " " .. cls
+    else
+
+        out = (flipFirstCase(ru) or ru) .. " " .. cls
+    end
+    if tag then out = out .. " (игрок)" end
+    return out
+end
+
 function CoARU_TranslateUnitLine(line)
     if not line or line == "" then return nil end
     local plain = CoARU_StripCodes(line):match("^%s*(.-)%s*$")
@@ -1665,14 +1709,11 @@ function CoARU_TranslateUnitLine(line)
         end
 
         if isPlayerTag(tag) then
-            local best, bestRu
-            for en, ru in pairs(UNIT_RACE) do
-                if rest:sub(1, #en) == en and (not best or #en > #best) then
-                    best, bestRu = en, ru
-                end
-            end
-            if not best then return nil end
-            local cls = rest:sub(#best + 1):match("^%s*(.-)%s*$")
+            local ru = CoARU_TranslateRaceClass(plain)
+            if ru then return ru end
+
+            local bestRu, cls = raceClassSplit(rest)
+            if not bestRu then return nil end
             local out = lvl .. "-й уровень, " .. bestRu
             if cls ~= "" then out = out .. " " .. cls end
             return out .. " (игрок)"
@@ -1707,6 +1748,8 @@ function CoARU_TranslateLabelHead(line)
 end
 
 local LINE_STAGES = {
+
+    { "правило движка", function(_, line) return CoARU_TranslateRaceClass(line) end },
     { "база",          function(id, line) return id and CoARU_TranslateText(id, line) end },
     { "карта аддона",  function(_, line) return CoARU_TranslateGlobal(line) end },
     { "база",          function(_, line) return CoARU_TranslateByIndex(line) end },

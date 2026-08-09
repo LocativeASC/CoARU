@@ -62,12 +62,17 @@ function CoARU_SetTranslated(fs, en, ru)
     if prev and prev.ru == en and prev.en and prev.en ~= en then
         en = prev.en
     end
-    local rgb = grabColor(fs)
+    local before = grabColor(fs)
 
-    ORIG[fs] = { en = en, ru = ru, rgb = rgb, src = CoARU_LastSource }
+    local src = CoARU_LastSource
     CoARU_LastSource = nil
     fs:SetText(CoARU_OriginalMode and en or ru)
-    CoARU_ReapplyColor(fs)
+
+    local after = grabColor(fs)
+    local lost = before and (not after
+        or before[1] ~= after[1] or before[2] ~= after[2] or before[3] ~= after[3])
+    ORIG[fs] = { en = en, ru = ru, rgb = lost and before or nil, src = src }
+    if lost then CoARU_ReapplyColor(fs) end
 end
 
 local FMT = "%%[%-%d%.]*[dsfgi]"
