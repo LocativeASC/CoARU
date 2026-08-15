@@ -7,6 +7,7 @@ CoARU_THANKS = {
         "fdish",
 
         "crush71",
+        "BobMarley",
     },
 
     data = {
@@ -67,7 +68,7 @@ CoARU_THANKS = {
     },
 }
 
-CoARU_THANKS_ANON = 7
+CoARU_THANKS_ANON = 10
 
 function CoARU_ThanksCount()
     local seen, n = {}, 0

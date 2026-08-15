@@ -6,12 +6,16 @@ local function itemIdFromLink(link)
     return id and tonumber(id) or nil
 end
 
-function CoARU_MerchantNameRU(index)
-    if not CoARU_ItemName then return nil end
+function CoARU_MerchantNameRU(index, en)
     if not GetMerchantItemLink then return nil end
     local id = itemIdFromLink(GetMerchantItemLink(index))
     if not id then return nil end
-    local ru = CoARU_ItemName[id]
+    if GetMerchantItemInfo then
+        local ok, name = pcall(GetMerchantItemInfo, index)
+        if ok and type(name) == "string" and name ~= "" then en = name end
+    end
+    local ru = CoARU_ItemNameRowRU and CoARU_ItemNameRowRU(id, en)
+        or (CoARU_ItemName and CoARU_ItemName[id])
     if not ru or ru == "" then return nil end
     return ru
 end
@@ -30,7 +34,7 @@ local function updateNames()
 
         if fs and fs.GetText and fs:GetText() and fs:GetText() ~= "" then
             local index = (page - 1) * ITEMS_PER_PAGE + i
-            local ru = CoARU_MerchantNameRU(index)
+            local ru = CoARU_MerchantNameRU(index, fs:GetText())
             if ru and ru ~= fs:GetText() then
                 if CoARU_SetTranslated then
 
@@ -48,7 +52,9 @@ local function updateNames()
     local bb = _G["MerchantBuyBackItemName"]
     if bb and bb.GetText and bb:GetText() and bb:GetText() ~= "" and GetBuybackItemLink then
         local id = itemIdFromLink(GetBuybackItemLink(GetNumBuybackItems and GetNumBuybackItems() or 1))
-        local ru = id and CoARU_ItemName and CoARU_ItemName[id]
+
+        local ru = id and CoARU_ItemNameRowRU and CoARU_ItemNameRowRU(id, bb:GetText())
+            or (id and CoARU_ItemName and CoARU_ItemName[id])
         if ru and ru ~= "" and ru ~= bb:GetText() then
             if CoARU_SetTranslated then
                 CoARU_SetTranslated(bb, bb:GetText(), ru)

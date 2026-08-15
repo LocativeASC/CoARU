@@ -23,12 +23,17 @@ function CoARU_TitleRU(full)
     return nil
 end
 
+local function titleRU(n)
+    if not n then return nil end
+    local ok, ru = pcall(CoARU_TitleRU, n)
+    return ok and ru or nil
+end
+
 if type(UnitPVPName) == "function" then
     local orig = UnitPVPName
     function UnitPVPName(unit)
         local n = orig(unit)
-        local ru = n and CoARU_TitleRU(n)
-        return ru or n
+        return titleRU(n) or n
     end
 end
 
@@ -36,8 +41,7 @@ if type(GetTitleName) == "function" then
     local orig = GetTitleName
     function GetTitleName(i)
         local n, on = orig(i)
-        local ru = n and CoARU_TitleRU(n)
-        return ru or n, on
+        return titleRU(n) or n, on
     end
 end
 

@@ -1,8 +1,8 @@
-## Interface: 30300
+﻿## Interface: 30300
 ## Title: |cffC495DDCoARU|r by |cffC495DDLocative|r
 ## Notes: Русский перевод для Conquest of Azeroth: заклинания, таланты, глифы, чары, баффы, предметы, задания, зоны и имена существ. Числа берутся из живого тултипа и не устаревают после правок баланса.|n|nПереводится всё, а что оставить английским, решаете вы: имена способностей, имена предметов, зоны, подземелья и остальные модули выключаются по отдельности в настройках: /coaru options. Названия классов Conquest of Azeroth остаются английскими всегда.|n|n|cffffd100Где взять обновления:|r /coaru link (github.com/LocativeASC/CoARU)|n|cffffd100Помочь переводу:|r /coaru status
 ## Author: Locative
-## Version: 2.2
+## Version: 2.3
 ## DefaultState: Enabled
 ## SavedVariables: CoARU_DB
 
@@ -18,11 +18,16 @@ CoARU_QuestDataNarrative.lua
 CoARU_QuestDataVivi.lua
 CoARU_QuestDataSpeech.lua
 CoARU_QuestDataGossip.lua
+CoARU_QuestDataOwn.lua
 CoARU_Items.lua
 CoARU_ItemNameEN.lua
 CoARU_ItemNameCustom.lua
+CoARU_ItemSetData.lua
+CoARU_AchievementData.lua
+CoARU_FactionData.lua
 CoARU_ItemSuffix.lua
 CoARU_ScanIds.lua
+CoARU_ScanList.lua
 CoARU_ItemIds.lua
 CoARU_ItemTipData.lua
 CoARU_AscUIData.lua
@@ -35,6 +40,7 @@ CoARU_NameForms.lua
 CoARU_TermWave.lua
 CoARU_TermGrow.lua
 CoARU_SpecNames.lua
+CoARU_Names.lua
 CoARU_Engine.lua
 CoARU_ItemTip.lua
 CoARU_Scan.lua
@@ -56,11 +62,13 @@ CoARU_Broadcast.lua
 CoARU_TitleData.lua
 CoARU_Titles.lua
 CoARU_ZoneData.lua
+CoARU_TermNames.lua
 CoARU_Zones.lua
 CoARU_Taxi.lua
 CoARU_CastBar.lua
 CoARU_UnitData.lua
 CoARU_UnitNamesExtra.lua
+CoARU_SubnameData.lua
 CoARU_UnitCustom.lua
 CoARU_Units.lua
 CoARU_GlossaryData.lua

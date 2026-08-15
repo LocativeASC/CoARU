@@ -58,7 +58,7 @@ local function tplToPattern(tpl)
 
     local p = tpl:gsub("%%s", "\1")
     p = p:gsub("([%^%$%(%)%.%[%]%*%+%-%?%%])", "%%%1")
-    p = p:gsub("\1", "(%%S+)")
+    p = p:gsub("\1", "(.-)")
     return "^" .. p .. "$"
 end
 
@@ -76,6 +76,8 @@ local function emoteRU(msg)
             for i = 1, #list do
                 local en, ru = list[i][1], list[i][2]
                 local a, b = msg:match(tplToPattern(en))
+
+                if a == "" then a = nil end
                 if a then
                     local out = ru:gsub("%%s", function() local v = a; a = b; return v end)
                     return out
@@ -84,6 +86,11 @@ local function emoteRU(msg)
         end
     end
     return nil
+end
+
+function CoARU_EmoteRU(msg)
+    if type(msg) ~= "string" or msg == "" then return nil end
+    return emoteRU(msg)
 end
 
 local EVENTS = {

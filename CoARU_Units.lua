@@ -46,15 +46,46 @@ local function enForRU(ru)
     if en then return en end
 end
 
+local SUMMON_TITLE = {
+    ["Pet"] = "Питомец",
+    ["Guardian"] = "Страж",
+    ["Minion"] = "Прислужник",
+    ["Totem"] = "Тотем",
+    ["Companion"] = "Спутник",
+    ["Runeblade"] = "Рунический клинок",
+    ["Construct"] = "Создание",
+    ["Opponent"] = "Соперник",
+}
+
+function CoARU_SummonTitleRU(name)
+    if type(name) ~= "string" or name == "" then return nil end
+    if hasCyr(name) then return nil end
+    local owner, kind = name:match("^(.+)'s ([A-Za-z]+)$")
+    if not owner then return nil end
+    local ru = SUMMON_TITLE[kind]
+    if not ru then return nil end
+    local ownerRU = N2R[owner]
+    if ownerRU and ownerRU ~= "" and ownerRU ~= owner then owner = ownerRU end
+    return ru .. " " .. owner
+end
+
 local function tipUnit(tip)
     if not namesOn() then return end
     local _, unit = tip:GetUnit()
     if not unit then return end
-    local id = npcID(UnitGUID and UnitGUID(unit))
-    if not id then return end
     local name = tip:GetName()
     local l1 = _G[name .. "TextLeft1"]
     local t1 = l1 and l1:GetText()
+
+    if t1 then
+        local sru = CoARU_SummonTitleRU(t1)
+        if sru then
+            setRU(l1, t1, sru)
+            return
+        end
+    end
+    local id = npcID(UnitGUID and UnitGUID(unit))
+    if not id then return end
     if t1 and RU[id] then
         if not hasCyr(t1) then
             setRU(l1, t1, RU[id])
@@ -64,13 +95,17 @@ local function tipUnit(tip)
             if en then setRU(l1, en, t1) end
         end
     end
-    if SUB[id] then
-        local l2 = _G[name .. "TextLeft2"]
-        local t2 = l2 and l2:GetText()
 
-        if t2 and not hasCyr(t2) and not t2:match("^Level") and not t2:match("^%-?Уровень") then
-            setRU(l2, t2, SUB[id])
+    local l2 = _G[name .. "TextLeft2"]
+    local t2 = l2 and l2:GetText()
+
+    if t2 and not hasCyr(t2) and not t2:match("^Level") and not t2:match("^%-?Уровень") then
+        local ru = SUB[id]
+        if not ru and CoARU_UNIT_SUB_N2R then
+            local byText = CoARU_UNIT_SUB_N2R[t2]
+            if byText and byText ~= t2 then ru = byText end
         end
+        if ru then setRU(l2, t2, ru) end
     end
 end
 if GameTooltip and GameTooltip.HookScript then

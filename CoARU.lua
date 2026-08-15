@@ -1597,8 +1597,7 @@ local function ensureMinimapButton()
         GameTooltip:AddDoubleLine("Переводов в базе", groupNum(loaded()),
             0.8, 0.8, 0.85, 1, 0.82, 0)
 
-        local miss = 0
-        for _ in pairs(CoARU_DB and CoARU_DB.miss or {}) do miss = miss + 1 end
+        local miss = CoARU_MissCount and CoARU_MissCount() or 0
         if miss > 0 then
             GameTooltip:AddDoubleLine("Собрано для перевода", groupNum(miss),
                 0.8, 0.8, 0.85, 1, 0.82, 0)
@@ -1703,6 +1702,16 @@ local function armWelcome()
     welcomeTimer:Show()
 end
 
+local missTbl, missN = nil, 0
+
+local function missCount(m)
+    if m ~= missTbl then
+        missTbl, missN = m, 0
+        for _ in pairs(m) do missN = missN + 1 end
+    end
+    return missN
+end
+
 local function purgeSent()
     local m = CoARU_DB.miss
     if type(m) ~= "table" then return 0 end
@@ -1713,7 +1722,17 @@ local function purgeSent()
             n = n + 1
         end
     end
+
+    if m == missTbl then missN = missN - n end
     return n
+end
+
+function CoARU_MissCount()
+    return missCount(CoARU_DB and CoARU_DB.miss or {})
+end
+
+function CoARU_PurgeSentForTest()
+    return purgeSent()
 end
 
 local function initDB()
@@ -1784,6 +1803,11 @@ local function noteOneLine(kind, line, owner)
     if kind ~= "mixed" and CoARU_HasCyrillic(line) then return end
     local plain = CoARU_StripCodes(line)
     if not plain or not plain:find("%a") then return end
+
+    if #plain <= 24 and plain:find("%d") and CoARU_LatinIsLegit
+       and CoARU_LatinIsLegit(plain) then
+        return
+    end
     plain = foldPlayerName(plain)
     local norm = CoARU_Norm(plain)
     if not norm or #norm < 4 then return end
@@ -1795,12 +1819,12 @@ local function noteOneLine(kind, line, owner)
         rec.at = (date and date("%d.%m %H:%M")) or rec.at
         return
     end
-    local n = 0
-    for _ in pairs(m) do n = n + 1 end
+    local n = missCount(m)
     local cap = missCap()
     if n >= cap then
 
-        n = n - purgeSent()
+        purgeSent()
+        n = missCount(m)
         if n >= cap then
 
             CoARU_MissDropped = (CoARU_MissDropped or 0) + 1
@@ -1814,29 +1838,72 @@ local function noteOneLine(kind, line, owner)
 
     m[norm] = { n = 1, k = kind, ex = plain, own = owner, ts = (time and time()) or 0,
                 at = (date and date("%d.%m %H:%M")) or nil }
+    missN = missN + 1
 end
 
-local GUILD_UNITS = { "mouseover", "target", "focus", "player" }
+local GUILD_UNITS = { "mouseover", "target", "focus", "player",
+                      "mouseovertarget", "targettarget" }
+
+local SEEN_GUILD = {}
+
+local function rememberGuild(unit)
+    if not GetGuildInfo then return end
+    if UnitExists and not UnitExists(unit) then return end
+    local ok, g = pcall(GetGuildInfo, unit)
+    if ok and type(g) == "string" and g ~= "" then SEEN_GUILD[g] = true end
+end
+
+local function scanGroupGuilds()
+    rememberGuild("player")
+    local n = (GetNumRaidMembers and GetNumRaidMembers()) or 0
+    if n > 0 then
+        for i = 1, n do rememberGuild("raid" .. i) end
+        return
+    end
+    n = (GetNumPartyMembers and GetNumPartyMembers()) or 0
+    for i = 1, n do rememberGuild("party" .. i) end
+end
+
+if CreateFrame then
+    local gf = CreateFrame("Frame")
+    for _, ev in ipairs({ "PLAYER_ENTERING_WORLD", "RAID_ROSTER_UPDATE",
+                          "PARTY_MEMBERS_CHANGED", "PLAYER_GUILD_UPDATE" }) do
+        pcall(gf.RegisterEvent, gf, ev)
+    end
+    gf:SetScript("OnEvent", scanGroupGuilds)
+end
 
 function CoARU_IsGuildLine(t)
     if type(t) ~= "string" or t == "" or not GetGuildInfo then return false end
     local plain = CoARU_StripCodes and CoARU_StripCodes(t) or t
+    if SEEN_GUILD[plain] or SEEN_GUILD[t] then return true end
     for i = 1, #GUILD_UNITS do
         local u = GUILD_UNITS[i]
         if not UnitExists or UnitExists(u) then
             local ok, g = pcall(GetGuildInfo, u)
-            if ok and type(g) == "string" and g ~= "" and (g == plain or g == t) then
-                return true
+            if ok and type(g) == "string" and g ~= "" then
+                SEEN_GUILD[g] = true
+
+                if CoARU_NoteGuildName then CoARU_NoteGuildName(g) end
+                if g == plain or g == t then return true end
             end
         end
     end
     return false
 end
 
+function CoARU_GuildsSeen()
+    local n = 0
+    for _ in pairs(SEEN_GUILD) do n = n + 1 end
+    return n
+end
+
 function CoARU_NoteMiss(kind, text, owner)
     if not text then return end
 
     if CoARU_IsGuildLine(text) then return end
+
+    if CoARU_IsPersonLine and CoARU_IsPersonLine(text) then return end
     if not text:find("\n") then
         noteOneLine(kind, text, owner)
         return
@@ -2133,13 +2200,36 @@ end
 local LEGIT_LATIN = {
     Shift = true, SHIFT = true, Ctrl = true, CTRL = true, Alt = true, ALT = true,
     PvE = true, PvP = true, DPS = true, LFG = true, RP = true, AoE = true, ID = true,
+
+    PVE = true, PVP = true, PVM = true,
     XP = true, HP = true, MP = true, NPC = true, UI = true, FPS = true, Enter = true,
+
+    RaF = true, CD = true, AFK = true, DND = true, BG = true,
+
+    Ascension = true, Discord = true, Facebook = true, Nvidia = true,
+    YouTube = true, Twitch = true, WOTLK = true,
+    I = true, II = true, III = true, IV = true, V = true, VI = true, VII = true,
+    VIII = true, IX = true, X = true, XI = true, XII = true,
 }
+
+local TLD = { "gg", "com", "net", "org", "io", "tv", "me", "ru", "dev" }
+
+function CoARU_StripUrls(t)
+    if type(t) ~= "string" or t == "" then return t end
+    if not (t:find("//", 1, true) or t:find(".", 1, true)) then return t end
+    t = t:gsub("%a+://%S+", " ")
+    for i = 1, #TLD do
+        t = t:gsub("[%w%-%.]+%." .. TLD[i] .. "%f[%W]%S*", " ")
+    end
+    return t
+end
 
 local function latinRuns(t)
     local out = {}
     for run in t:gmatch("[A-Za-z][A-Za-z'%-]*[A-Za-z0-9]*[ A-Za-z'%-0-9]*") do
         run = run:match("^%s*(.-)%s*$")
+
+        run = run:gsub("^[%-']+", ""):gsub("[%-']+$", "")
         if run ~= "" then out[#out + 1] = run end
     end
     return out
@@ -2160,8 +2250,13 @@ local function knownLatin(run)
     return any and all
 end
 
+function CoARU_LatinIsAbbrev(word)
+    return type(word) == "string" and LEGIT_LATIN[word] == true
+end
+
 function CoARU_LatinIsLegit(t)
     if type(t) ~= "string" then return false end
+    t = CoARU_StripUrls(t)
     for _, run in ipairs(latinRuns(t)) do
         if #run >= 2 and not knownLatin(run) then
 
@@ -2330,10 +2425,26 @@ function onTooltipSetItem(tip)
                     changed = true
                 else
 
-                    if t ~= itemName then
+                    local nameLine
+                    if side == "TextLeft" and CoARU_ItemNameLine and CoARU_ModOn("itemnames") then
+                        nameLine = CoARU_ItemNameLine(CoARU_StripCodes(t))
+                    end
+
+                    if not nameLine and side == "TextLeft" and CoARU_ZoneLineRU then
+                        nameLine = CoARU_ZoneLineRU(CoARU_StripCodes(t))
+                    end
+                    if not nameLine and side == "TextLeft" and CoARU_SummonTitleRU then
+                        nameLine = CoARU_SummonTitleRU(CoARU_StripCodes(t))
+                    end
+
+                    if not nameLine and CoARU_ItemLinkLineRU then
+                        nameLine = CoARU_ItemLinkLineRU(t)
+                    end
+
+                    if t ~= itemName and not nameLine then
                         CoARU_NoteBlockMisses("item", nil, t)
                     end
-                    local r = CoARU_TranslateBlock(nil, t)
+                    local r = nameLine or CoARU_TranslateBlock(nil, t)
 
                     if not (r and r ~= t) and CoARU_TranslateItemPrefix then
                         r = CoARU_TranslateItemPrefix(t)
@@ -2522,6 +2633,19 @@ local function onTooltipShow(tip)
                        and CoARU_ModOn("itemnames") then
                         ru = CoARU_ItemNameLine(CoARU_StripCodes(t))
                     end
+
+                    if not ru and side == "TextLeft" and CoARU_ZoneLineRU then
+                        ru = CoARU_ZoneLineRU(CoARU_StripCodes(t))
+                    end
+                    if not ru and side == "TextLeft" and CoARU_SummonTitleRU then
+                        ru = CoARU_SummonTitleRU(CoARU_StripCodes(t))
+                    end
+
+                    if not ru and CoARU_ItemLinkLineRU then ru = CoARU_ItemLinkLineRU(t) end
+
+                    if not ru and side == "TextLeft" and CoARU_AchievementLineRU then
+                        ru = CoARU_AchievementLineRU(CoARU_StripCodes(t))
+                    end
                     if not ru then ru = CoARU_TranslateBlock(nil, t) end
 
                     if not (ru and ru ~= t) and CoARU_TranslateItemPrefix then
@@ -2532,12 +2656,32 @@ local function onTooltipShow(tip)
                         ru = CoARU_TranslateItemLabelBody(t)
                     end
 
+                    if not (ru and ru ~= t) and CoARU_TranslateObjectiveLine then
+                        ru = CoARU_TranslateObjectiveLine(t)
+                    end
+
+                    if not (ru and ru ~= t) and CoARU_ItemSourceGlueRU then
+                        ru = CoARU_ItemSourceGlueRU(CoARU_StripCodes(t))
+                    end
+                    if not (ru and ru ~= t) and CoARU_UnitNameLineRU then
+                        ru = CoARU_UnitNameLineRU(CoARU_StripCodes(t))
+                    end
+
+                    if not (ru and ru ~= t) and CoARU_QuestLookup then
+                        local okq, rq = pcall(CoARU_QuestLookup, CoARU_StripCodes(t))
+                        if okq and type(rq) == "string" and rq ~= "" then ru = rq end
+                    end
+
                     if not (ru and ru ~= t) and CoARU_TranslateUnitLine then
                         ru = CoARU_TranslateUnitLine(t)
                     end
 
                     if not (ru and ru ~= t) and CoARU_TranslateObjectiveLine then
                         ru = CoARU_TranslateObjectiveLine(t)
+                    end
+
+                    if not (ru and ru ~= t) and CoARU_UnitNameLineRU then
+                        ru = CoARU_UnitNameLineRU(CoARU_StripCodes(t))
                     end
                     if ru and ru ~= t then
                         if inDelta then ru = colorizeDelta(ru) end
@@ -2605,6 +2749,16 @@ local function translateAuraTip(tip, id)
     if not name or not id then return end
     local changed = false
 
+    local l1 = _G[name .. "TextLeft1"]
+    local t1 = l1 and l1:GetText()
+    if t1 and t1 ~= "" and not CoARU_HasCyrillic(t1) and CoARU_ModOn("spellnames") then
+        local ru = CoARU_SPELL_NAME_RU and CoARU_SPELL_NAME_RU[t1]
+        if ru and ru ~= "" and ru ~= t1 then
+            CoARU_SetTranslated(l1, t1, ru)
+            changed = true
+        end
+    end
+
     for i = 1, tip:NumLines() do
         for _, side in ipairs({ "TextLeft", "TextRight" }) do
             local fs = (not (i == 1 and side == "TextLeft")) and _G[name .. side .. i]
@@ -2642,18 +2796,24 @@ local function hookAura(tip)
     if tip.SetUnitAura then
         hooksecurefunc(tip, "SetUnitAura", function(self, unit, index, filter)
             local ok, id = pcall(function() return select(11, UnitAura(unit, index, filter)) end)
+
+            if CoARU_NoteAuraCaster then CoARU_NoteAuraCaster(unit, index, filter) end
             if ok then translateAuraTip(self, tonumber(id)) end
         end)
     end
     if tip.SetUnitBuff then
         hooksecurefunc(tip, "SetUnitBuff", function(self, unit, index, filter)
             local ok, id = pcall(function() return select(11, UnitBuff(unit, index, filter)) end)
+
+            if CoARU_NoteAuraCaster then CoARU_NoteAuraCaster(unit, index, filter) end
             if ok then translateAuraTip(self, tonumber(id)) end
         end)
     end
     if tip.SetUnitDebuff then
         hooksecurefunc(tip, "SetUnitDebuff", function(self, unit, index, filter)
             local ok, id = pcall(function() return select(11, UnitDebuff(unit, index, filter)) end)
+
+            if CoARU_NoteAuraCaster then CoARU_NoteAuraCaster(unit, index, filter) end
             if ok then translateAuraTip(self, tonumber(id)) end
         end)
     end
@@ -2856,6 +3016,9 @@ local function slash(cmd)
         CoARU_ScanBook(false)
     elseif cmd == "book all" then
         CoARU_ScanBook(true)
+    elseif cmd == "scanca" or cmd == "scanca all" then
+
+        CoARU_ScanCA(cmd == "scanca all")
     elseif cmd:match("^scanall") then
 
         local ms, minId, maxId = nil, nil, nil
@@ -2883,6 +3046,30 @@ local function slash(cmd)
         if CoARU_SetScanDeep then CoARU_SetScanDeep(cmd:match("%f[%a]deep%f[%A]") ~= nil) end
 
         if CoARU_SetScanProbe then CoARU_SetScanProbe(cmd:match("%f[%a]probe%f[%A]") ~= nil) end
+
+        if CoARU_SetScanTrace then
+            CoARU_SetScanTrace(cmd:match("%f[%a]trace%f[%A]") and 200 or 0)
+        end
+
+        if cmd:match("%f[%a]list%f[%A]") then
+            if type(CoARU_ScanIdList) ~= "table" or #CoARU_ScanIdList == 0 then
+                msg("нет CoARU_ScanIdList. Сгенерируй: python tools/Build-ScanList.py, потом ПОЛНЫЙ перезаход (новый файл /reload не подхватывает)")
+                return
+            end
+
+            local sel = CoARU_ScanIdList
+            if (minId and minId > 0) or maxId then
+                sel = {}
+                local lo, hi = minId or 0, maxId or math.huge
+                for i = 1, #CoARU_ScanIdList do
+                    local v = CoARU_ScanIdList[i]
+                    if v >= lo and v <= hi then sel[#sel + 1] = v end
+                end
+            end
+            msg(("скан по СПИСКУ: %d id (перебор был бы %d)"):format(#sel, 9538420))
+            CoARU_StartScan(sel, cmd:match("%f[%a]all%f[%A]") ~= nil, ms)
+            return
+        end
 
         if CoARU_SetScanDesc then CoARU_SetScanDesc(cmd:match("%f[%a]desc%f[%A]") ~= nil) end
 
@@ -3403,6 +3590,45 @@ local function slash(cmd)
             walk(ClassTrainerFrame, 0)
             msg(("всего строк: %d. Полное сырье в SavedVariables (CoARU_DB.trainercolor) — "
                  .. "сделай /reload и пришли CoARU.lua."):format(n))
+        end
+    elseif cmd:match("^uidump") then
+
+        local name = cmd:match("^uidump%s+(%S+)")
+        if not CoARU_AscUI_Dump then
+            msg("|cffff0000CoARU_AscUI.lua не загружен|r — нужен полный перезапуск игры.")
+        elseif name == "rec" then
+
+            CoARU_DB.uidumprec = true
+            CoARU_DB.uidump = CoARU_DB.uidump or { lines = {} }
+            msg("запись снимков ВКЛючена: открой окно, поводи мышью по строкам. "
+                .. "Копится в CoARU_DB.uidump. Выключить: /coaru uidump off")
+        elseif name == "off" then
+            CoARU_DB.uidumprec = nil
+            local c = (CoARU_DB.uidump and CoARU_DB.uidump.lines
+                       and #CoARU_DB.uidump.lines) or 0
+            msg(("запись снимков выключена. В копилке строк: %d — /reload и пришли "
+                 .. "CoARU.lua."):format(c))
+        else
+            local n, out, frames
+            if name then
+                n, out = CoARU_AscUI_Dump(name)
+                frames = { name }
+            else
+                n, out, frames = CoARU_AscUI_DumpAll()
+            end
+            if n == 0 then
+                msg(("окно не найдено или пустое: %s. Открой окно и повтори.")
+                    :format(name or "(открытых окон Ascension нет)"))
+            else
+
+                CoARU_DB.uidump = CoARU_DB.uidump or { lines = {} }
+                local acc = CoARU_DB.uidump.lines
+                for _, row in ipairs(out) do acc[#acc + 1] = row end
+                CoARU_DB.uidump.frames = frames
+                msg(("снято строк: %d, всего в копилке %d (окна: %s). Лежит в "
+                     .. "CoARU_DB.uidump — /reload и пришли CoARU.lua."):format(
+                     n, #acc, table.concat(frames, ", ")))
+            end
         end
     elseif cmd == "lines rec" then
 

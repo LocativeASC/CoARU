@@ -48,7 +48,7 @@ local UI = {
     ["Ascension Main Quest"] = "Основная линия Ascension",
     ["Ascension Main Quests"] = "Основная линия Ascension",
     ["Call Board"] = "Доска вызовов",
-    ["Callboard"] = "Доска вызовов",
+    ["Callboard"] = "Доска глашатая",
 
     ["Quest Details"] = "Задание",
     ["Show Map"] = "Показать карту",
@@ -150,6 +150,11 @@ local function qlookupUncached(t)
     if base then
         local r = CoARU_QuestLookup and CoARU_QuestLookup(base)
         if r then return r .. cnt end
+    end
+
+    if CoARU_TranslateBlock then
+        local ok, ru = pcall(CoARU_TranslateBlock, nil, t)
+        if ok and ru and ru ~= t then return ru end
     end
     return nil
 end
@@ -270,9 +275,19 @@ local function processUI(fs)
     if not CoARU_ModOn("quests") then return end
     if not fs or not fs.GetText then return end
     local t = fs:GetText()
-    local ru = t and UI[t]
-    if ru and ru ~= t then fs:SetText(ru) end
+    if not t or t == "" then return end
+    local ru = UI[t]
+    if not ru and CoARU_ItemNameEN and CoARU_ModOn("itemnames") then
+        local v = CoARU_ItemNameEN[t]
+        if v and v ~= t then ru = v end
+    end
+    if ru and ru ~= t then
+
+        if CoARU_SetTranslated then CoARU_SetTranslated(fs, t, ru) else fs:SetText(ru) end
+    end
 end
+
+function CoARU_QuestTestUI(fs) return processUI(fs) end
 
 local function walkUI(frame, depth)
     if not frame or (depth or 0) > 4 then return end
@@ -281,7 +296,8 @@ local function walkUI(frame, depth)
         if ok then
             for i = 1, cnt do
                 local r = select(i, frame:GetRegions())
-                if r and r.GetObjectType and r:GetObjectType() == "FontString" then processUI(r) end
+                if r and r.GetObjectType and r:GetObjectType() == "FontString"
+                        and not (CoARU_InEditBox and CoARU_InEditBox(r)) then processUI(r) end
             end
         end
     end
@@ -374,7 +390,8 @@ local function walkXlate(frame, depth)
         if ok then
             for i = 1, cnt do
                 local r = select(i, frame:GetRegions())
-                if r and r.GetObjectType and r:GetObjectType() == "FontString" then questXlate(r) end
+                if r and r.GetObjectType and r:GetObjectType() == "FontString"
+                        and not (CoARU_InEditBox and CoARU_InEditBox(r)) then questXlate(r) end
             end
         end
     end
@@ -389,20 +406,36 @@ end
 local function doLogList() walkXlate(_G.QuestLogFrame, 0) end
 
 local function fitLogTitle(btn)
-    if not btn or not btn.GetName then return end
-    local name = btn:GetName()
-    if not name then return end
-    local fs = _G[name .. "NormalText"] or (btn.GetFontString and btn:GetFontString())
+    if not btn then return end
+    local name = btn.GetName and btn:GetName()
+    local fs = btn.normalText or (name and _G[name .. "NormalText"])
+        or (btn.GetFontString and btn:GetFontString())
     if not fs or not fs.GetText or not fs.GetStringWidth then return end
     local text = fs:GetText()
     if not text or text == "" then return end
+
+    if fs.coaruFullText and text:sub(-3) == "..." then
+        local head = fs.coaruFullText:sub(1, #text - 3)
+        if head == text:sub(1, -4) then text = fs.coaruFullText end
+    end
+    fs.coaruFullText = text
+    fs:SetText(text)
     if fs.SetWidth then fs:SetWidth(0) end
     local left = fs.GetLeft and fs:GetLeft()
     if not left then return end
 
+    local tag = btn.tag or (name and _G[name .. "Tag"])
+    local chk = btn.check or (name and _G[name .. "Check"])
+    local shown = tag and (not tag.IsShown or tag:IsShown())
+        and (not tag.GetText or (tag:GetText() or "") ~= "")
+
     local right
-    local tag = _G[name .. "Tag"]
-    if tag and tag.GetText and (tag:GetText() or "") ~= "" and tag.GetLeft and tag:GetLeft() then
+    if btn.GetLeft and btn:GetLeft() and btn.GetWidth and btn:GetWidth() then
+        right = btn:GetLeft() + btn:GetWidth()
+        if shown and tag.GetWidth and tag:GetWidth() then
+            right = right - tag:GetWidth() - 4
+        end
+    elseif shown and tag.GetLeft and tag:GetLeft() then
         right = tag:GetLeft()
     elseif btn.GetRight and btn:GetRight() then
         right = btn:GetRight()
@@ -410,7 +443,6 @@ local function fitLogTitle(btn)
     if not right then return end
 
     local reserve = 6
-    local chk = _G[name .. "Check"]
     if chk and chk.IsShown and chk:IsShown() then reserve = reserve + 18 end
     local avail = right - left - reserve
     if avail <= 24 then return end
@@ -667,8 +699,51 @@ function CoARU_GossipLog(line)
     end
 end
 
+local ITEM_SOURCE = {
+    ["Normal Dungeon"]   = "обычное подземелье",
+    ["Heroic Dungeon"]   = "героическое подземелье",
+    ["Mythic Dungeon"]   = "эпохальное подземелье",
+    ["Ascended Dungeon"] = "подземелье Вознесения",
+    ["Normal Raid"]      = "обычный рейд",
+    ["Heroic Raid"]      = "героический рейд",
+    ["Mythic Raid"]      = "эпохальный рейд",
+    ["Ascended Raid"]    = "рейд Вознесения",
+}
+
+local GOSSIP_SLOT = {
+    ["Head"] = "Голова", ["Neck"] = "Шея", ["Shoulders"] = "Плечи", ["Back"] = "Спина",
+    ["Chest"] = "Грудь", ["Wrists"] = "Запястья", ["Gloves"] = "Кисти рук",
+    ["Belt"] = "Пояс", ["Pants"] = "Ноги", ["Boots"] = "Ступни",
+    ["Rings"] = "Кольца", ["Trinkets"] = "Аксессуары",
+    ["Ranged"] = "Оружие дальнего боя",
+    ["Main Hand"] = "Правая рука", ["Off Hand"] = "Левая рука",
+}
+
+function CoARU_GossipSlotRU(line)
+    return type(line) == "string" and GOSSIP_SLOT[line] or nil
+end
+
+function CoARU_ItemSourceOptionRU(line)
+    if type(line) ~= "string" or line == "" then return nil end
+    for en, ru in pairs(ITEM_SOURCE) do
+        local head = line:match("^(.-)" .. en:gsub("%-", "%%-") .. "$")
+        if head and head ~= "" then
+
+            local name = CoARU_ItemNameLine and CoARU_ItemNameLine(head)
+            if not name and CoARU_ItemNameEN then name = CoARU_ItemNameEN[head] end
+            if name and name ~= head then return name .. " (" .. ru .. ")" end
+            return nil
+        end
+    end
+    return nil
+end
+
 local function gossipRU(t, isOption)
     if not t or #t < 3 then return nil end
+    if isOption then
+        local src = CoARU_ItemSourceOptionRU(t) or CoARU_GossipSlotRU(t)
+        if src then return src end
+    end
     local pre, wrap, core, tail = splitChrome(t)
     local ok, ru = pcall(xlateQuestText, core)
     if CoARU_GOSSIP_DBG then
@@ -714,11 +789,30 @@ local function gossipRU(t, isOption)
     return nil
 end
 
+local xlateFails = 0
+local function safeXlate(fn, v, ...)
+    local ok, res = pcall(fn, v, ...)
+    if ok then return res end
+    xlateFails = xlateFails + 1
+    if CoARU_DB then
+        CoARU_DB.xlatefails = xlateFails
+        local rec = CoARU_DB.xlatefail
+        if not rec then
+            rec = {}
+            CoARU_DB.xlatefail = rec
+        end
+        if #rec < 20 then
+            rec[#rec + 1] = tostring(res) .. "  ||вход: " .. tostring(v)
+        end
+    end
+    return nil
+end
+
 if type(GetGossipText) == "function" then
     local orig = GetGossipText
     function GetGossipText()
         local t = orig()
-        return gossipRU(t) or t
+        return safeXlate(gossipRU, t) or t
     end
 end
 
@@ -763,7 +857,8 @@ local function xlateVarargs(step, ...)
         if type(v) == "string" and (i % step) == 1 then
             local ok, isKey = pcall(clientComparesIt, v)
             if not (ok and isKey) then
-                v = gossipRU(v, true) or v
+
+                v = safeXlate(gossipRU, v, true) or v
             end
         end
         out[i] = v
@@ -802,7 +897,7 @@ local function xlateTitleList(step, ...)
     for i = 1, n do
         local v = select(i, ...)
         if type(v) == "string" and (i % step) == 1 then
-            v = questTitleRU(v) or v
+            v = safeXlate(questTitleRU, v) or v
         end
         out[i] = v
     end
@@ -819,7 +914,7 @@ if type(GetGossipActiveQuests) == "function" then
 end
 
 local function fixFirstTitle(t, ...)
-    if type(t) == "string" then return questTitleRU(t) or t, ... end
+    if type(t) == "string" then return safeXlate(questTitleRU, t) or t, ... end
     return t, ...
 end
 if type(GetAvailableTitle) == "function" then
@@ -835,7 +930,7 @@ if type(GetGreetingText) == "function" then
     local orig = GetGreetingText
     function GetGreetingText()
         local t = orig()
-        return gossipRU(t) or t
+        return safeXlate(gossipRU, t) or t
     end
 end
 
@@ -876,6 +971,8 @@ if type(QuestLogTitleButton_Resize) == "function" then
         local cur = nt and nt.GetText and nt:GetText()
         if nt and nt.SetWidth and cur and CoARU_HasCyrillic and CoARU_HasCyrillic(cur) then
             nt:SetWidth(0)
+
+            fitLogTitle(qlt)
         end
     end)
 end

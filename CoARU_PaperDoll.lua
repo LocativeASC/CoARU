@@ -89,15 +89,12 @@ local KEYS = {
     TIMEMANAGER_ALARM_TOOLTIP_TURN_OFF = "Щелкните, чтобы отключить напоминание.",
     STOPWATCH_TITLE            = "Таймер",
 
-    FACTION_STANDING_LABEL1 = "Ненависть",
-    FACTION_STANDING_LABEL2 = "Враждебность",
-    FACTION_STANDING_LABEL3 = "Неприязнь",
-    FACTION_STANDING_LABEL4 = "Равнодушие",
-    FACTION_STANDING_LABEL5 = "Дружелюбие",
-    FACTION_STANDING_LABEL6 = "Уважение",
-    FACTION_STANDING_LABEL7 = "Почтение",
-    FACTION_STANDING_LABEL8 = "Превознесение",
 }
+
+for i = 1, 8 do
+    local ru = CoARU_STANDING_RU and CoARU_STANDING_RU[i]
+    if type(ru) == "string" and ru ~= "" then KEYS["FACTION_STANDING_LABEL" .. i] = ru end
+end
 
 local SHORT = {
 
@@ -219,7 +216,13 @@ local function buildMap()
     for key, ru in pairs(CoARU_StatLabelRU or {}) do put(CoARU_EN(key), ru) end
     for en, ru in pairs(CoARU_StatLabelOwn or {}) do put(en, ru) end
 
-    for en in pairs(CoARU_SkillNever or {}) do MAP[en] = nil end
+    for en in pairs(CoARU_SkillNever or {}) do
+        MAP[en] = nil
+        if CoARU_SpecNameRU then
+            local ru = CoARU_SpecNameRU(en)
+            if type(ru) == "string" and ru ~= "" and ru ~= en then MAP[en] = ru end
+        end
+    end
 
     local fmt = _G["STAT_FORMAT"]
     if type(fmt) == "string" and fmt:find("%%s") then

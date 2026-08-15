@@ -15,10 +15,6 @@ CoARU_NAME_SEEN = CoARU_NAME_SEEN or {}
 
 CoARU_SUB_SEEN = CoARU_SUB_SEEN or {}
 
-function CoARU_NameEN(ru)
-    return ru and CoARU_NAME_SEEN[ru] or nil
-end
-
 local function nameRU(t)
     if not t or t == "" then return nil end
     if not CoARU_SPELL_NAME_RU then return nil end
@@ -70,7 +66,8 @@ local function collect(fr, depth)
     if not fr or depth > 8 or not fr.GetRegions then return end
     for i = 1, select("#", fr:GetRegions()) do
         local r = select(i, fr:GetRegions())
-        if r and r.GetObjectType and r:GetObjectType() == "FontString" and r.GetText then
+        if r and r.GetObjectType and r:GetObjectType() == "FontString" and r.GetText
+                and not (CoARU_InEditBox and CoARU_InEditBox(r)) then
             cache[#cache + 1] = r
         end
     end

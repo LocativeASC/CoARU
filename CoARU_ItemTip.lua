@@ -142,6 +142,13 @@ function CoARU_TranslateError(msg)
     end
 
     if CoARU_QuestLookup then
+        local head, cnt = msg:match("^(.-):%s*(%d+/%d+)%s*$")
+        if head and head ~= "" then
+            local ok, ru = pcall(CoARU_QuestLookup, head)
+            if ok and ru and ru ~= head then return ru .. ": " .. cnt end
+        end
+    end
+    if CoARU_QuestLookup then
         local ok, ru = pcall(CoARU_QuestLookup, msg)
 
         if ok and ru then
@@ -165,6 +172,11 @@ function CoARU_TranslateError(msg)
 
     if CoARU_TranslateBlock then
         local ok, ru = pcall(CoARU_TranslateBlock, nil, msg)
+        if ok and ru and ru ~= msg then return ru end
+    end
+
+    if CoARU_BroadcastRU then
+        local ok, ru = pcall(CoARU_BroadcastRU, msg)
         if ok and ru and ru ~= msg then return ru end
     end
     if #msg > 12 and CoARU_NoteMiss and not (CoARU_HasCyrillic and CoARU_HasCyrillic(msg)) then
@@ -252,6 +264,17 @@ function CoARU_TranslateItemLabelBody(line)
     end
 
     if plain:find("[\208\209]") then return nil end
+
+    local cnt, setBody = plain:match("^%((%d+)%) Set: (.+)$")
+    if cnt and setBody and setBody:find("%a%a%a") then
+        local okS, resS = pcall(CoARU_TranslateBlock, nil, setBody)
+        if okS and resS and resS ~= setBody then
+            local ru = "(" .. cnt .. ") Комплект: " .. resS
+            if color then ru = color .. ru .. "|r" end
+            return ru
+        end
+        return nil
+    end
     for _, rule in ipairs(LABEL_RULES) do
         local tail = plain:match(rule[1] .. "(.+)$")
         if tail and tail:find("%a%a%a") then
@@ -260,6 +283,17 @@ function CoARU_TranslateItemLabelBody(line)
                 local ru = rule[2] .. res
                 if color then ru = color .. ru .. "|r" end
                 return ru
+            end
+
+            local body, num, unit = tail:match("^(.-)%s*%((%d+)%s+([MmSs]%a+)%s+[Cc]ooldown%)%s*$")
+            if body and body:find("%a%a%a") then
+                local ok2, res2 = pcall(CoARU_TranslateBlock, nil, body)
+                if ok2 and res2 and res2 ~= body then
+                    local u = unit:lower():sub(1, 1) == "m" and "мин." or "сек."
+                    local ru = rule[2] .. res2 .. " (время восстановления " .. num .. " " .. u .. ")"
+                    if color then ru = color .. ru .. "|r" end
+                    return ru
+                end
             end
         end
     end
@@ -276,15 +310,123 @@ function CoARU_ItemNameLine(plain)
 
     local name, cnt = plain:match("^(%S.-)%s*(%(%d+/%d+%))$")
     ru = name and CoARU_ItemNameEN[name]
+
+    if not ru and CoARU_ItemSetRU then ru = CoARU_ItemSetRU[name] end
     if ru then return ru .. " " .. cnt end
+
+    if CoARU_ItemSetRU then
+        local only = CoARU_ItemSetRU[plain]
+        if only then return only end
+    end
     return nil
+end
+
+function CoARU_ItemNameRowRU(id, en)
+    local ru = id and CoARU_ItemName and CoARU_ItemName[id]
+    if ru and ru ~= "" then return ru end
+    if type(en) ~= "string" or en == "" or not CoARU_ItemNameEN then return nil end
+    local byText = CoARU_ItemNameEN[en]
+    if byText and byText ~= "" and byText ~= en then return byText end
+    return nil
+end
+
+function CoARU_ZoneLineRU(plain)
+    if type(plain) ~= "string" or plain == "" or not CoARU_ZONE then return nil end
+    local pad, core = plain:match("^(%s*)(%S.-)%s*$")
+    if not core then return nil end
+    local key = CoARU_ZONE[core] and core or (CoARU_ZONE["The " .. core] and ("The " .. core))
+    if not key then return nil end
+    local inst = CoARU_ZONE_INST and (CoARU_ZONE_INST[key] or CoARU_ZONE_INST[core])
+    local ok = inst and CoARU_ModOn("dungeons") or (not inst and CoARU_ModOn("zones"))
+    if not ok then return nil end
+    local ru = CoARU_ZONE[key]
+    if not ru or ru == "" or ru == core then return nil end
+    return pad .. ru
+end
+
+function CoARU_ItemLinkNameRU(spec, name)
+    if type(spec) ~= "string" or type(name) ~= "string" or name == "" then return nil end
+    local id = tonumber(spec:match("^item:(%d+)"))
+    if not id then return nil end
+    local suffixID = tonumber(spec:match(
+        "^item:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:(%-?%d+)"))
+    if suffixID and suffixID ~= 0 then
+        if not CoARU_SplitItemSuffix then return nil end
+        local baseEN, suffRU = CoARU_SplitItemSuffix(name, suffixID)
+        if not (baseEN and suffRU) then return nil end
+        local ru = CoARU_ItemNameRowRU(id, baseEN)
+        return ru and (ru .. " " .. suffRU) or nil
+    end
+    return CoARU_ItemNameRowRU(id, name)
+end
+
+function CoARU_AchievementLineRU(plain)
+    if type(plain) ~= "string" or #plain < 3 or not CoARU_ACHIEVEMENT_RU then return nil end
+    local pad, core = plain:match("^(%s*)(%S.-)%s*$")
+    if not core then return nil end
+    local ru = CoARU_ACHIEVEMENT_RU[core]
+    if not ru or ru == "" or ru == core then return nil end
+    return pad .. ru
+end
+
+local SOURCE_TAIL = {
+    ["Heroic Dungeon"] = "героическое подземелье",
+    ["Normal Dungeon"] = "обычное подземелье",
+    ["Mythic Dungeon"] = "эпохальное подземелье",
+    ["Heroic Raid"] = "героический рейд",
+    ["Normal Raid"] = "обычный рейд",
+}
+
+function CoARU_ItemSourceGlueRU(plain)
+    if type(plain) ~= "string" or plain == "" then return nil end
+    for tail, ru in pairs(SOURCE_TAIL) do
+        local name = plain:match("^(.-)" .. tail:gsub("%s", "%%s") .. "$")
+
+        if name and name ~= "" and name:sub(-1) ~= " " then
+            local nameRU = CoARU_ItemNameLine and CoARU_ItemNameLine(name)
+            if not nameRU and CoARU_ItemNameEN then nameRU = CoARU_ItemNameEN[name] end
+
+            if nameRU and nameRU ~= name then return nameRU .. " (" .. ru .. ")" end
+            return nil
+        end
+    end
+    return nil
+end
+
+function CoARU_UnitNameLineRU(plain)
+    if type(plain) ~= "string" or #plain < 3 then return nil end
+    if not CoARU_ModOn("names") then return nil end
+    local pad, core = plain:match("^(%s*)(%S.-)%s*$")
+    if not core then return nil end
+    local ru = CoARU_UNIT_N2R and CoARU_UNIT_N2R[core]
+
+    if not ru and CoARU_UNIT_SUB_N2R then ru = CoARU_UNIT_SUB_N2R[core] end
+    if not ru or ru == "" or ru == core then return nil end
+    return pad .. ru
+end
+
+function CoARU_ItemLinkLineRU(text)
+    if type(text) ~= "string" or not text:find("|Hitem:", 1, true) then return nil end
+    local changed = false
+    local out = text:gsub("(|H(item:[^|]*)|h%[)([^%]]+)(%]|h)", function(a, spec, name, b)
+        local ru = CoARU_ItemLinkNameRU(spec, name)
+        if ru and ru ~= name then
+            changed = true
+            return a .. ru .. b
+        end
+        return a .. name .. b
+    end)
+    if not changed then return nil end
+    return out
 end
 
 local PREFIX_RULES = {
 
     { "^Unique%-Equipped: ", "Уникальный использующийся: " },
 
-    { "^Transmogrified to: ", "Внешность предмета: " },
+    { "^Transmogrified to: ", "Внешность предмета: ", tail = true },
+
+    { "^Loot: ", "Добыча: " },
 }
 
 local PATTERN_RULES = {
@@ -293,6 +435,12 @@ local PATTERN_RULES = {
             .. "home location%.%s*%((%d+) Min Cooldown%)$",
         "Использование: переносит вас в {1}. Чтобы сменить дом, поговорите с трактирщиком в "
             .. "другом месте. (Восстановление: {2} мин.)",
+    },
+
+    {
+        "^Returns you to (.-)%.%s*Speak to an Innkeeper in a different place to change your "
+            .. "home location%.%s*$",
+        "Возвращает вас в {1}. Чтобы сменить дом, поговорите с трактирщиком в другом месте.",
     },
 
     {
@@ -345,6 +493,12 @@ function CoARU_TranslateItemPrefix(line)
         local head, tail = plain:match("^(%a[%a%-' ]-) (%(.*)$")
         local sru = head and SUB[head]
         if sru then
+
+            local n = tail:match("^%((%d+) [Ss]lots?%)$")
+            if n then
+                local word = CoARU_RuPlural and CoARU_RuPlural(n, "ячейка", "ячейки", "ячеек")
+                if word then tail = "(" .. n .. " " .. word .. ")" end
+            end
             local out = sru .. " " .. tail
             return color and (color .. out .. "|r") or out
         end
@@ -354,6 +508,16 @@ function CoARU_TranslateItemPrefix(line)
     for _, rule in ipairs(PREFIX_RULES) do
         if plain:find(rule[1]) then
             ru = (plain:gsub(rule[1], rule[2], 1))
+
+            if rule.tail and CoARU_ItemNameEN then
+                local head, name = ru:match("^(.-: )(.+)$")
+                if name then
+                    local nameRU = CoARU_ItemNameEN[name]
+                    if type(nameRU) == "string" and nameRU ~= "" and nameRU ~= name then
+                        ru = head .. nameRU
+                    end
+                end
+            end
             break
         end
     end

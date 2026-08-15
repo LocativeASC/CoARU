@@ -31,18 +31,6 @@ end
 
 CoARU_SkinRecalc = recalcMult
 
-function CoARU_SkinPanel(f, bg, border)
-    bg, border = bg or BG, border or BORDER
-    f:SetBackdrop({
-        bgFile = WHITE, edgeFile = WHITE,
-        tile = false, edgeSize = CoARU_Px(1),
-        insets = { left = 0, right = 0, top = 0, bottom = 0 },
-    })
-    f:SetBackdropColor(bg[1], bg[2], bg[3], bg[4] or 1)
-    f:SetBackdropBorderColor(border[1], border[2], border[3], border[4] or 1)
-    return f
-end
-
 local C10 = 0.625
 local CORNER = 10
 
@@ -311,59 +299,6 @@ local function centerRowText(row, rowH, lbl, sub, x, gap, fallbackL, fallbackS)
     })
 end
 
-function CoARU_SkinRow(parent, w, h, label, hint, name)
-    local row = CreateFrame("Button", nil, parent)
-    row:SetWidth(w)
-    row:SetHeight(h or 44)
-
-    local bg = row:CreateTexture(nil, "BACKGROUND")
-    bg:SetTexture(TEX .. "gradient.tga")
-    bg:SetAllPoints(row)
-    bg:SetVertexColor(1, 1, 1, 0.5)
-
-    local line = row:CreateTexture(nil, "ARTWORK")
-    line:SetTexture(TEX .. "divider.tga")
-    line:SetHeight(CoARU_Px(1))
-    line:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 0, 0)
-    line:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", 0, 0)
-    line:SetVertexColor(1, 1, 1, 0.10)
-
-    local lbl = row:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    lbl:SetPoint("TOPLEFT", row, "TOPLEFT", 14, -8)
-    lbl:SetText(label)
-    lbl:SetTextColor(0.93, 0.93, 0.96)
-    CoARU_SkinFont(lbl, 13)
-
-    local sub = row:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-    sub:SetPoint("TOPLEFT", lbl, "BOTTOMLEFT", 0, -3)
-    sub:SetPoint("RIGHT", row, "RIGHT", -60, 0)
-    sub:SetJustifyH("LEFT")
-    sub:SetText(hint or "")
-    sub:SetTextColor(0.44, 0.44, 0.5)
-    CoARU_SkinFont(sub, 10)
-    centerRowText(row, h or 44, lbl, sub, 14, 3, 15, 12)
-
-    local tg = CoARU_SkinToggle(row, "", name)
-    tg:SetPoint("RIGHT", row, "RIGHT", -12, 0)
-
-    tg:SetHitRectInsets(0, 0, 0, 0)
-
-    CoARU_SkinHighlight(row, 0.10)
-    row:SetScript("OnClick", function()
-        if tg.blocked then return end
-        tg:SetChecked(not tg:GetChecked())
-        if tg.OnRowClick then tg.OnRowClick(tg) end
-    end)
-    row.toggle, row.labelFS, row.hintFS = tg, lbl, sub
-    row.SetBlocked = function(self, why)
-        tg:SetBlocked(why)
-        lbl:SetTextColor(why and 0.42 or 0.88, why and 0.42 or 0.88, why and 0.46 or 0.92)
-        sub:SetText(why or hint or "")
-        sub:SetTextColor(why and 0.72 or 0.46, why and 0.5 or 0.46, why and 0.24 or 0.52)
-    end
-    return row
-end
-
 function CoARU_SkinButton(parent, w, h, text, accent, name)
     local b = CreateFrame("Button", name, parent)
     b:SetWidth(w)
@@ -419,24 +354,6 @@ function CoARU_SkinFont(fs, size, outline, bold)
         fs:SetFont("Fonts\\FRIZQT__.TTF", size, outline)
     end
     return fs
-end
-
-function CoARU_SkinFadeIn(f, dur)
-    if not f.CreateAnimationGroup then return end
-    if not f.coaruFade then
-        local g = f:CreateAnimationGroup()
-        if not (g and g.CreateAnimation) then return end
-        local a = g:CreateAnimation("Alpha")
-        if not a then return end
-        a:SetDuration(dur or 0.15)
-        a:SetChange(1)
-        a:SetSmoothing("OUT")
-        g:SetScript("OnPlay", function() f:SetAlpha(0) end)
-        g:SetScript("OnFinished", function() f:SetAlpha(1) end)
-        f.coaruFade = g
-    end
-    f.coaruFade:Stop()
-    f.coaruFade:Play()
 end
 
 local w = CreateFrame("Frame")
@@ -575,61 +492,6 @@ function CoARU_SkinRow2(parent, w, h, label, hint, name)
         repaint(false)
     end
     return row
-end
-
-function CoARU_SkinPresetCard(parent, w, h, icon, title, desc, primary, name)
-    local b = CreateFrame("Button", name, parent)
-    b:SetWidth(w)
-    b:SetHeight(h)
-    local paintBg = CoARU_SkinRounded(b, primary and
-        { LAYER.card[1] + 0.05, LAYER.card[2] + 0.03, LAYER.card[3] + 0.09 } or LAYER.card)
-
-    local ic = b:CreateTexture(nil, "ARTWORK")
-
-        ic:SetTexture("Interface\\Icons\\" .. icon)
-    ic:SetWidth(30)
-    ic:SetHeight(30)
-
-    ic:SetPoint("LEFT", b, "LEFT", 14, 0)
-    ic:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-
-    local t = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    t:SetPoint("TOPLEFT", b, "TOPLEFT", 56, -14)
-    t:SetText(title)
-    t:SetTextColor(primary and 1 or 0.93, primary and 0.95 or 0.93, 1)
-    CoARU_SkinFont(t, 15, nil, true)
-
-    local d = b:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
-    d:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 0, -5)
-    d:SetPoint("RIGHT", b, "RIGHT", -14, 0)
-    d:SetJustifyH("LEFT")
-    d:SetText(desc)
-    d:SetTextColor(0.58, 0.58, 0.64)
-    CoARU_SkinFont(d, 11)
-    centerRowText(b, h, t, d, 56, 5, 17, 13)
-
-    local bar = b:CreateTexture(nil, "ARTWORK")
-    bar:SetTexture(WHITE)
-    bar:SetWidth(CoARU_Px(3))
-    bar:SetPoint("TOPLEFT", b, "TOPLEFT", 0, -6)
-    bar:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 6)
-    bar:SetVertexColor(ACCENT[1], ACCENT[2], ACCENT[3], 1)
-    if not primary then bar:Hide() end
-
-    local SEL = { LAYER.card[1] + 0.05, LAYER.card[2] + 0.03, LAYER.card[3] + 0.09 }
-    local base = primary and SEL or LAYER.card
-    b.selected = primary and true or false
-    b.SetSelected = function(self, on)
-        self.selected = on and true or false
-        base = on and SEL or LAYER.card
-        if on then bar:Show() else bar:Hide() end
-        paintBg(base)
-    end
-    b:SetScript("OnEnter", function()
-        paintBg({ base[1] + 0.07, base[2] + 0.06, base[3] + 0.08 })
-    end)
-    b:SetScript("OnLeave", function() paintBg(base) end)
-    return b
 end
 
 function CoARU_SkinStatCard(parent, w, h, caption, value, color, note)

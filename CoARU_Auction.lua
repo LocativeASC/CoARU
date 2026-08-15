@@ -6,11 +6,16 @@ local function itemIdFromLink(link)
     return id and tonumber(id) or nil
 end
 
-function CoARU_AuctionNameRU(listType, index)
-    if not CoARU_ItemName or not GetAuctionItemLink then return nil end
+function CoARU_AuctionNameRU(listType, index, en)
+    if not GetAuctionItemLink then return nil end
     local id = itemIdFromLink(GetAuctionItemLink(listType, index))
     if not id then return nil end
-    local ru = CoARU_ItemName[id]
+    if GetAuctionItemInfo then
+        local ok, name = pcall(GetAuctionItemInfo, listType, index)
+        if ok and type(name) == "string" and name ~= "" then en = name end
+    end
+    local ru = CoARU_ItemNameRowRU and CoARU_ItemNameRowRU(id, en)
+        or (CoARU_ItemName and CoARU_ItemName[id])
     if not ru or ru == "" then return nil end
     return ru
 end
@@ -27,7 +32,7 @@ local function retext(prefix, listType, scroll, count)
             local cur = fs:GetText()
             if cur and cur ~= "" then
 
-                local ru = CoARU_AuctionNameRU(listType, offset + i)
+                local ru = CoARU_AuctionNameRU(listType, offset + i, cur)
                 if ru and ru ~= cur then
                     if CoARU_SetTranslated then
                         CoARU_SetTranslated(fs, cur, ru)

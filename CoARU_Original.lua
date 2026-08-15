@@ -64,13 +64,17 @@ function CoARU_SetTranslated(fs, en, ru)
     end
     local before = grabColor(fs)
 
-    local src = CoARU_LastSource
-    CoARU_LastSource = nil
+    local src = CoARU_TakeSource and CoARU_TakeSource()
     fs:SetText(CoARU_OriginalMode and en or ru)
 
     local after = grabColor(fs)
     local lost = before and (not after
         or before[1] ~= after[1] or before[2] ~= after[2] or before[3] ~= after[3])
+
+    local prevRec = ORIG[fs]
+    if CoARU_OriginalMode and prevRec and prevRec.en == en and prevRec.ru then
+        ru = prevRec.ru
+    end
     ORIG[fs] = { en = en, ru = ru, rgb = lost and before or nil, src = src }
     if lost then CoARU_ReapplyColor(fs) end
 end
@@ -102,13 +106,15 @@ end
 
 local REV, REVP
 
+local REVP_BY_PAT = {}
+
 local RESOLVED = {}
 
 local RESOLVED_CAP = 2000
 local RESOLVED_N = 0
 
 local function buildReverse()
-    REV, REVP = {}, {}
+    REV, REVP, REVP_BY_PAT = {}, {}, {}
     if type(CoARU_GS_EN) ~= "table" then return end
     for key, en in pairs(CoARU_GS_EN) do
         local ru = _G[key]
@@ -122,16 +128,28 @@ local function buildReverse()
                 end
             elseif not ru:find("%%%d+%$") and not en:find("%%%d+%$") then
 
-                local pat, n = toPattern(ru)
+                local src = ru:gsub("|3%-%d+%((.-)%)", "%1")
+                local pat, n = toPattern(src)
                 local i = 0
                 local rep = en:gsub(FMT, function()
                     i = i + 1
                     return "%" .. i
                 end)
 
-                local literal = #(ru:gsub(FMT, ""))
+                local literal = #(src:gsub(FMT, ""))
                 if n > 0 and n == i and literal >= 6 then
-                    REVP[#REVP + 1] = { pat = "^" .. pat .. "$", rep = rep, w = literal }
+
+                    local key = "^" .. pat .. "$"
+                    local prev = REVP_BY_PAT[key]
+                    if prev == nil then
+                        REVP_BY_PAT[key] = rep
+                        REVP[#REVP + 1] = { pat = key, rep = rep, w = literal }
+                    elseif prev ~= rep and prev ~= false then
+                        REVP_BY_PAT[key] = false
+                        for j = #REVP, 1, -1 do
+                            if REVP[j].pat == key then table.remove(REVP, j) end
+                        end
+                    end
                 end
             end
         end
@@ -354,7 +372,7 @@ function CoARU_RegisterClientLine(fs, ru)
         return true
     end
 
-    CoARU_LastSource = "пакет интерфейса"
+    if CoARU_SetSource then CoARU_SetSource("пакет интерфейса") end
     CoARU_SetTranslated(fs, en, ru)
     return true
 end

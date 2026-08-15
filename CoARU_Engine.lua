@@ -156,10 +156,19 @@ local function ruPlural(num, one, few, many)
     return many
 end
 
+function CoARU_RuPlural(num, one, few, many)
+    return ruPlural(num, one, few, many)
+end
+
 local function applyPlurals(ru, nums)
     return (ru:gsub("{(%d+)|([^|{}]*)|([^|{}]*)|([^|{}]*)}", function(n, a, b, c)
         return ruPlural(nums[tonumber(n)] or "0", a, b, c)
     end))
+end
+
+function CoARU_NumbersOf(text)
+    if type(text) ~= "string" then return nil end
+    return extractNumbers(CoARU_StripCodes(text))
 end
 
 function CoARU_Norm(text)
@@ -359,6 +368,46 @@ local function buildAttempts(plain, raw)
         if found then
             parts[#parts + 1] = plain:sub(i)
             out[#out + 1] = { plain = table.concat(parts), multi = multi }
+        end
+    end
+
+    do
+        local parts, multi, slot, i, n, found = {}, {}, 0, 1, #plain, false
+        while i <= n do
+            local ps, pe, paren = plain:find("(%s*%(%+[%d%.,]+%%?%))", i)
+            local s2, e2 = plain:find("%d[%d%.,]*", i)
+            if ps and (not s2 or ps < s2) then
+                if slot > 0 then
+                    parts[#parts + 1] = plain:sub(i, ps - 1)
+                    multi[slot] = (multi[slot] or "") .. paren
+                    found = true
+                    i = pe + 1
+                else
+                    parts[#parts + 1] = plain:sub(i, pe)
+                    i = pe + 1
+                end
+            elseif s2 then
+                parts[#parts + 1] = plain:sub(i, e2)
+                slot = slot + 1
+                multi[slot] = plain:sub(s2, e2)
+                i = e2 + 1
+            else
+                break
+            end
+        end
+        if found then
+            parts[#parts + 1] = plain:sub(i)
+            out[#out + 1] = { plain = table.concat(parts), multi = multi }
+        end
+    end
+
+    do
+        local np, n = plain:gsub("([^%d])%-(%d)", "%1%2")
+        if np:sub(1, 1) == "-" and np:sub(2, 2):match("%d") then
+            np, n = np:sub(2), n + 1
+        end
+        if n > 0 and np ~= plain then
+            out[#out + 1] = { plain = np }
         end
     end
 
@@ -681,6 +730,17 @@ end
 
 function CoARU_TimeRemaining(line)
     if not line then return nil end
+
+    local enNum, enWord = line:match("^(%d+)%s+(%a+)%s+remaining%.?$")
+    if enNum then
+        local n = tonumber(enNum)
+        for _, u in ipairs(TIME_UNITS) do
+            if enWord:lower():find("^" .. u.en[1]) then
+                return "Осталось: " .. enNum .. " " .. ruPlural(n, u.ru), line
+            end
+        end
+        return nil
+    end
     local num, word = line:match("^Осталось:%s*(%d+)%s+([^%s%.]+)%.?$")
     if not num then return nil end
     local n = tonumber(num)
@@ -704,11 +764,49 @@ function CoARU_DispelType(word)
     return DISPEL_RU[(word:gsub("^%s+", ""):gsub("%s+$", ""))]
 end
 
+local function requiredTalents(s)
+    if not s or not (s:find("талантов", 1, true) or s:find("talents", 1, true)) then return s end
+    local tabs, classes = CoARU_TAB_RU, CoARU_CLASS_VANILLA_RU
+    if type(tabs) ~= "table" or type(classes) ~= "table" then return s end
+
+    local cls, clsRU, clsLen = nil, nil, -1
+    for en, ru in pairs(classes) do
+        if #en > clsLen and s:find("%f[%a]" .. en .. "%f[%A]") then
+            cls, clsRU, clsLen = en, ru, #en
+        end
+    end
+    if not cls then return s end
+
+    local found = {}
+    for en in pairs(tabs) do
+        if s:find("%f[%a]" .. en .. "%f[%A]") then found[#found + 1] = en end
+    end
+    if #found == 0 then return s end
+
+    local out = s
+    for i = 1, #found do
+        out = out:gsub("%f[%a]" .. found[i] .. "%f[%A]", "«" .. tabs[found[i]] .. "»")
+    end
+
+    out = out:gsub("%f[%a]or%f[%A]", "или")
+
+    out = out:gsub("%s*%f[%a]" .. cls .. "%f[%A]", " (" .. clsRU .. ")")
+
+    local head = out:match("талантов:(.-)%(") or out:match("talents:(.-)%(")
+    if head then
+        local bare = head:gsub("«[^»]*»", " ")
+        if bare:find("[A-Za-z][A-Za-z]") then return s end
+    end
+    return out
+end
+
 function CoARU_TranslateRequires(line)
 
     if not line then return nil end
     if not (line:find("Requires") or line:find("Требуется")) then return nil end
     local s = line
+
+    s = s:gsub("Requires talents:%s*", "Требуется талантов: ")
     s = s:gsub("Requires:%s*", "Требуется: ")
     s = s:gsub("Requires%s+", "Требуется ")
 
@@ -718,6 +816,15 @@ function CoARU_TranslateRequires(line)
     s = s:gsub("Enraged", "«Enrage»")
 
     s = s:gsub("%f[%a]Level%f[%A]", "уровень")
+
+    if CoARU_FactionLineRU then
+        local head, rest = s:match("^(Требуется:?%s+)(.+)$")
+        if head and rest and rest:find("%-") then
+            local ru = CoARU_FactionLineRU(rest)
+            if ru then s = head .. ru end
+        end
+    end
+    s = requiredTalents(s)
     s = s:gsub("%(Rank (%d+)%)", "(ранг %1)")
     s = s:gsub("%(Rank (|[cC]%x%x%x%x%x%x%x%x)(%d+)(|[rR])%)", "(ранг %1%2%3)")
 
@@ -788,16 +895,49 @@ function CoARU_TranslateRequires(line)
         end
     end
 
+    if s ~= line and not s:find("талантов") and CoARU_LatinIsLegit then
+        local probe = CoARU_StripCodes and CoARU_StripCodes(s) or s
+        probe = probe:gsub("«[^»]*»", " ")
+        if not CoARU_LatinIsLegit(probe) then return nil end
+    end
     if s ~= line then return s end
     return nil
 end
 
+function CoARU_TranslateTransmog(line)
+    if not line or not CoARU_ItemNameEN then return nil end
+    local head, name = line:match("^(Трансмогрификация в:%s*)(.+)$")
+    if not head then
+        head, name = line:match("^(Transmogrified into:%s*)(.+)$")
+        if head then head = "Трансмогрификация в: " end
+    end
+    if not head or not name then return nil end
+    name = name:match("^%s*(.-)%s*$")
+    local ru = CoARU_ItemNameEN[name]
+
+    if not ru or ru == name then return nil end
+    return head .. ru
+end
+
+local LIST_LABELS = {
+    { "Reagents:", "Реагенты: " },
+    { "Tools:", "Инструменты: " },
+}
+
 function CoARU_TranslateReagents(line)
-    if not line or not line:find("Reagents:", 1, true) then return nil end
-    local s = line:gsub("Reagents:%s*", "Реагенты: ")
-    if s == line then return nil end
+    if not line then return nil end
+    local s, head_ru
+    for i = 1, #LIST_LABELS do
+        local en, ru = LIST_LABELS[i][1], LIST_LABELS[i][2]
+        if line:find(en, 1, true) then
+            s = line:gsub(en .. "%s*", ru)
+            head_ru = ru
+            break
+        end
+    end
+    if not s or s == line then return nil end
     if CoARU_ItemNameEN then
-        local head, list = s:match("^(Реагенты:%s*)(.+)$")
+        local head, list = s:match("^(" .. head_ru:gsub("%s+$", "") .. "%s*)(.+)$")
         if list then
             local out, any = {}, false
             for part in (list .. ","):gmatch("(.-),%s*") do
@@ -1624,6 +1764,19 @@ local function isPlayerTag(tag)
     return tag == "Player" or tag == "игрок"
 end
 
+function CoARU_UnitWordRU(en)
+    if type(en) ~= "string" or en == "" then return nil end
+    return UNIT_KIND[en] or UNIT_RACE[en] or UNIT_TAG[en]
+end
+
+local function levelSplit(plain)
+    local lvl, rest = plain:match("^Level%s+(%d+)%s+(.+)$")
+    if lvl then return lvl .. "-й уровень", rest end
+    rest = plain:match("^Level%s+%?%?%s+(.+)$")
+    if rest then return "уровень ??", rest end
+    return nil, nil
+end
+
 local function raceClassSplit(rest)
     local best, bestRu
     for en, ru in pairs(UNIT_RACE) do
@@ -1648,7 +1801,7 @@ function CoARU_TranslateRaceClass(line)
         plain = body
     end
 
-    local lvl, rest = plain:match("^Level%s+(%d+)%s+(.+)$")
+    local lvl, rest = levelSplit(plain)
     if not rest then rest = plain end
 
     local ru, cls = raceClassSplit(rest)
@@ -1659,7 +1812,7 @@ function CoARU_TranslateRaceClass(line)
 
     local out
     if lvl then
-        out = lvl .. "-й уровень, " .. ru .. " " .. cls
+        out = lvl .. ", " .. ru .. " " .. cls
     else
 
         out = (flipFirstCase(ru) or ru) .. " " .. cls
@@ -1675,6 +1828,18 @@ function CoARU_TranslateUnitLine(line)
 
     local thr = plain:match("^(%d+)%%%s+Threat$")
     if thr then return thr .. "% угрозы" end
+
+    local pName, pLvl, pCls =
+        line:match("^%s*(.-)%s%s+Level (%d+)%s+(|[cC]%x%x%x%x%x%x%x%x.+|[rR])%s*$")
+    if pName and pName ~= "" then
+        return pName .. "  " .. pLvl .. "-й уровень " .. pCls
+    end
+
+    local tgt = plain:match("^Targeting:%s*(.+)$")
+    if tgt then
+        local ru = CoARU_UNIT_N2R and CoARU_UNIT_N2R[tgt]
+        return "Цель: " .. ((ru and ru ~= tgt) and ru or tgt)
+    end
 
     local killer, klvl = plain:match("^Killer:%s*(.+)%s+%(Level%s+(%d+)%)$")
     if killer then
@@ -1699,7 +1864,7 @@ function CoARU_TranslateUnitLine(line)
     local owner = plain:match("^([%a%d]+)'s Guardian$")
     if owner then return "Страж " .. owner end
 
-    local lvl, rest = plain:match("^Level%s+(%d+)%s+(.+)$")
+    local lvl, rest = levelSplit(plain)
     if lvl then
         local tag
         local body = rest:match("^(.-)%s*%((.-)%)$")
@@ -1714,13 +1879,17 @@ function CoARU_TranslateUnitLine(line)
 
             local bestRu, cls = raceClassSplit(rest)
             if not bestRu then return nil end
-            local out = lvl .. "-й уровень, " .. bestRu
+            local out = lvl .. ", " .. bestRu
             if cls ~= "" then out = out .. " " .. cls end
             return out .. " (игрок)"
         end
+
         local ru = UNIT_KIND[rest]
+        if not ru and CoARU_HasCyrillic(rest) then
+            ru = flipFirstCase(rest) or rest
+        end
         if not ru then return nil end
-        local out = lvl .. "-й уровень, " .. ru
+        local out = lvl .. ", " .. ru
         if tag then
             out = out .. " (" .. (UNIT_TAG[tag] or tag) .. ")"
         end
@@ -1747,15 +1916,282 @@ function CoARU_TranslateLabelHead(line)
     return ru .. ": " .. tail
 end
 
+CoARU_STANDING_RU = { "Ненависть", "Враждебность", "Неприязнь", "Равнодушие",
+                      "Дружелюбие", "Уважение", "Почтение", "Превознесение" }
+local STANDING_EN = { "Hated", "Hostile", "Unfriendly", "Neutral",
+                      "Friendly", "Honored", "Revered", "Exalted" }
+local standingMap
+
+local function standingRU(word)
+    if standingMap == nil then
+        standingMap = {}
+        for i = 1, #STANDING_EN do
+            local ru = CoARU_STANDING_RU[i]
+            if type(ru) == "string" and ru ~= "" then standingMap[STANDING_EN[i]] = ru end
+        end
+    end
+    return standingMap[word]
+end
+
+function CoARU_FactionNameRU(name)
+    if type(name) ~= "string" or name == "" or type(CoARU_FACTION_RU) ~= "table" then
+        return nil
+    end
+    local ru = CoARU_FACTION_RU[name]
+
+    if type(ru) ~= "string" or ru == "" or ru == name then return nil end
+    return ru
+end
+
+function CoARU_BracketItemLineRU(line)
+    if type(line) ~= "string" or type(CoARU_ItemNameEN) ~= "table" then return nil end
+    local name, tail = line:match("^%s*%[(.+)%](%s*x%s*%d+%s*)$")
+    if not name then return nil end
+    local ru = CoARU_ItemNameEN[name]
+    local qual = ""
+    if not ru then
+        local core, paren = name:match("^(.-)%s*(%(.+%))$")
+        if core then
+            ru = CoARU_ItemNameEN[core]
+            qual = " " .. paren
+        end
+    end
+    if not ru or ru == "" or ru == name then return nil end
+    return "[" .. ru .. qual .. "]" .. tail
+end
+
+function CoARU_ObjectiveCountLineRU(line, ask)
+    if type(line) ~= "string" then return nil end
+    local core, tail = line:match("^%s*%-%s*(.-)%s*(x%s*%d+)%s*$")
+    if not core or core == "" then return nil end
+    local ru
+    if type(ask) == "function" then ru = ask(core) end
+    if not ru and CoARU_UNIT_N2R then ru = CoARU_UNIT_N2R[core] end
+    if not ru and CoARU_ItemNameEN then ru = CoARU_ItemNameEN[core] end
+    if not ru and CoARU_QuestLookup then
+        local ok, got = pcall(CoARU_QuestLookup, core)
+        if ok then ru = got end
+    end
+    if not ru or ru == "" or ru == core then return nil end
+    return "- " .. ru .. " " .. tail
+end
+
+function CoARU_InEditBox(obj)
+    if not obj or not obj.GetParent then return false end
+    local ok, p = pcall(obj.GetParent, obj)
+    local depth = 0
+    while ok and p and depth < 6 do
+        local kind = p.GetObjectType and p:GetObjectType()
+        if kind == "EditBox" then return true end
+        ok, p = pcall(p.GetParent, p)
+        depth = depth + 1
+    end
+    return false
+end
+
+local REGION_NAMES = { "Eastern Kingdoms", "Kalimdor", "Outland", "Northrend" }
+
+local function zoneRU(name)
+    if not CoARU_ZONE or name == "" then return nil end
+
+    local cands = { name, "The " .. name, name .. " City", "The " .. name .. " City" }
+    for i = 1, #cands do
+        local ru = CoARU_ZONE[cands[i]]
+        if ru and ru ~= "" and ru ~= name then return ru end
+    end
+    return nil
+end
+
+local function regionListMultiline(text, one)
+    if not text:find("\n", 1, true) then return nil end
+    local out, changed = {}, false
+    for part in (text .. "\n"):gmatch("(.-)\n") do
+        local ru = one(part)
+        if ru then
+            out[#out + 1] = ru
+            changed = true
+        else
+            if part:find("%S") and not CoARU_HasCyrillic(part) then return nil end
+            out[#out + 1] = part
+        end
+    end
+    if not changed then return nil end
+    return table.concat(out, "\n")
+end
+
+function CoARU_RegionZoneListRU(line)
+    if type(line) ~= "string" or not CoARU_ZONE then return nil end
+    if not line:find(":", 1, true) then return nil end
+    if line:find("\n", 1, true) then
+        return regionListMultiline(line, CoARU_RegionZoneListRU)
+    end
+
+    local pre, mid, post = line:match("^(|c%x%x%x%x%x%x%x%x)(.*)(|[rR])$")
+    if pre and not mid:find("|c", 1, true) then
+        local ru = CoARU_RegionZoneListRU(mid)
+        return ru and (pre .. ru .. post) or nil
+    end
+
+    local hdrColor = line:match("|c(%x%x%x%x%x%x%x%x)[^|:]-:|[rR]")
+    if hdrColor then
+        line = line:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|[rR]", "")
+    end
+
+    if line:find("|c", 1, true) then return nil end
+
+    local marks = {}
+    for i = 1, #REGION_NAMES do
+        local at, name = 1, REGION_NAMES[i]
+        while true do
+            local s, e = line:find(name .. ":", at, true)
+            if not s then break end
+            marks[#marks + 1] = { s = s, e = e, name = name }
+            at = e + 1
+        end
+    end
+    if #marks == 0 then return nil end
+    table.sort(marks, function(a, b) return a.s < b.s end)
+
+    if line:sub(1, marks[1].s - 1):find("%S") then return nil end
+
+    local out, ok = {}, true
+    for i = 1, #marks do
+        local m = marks[i]
+        local stop = (marks[i + 1] and marks[i + 1].s - 1) or #line
+        local body = line:sub(m.e + 1, stop)
+
+        local core, tail = body, ""
+        while true do
+            local cut = core:match("(|[nN])$") or core:match("(%s)$")
+            if not cut then break end
+            tail = cut .. tail
+            core = core:sub(1, #core - #cut)
+        end
+        local dot = ""
+        local trimmed = core:match("^(.-)%.%s*$")
+        if trimmed then core, dot = trimmed, "." end
+
+        local region = zoneRU(m.name)
+        if not region then ok = false break end
+
+        local places = {}
+        for piece in (core .. ","):gmatch("%s*(.-)%s*,") do
+            if piece ~= "" then
+                local ru = zoneRU(piece)
+                if not ru then ok = false break end
+                places[#places + 1] = ru
+            end
+        end
+        if not ok or #places == 0 then ok = false break end
+        local head = region .. ":"
+        if hdrColor then head = "|c" .. hdrColor .. head .. "|r" end
+        out[#out + 1] = head .. " " .. table.concat(places, ", ") .. dot .. tail
+    end
+    if not ok then return nil end
+    return table.concat(out)
+end
+
+local DUR_UNIT = {
+    sec = "сек.", secs = "сек.", second = "сек.", seconds = "сек.",
+    min = "мин.", mins = "мин.", minute = "мин.", minutes = "мин.",
+    hr = "ч.", hrs = "ч.", hour = "ч.", hours = "ч.",
+}
+
+function CoARU_BuffDurationLineRU(line)
+    if type(line) ~= "string" then return nil end
+    local name, num, unit = line:match("^%s*(.-)%s*%((%d+)%s+([^()]+)%)%s*$")
+    if not name or name == "" then return nil end
+
+    local ru_unit
+    if CoARU_HasCyrillic(unit) then
+        ru_unit = unit
+    else
+        ru_unit = DUR_UNIT[unit:lower()]
+    end
+    if not ru_unit then return nil end
+    local ru = CoARU_SPELL_NAME_RU and CoARU_SPELL_NAME_RU[name]
+    if not ru and CoARU_TranslateByIndex then
+        local ok, res = pcall(CoARU_TranslateByIndex, name)
+        if ok then ru = res end
+    end
+
+    if type(ru) ~= "string" or ru == "" or ru == name or not CoARU_HasCyrillic(ru) then
+        return nil
+    end
+    return ru .. " (" .. num .. " " .. ru_unit .. ")"
+end
+
+function CoARU_FactionLineRU(line)
+    if type(line) ~= "string" or line == "" then return nil end
+    local whole = CoARU_FactionNameRU(line)
+    if whole then return whole end
+    local name, gap, standing = line:match("^(.-)(%s*%-%s*)(%S.*)$")
+    if not name then return nil end
+    local ruName = CoARU_FactionNameRU(name)
+    if not ruName then return nil end
+    local ruStanding = standingRU(standing) or (CoARU_HasCyrillic(standing) and standing)
+    if not ruStanding then return nil end
+    return ruName .. gap .. ruStanding
+end
+
+local inLabelBody = false
+
+local function labelBodyStage(line)
+    if inLabelBody then return nil end
+    inLabelBody = true
+    local r
+    if CoARU_TranslateItemLabelBody then
+        local ok, res = pcall(CoARU_TranslateItemLabelBody, line)
+        if ok and res and res ~= line then r = res end
+    end
+    if not r and CoARU_TranslateItemLabel then
+        local ok, res = pcall(CoARU_TranslateItemLabel, line)
+        if ok and res and res ~= line then r = res end
+    end
+    inLabelBody = false
+    return r
+end
+
 local LINE_STAGES = {
 
     { "правило движка", function(_, line) return CoARU_TranslateRaceClass(line) end },
     { "база",          function(id, line) return id and CoARU_TranslateText(id, line) end },
     { "карта аддона",  function(_, line) return CoARU_TranslateGlobal(line) end },
     { "база",          function(_, line) return CoARU_TranslateByIndex(line) end },
+
+    { "база",          function(_, line) return labelBodyStage(line) end },
+
+    { "карта аддона",  function(_, line)
+        return CoARU_FactionLineRU and CoARU_FactionLineRU(line) end },
+
+    { "карта аддона",  function(_, line)
+        return CoARU_BracketItemLineRU and CoARU_BracketItemLineRU(line) end },
+
+    { "правило движка", function(_, line)
+        return CoARU_ObjectiveCountLineRU and CoARU_ObjectiveCountLineRU(line, function(core)
+            local ru = CoARU_TranslateGlobal and CoARU_TranslateGlobal(core)
+            if not ru and CoARU_TranslateByIndex then ru = CoARU_TranslateByIndex(core) end
+            return ru
+        end) end },
+
+    { "правило движка", function(_, line)
+        return CoARU_BuffDurationLineRU and CoARU_BuffDurationLineRU(line) end },
+
+    { "правило движка", function(_, line)
+        return CoARU_RegionZoneListRU and CoARU_RegionZoneListRU(line) end },
+
+    { "правило движка", function(_, line)
+        return CoARU_FixTimeUnits and CoARU_FixTimeUnits(line) end },
+
+    { "правило движка", function(_, line)
+        if not CoARU_TimeRemaining then return nil end
+        local ru = CoARU_TimeRemaining(line)
+        return ru
+    end },
     { "правило движка", function(_, line) return CoARU_TranslateClass(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateRequires(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateReagents(line) end },
+    { "правило движка", function(_, line) return CoARU_TranslateTransmog(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateProfession(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateStatLine(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateUnitLine(line) end },
@@ -1768,22 +2204,42 @@ local LINE_STAGES = {
     { "правило движка", function(_, line) return CoARU_TranslateLabelHead(line) end },
 }
 
+local lastSource
+
+function CoARU_TakeSource()
+    local s = lastSource
+    lastSource = nil
+    return s
+end
+
+function CoARU_SetSource(s)
+    lastSource = s
+end
+
 local function translateLineInner(id, line)
-    local ru
-    CoARU_LastSource = nil
+    local ru, echo, echoSource
+    lastSource = nil
     for i = 1, #LINE_STAGES do
         local stage = LINE_STAGES[i]
-        ru = stage[2](id, line)
-        if ru then
-            CoARU_LastSource = stage[1]
+        local got = stage[2](id, line)
+        if got and got ~= line then
+            ru = got
+            lastSource = stage[1]
             break
+        elseif got and echo == nil then
+            echo, echoSource = got, stage[1]
         end
+    end
+    if not ru and echo then
+        ru = echo
+        lastSource = echoSource
     end
     if not ru then return nil end
 
     if ru:find("|c", 1, true) then
         local base = line and line:match("^(|[cC]%x%x%x%x%x%x%x%x)")
-        if base then
+
+        if base and line:match("|[rR]%s*$") then
             local _, n = line:gsub(base, "")
             if n > 1 then
                 return base .. ru:gsub("|[rR]", "%0" .. base) .. "|r"
@@ -1832,7 +2288,7 @@ local function translateLineInner(id, line)
     local baseColorReopened = false
     if color then
         local _, n = line:gsub(color, "")
-        baseColorReopened = n > 1
+        baseColorReopened = n > 1 and line:match("|[rR]%s*$") ~= nil
     end
     if not leadingSpanCoversAll(line) and not baseColorReopened then
         local painted = reapplyInnerColors(line, ru, nil, true)
@@ -1851,18 +2307,127 @@ local function translateLineInner(id, line)
     return color .. itex .. reapplyInnerColors(inner, ru, color, true) .. "|r"
 end
 
-local function translateLineKeepColor(id, line)
-    if not line then return translateLineInner(id, line) end
-    local tex, rest = "", line
-    while true do
-        local t = rest:match("^|T.-|t%s*")
-        if not t then break end
-        tex, rest = tex .. t, rest:sub(#t + 1)
+local function countNums(s)
+    local n = 0
+    for _ in (s:gsub("|[cC]%x%x%x%x%x%x%x%x", ""):gsub("|[rR]", "")):gmatch("%d+") do
+        n = n + 1
     end
-    if tex == "" then return translateLineInner(id, line) end
-    local ru = translateLineInner(id, rest)
+    return n
+end
+
+local function peelIcons(line)
+    local body, icons, pos, num = {}, {}, 1, 0
+    while true do
+        local s, e = line:find("|T.-|t", pos)
+        if not s then
+            body[#body + 1] = line:sub(pos)
+            break
+        end
+
+        local gap = line:sub(1, s - 1):match("(%s*)$") or ""
+        local head = line:sub(pos, s - 1 - #gap)
+        body[#body + 1] = head
+        num = num + countNums(head)
+        local text = gap .. line:sub(s, e)
+        pos = e + 1
+
+        if head == "" and num == 0 then
+            local after = line:match("^(%s+)", pos)
+            if after then
+                text = text .. after
+                pos = pos + #after
+            end
+        end
+        icons[#icons + 1] = { after = num, text = text }
+    end
+    return table.concat(body), icons
+end
+
+local function putIcons(ru, icons)
+    local out, pos, num, idx = {}, 1, 0, 1
+    while idx <= #icons and icons[idx].after == 0 do
+        out[#out + 1] = icons[idx].text
+        idx = idx + 1
+    end
+    while idx <= #icons do
+        local s, e = ru:find("%d+", pos)
+        if not s then break end
+
+        local chunk = ru:sub(pos, e)
+        out[#out + 1] = chunk
+        num = num + countNums(chunk)
+        pos = e + 1
+        while idx <= #icons and icons[idx].after <= num do
+            out[#out + 1] = icons[idx].text
+            idx = idx + 1
+        end
+    end
+    out[#out + 1] = ru:sub(pos)
+
+    while idx <= #icons do
+        out[#out + 1] = icons[idx].text
+        idx = idx + 1
+    end
+    return table.concat(out)
+end
+
+local function peelLinkColors(line)
+    if not line:find("|Hitem:", 1, true) then return line, nil, nil end
+    local head = line:match("^(|[cC]%x%x%x%x%x%x%x%x)")
+    if head then line = line:sub(#head + 1) end
+    local tailR = line:match("(|[rR])%s*$")
+    if tailR then line = line:sub(1, #line - #tailR) end
+
+    local linkColor = line:match("(|[cC]%x%x%x%x%x%x%x%x)|Hitem:")
+    if linkColor then line = line:gsub("(|[cC]%x%x%x%x%x%x%x%x)(|Hitem:)", "%2", 1) end
+    return line, head, tailR, linkColor
+end
+
+local function peelQuotes(line)
+    local body = line:match('^"(.*)"$')
+    if body and body ~= "" and not body:find('"', 1, true) then return body, '"', '"' end
+    body = line:match('^"([^"]*)$')
+    if body and body ~= "" then return body, '"', "" end
+    body = line:match('^([^"]*)"$')
+    if body and body ~= "" then return body, "", '"' end
+    return line, nil, nil
+end
+
+local function translateLineKeepColorCore(id, line)
+    if not line then return translateLineInner(id, line) end
+    local head, tailR, linkColor
+    line, head, tailR, linkColor = peelLinkColors(line)
+    if head or tailR or linkColor then
+        local ru
+        if line:find("|T", 1, true) then
+            local bare, icons = peelIcons(line)
+            if not bare:find("[%a\208\209]") then return nil end
+            ru = translateLineInner(id, bare)
+            if ru ~= nil then ru = putIcons(ru, icons) end
+        else
+            ru = translateLineInner(id, line)
+        end
+        if ru == nil then return nil end
+        if linkColor then ru = ru:gsub("|Hitem:", linkColor .. "|Hitem:", 1) end
+        return (head or "") .. ru .. (tailR or "")
+    end
+    if not line:find("|T", 1, true) then return translateLineInner(id, line) end
+    local bare, icons = peelIcons(line)
+
+    if not bare:find("[%a\208\209]") then return nil end
+    local ru = translateLineInner(id, bare)
     if ru == nil then return nil end
-    return tex .. ru
+    return putIcons(ru, icons)
+end
+
+local function translateLineKeepColor(id, line)
+    local ru = translateLineKeepColorCore(id, line)
+    if ru ~= nil or not line then return ru end
+    local body, open, close = peelQuotes(line)
+    if not open then return nil end
+    ru = translateLineKeepColorCore(id, body)
+    if ru == nil then return nil end
+    return open .. ru .. close
 end
 
 local function closeColorsAtBreaks(text)
@@ -2040,6 +2605,15 @@ function CoARU_LocalizeNames(text)
                     local cands = singularsOf(n)
                     if not ru and okUnits then ru = mapHit(CoARU_UNIT_N2R, n, cands) end
                     if not ru and okUnits then ru = mapHit(CoARU_OBJ_N2R, n, cands) end
+
+                    if not ru and CoARU_FactionNameRU then
+                        ru = CoARU_FactionNameRU(n) or CoARU_FactionNameRU("The " .. n)
+                    end
+
+                    if not ru and CoARU_TERM_RU then
+                        local t = CoARU_TERM_RU[n]
+                        if type(t) == "string" and t ~= "" and t ~= n then ru = t end
+                    end
                     if ru then known = known + 1 end
                 end
             end
@@ -2089,7 +2663,10 @@ localizeOne = function(raw, okNames, okZones, okInst, okUnits)
         if not ru and (okZones or okInst) and not ZONE_INLINE_SKIP[n]
            and not nameHit(CoARU_SPELL_NAME_RU, n) then
 
-            local key = CoARU_ZONE[n] and n or (CoARU_ZONE["The " .. n] and ("The " .. n))
+            local key = nil
+            for _, cand in ipairs({ n, "The " .. n, n .. " City", "The " .. n .. " City" }) do
+                if CoARU_ZONE[cand] then key = cand break end
+            end
             if key then
 
                 local inst = CoARU_ZONE_INST and (CoARU_ZONE_INST[key] or CoARU_ZONE_INST[n])
@@ -2099,6 +2676,15 @@ localizeOne = function(raw, okNames, okZones, okInst, okUnits)
             end
         end
         if not ru and okUnits then ru = mapHit(CoARU_UNIT_N2R, n, singularsOf(n)) end
+
+        if not ru and CoARU_FactionNameRU then
+            ru = CoARU_FactionNameRU(n) or CoARU_FactionNameRU("The " .. n)
+        end
+
+        if not ru and CoARU_TERM_RU then
+            local t = CoARU_TERM_RU[n]
+            if type(t) == "string" and t ~= "" and t ~= n then ru = t end
+        end
 
         if not ru and okUnits and CoARU_OBJ_N2R then
             ru = mapHit(CoARU_OBJ_N2R, n, singularsOf(n))
@@ -2157,30 +2743,26 @@ local function nameLineRU(line)
     return icon .. color .. ru .. close
 end
 
-local inLabelBody = false
-
 local function lineRU(id, line)
     local ru = translateLineKeepColor(id, line)
     if not ru or ru == line then
         local byName = nameLineRU(line)
         if byName then return byName end
-
-        if CoARU_TranslateItemLabelBody and not inLabelBody then
-            inLabelBody = true
-            local ok, r = pcall(CoARU_TranslateItemLabelBody, line)
-            inLabelBody = false
-            if ok and r and r ~= line then return r end
-        end
         return ru
     end
     return ru
+end
+
+local function bareLinkNames(s)
+    if not s or not s:find("|h[", 1, true) then return s end
+    return (s:gsub("(|h%[)«(.-)»(%]|h)", "%1%2%3"))
 end
 
 function CoARU_TranslateBlock(id, text)
     if not text then return nil end
     if not text:find("\n") then
         local one = lineRU(id, text)
-        return CoARU_LocalizeNames(neutralizeDarkColors(one))
+        return bareLinkNames(CoARU_LocalizeNames(neutralizeDarkColors(one)))
     end
     text = closeColorsAtBreaks(text)
     local out, any = {}, false
@@ -2191,7 +2773,7 @@ function CoARU_TranslateBlock(id, text)
     end
     if not any then return nil end
 
-    return CoARU_LocalizeNames(neutralizeDarkColors(table.concat(out, "\n")))
+    return bareLinkNames(CoARU_LocalizeNames(neutralizeDarkColors(table.concat(out, "\n"))))
 end
 
 function CoARU_IsTranslated(id)
@@ -2202,4 +2784,35 @@ end
 function CoARU_LineTranslated(id, line)
     local ru = lineRU(id, line)
     return ru ~= nil and ru ~= line
+end
+
+local function ruDiffers(packed, n)
+    if not packed then return false end
+    local ru = fetchOneRU(packed)
+    return ru ~= nil and ru ~= "" and ru ~= n
+end
+
+function CoARU_LineKnown(id, line)
+    if not line or line == "" then return false end
+    local plain = CoARU_StripCodes(line)
+    local n = CoARU_Norm(plain)
+    if not n or n == "" then return false end
+    if id and id > 0 and CoARU_LOC_EN and CoARU_LOC_EN[id] then
+        local en = CoARU_GetEN(id)
+        local hit = false
+        if type(en) == "table" then
+            for i = 1, #en do
+                if en[i] == n then hit = true break end
+            end
+        elseif en == n then
+            hit = true
+        end
+
+        if hit then
+            local ru = CoARU_GetRU(id)
+            if type(ru) == "table" then ru = ru[1] end
+            if ru and ru ~= "" and ru ~= n then return true end
+        end
+    end
+    return ruDiffers(CoARU_HASH and CoARU_HASH[hashText(n)], n)
 end

@@ -12,6 +12,53 @@ local function getScanTip()
     return scanTip
 end
 
+local scanClientErr = 0
+local scanErrText = {}
+
+local prevErrHandler
+local prevScriptErrors
+
+local function muteClientErrors()
+
+    if GetCVar and SetCVar and prevScriptErrors == nil then
+        prevScriptErrors = GetCVar("scriptErrors") or "0"
+        pcall(SetCVar, "scriptErrors", "0")
+    end
+    if prevErrHandler or not seterrorhandler or not geterrorhandler then return end
+    prevErrHandler = geterrorhandler()
+    seterrorhandler(function(msg)
+
+        local first = type(msg) == "string" and msg:match("^[^\n]*") or ""
+        if first:find("AddOns\\CoARU", 1, true) or first:find("AddOns/CoARU", 1, true) then
+            return prevErrHandler and prevErrHandler(msg)
+        end
+        scanClientErr = scanClientErr + 1
+        if #scanErrText < 5 and type(msg) == "string" then
+            scanErrText[#scanErrText + 1] = msg
+        end
+    end)
+end
+
+local function unmuteClientErrors()
+    if prevScriptErrors ~= nil then
+        if SetCVar then pcall(SetCVar, "scriptErrors", prevScriptErrors) end
+        prevScriptErrors = nil
+    end
+    if not prevErrHandler then return end
+    if seterrorhandler then seterrorhandler(prevErrHandler) end
+    prevErrHandler = nil
+end
+
+function CoARU_ScanErrMuteForTest()
+    prevErrHandler = nil
+    scanClientErr, scanErrText = 0, {}
+    muteClientErrors()
+end
+
+function CoARU_ScanErrCountForTest()
+    return scanClientErr
+end
+
 local function leftLine(i)
     local fs = tipLeft[i]
     if not fs then
@@ -26,7 +73,13 @@ function CoARU_CaptureSpell(id, knownDesc)
 
     tip:SetOwner(UIParent, "ANCHOR_NONE")
     tip:ClearLines()
-    tip:SetHyperlink("spell:" .. id)
+
+    local ok = pcall(tip.SetHyperlink, tip, "spell:" .. id)
+    if not ok then
+        scanClientErr = scanClientErr + 1
+        tip:Hide()
+        return nil
+    end
     tip:Show()
 
     local n = tip:NumLines()
@@ -88,7 +141,10 @@ local function needsDump(id, text, includeAll)
     for line in text:gmatch("[^\n]+") do
         local plain = CoARU_StripCodes(line)
         if #plain >= 12 and not CoARU_HasCyrillic(plain) and plain:find("%a%a%a") then
-            if includeAll or not CoARU_LineTranslated(id, line) then return true end
+
+            local known = CoARU_LineKnown and CoARU_LineKnown(id, line)
+                or (not CoARU_LineKnown and CoARU_LineTranslated(id, line))
+            if includeAll or not known then return true end
         end
     end
     return false
@@ -316,6 +372,12 @@ function CoARU_SetScanProbe(v)
     scanProbe = v and true or false
 end
 
+local scanTrace = 0
+
+function CoARU_SetScanTrace(step)
+    scanTrace = tonumber(step) or 0
+end
+
 local scanDesc = false
 function CoARU_SetScanDesc(v)
     scanDesc = v and true or false
@@ -416,6 +478,11 @@ local function nextId()
     end
 end
 
+local HARD_BATCH = 4000
+
+local SLOW_ID_MS = 250
+local lastDt = 0
+
 local scanFrame = CreateFrame("Frame")
 scanFrame:Hide()
 local elapsed = 0
@@ -426,10 +493,13 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
 
     local t0 = (scanBudget and debugprofilestop) and debugprofilestop() or nil
     local n = 0
+    lastDt = 0
     while true do
         local id = nextId()
         if not id then
             self:Hide()
+
+            unmuteClientErrors()
             local total = 0
             for _ in pairs(CoARU_DB.dump or {}) do total = total + 1 end
             local secs = math.max(1, GetTime() - scanStart)
@@ -460,6 +530,16 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
                 print(("|cffC495DDCoARU|r: пропущено без тултипа (нет в клиентском DBC): %d. Полный проход: /coaru scanall deep"):format(scanSkipped))
             end
 
+            if scanClientErr > 0 then
+                print(("|cffC495DDCoARU|r: клиент упал на своих же тултипах: %d раз. Показ ошибок на время скана был выключен, свои ошибки при этом НЕ глушились."):format(scanClientErr))
+                for i = 1, #scanErrText do
+
+                    local s = scanErrText[i]
+                    print("|cffC495DDCoARU|r:   " ..
+                        (CoARU_Utf8Sub and CoARU_Utf8Sub(s, 1, 140) or s))
+                end
+            end
+
             if scanDeep then
                 print(("|cffC495DDCoARU|r: ПРИЗРАКОВ (нет в клиентском DBC, но тултип есть): %d. Если ноль, дешевый отсев ничего не теряет."):format(scanGhost))
             end
@@ -472,6 +552,10 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
             end
             print("|cffC495DDCoARU|r: сделай /reload (или выйди из игры), чтобы дамп записался в SavedVariables.")
             return
+        end
+
+        if scanTrace > 0 and scanSeen % scanTrace == 0 then
+            print(("|cffC495DDCoARU|r: трасса, id %d (просмотрено %d)"):format(id, scanSeen))
         end
 
         if scanColor then
@@ -517,13 +601,18 @@ scanFrame:SetScript("OnUpdate", function(self, delta)
             end
         end
         scanSeen = scanSeen + 1
-        n = n + 1
-        if t0 then
 
-            if n % 64 == 0 then
-                local dt = debugprofilestop() - t0
-                if dt < 0 or dt >= scanBudget then break end
+        n = n + 1
+        if n >= HARD_BATCH then break end
+        if t0 then
+            local dt = debugprofilestop() - t0
+
+            if n > 1 and dt - lastDt >= SLOW_ID_MS then
+                print(("|cffC495DDCoARU|r: |cffff0000медленный id %d|r: %d мс на одном спелле")
+                    :format(id, dt - lastDt))
             end
+            lastDt = dt
+            if dt < 0 or dt >= scanBudget then break end
         elseif n >= scanBatch then
             break
         end
@@ -547,6 +636,8 @@ end)
 local function beginScan(includeAll, total, fastMs, minId, maxId)
     scanFound, scanSeen, scanAll = 0, 0, includeAll or false
     scanSkipped, scanReal, scanGhost = 0, 0, 0
+    scanClientErr, scanErrText = 0, {}
+    muteClientErrors()
     scanMin = minId or 0
     scanMax = maxId or 0
     scanTotal = total or 0
@@ -561,15 +652,16 @@ local function beginScan(includeAll, total, fastMs, minId, maxId)
     scanFrame:Show()
 end
 
-function CoARU_StartScan(ids, includeAll)
+function CoARU_StartScan(ids, includeAll, fastMs)
     if #ids == 0 then
         print("|cffC495DDCoARU|r: список спеллов для сканирования пуст. Пришли вывод /coaru probe.")
         return
     end
     scanQueue, scanPos = ids, 0
     scanRanges = nil
-    beginScan(includeAll, #ids)
-    print(("|cffC495DDCoARU|r: сканирую %d спеллов..."):format(#ids))
+    beginScan(includeAll, #ids, fastMs)
+    print(("|cffC495DDCoARU|r: сканирую %d спеллов%s"):format(#ids,
+        fastMs and (", БЫСТРЫЙ РЕЖИМ (" .. fastMs .. " мс на кадр)") or "..."))
 end
 
 function CoARU_StartScanRanges(ranges, includeAll, fastMs, minId, maxId)
@@ -613,6 +705,16 @@ end
 function CoARU_ScanProgress()
     if not scanRanges then return nil end
     return ("%d/%d"):format(scanSeen, scanTotal)
+end
+
+function CoARU_ScanCA(includeAll)
+    local ids = CoARU_DB and CoARU_DB.classids and CoARU_DB.classids.ids
+    if type(ids) ~= "table" or #ids == 0 then
+        print("|cffC495DDCoARU|r: списка ID нет. Сперва /coaru classes, потом /coaru scanca.")
+        return
+    end
+    print(("|cffC495DDCoARU|r: беру %d ID из /coaru classes (все классы, не только твой)."):format(#ids))
+    CoARU_StartScan(ids, includeAll)
 end
 
 function CoARU_ScanBook(includeAll)

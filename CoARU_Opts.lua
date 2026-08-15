@@ -61,24 +61,6 @@ CoARU_PRESETS = {
       hint = "переведены только окна: персонаж, тренер, развитие, Ascension" },
 }
 
-function CoARU_MatchPreset()
-    for i = 1, #CoARU_PRESETS do
-        local p = CoARU_PRESETS[i]
-        local off = {}
-        for j = 1, #p.off do off[p.off[j]] = true end
-        local same = true
-        for j = 1, #CoARU_MODULES do
-            local k = CoARU_MODULES[j].key
-            if (CoARU_ModOn(k) and true or false) ~= (not off[k]) then
-                same = false
-                break
-            end
-        end
-        if same then return p.key end
-    end
-    return nil
-end
-
 function CoARU_ApplyPreset(key)
     local p
     for i = 1, #CoARU_PRESETS do

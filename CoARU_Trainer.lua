@@ -15,6 +15,8 @@ end
 local function fsApply(fs)
     if CoARU_TrainerSkip then return end
     if not CoARU_ModOn("trainer") then return end
+
+    if CoARU_InEditBox and CoARU_InEditBox(fs) then return end
     local t = fs and fs.GetText and fs:GetText()
     if not t or #t < 2 then return end
 

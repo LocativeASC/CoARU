@@ -14,14 +14,41 @@ end
 
 local MISS_CAP = 3000
 
+local normSeen = {}
+
+local missTbl, missN = nil, 0
+
+local function missCount(m)
+    if m ~= missTbl then
+        missTbl, missN = m, 0
+        for _ in pairs(m) do missN = missN + 1 end
+    end
+    return missN
+end
+
+function CoARU_AscUIMissCount()
+    return missCount(CoARU_DB and CoARU_DB.uimiss or {})
+end
+
 local function noteMiss(t)
     if not CoARU_DB then return false end
     CoARU_DB.uimiss = CoARU_DB.uimiss or {}
     local m = CoARU_DB.uimiss
     if m[t] then return false end
-    local n = 0
-    for _ in pairs(m) do n = n + 1 end
-    if n >= MISS_CAP then return false end
+
+    if not normSeen.primed and CoARU_Norm then
+        normSeen.primed = true
+        for old in pairs(m) do
+            local k = CoARU_Norm(old)
+            if k and k ~= "" then normSeen[k] = true end
+        end
+    end
+    local norm = CoARU_Norm and CoARU_Norm(t)
+    if norm and norm ~= "" then
+        if normSeen[norm] then return false end
+        normSeen[norm] = true
+    end
+    if missCount(m) >= MISS_CAP then return false end
 
     m[t] = (date and date("%d.%m %H:%M")) or true
     return true
@@ -150,6 +177,11 @@ local function lookupUncached(t)
         end
     end
 
+    if CoARU_QuestLookup then
+        local okq, ruq = pcall(CoARU_QuestLookup, trimmed)
+        if okq and ruq and ruq ~= trimmed then return ruq end
+    end
+
     if CoARU_TranslateBlock then
         local ok, res = pcall(CoARU_TranslateBlock, nil, t)
         if ok and res and res ~= t then return res end
@@ -162,6 +194,25 @@ local function lookupUncached(t)
 
     local wrapped = nameInWrapper(t)
     if wrapped then return wrapped end
+
+    local nm, zone = t:match("^(.-)%s*%((.+)%)%s*$")
+    if nm and nm ~= "" and zone ~= "" then
+        local function plain(s) return (s:gsub("\226\128\153", "'")) end
+        local ruN = CoARU_ItemNameEN and (CoARU_ItemNameEN[nm] or CoARU_ItemNameEN[plain(nm)])
+        local ruZ = CoARU_ZONE and (CoARU_ZONE[zone] or CoARU_ZONE[plain(zone)])
+        if ruN and ruZ then return ruN .. " (" .. ruZ .. ")" end
+    end
+
+    local head, gap, val = t:match("^(.-)(:%s*)(.*)$")
+    if head and val ~= "" and val:find("%d") then
+        local clean = head:gsub("|[cC]%x%x%x%x%x%x%x%x", ""):gsub("|[rR]", "")
+        clean = clean:match("^%s*(.-)%s*$")
+        local ruHead = clean ~= "" and CoARU_ASCUI and CoARU_ASCUI[clean]
+        if ruHead then
+            local pre = t:match("^(|[rR])") or ""
+            return pre .. ruHead .. gap .. val
+        end
+    end
     return nil
 end
 
@@ -174,6 +225,19 @@ local function lookup(t)
         return hit
     end
     local ru = lookupUncached(t)
+
+    if not ru and t:find("\n") then
+        local out, any = {}, false
+        for part, sep in (t .. "\n"):gmatch("([^\n]*)(\n?)") do
+            if part ~= "" then
+                local one = lookupUncached(part)
+                out[#out + 1] = one or part
+                if one then any = true end
+            end
+            out[#out + 1] = sep
+        end
+        if any then ru = (table.concat(out):gsub("\n$", "")) end
+    end
     if lookupN >= LOOKUP_CAP then
         lookupCache, lookupN = {}, 0
     end
@@ -181,6 +245,8 @@ local function lookup(t)
     lookupN = lookupN + 1
     return ru
 end
+
+CoARU_AscUILookup = lookup
 
 local function chunkKey(s)
     s = s:gsub("|[cC]%x%x%x%x%x%x%x%x", ""):gsub("|[rR]", ""):gsub("|T[^|]*|t", "")
@@ -333,24 +399,58 @@ local function tutParagraphs(t)
     return table.concat(out)
 end
 
+local MIN_FONT = 9
+
+local function fitFont(fs, s)
+    if not fs.GetFont or not fs.SetFont or not fs.GetWidth or not fs.GetStringWidth then return end
+    local okW, w = pcall(fs.GetWidth, fs)
+    if not okW or not w or w <= 1 then return end
+    local okF, file, size, flags = pcall(fs.GetFont, fs)
+    if not okF or not file or not size then return end
+    if not fs.coaruFontSize then fs.coaruFontSize = size end
+    local base = fs.coaruFontSize
+    for try = 0, 3 do
+        local cur = base - try
+        if cur < MIN_FONT then break end
+        if cur ~= size then
+            if not pcall(fs.SetFont, fs, file, cur, flags) then return end
+            size = cur
+        end
+        local okS, sw = pcall(fs.GetStringWidth, fs)
+        if not okS or not sw then return end
+        if sw <= w * 2 then return end
+    end
+end
+
+CoARU_AscUI_FitForTest = fitFont
+
 local function setText(fs, s, en)
     if fs.SetDynamicText then
         local ok = pcall(fs.SetDynamicText, fs, s)
-        if ok then return true end
+        if ok then fitFont(fs, s); return true end
     end
     if en and CoARU_SetTranslated then
-        return (pcall(CoARU_SetTranslated, fs, en, s))
+        local ok = pcall(CoARU_SetTranslated, fs, en, s)
+        fitFont(fs, s)
+        return ok
     end
-    return (pcall(fs.SetText, fs, s))
+    local ok = pcall(fs.SetText, fs, s)
+    fitFont(fs, s)
+    return ok
 end
 
 local tradeMode = false
+
+local function insideEditBox(fs)
+    return CoARU_InEditBox and CoARU_InEditBox(fs) or false
+end
 
 local function retextOne(fs)
     local ok, t = pcall(fs.GetText, fs)
     if not ok or type(t) ~= "string" or t == "" then return end
     if not t:find("%S") then return end
     if not looksEnglish(t) then return end
+    if insideEditBox(fs) then return end
 
     if tradeMode and CoARU_TRADE_FILTER then
         local ru = CoARU_TRADE_FILTER[t:match("^%s*(.-)%s*$")]
@@ -461,7 +561,9 @@ local function doChildren(depth, ...)
 
         else
         local o, kind = pcall(objType, c)
-        if o and kind == "SimpleHTML" then
+        if o and kind == "EditBox" then
+
+        elseif o and kind == "SimpleHTML" then
 
             hookHtml(c)
             retextOne(c)
@@ -738,8 +840,116 @@ function CoARU_AscUI_Record(frame, owner)
     recWalk(frame, 0, owner or "(стенд)", debugprofilestop())
 end
 
+local DUMP_DEPTH = 12
+local DUMP_TICK = 0.25
+local dumpAcc = 0
+
+local function dumpNote(out, fs, owner)
+    local ok, cur = pcall(fs.GetText, fs)
+    if not ok or type(cur) ~= "string" or cur == "" or not cur:find("%S") then return end
+    local en, ru, src
+    if CoARU_OriginalPair then en, ru, src = CoARU_OriginalPair(fs) end
+    out[#out + 1] = { owner = owner, cur = cur, en = en, ru = ru, src = src }
+end
+
+local dumpWalk
+
+local function dumpRegions(out, owner, note, ...)
+    for i = 1, select("#", ...) do
+        local r = select(i, ...)
+        if r and r.GetObjectType and r:GetObjectType() == "FontString" then
+            note(out, r, owner)
+        end
+    end
+end
+
+local function dumpKids(out, owner, depth, note, ...)
+    for i = 1, select("#", ...) do
+        local c = select(i, ...)
+        local o, kind = pcall(objType, c)
+        if o and kind == "SimpleHTML" then note(out, c, owner) end
+        dumpWalk(out, c, owner, depth + 1, note)
+    end
+end
+
+local dumpDeadline
+
+dumpWalk = function(out, f, owner, depth, note)
+    if not f or depth > DUMP_DEPTH then return end
+    if dumpDeadline and debugprofilestop() > dumpDeadline then return end
+    note = note or dumpNote
+
+    if f.GetRegions then
+        pcall(function() return dumpRegions(out, owner, note, f:GetRegions()) end)
+    end
+    if f.GetChildren then
+        pcall(function() return dumpKids(out, owner, depth, note, f:GetChildren()) end)
+    end
+end
+
+function CoARU_AscUI_Dump(name)
+    local f = _G[name]
+    if not f then return 0, nil end
+    local out = {}
+    dumpWalk(out, f, name, 0)
+    return #out, out
+end
+
+function CoARU_AscUI_DumpAll()
+    local out, frames = {}, {}
+    for _, list in ipairs({ ROOTS, PANELS, POOL }) do
+        for _, name in ipairs(list) do
+            local f = _G[name]
+            local ok, shown = pcall(function() return f and f.IsShown and f:IsShown() end)
+            if ok and shown then
+                frames[#frames + 1] = name
+                dumpWalk(out, f, name, 0)
+            end
+        end
+    end
+    return #out, out, frames
+end
+
+local DUMP_CAP = 1500
+local DUMP_BUDGET = 8
+local dumpSeen, dumpN = {}, 0
+
+local function dumpRecNote(out, fs, owner)
+    if dumpN >= DUMP_CAP then return end
+    local ok, cur = pcall(fs.GetText, fs)
+    if not ok or type(cur) ~= "string" or cur == "" or not cur:find("%S") then return end
+    local en, ru, src
+    if CoARU_OriginalPair then en, ru, src = CoARU_OriginalPair(fs) end
+    local key = (owner or "?") .. "\1" .. cur .. "\1" .. (en or "")
+    if dumpSeen[key] then return end
+    dumpSeen[key] = true
+    dumpN = dumpN + 1
+    out[#out + 1] = { owner = owner, cur = cur, en = en, ru = ru, src = src }
+end
+
 local recFrame = CreateFrame("Frame")
 recFrame:SetScript("OnUpdate", function(_, elapsed)
+
+    if CoARU_DB and CoARU_DB.uidumprec then
+        dumpAcc = dumpAcc + (elapsed or 0)
+        if dumpAcc >= DUMP_TICK then
+            dumpAcc = 0
+            CoARU_DB.uidump = CoARU_DB.uidump or { lines = {} }
+            local out = CoARU_DB.uidump.lines
+            local ok, kids = pcall(function() return { UIParent:GetChildren() } end)
+            if ok then
+                dumpDeadline = debugprofilestop() + DUMP_BUDGET
+                for _, f in ipairs(kids) do
+                    local o, shown = pcall(function() return f.IsShown and f:IsShown() end)
+                    local name = (f.GetName and f:GetName()) or nil
+                    if o and shown and not (name and REC_SKIP[name]) then
+                        dumpWalk(out, f, name or "(без имени)", 0, dumpRecNote)
+                    end
+                end
+                dumpDeadline = nil
+            end
+        end
+    end
     if not CoARU_DB or not CoARU_DB.uirec then return end
     recAcc = recAcc + (elapsed or 0)
     if recAcc < REC_TICK then return end
@@ -782,6 +992,40 @@ local function hookChallengeScroll(f, depth)
     end
 end
 
+local boardHooked = {}
+local function hookBoard(f, depth)
+    if not f or (depth or 0) > 6 then return end
+    if type(f.SetQuest) == "function" and not boardHooked[f] then
+        boardHooked[f] = true
+        pcall(hooksecurefunc, f, "SetQuest", function(self)
+            if CoARU_ModOn("ascui") then retext(self, 0) end
+        end)
+    end
+    if f.GetChildren then
+        local ok, cnt = pcall(function() return select("#", f:GetChildren()) end)
+        if ok then
+            for i = 1, cnt do hookBoard(select(i, f:GetChildren()), (depth or 0) + 1) end
+        end
+    end
+end
+
+local function hookBoardRender()
+    local B = _G.CallBoardUI
+    if not B or boardHooked[B] then return end
+    if type(B.UpdateQuestButtons) ~= "function" then return end
+    boardHooked[B] = true
+    pcall(hooksecurefunc, B, "UpdateQuestButtons", function(self)
+        if not CoARU_ModOn("ascui") then return end
+        retext(self, 0)
+        hookBoard(self, 0)
+    end)
+end
+
+function CoARU_AscUI_HookForTest(frame)
+    hookBoardRender()
+    hookBoard(frame, 0)
+end
+
 local hooked = {}
 local function tryHook()
     for _, name in ipairs(ROOTS) do
@@ -791,11 +1035,13 @@ local function tryHook()
 
             local trade = (name == "TradeSkillFrame")
             local isChallenges = (name == "ChallengesFrame")
+            local isBoard = (name == "CallBoardUI")
             f:HookScript("OnShow", function(self)
                 if not CoARU_ModOn("ascui") then return end
                 if trade then CoARU_TradeSkillRetext() else retext(self, 0) end
 
                 if isChallenges then hookChallengeScroll(self, 0) end
+                if isBoard then hookBoardRender(); hookBoard(self, 0) end
             end)
             local acc = 0
             f:HookScript("OnUpdate", function(self, elapsed)

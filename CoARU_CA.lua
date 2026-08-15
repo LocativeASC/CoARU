@@ -206,7 +206,9 @@ local function retext(frame, depth)
         local ok, regions = pcall(function() return { frame:GetRegions() } end)
         if ok then
             for _, r in ipairs(regions) do
-                if r and r.GetObjectType and r:GetObjectType() == "FontString" then
+
+                if r and r.GetObjectType and r:GetObjectType() == "FontString"
+                        and not (CoARU_InEditBox and CoARU_InEditBox(r)) then
                     local t = r:GetText()
                     if t then
                         local base, color = stripColor(t)
