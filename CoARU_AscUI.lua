@@ -401,7 +401,20 @@ end
 
 local MIN_FONT = 9
 
+local function onBoardCard(fs)
+    if not fs.GetParent then return false end
+    local node = fs
+    for _ = 1, 3 do
+        local ok, p = pcall(node.GetParent, node)
+        if not ok or type(p) ~= "table" then return false end
+        if type(p.SetQuest) == "function" then return true end
+        node = p
+    end
+    return false
+end
+
 local function fitFont(fs, s)
+    if not onBoardCard(fs) then return end
     if not fs.GetFont or not fs.SetFont or not fs.GetWidth or not fs.GetStringWidth then return end
     local okW, w = pcall(fs.GetWidth, fs)
     if not okW or not w or w <= 1 then return end
@@ -1009,7 +1022,19 @@ local function hookBoard(f, depth)
     end
 end
 
+local rewardsHooked = false
+local function hookBoardRewards()
+    if rewardsHooked or type(_G.TooltipAddQuestRewards) ~= "function" then return end
+    if not pcall(hooksecurefunc, "TooltipAddQuestRewards", function()
+        if not CoARU_ModOn("ascui") then return end
+        local tip = _G.GameTooltip
+        if tip and tip.IsShown and tip:IsShown() then retext(tip, 0) end
+    end) then return end
+    rewardsHooked = true
+end
+
 local function hookBoardRender()
+    hookBoardRewards()
     local B = _G.CallBoardUI
     if not B or boardHooked[B] then return end
     if type(B.UpdateQuestButtons) ~= "function" then return end
