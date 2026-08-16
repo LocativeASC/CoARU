@@ -344,6 +344,12 @@ function resolveCore(ru)
     return decompose(ru)
 end
 
+function CoARU_IsOwnOutput(fs, text)
+    if not fs or type(text) ~= "string" then return false end
+    local rec = ORIG[fs]
+    return (rec and rec.ru == text) and true or false
+end
+
 function CoARU_OriginalPair(fs)
     local rec = fs and ORIG[fs]
     if not rec then return nil end

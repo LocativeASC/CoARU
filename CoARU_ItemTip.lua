@@ -2,6 +2,25 @@ local RU = CoARU_ItemTipRU or {}
 local SUB = CoARU_ItemTipSubclass or {}
 local OWN = CoARU_ItemTipOwn or {}
 
+do
+    local mirrored = 0
+    for en, ru in pairs(OWN) do
+        local head, school = en:match("^(.-) %((Melee)%)$")
+        if not head then head, school = en:match("^(.-) %((Ranged)%)$") end
+        if not head then head, school = en:match("^(.-) %((Spell)%)$") end
+        if head then
+
+            local sign, rest = head:match("^([%+%-]#) (.+)$")
+            local alt = sign and (sign .. " " .. school .. " " .. rest)
+            if alt and OWN[alt] == nil then
+                OWN[alt] = ru
+                mirrored = mirrored + 1
+            end
+        end
+    end
+    CoARU_ItemTipMirrored = mirrored
+end
+
 local NUMFMT = "%%[%-%+ #0-9%.]*[dfsi]"
 
 local function unsupported(fmt)
@@ -463,6 +482,20 @@ local PATTERN_RULES = {
     { "^Ability Essence Spent: (%d+)%s*$",
       "Потрачено эссенции способностей: {1}" },
     { "^(%d+)%% Threat$",           "{1}% угрозы" },
+
+    { "^Cast By (.+)$",             "Наложил: «{1}»", true },
+
+    { "^Target: YOU$",              "Цель: Вы" },
+    { "^Target: (.+)$",             "Цель: «{1}»", true },
+
+    { "^Not eligible %((%d+) Hr (%d+) Min%)$",
+      "Недоступно (через {1} ч {2} мин)" },
+    { "^Not eligible %((%d+) Hr (%d+) Sec%)$",
+      "Недоступно (через {1} ч {2} сек)" },
+    { "^Not eligible %((%d+) Min (%d+) Sec%)$",
+      "Недоступно (через {1} мин {2} сек)" },
+    { "^Not eligible for loot from this encounter%.$",
+      "Добыча с этого боя вам не положена." },
 }
 
 for _, s in ipairs({
@@ -489,6 +522,22 @@ function CoARU_TranslateItemPrefix(line)
         plain = plain:gsub("^|[cC]%x%x%x%x%x%x%x%x", "", 1):gsub("|r$", "")
     end
 
+    do
+        local head, tail = plain:match("^(.+) %(([^()]*)%)$")
+        if head and tail and tail:find("[\208\209]") and not head:find("[\208\209]") then
+            local ok, ru = pcall(CoARU_TranslateBlock, nil, head)
+            if ok and type(ru) == "string" and ru ~= "" and ru ~= head then
+                return ru .. " (" .. tail .. ")"
+            end
+        end
+    end
+
+    do
+        local head, sub = plain:match("^(.-,%s*)([%a][%a%-' ]*)$")
+        if head and sub and SUB[sub] and head:find("[\208\209]") then
+            return head .. SUB[sub]
+        end
+    end
     do
         local head, tail = plain:match("^(%a[%a%-' ]-) (%(.*)$")
         local sru = head and SUB[head]
@@ -528,6 +577,11 @@ function CoARU_TranslateItemPrefix(line)
                 ru = (rule[2]:gsub("{(%d+)}", function(n)
                     return caps[tonumber(n)] or "?"
                 end))
+
+                if rule[3] and CoARU_LocalizeNames then
+                    local ok, res = pcall(CoARU_LocalizeNames, ru)
+                    if ok and type(res) == "string" and res ~= "" then ru = res end
+                end
                 break
             end
         end

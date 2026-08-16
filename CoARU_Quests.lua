@@ -152,6 +152,19 @@ local function qlookupUncached(t)
         if r then return r .. cnt end
     end
 
+    local dash, core2 = t:match("^(%s*%-%s+)(%S.*)$")
+    if core2 then
+        local r = CoARU_QuestLookup and CoARU_QuestLookup(core2)
+        if not r then
+            local b2, c2 = core2:match("^(.-)(:%s*%d+%s*/%s*%d+)$")
+            if b2 then
+                local rb = CoARU_QuestLookup and CoARU_QuestLookup(b2)
+                if rb then r = rb .. c2 end
+            end
+        end
+        if r then return dash .. r end
+    end
+
     if CoARU_TranslateBlock then
         local ok, ru = pcall(CoARU_TranslateBlock, nil, t)
         if ok and ru and ru ~= t then return ru end
@@ -644,6 +657,12 @@ local function splitChrome(t)
     if body then
         core, tail = body, " " .. tcolor .. ttext .. "|r"
     end
+
+    local body2, price = core:match("^(.-)%s*(%-%s*%d+%s*|T[^|]*|t)%s*$")
+    if body2 and body2 ~= "" then
+
+        core, tail = body2, " " .. price .. tail
+    end
     core = core:match("^%s*(.-)%s*$") or core
     return pre, wrap, core, tail
 end
@@ -787,6 +806,16 @@ local function gossipRU(t, isOption)
         CoARU_NoteMiss(isOption and "gossipopt" or "gossip", t)
     end
     return nil
+end
+
+function CoARU_GossipOptionRU(t)
+    if type(t) ~= "string" or t == "" then return nil end
+    return gossipRU(t, true)
+end
+
+function CoARU_GossipTextRU(t)
+    if type(t) ~= "string" or t == "" then return nil end
+    return gossipRU(t, false)
 end
 
 local xlateFails = 0

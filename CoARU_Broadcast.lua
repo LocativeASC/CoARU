@@ -77,6 +77,12 @@ local BG_SIDE_NOM = { ["Alliance"] = "Альянс", ["Horde"] = "Орда" }
 local BG_TIME = { ["1 minute"] = "1 минуту" }
 local LOCK_DIFF = { ["Normal"] = "обычный", ["Heroic"] = "героический", ["Mythic"] = "эпохальный" }
 
+local DIFF_RU = {
+    Normal = "обычный", Heroic = "героический", Mythic = "эпохальный",
+    Ascended = "Вознесения", Timewalking = "испытание временем",
+}
+local function diffRU(d) return DIFF_RU[d] or d end
+
 local PATTERNS = {
 
     { "^(.-)%(Level (%d+)%) has been killed by Suicide%.$",
@@ -88,6 +94,38 @@ local PATTERNS = {
           return ("%s(уровень %s) погибает от рук: %s."):format(head, lvl,
               unitRU(killer) or killer)
       end },
+
+    { "^%[Blood Bowl: Gurubashi Arena%] will start in (%d+) minutes%. To participate visit The Great Arena in Stranglethorn Vale!$",
+      function(n)
+          return ("[Кровавая чаша: Арена Гурубаши] начнется через %s мин. Чтобы принять участие, посетите Великую арену в Тернистой долине!")
+              :format(n)
+      end },
+
+    { "^Your (%a+) (.+) (dungeon) lockout has been cleared%.$",
+      function(diff, place, kind)
+          return ("Привязка к подземелью %s (%s) снята."):format(
+              (CoARU_ZONE and CoARU_ZONE[place]) or place, diffRU(diff))
+      end },
+    { "^Your (%a+) (.+) (raid) lockout has been cleared%.$",
+      function(diff, place, kind)
+          return ("Привязка к рейду %s (%s) снята."):format(
+              (CoARU_ZONE and CoARU_ZONE[place]) or place, diffRU(diff))
+      end },
+
+    { "^The Keystone cannot be activated because you have a pending summon!$",
+      function() return "Ключ-камень нельзя активировать: у вас есть неподтвержденный призыв!" end },
+    { "^The Keystone cannot be activated because (.+) has a pending summon!$",
+      function(who)
+          return ("Ключ-камень нельзя активировать: у %s есть неподтвержденный призыв!"):format(who)
+      end },
+
+    { "^You cannot group with (.+) because you are above level (%d+) and you do not have the same challenges$",
+      function(who, lvl)
+          return ("Вы не можете объединиться в группу с %s: ваш уровень выше %s, а испытания у вас разные")
+              :format(who, lvl)
+      end },
+    { "^(.+) is ignoring you%.$",
+      function(who) return ("%s вас игнорирует."):format(who) end },
     { "^(.+) has unlocked all of their bank tabs by using their (.+)!$",
       function(who, what) return ("%s открывает все вкладки банка: %s!"):format(who, what) end },
     { "^(.+) has unlocked all of his bank tabs by using his (.+)!$",
@@ -137,7 +175,9 @@ local PATTERNS = {
 
     { "^%[SERVER%] Restart in (.-)%s*%-%s*Updates! (%d+)min downtime!$",
       function(left, mins)
-          local ru = left:gsub("(%d+) Minute%(s%)", "%1 мин."):gsub("(%d+) Second%(s%)", "%1 сек.")
+
+          local ru = left:gsub("(%d+) Hour%(s%)", "%1 ч."):gsub("(%d+) Minute%(s%)", "%1 мин.")
+              :gsub("(%d+) Second%(s%)", "%1 сек.")
           if ru:find("%(s%)") then return nil end
 
           ru = ru:gsub("[%.%s]+$", "")
@@ -146,7 +186,9 @@ local PATTERNS = {
 
     { "^%[SERVER%] Restart in (.-)%s*%-%s*(.+)$",
       function(left, tail)
-          local ru = left:gsub("(%d+) Minute%(s%)", "%1 мин."):gsub("(%d+) Second%(s%)", "%1 сек.")
+
+          local ru = left:gsub("(%d+) Hour%(s%)", "%1 ч."):gsub("(%d+) Minute%(s%)", "%1 мин.")
+              :gsub("(%d+) Second%(s%)", "%1 сек.")
           if ru:find("%(s%)") then return nil end
           ru = ru:gsub("[%.%s]+$", "")
           return ("[SERVER] Перезапуск через %s. %s"):format(ru, tail)
@@ -435,6 +477,40 @@ local function tipsRU(msg)
 end
 
 local FIXED = {
+
+    ["Because you are participating in a Hardcore Challenge or Trial, you have been teleported to a nearby safe location!"] =
+        "Поскольку вы участвуете в режиме Hardcore Challenge или Trial, вас телепортировали в ближайшее безопасное место!",
+    ["You don't have any space in your bags."] = "У вас нет места в сумках.",
+    ["When the server comes back up, you will be teleported to the nearest safe location."] =
+        "Когда сервер снова заработает, вас телепортируют в ближайшее безопасное место.",
+    ["Tips & Tricks: Some of your abilities generate Solar Power, which can be consumed by Dawn to enhance many of your abilities."] =
+        "Советы и хитрости: некоторые ваши способности порождают солнечную энергию, которую можно потратить с помощью «Dawn», чтобы усиливать многие ваши способности.",
+    ["Tips & Tricks: Stony Tark is the Guardian of Trials on Ascension. Trials are curated new ways to experience Ascension WoW. They range from playing at normal experience rates, to Permadeath, and much more. Completing Trials grants unique rewards when you complete the objectives."] =
+        "Советы и хитрости: Stony Tark отвечает за испытания на Ascension. Испытания это новые способы прохождения Ascension WoW: от обычной скорости получения опыта до режима «Permadeath» и не только. Выполнение испытаний дает уникальные награды за выполнение задач.",
+    ["[SERVER] The Firelord Returns. His Majesty was awaken too soon."] =
+        "[СЕРВЕР] Повелитель огня возвращается. Его Величество разбудили слишком рано.",
+    ["Tips & Tricks: Hello, at the Ethereal Recovery Services we help you correct tragic error."] =
+        "Советы и хитрости: здравствуйте, в Ethereal Recovery Services мы помогаем исправить трагическую ошибку.",
+    ["[Ascension Autobroadcast]: If you are seeing items that say 'Retrieving Item Information' try typing /reload to fix it!"] =
+        "[Ascension Autobroadcast]: если вы видите предметы с надписью «Retrieving Item Information», введите /reload, чтобы это исправить!",
+
+    ["You can recover items you have lost, characters deleted, items you've vendored and much, much more"] =
+        "Вы можете восстановить утерянные предметы, удаленных персонажей, проданные торговцу предметы и многое, многое другое",
+
+    ["You are currently in a raid lockout. You can reset the raid by right clicking your character panel and mousing over the \"Reset All Instances\" button."] =
+        "Вы сейчас привязаны к рейдовому подземелью. Вы можете сбросить рейд, щелкнув правой кнопкой мыши по панели персонажа и наведя курсор на кнопку «Сбросить все подземелья».",
+    ["Tips & Tricks: Trying out flex mode for the first time? Looking to optimize the amount of loot that you receive? Bring as many players as possible - this will generate the MOST loot from bosses."] =
+        "Советы и хитрости: впервые пробуете гибкий режим? Хотите получить максимум добычи? Берите с собой как можно больше игроков: это даст НАИБОЛЬШЕ добычи с боссов.",
+    ["You're not supposed to be here!"] = "Вам здесь не место!",
+    ["PvE Mode has been removed because you entered an unfriendly territory."] =
+        "Режим PvE отключен, поскольку вы вошли на враждебную территорию.",
+    ["[Blood Bowl: Gurubashi Arena] has begun. Now go and fight to death!"] =
+        "[Кровавая чаша: Арена Гурубаши] началась. Вперед, деритесь насмерть!",
+    ["You have disabled creature scaling in the open world for your group!"] =
+        "Вы отключили масштабирование существ в открытом мире для своей группы!",
+    ["Your help request has been verified by a Gamemaster, the following items have been sent to your mailbox. Have fun playing!"] =
+        "Ваш запрос помощи был проверен гейм-мастером, следующие предметы отправлены в ваш почтовый ящик. Приятной игры!",
+
     ["You are not in a guild."] = "Вы не состоите в гильдии.",
 
     ["You have unspent Ability Essence!"] = "У вас остались нераспределенные Ability Essence!",

@@ -1727,6 +1727,29 @@ local function purgeSent()
     return n
 end
 
+local function purgeKnownNames()
+    local m = CoARU_DB and CoARU_DB.miss
+    if type(m) ~= "table" then return 0, nil end
+    local n, names = 0, {}
+    for norm, rec in pairs(m) do
+        if type(rec) == "table" then
+
+            local probe = rec.ex or norm
+            local hit = (CoARU_IsGuildLine and CoARU_IsGuildLine(probe))
+                or (CoARU_IsPersonLine and CoARU_IsPersonLine(probe))
+            if hit then
+                m[norm] = nil
+                n = n + 1
+                if #names < 12 then names[#names + 1] = probe end
+            end
+        end
+    end
+    if m == missTbl then missN = missN - n end
+    return n, names
+end
+
+function CoARU_PurgeKnownNamesForTest() return purgeKnownNames() end
+
 function CoARU_MissCount()
     return missCount(CoARU_DB and CoARU_DB.miss or {})
 end
@@ -2413,7 +2436,8 @@ function onTooltipSetItem(tip)
                 end
 
                 if CoARU_NoteMiss and t:find("%a") and t:find("[A-Za-z][A-Za-z][A-Za-z]")
-                    and not (lab and lab ~= t) and not CoARU_LatinIsLegit(t) then
+                    and not (lab and lab ~= t) and not CoARU_LatinIsLegit(t)
+                    and not (CoARU_IsOwnOutput and CoARU_IsOwnOutput(fs, t)) then
                     CoARU_NoteMiss("mixed", t)
                 end
             end
@@ -2667,8 +2691,9 @@ local function onTooltipShow(tip)
                         ru = CoARU_UnitNameLineRU(CoARU_StripCodes(t))
                     end
 
-                    if not (ru and ru ~= t) and CoARU_QuestLookup then
-                        local okq, rq = pcall(CoARU_QuestLookup, CoARU_StripCodes(t))
+                    local qfn = CoARU_QuestTextRU or CoARU_QuestLookup
+                    if not (ru and ru ~= t) and qfn then
+                        local okq, rq = pcall(qfn, CoARU_StripCodes(t))
                         if okq and type(rq) == "string" and rq ~= "" then ru = rq end
                     end
 
@@ -2773,6 +2798,10 @@ local function translateAuraTip(tip, id)
 
                     CoARU_NoteBlockMisses("aura", id, t)
                     local ru = CoARU_TranslateBlock(id, t)
+
+                    if not (ru and ru ~= t) and CoARU_TranslateItemPrefix then
+                        ru = CoARU_TranslateItemPrefix(t)
+                    end
                     if ru and ru ~= t then
                         CoARU_SetTranslated(fs, t, ru)
                         changed = true
@@ -3162,6 +3191,14 @@ local function slash(cmd)
             if offN > 0 then
                 msg(("выключено в настройках: |cffffd100%s|r (вернуть: /coaru options)")
                     :format(table.concat(offList, ", ")))
+            end
+
+            local dropped, dropNames = purgeKnownNames()
+            if dropped > 0 then
+
+                msg(("убрано имён игроков и гильдий: |cffffd100%d|r (%s%s)"):format(
+                    dropped, table.concat(dropNames, ", "),
+                    dropped > #dropNames and " и другие" or ""))
             end
 
             local mn, newN = 0, 0
