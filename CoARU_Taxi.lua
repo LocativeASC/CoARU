@@ -62,14 +62,18 @@ end
 
 CoARU_TaxiNodeRU = xlateNode
 
-do
-    local orig = TaxiNodeName
-    if orig then
-        function TaxiNodeName(i)
-            local text = orig(i)
-            local ok, ru = pcall(xlateNode, text)
-            if ok and ru then return ru end
-            return text
-        end
+local function taxiTipRU()
+    local fs = _G["GameTooltipTextLeft1"]
+    local text = fs and fs.GetText and fs:GetText()
+    if not text or text == "" then return end
+    local ok, ru = pcall(xlateNode, text)
+    if ok and ru and ru ~= text then
+        fs:SetText(ru)
+
+        if GameTooltip and GameTooltip.Show then GameTooltip:Show() end
     end
+end
+
+if type(TaxiNodeOnButtonEnter) == "function" and hooksecurefunc then
+    hooksecurefunc("TaxiNodeOnButtonEnter", taxiTipRU)
 end
