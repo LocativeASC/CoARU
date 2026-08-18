@@ -413,11 +413,74 @@ local function onBoardCard(fs)
     return false
 end
 
-local function fitFont(fs, s)
-    if not onBoardCard(fs) then return end
-    if not fs.GetFont or not fs.SetFont or not fs.GetWidth or not fs.GetStringWidth then return end
+local function boardRoom(fs)
     local okW, w = pcall(fs.GetWidth, fs)
-    if not okW or not w or w <= 1 then return end
+    if not okW or not w or w <= 1 then return nil end
+    return w, 2
+end
+
+local function tradeKind(fs)
+    local ok, n = pcall(fs.GetName, fs)
+    if not ok or type(n) ~= "string" then return nil end
+    if n:match("^TradeSkillSkill%d+Text$") then return "row" end
+    if n:match("^TradeSkillReagent%d+Name$") then return "reagent" end
+    return nil
+end
+
+local function rowRoom(fs)
+    local okN, n = pcall(fs.GetName, fs)
+    if not okN or type(n) ~= "string" then return nil end
+    local room = (type(TRADE_SKILL_TEXT_WIDTH) == "number" and TRADE_SKILL_TEXT_WIDTH) or 275
+    local cnt = _G[(n:gsub("Text$", "Count"))]
+    if cnt then
+        local okT, t = pcall(cnt.GetText, cnt)
+        if okT and type(t) == "string" and t ~= "" then
+            local okW, cw = pcall(cnt.GetWidth, cnt)
+            if okW and type(cw) == "number" and cw > 0 then room = room - 2 - cw end
+        end
+    end
+    return room, 1
+end
+
+local function reagentRoom(fs, size)
+    local okW, w = pcall(fs.GetWidth, fs)
+    if not okW or not w or w <= 1 then return nil end
+    local okH, h = pcall(fs.GetHeight, fs)
+    if not okH or not h or h <= 1 then return nil end
+    local lines = math.floor(h / (size + 3))
+    if lines < 1 then lines = 1 end
+    return w, lines
+end
+
+local function ulen(s)
+    local n = 0
+    for _ in s:gmatch("[^\128-\191]") do n = n + 1 end
+    return n
+end
+
+local function wrapLines(s, sw, room)
+    local total = ulen(s)
+    if total <= 0 or sw <= 0 or room <= 0 then return 1 end
+    local per = sw / total
+    local lines, cur = 1, 0
+    for word in s:gmatch("%S+") do
+        local ww = ulen(word) * per
+        if cur > 0 and cur + per + ww > room then
+            lines = lines + 1
+            cur = ww
+        else
+            cur = cur + (cur > 0 and per or 0) + ww
+        end
+        while cur > room do
+            lines = lines + 1
+            cur = cur - room
+        end
+    end
+    return lines
+end
+
+local function fitTo(fs, room, wrapped)
+    if not fs.GetFont or not fs.SetFont or not fs.GetStringWidth then return end
     local okF, file, size, flags = pcall(fs.GetFont, fs)
     if not okF or not file or not size then return end
     if not fs.coaruFontSize then fs.coaruFontSize = size end
@@ -429,10 +492,26 @@ local function fitFont(fs, s)
             if not pcall(fs.SetFont, fs, file, cur, flags) then return end
             size = cur
         end
+        local w, lines = room(fs, cur)
+        if not w then return end
         local okS, sw = pcall(fs.GetStringWidth, fs)
         if not okS or not sw then return end
-        if sw <= w * 2 then return end
+        if wrapped then
+            local okT, t = pcall(fs.GetText, fs)
+            if not okT or type(t) ~= "string" then return end
+            if wrapLines(t, sw, w) <= lines then return end
+        elseif sw <= w * lines then
+            return
+        end
     end
+end
+
+local function fitFont(fs, s)
+    local kind = tradeKind(fs)
+    if kind == "row" then return fitTo(fs, rowRoom, false) end
+    if kind == "reagent" then return fitTo(fs, reagentRoom, true) end
+    if not onBoardCard(fs) then return end
+    fitTo(fs, boardRoom, false)
 end
 
 CoARU_AscUI_FitForTest = fitFont

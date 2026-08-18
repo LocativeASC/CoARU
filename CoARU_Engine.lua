@@ -808,6 +808,23 @@ function CoARU_TranslateRequires(line)
 
     s = s:gsub("Requires talents:%s*", "Требуется талантов: ")
     s = s:gsub("Requires:%s*", "Требуется: ")
+
+    local function pointsWord(chunk)
+        local n = tonumber((chunk:gsub("|[cC]%x%x%x%x%x%x%x%x", ""):gsub("|[rR]", "")))
+        if not n then return "очков" end
+        local last, tens = n % 10, n % 100
+        if last == 1 and tens ~= 11 then return "очко" end
+        if last >= 2 and last <= 4 and (tens < 12 or tens > 14) then return "очка" end
+        return "очков"
+    end
+    s = s:gsub("Requires%s+(%S+)%s+more%s+(%S+)%s+Class Points%.?",
+               function(num, cls)
+                   return ("Требуется еще %s %s класса «%s»."):format(num, pointsWord(num), cls)
+               end)
+    s = s:gsub("Requires%s+(%S+)%s+points%s+in%s+(.-)%s+Talents",
+               function(num, tree)
+                   return ("Требуется %s %s в ветке «%s»"):format(num, pointsWord(num), tree)
+               end)
     s = s:gsub("Requires%s+", "Требуется ")
 
     s = s:gsub("At Least%s+(%d+)%s+Felfury", "не менее %1 ед. Ярости Скверны")
@@ -1963,6 +1980,17 @@ end
 function CoARU_ObjectiveCountLineRU(line, ask)
     if type(line) ~= "string" then return nil end
     local core, tail = line:match("^%s*%-%s*(.-)%s*(x%s*%d+)%s*$")
+
+    local sep = " "
+    if not core or core == "" then
+        core, tail = line:match("^%s*%-%s*(.-):%s*(%d+/%d+)%s*$")
+        if not core or core == "" then
+            local pct
+            core, tail, pct = line:match("^%s*%-%s*(.-):%s*(%d+/%d+)%s*(%[%d+%%%])%s*$")
+            if core and core ~= "" then tail = tail .. " " .. pct end
+        end
+        if core and core ~= "" then sep = ": " end
+    end
     if not core or core == "" then return nil end
     local ru
     if type(ask) == "function" then ru = ask(core) end
@@ -1973,7 +2001,7 @@ function CoARU_ObjectiveCountLineRU(line, ask)
         if ok then ru = got end
     end
     if not ru or ru == "" or ru == core then return nil end
-    return "- " .. ru .. " " .. tail
+    return "- " .. ru .. sep .. tail
 end
 
 function CoARU_InEditBox(obj)
@@ -2597,6 +2625,7 @@ function CoARU_LocalizeNames(text)
                     if okNames then ru = spellNameRU(n) end
                     if not ru and (okZones or okInst) and CoARU_ZONE then
                         ru = nameHit(CoARU_ZONE, n) or nameHit(CoARU_ZONE, "The " .. n)
+                                 or nameHit(CoARU_ZONE, n:match("^The (.+)$") or n)
                     end
 
                     if not ru and CoARU_SPEC_RU then
@@ -2608,6 +2637,7 @@ function CoARU_LocalizeNames(text)
 
                     if not ru and CoARU_FactionNameRU then
                         ru = CoARU_FactionNameRU(n) or CoARU_FactionNameRU("The " .. n)
+                             or CoARU_FactionNameRU(n:match("^The (.+)$") or n)
                     end
 
                     if not ru and CoARU_TERM_RU then
@@ -2663,9 +2693,11 @@ localizeOne = function(raw, okNames, okZones, okInst, okUnits)
         if not ru and (okZones or okInst) and not ZONE_INLINE_SKIP[n]
            and not nameHit(CoARU_SPELL_NAME_RU, n) then
 
+            local bare = n:match("^The (.+)$")
             local key = nil
-            for _, cand in ipairs({ n, "The " .. n, n .. " City", "The " .. n .. " City" }) do
-                if CoARU_ZONE[cand] then key = cand break end
+            for _, cand in ipairs({ n, "The " .. n, n .. " City", "The " .. n .. " City",
+                                    bare, bare and (bare .. " City") }) do
+                if cand and CoARU_ZONE[cand] then key = cand break end
             end
             if key then
 
@@ -2679,6 +2711,7 @@ localizeOne = function(raw, okNames, okZones, okInst, okUnits)
 
         if not ru and CoARU_FactionNameRU then
             ru = CoARU_FactionNameRU(n) or CoARU_FactionNameRU("The " .. n)
+                             or CoARU_FactionNameRU(n:match("^The (.+)$") or n)
         end
 
         if not ru and CoARU_TERM_RU then

@@ -289,6 +289,30 @@ local PATTERNS = {
           return ("Побеждает %s!"):format(sd)
       end },
 
+    { "^(%a+) wins!$",
+      function(side)
+          local sd = BG_SIDE_NOM[side]
+          if not sd then return nil end
+          return ("Побеждает %s!"):format(sd)
+      end },
+
+    { "^The (%a+) flag is now placed at its base%.$",
+      function(side)
+          local sd = BG_SIDE[side]
+          if not sd then return nil end
+          return ("Флаг %s возвращен на базу."):format(sd)
+      end },
+
+    { "^The battle begins in (%d+) minutes?%.$",
+      function(n)
+          local k, form = tonumber(n), nil
+          local last, tens = k % 10, k % 100
+          if last == 1 and tens ~= 11 then form = "минуту"
+          elseif last >= 2 and last <= 4 and (tens < 12 or tens > 14) then form = "минуты"
+          else form = "минут" end
+          return ("Битва начнется через %s %s."):format(n, form)
+      end },
+
     { "^The Battle for (.+) begins in (%d+) seconds%. Prepare yourselves!$",
       function(place, n)
           return ("%s: битва начнется через %s сек. Готовьтесь!"):format(zoneRU(place) or place, n)
@@ -358,6 +382,12 @@ local PATTERNS = {
     { "^%[SERVER%] %[Lottery%] %- (.+) ends in (%d+) minutes?%.$",
       function(what, n)
           return ("[СЕРВЕР] [Лотерея] %s заканчивается через %s мин."):format(lotteryRU(what), n)
+      end },
+
+    { "^%[SERVER%] (.-) has won (.-), claiming (.-) and (|Hitem:.*)$",
+      function(who, what, money, link)
+          return ("[СЕРВЕР] %s выигрывает %s и получает %s и %s")
+              :format(who, lotteryRU(what), money, link)
       end },
 
     { "^You can now pick your first talents!$",
@@ -491,6 +521,9 @@ local FIXED = {
         "[СЕРВЕР] Повелитель огня возвращается. Его Величество разбудили слишком рано.",
     ["Tips & Tricks: Hello, at the Ethereal Recovery Services we help you correct tragic error."] =
         "Советы и хитрости: здравствуйте, в Ethereal Recovery Services мы помогаем исправить трагическую ошибку.",
+
+    ["If a tooltip, item icon or item looks wrong, try updating your patch with our newest launcher, and clearing your cache. Select the Cog Wheel in the Launcher then Clear Cache. Or delete the WDB folder from the Cache folder in your install directory."] =
+        "если подсказка, значок предмета или сам предмет выглядят неправильно, попробуйте обновить патч нашим новейшим лаунчером и очистить кэш. Нажмите шестеренку в лаунчере, затем «Clear Cache». Или удалите папку WDB из папки Cache в каталоге установки.",
     ["[Ascension Autobroadcast]: If you are seeing items that say 'Retrieving Item Information' try typing /reload to fix it!"] =
         "[Ascension Autobroadcast]: если вы видите предметы с надписью «Retrieving Item Information», введите /reload, чтобы это исправить!",
 
