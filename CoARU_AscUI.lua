@@ -99,20 +99,27 @@ local DIFFICULTY = {
     Normal = "обычный",
 }
 
-local function wrapNameRU(n)
-    if type(n) ~= "string" or n == "" then return nil end
-
-    if n:find("%.$") or not n:find("^[A-Z]") then return nil end
-    local words = 0
-    for _ in n:gmatch("%S+") do
-        words = words + 1
-        if words > 5 then return nil end
-    end
+local function mapNameRU(n)
     local ru = (CoARU_ItemNameEN and CoARU_ItemNameEN[n])
         or (CoARU_UNIT_N2R and CoARU_UNIT_N2R[n])
         or (CoARU_OBJ_N2R and CoARU_OBJ_N2R[n])
         or (CoARU_SPELL_NAME_RU and CoARU_SPELL_NAME_RU[n])
     if ru and ru ~= n then return ru end
+    return nil
+end
+
+local function wrapNameRU(n)
+    if type(n) ~= "string" or n == "" then return nil end
+
+    if n:find("%.$") or not n:find("^[A-Z]") then return nil end
+    local ru = mapNameRU(n)
+    if ru then return ru end
+
+    local core = n:match('^(.*[^%s"])"$')
+    if core then
+        ru = mapNameRU(core)
+        if ru then return ru .. '"' end
+    end
     return nil
 end
 

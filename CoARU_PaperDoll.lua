@@ -309,6 +309,7 @@ local TARGETS = {
 
     { name = "PVPFrame",       perFrame = false, map = scopedMap("pvp") },
     { name = "PVPParentFrame", perFrame = false, map = scopedMap("pvp") },
+
     { name = "AuctionFrame",   perFrame = true,  map = scopedMap("auction") },
     { name = "LootFrame",      perFrame = true,  map = scopedMap("loot") },
     { name = "FriendsFrame",   perFrame = true,  map = scopedMap("social") },
@@ -340,7 +341,8 @@ local function hookFS(r)
     r.__coaruHooked = true
 
     local ok = pcall(hooksecurefunc, r, "SetText", function(self)
-        if inHook then return end
+
+        if self.__coaruDead or inHook then return end
         inHook = true
         pcall(applyTo, self)
         inHook = false
@@ -425,13 +427,25 @@ local function fitButton(fs)
     grown[(okNm and nm) or tostring(p)] = { w, need }
 end
 
+local applyCalls, applyFull = 0, 0
+function CoARU_PaperDollApplyStat() return applyCalls, applyFull end
+function CoARU_PaperDollApplyReset() applyCalls, applyFull = 0, 0 end
+
 applyTo = function(r)
+    applyCalls = applyCalls + 1
 
     if r.__coaruMod and not CoARU_ModOn(r.__coaruMod) then return end
-
-    local map = r.__coaruMap or buildMap()
     local ok, t = pcall(r.GetText, r)
     if not ok or not t or not t:find("%S") then return end
+
+    if r.__coaruInText == t then
+        local memo = r.__coaruOutText
+        if memo then pcall(r.SetText, r, memo) end
+        return
+    end
+    applyFull = applyFull + 1
+
+    local map = r.__coaruMap or buildMap()
     local base, color = stripColor(t)
     local ru = map[base]
     if not ru then
@@ -445,8 +459,17 @@ applyTo = function(r)
             end
         end
     end
-    if not ru then return end
+    if not ru then
+
+        r.__coaruInText, r.__coaruOutText = t, false
+
+        local n = (r.__coaruMiss or 0) + 1
+        r.__coaruMiss = n
+        if n >= 10 then r.__coaruDead = true end
+        return
+    end
     if color then ru = color .. ru .. "|r" end
+    r.__coaruInText, r.__coaruOutText = t, ru
     pcall(r.SetText, r, ru)
 
     local okP, p = pcall(r.GetParent, r)
@@ -481,10 +504,31 @@ local function rebuild(t, frame)
     t.age = 0
 end
 
+local function wipeMemo(t)
+    for i = 1, t.n or 0 do
+        local r = t.cache[i]
+        if r then
+            r.__coaruInText, r.__coaruOutText = nil, nil
+
+            r.__coaruMiss, r.__coaruDead = nil, nil
+        end
+    end
+end
+
 local function retext(t, frame)
+    wipeMemo(t)
     rebuild(t, frame)
     apply(t)
 end
+
+function CoARU_PaperDollTestHook(frame, map)
+    local t = { map = map or {}, cache = {}, n = 0, age = 0 }
+    rebuild(t, frame)
+    return t
+end
+
+function CoARU_PaperDollTestRebuild(t, frame) rebuild(t, frame) end
+function CoARU_PaperDollTestShow(t, frame) retext(t, frame) end
 
 local hookedCount = 0
 local function tryHook()

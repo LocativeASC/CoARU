@@ -530,10 +530,14 @@ end
 
 if type(GetQuestLogTitle) == "function" then
     local orig = GetQuestLogTitle
-    local function fixTitle(title, ...)
+    local function fixTitle(title, level, tag, ...)
         local ok, ru = pcall(xlateQuestText, title)
-        if ok and ru then return ru, ... end
-        return title, ...
+        if ok and ru then title = ru end
+        if tag and CoARU_ModOn("quests") then
+            local rt = UI[tag]
+            if rt then tag = rt end
+        end
+        return title, level, tag, ...
     end
     function GetQuestLogTitle(i)
         return fixTitle(orig(i))
@@ -759,11 +763,14 @@ end
 
 local function gossipRU(t, isOption)
     if not t or #t < 3 then return nil end
-    if isOption then
-        local src = CoARU_ItemSourceOptionRU(t) or CoARU_GossipSlotRU(t)
-        if src then return src end
-    end
     local pre, wrap, core, tail = splitChrome(t)
+
+    if isOption then
+        local src = CoARU_ItemSourceOptionRU(core) or CoARU_GossipSlotRU(core)
+        if src then
+            return pre .. wrap .. src .. (wrap ~= "" and "|r" or "") .. tailRU(tail)
+        end
+    end
     local ok, ru = pcall(xlateQuestText, core)
     if CoARU_GOSSIP_DBG then
         local mod = CoARU_ModOn and CoARU_ModOn("quests")
@@ -893,6 +900,10 @@ local function xlateVarargs(step, ...)
         out[i] = v
     end
     return unpack(out, 1, n)
+end
+
+function CoARU_GossipListRU(...)
+    return xlateVarargs(2, ...)
 end
 
 if type(GetGossipOptions) == "function" then

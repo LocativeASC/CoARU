@@ -46,6 +46,9 @@ CoARU_MODULES = {
 
     { key = "ascui", group = "ui",   label = "Интерфейс Ascension",
       hint = "окна сервера: доска заданий" },
+
+    { key = "aucfix", group = "ui",  label = "Аукцион: не слать поиск внахлёст",
+      hint = "щелчок не теряется, а уходит, как только клиент разрешит следующий запрос" },
 }
 
 CoARU_PRESETS = {

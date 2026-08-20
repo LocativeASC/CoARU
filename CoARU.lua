@@ -1578,7 +1578,9 @@ local function ensureMinimapButton()
     end
 
     local loadedCount
+
     local function loaded()
+        if CoARU_DATA_PAIRS then return CoARU_DATA_PAIRS end
         if not loadedCount then
             loadedCount = 0
             for _ in pairs(CoARU_LOC_EN or {}) do loadedCount = loadedCount + 1 end
@@ -3759,6 +3761,59 @@ local function slash(cmd)
                 CoARU_DB.opts.altdump and "" or " (запись ВЫКЛЮЧЕНА)"))
             msg("после /reload файл: WTF\\Account\\<acc>\\SavedVariables\\CoARU.lua, ключ altdump")
         end
+    elseif cmd:match("^auctime") then
+
+        if cmd:match("^auctime%s+reset") then
+            if CoARU_AucProfReset then CoARU_AucProfReset() end
+            if CoARU_PaperDollApplyReset then CoARU_PaperDollApplyReset() end
+            msg("замер аукциона обнулён")
+        elseif not CoARU_AucProf then
+            msg("модуль аукциона не загружен")
+        else
+            local calls, ms, mx, rows, miss, fast = CoARU_AucProf()
+            if calls == 0 then
+                msg("список аукциона ещё не перерисовывался: открой аукцион и покрути список")
+            else
+                msg(("перерисовок списка: %d, наша доля всего %.1f мс, худшая %.2f мс, в среднем %.3f мс")
+                    :format(calls, ms, mx, ms / calls))
+                msg(("разобрано строк: %d (по кэшу пропущено %d), без русского имени: %d")
+                    :format(rows, fast or 0, miss))
+
+                if CoARU_AucProfFrames then
+                    local fr, worst = CoARU_AucProfFrames()
+                    msg(("кадров с перерисовкой: %d, худший кадр: %d вызовов"):format(fr, worst))
+                end
+
+                if CoARU_PaperDollApplyStat then
+                    local ac, af = CoARU_PaperDollApplyStat()
+                    msg(("ретекст надписей окна: вызовов %d, из них с разбором %d")
+                        :format(ac, af))
+                end
+
+                if CoARU_AucEventCount then
+                    local ev, co = CoARU_AucEventCount()
+                    msg(("событий аукциона: %d, схлопнуто перерисовок: %d"):format(ev, co))
+                end
+
+                local by = CoARU_AucProfByList and CoARU_AucProfByList()
+                if by then
+                    local parts = {}
+                    for k, v in pairs(by) do parts[#parts + 1] = k .. " " .. v end
+                    if #parts > 0 then msg("по спискам: " .. table.concat(parts, ", ")) end
+                end
+
+                local st, n = CoARU_AucProfStacks and CoARU_AucProfStacks()
+                if st and n and n > 0 then
+                    CoARU_DB.aucstack = st
+                    msg(("образцов стека снято: %d — /reload и пришли SavedVariables"):format(n))
+                elseif type(debugstack) ~= "function" then
+
+                    msg("стек снять нечем: debugstack в этом клиенте отсутствует")
+                else
+                    msg("образцов стека нет: нужно не меньше 500 перерисовок")
+                end
+            end
+        end
     elseif cmd:match("^hitch") then
 
         local a = cmd:match("^hitch%s+(%S+)")
@@ -3775,8 +3830,11 @@ local function slash(cmd)
                 CoARU_DB.opts.hitch and "" or " (запись ВЫКЛЮЧЕНА, включи: /coaru hitch on)"))
             for i = math.max(1, #h - 9), #h do
                 local r = h[i]
-                msg(("  %.1f сек | скан: %s | Lua: %.0f МБ | %s"):format(
-                    r.gap, r.scan or "нет", r.mem, r.zone or "?"))
+
+                msg(("  %.1f сек | скан: %s | Lua: %.0f МБ | аукцион: %s, ретекст: %s | %s"):format(
+                    r.gap, r.scan or "нет", r.mem,
+                    r.auc and tostring(r.auc) or "?", r.ret and tostring(r.ret) or "?",
+                    r.zone or "?"))
             end
         end
     elseif cmd == "packnew" then
@@ -4314,10 +4372,21 @@ end)
 
 local HITCH_MIN = 1.0
 local HITCH_CAP = 60
+
+local function aucCounters()
+    local calls = 0
+    if CoARU_AucProf then calls = (CoARU_AucProf()) or 0 end
+    local ret = 0
+    if CoARU_PaperDollApplyStat then ret = (CoARU_PaperDollApplyStat()) or 0 end
+    return calls, ret
+end
+
 local hitchFrame = CreateFrame("Frame")
 local lastFrameAt
+local prevAuc, prevRet = 0, 0
 hitchFrame:SetScript("OnUpdate", function()
     local now = GetTime()
+    local auc, ret = aucCounters()
     if lastFrameAt then
         local gap = now - lastFrameAt
         if gap >= HITCH_MIN and CoARU_DB and CoARU_DB.opts and CoARU_DB.opts.hitch then
@@ -4330,9 +4399,13 @@ hitchFrame:SetScript("OnUpdate", function()
                     scan = CoARU_ScanProgress and CoARU_ScanProgress() or nil,
                     zone = GetRealZoneText and GetRealZoneText() or nil,
                     at = date and date("%H:%M:%S") or nil,
+
+                    auc = auc - prevAuc,
+                    ret = ret - prevRet,
                 }
             end
         end
     end
     lastFrameAt = now
+    prevAuc, prevRet = auc, ret
 end)
