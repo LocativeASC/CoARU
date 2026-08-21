@@ -2741,6 +2741,10 @@ local function onTooltipShow(tip)
                     if not (ru and ru ~= t) and CoARU_FixTimeUnits then
                         ru = CoARU_FixTimeUnits(t)
                     end
+
+                    if ru and ru ~= t and CoARU_LocalizeNames then
+                        ru = CoARU_LocalizeNames(ru)
+                    end
                     if ru and ru ~= t then
                         CoARU_SetTranslated(fs, ten or t, ru)
                         changed = true
@@ -2859,6 +2863,22 @@ local function installHooks()
     end
     GameTooltip:HookScript("OnTooltipSetSpell", onTooltipSetSpell)
     hooksecurefunc(GameTooltip, "Show", onTooltipShow)
+
+    GameTooltip:HookScript("OnShow", function(tip)
+        if tip.GetItem then
+            local ok, _, link = pcall(tip.GetItem, tip)
+            if ok and link then return end
+        end
+        if tip.GetSpell then
+            local ok, sn = pcall(tip.GetSpell, tip)
+            if ok and sn then return end
+        end
+        if tip.GetUnit then
+            local ok, un = pcall(tip.GetUnit, tip)
+            if ok and un then return end
+        end
+        onTooltipShow(tip)
+    end)
     hookAura(GameTooltip)
     hookAura(ItemRefTooltip)
     if ItemRefTooltip then
@@ -3669,6 +3689,37 @@ local function slash(cmd)
                      n, #acc, table.concat(frames, ", ")))
             end
         end
+    elseif cmd == "tip" or cmd:match("^tip%s") then
+
+        local id = tonumber(cmd:match("^tip%s+(%d+)$") or "")
+        if not id then
+            msg("нужен номер способности: /coaru tip 680703")
+            return
+        end
+        local tip = GameTooltip
+        tip:SetOwner(UIParent, "ANCHOR_NONE")
+        tip:ClearLines()
+        tip:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+        tip:SetHyperlink("spell:" .. id)
+        tip:Show()
+        CoARU_DB.tipraw = CoARU_DB.tipraw or {}
+        local name = tip:GetName()
+        local rec, n = { id = id }, tip:NumLines() or 0
+        for i = 1, n do
+            for _, side in ipairs({ "TextLeft", "TextRight" }) do
+                local fs = _G[name .. side .. i]
+                local t = fs and fs.GetText and fs:GetText()
+                if t and t ~= "" and t:find("%S") then
+                    rec[#rec + 1] = ("%d%s	%s"):format(i, side, t)
+                end
+            end
+        end
+        local slot = nil
+        for i, e in ipairs(CoARU_DB.tipraw) do if e.id == id then slot = i end end
+        if slot then CoARU_DB.tipraw[slot] = rec else table.insert(CoARU_DB.tipraw, rec) end
+        msg(("тултип %d показан по центру экрана, строк %d. В копилке: %d — /reload и пришли CoARU.lua")
+            :format(id, n, #CoARU_DB.tipraw))
+        for _, l in ipairs(rec) do print("  " .. l:gsub("|", "||")) end
     elseif cmd == "lines rec" then
 
         CoARU_RecLines = true

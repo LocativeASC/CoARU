@@ -205,7 +205,18 @@ gate:Hide()
 gate:SetScript("OnUpdate", function(self, elapsed)
     if not pending then self:Hide(); return end
     pendingFor = pendingFor + (elapsed or 0)
-    if pendingFor > 5 then pending = nil; self:Hide(); return end
+
+    if pendingFor > 5 then
+        pending = nil
+        self:Hide()
+        if DEFAULT_CHAT_FRAME then
+            DEFAULT_CHAT_FRAME:AddMessage("|cffC495DDCoARU|r клиент не разрешил запрос к"
+                .. " аукциону 5 секунд подряд, поиск не ушёл. Нажмите «Поиск» ещё раз;"
+                .. " если повторяется, снимите галку «Аукцион: не слать поиск внахлёст»"
+                .. " в /coaru options и сообщите об этом.")
+        end
+        return
+    end
     if canQuery() then
         local run = pending
         pending = nil

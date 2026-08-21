@@ -339,15 +339,25 @@ local function buildAttempts(plain, raw)
         i = plain:find("%$", i + 1)
     end
 
+    local function findStepRun(str, from)
+        local i, n = from, #str
+        while i <= n do
+            local s, e, run = str:find("([%d%-][%d%.,%-/]*[%d%-])", i)
+            if not s then return nil end
+            if run:find("/", 1, true) and run:find("%d") then return s, e, run end
+            i = e + 1
+        end
+        return nil
+    end
     do
         local parts, multi, slot, i, n, found = {}, {}, 0, 1, #plain, false
         local rawList, nrun = raw and rawRuns(raw) or nil, 0
         while i <= n do
-            local s, e, run = plain:find("(%d[%d%.,]*/[%d%.,/]*%d)", i)
+            local s, e, run = findStepRun(plain, i)
             local s2, e2 = plain:find("%d[%d%.,]*", i)
             if s and s2 and s <= s2 then
 
-                parts[#parts + 1] = plain:sub(i, s - 1) .. run:match("^(%d[%d%.,]*)")
+                parts[#parts + 1] = plain:sub(i, s - 1) .. run:match("(%d[%d%.,]*)")
                 slot = slot + 1
 
                 nrun = nrun + 1
@@ -725,6 +735,31 @@ function CoARU_FixTimeUnits(line)
     if out == line then return nil end
 
     out = out:gsub("%.%.", ".")
+    return out
+end
+
+local UNFIX_TIME_UNITS = {
+    { { "(%d+)%s+сек%.", "%1 sec" },     { "(%d+)%s+мин%.", "%1 min" },
+      { "(%d+)%s+ч%.",   "%1 hour" },    { "(%d+)%s+дн%.",  "%1 day" } },
+    { { "(%d+)%s+сек%.", "%1 seconds" }, { "(%d+)%s+мин%.", "%1 minutes" },
+      { "(%d+)%s+ч%.",   "%1 hours" },   { "(%d+)%s+дн%.",  "%1 days" } },
+    { { "(%d+)%s+сек%.", "%1 sec." },    { "(%d+)%s+мин%.", "%1 min." },
+      { "(%d+)%s+ч%.",   "%1 hr" },      { "(%d+)%s+дн%.",  "%1 day" } },
+}
+
+function CoARU_UnfixTimeUnits(line)
+    local out = {}
+    if not line or not CoARU_HasCyrillic or not CoARU_HasCyrillic(line) then return out end
+    if not (line:find("сек%.") or line:find("мин%.") or line:find("ч%.") or line:find("дн%.")) then
+        return out
+    end
+    for i = 1, #UNFIX_TIME_UNITS do
+        local cand = line
+        for j = 1, #UNFIX_TIME_UNITS[i] do
+            cand = cand:gsub(UNFIX_TIME_UNITS[i][j][1], UNFIX_TIME_UNITS[i][j][2])
+        end
+        if cand ~= line then out[#out + 1] = cand end
+    end
     return out
 end
 
@@ -1791,6 +1826,10 @@ local function levelSplit(plain)
     if lvl then return lvl .. "-й уровень", rest end
     rest = plain:match("^Level%s+%?%?%s+(.+)$")
     if rest then return "уровень ??", rest end
+    lvl, rest = plain:match("^Уровень%s+(%d+),?%s+(.+)$")
+    if lvl then return lvl .. "-й уровень", rest end
+    rest = plain:match("^Уровень%s+%?%?,?%s+(.+)$")
+    if rest then return "уровень ??", rest end
     return nil, nil
 end
 
@@ -2186,6 +2225,16 @@ local LINE_STAGES = {
     { "база",          function(id, line) return id and CoARU_TranslateText(id, line) end },
     { "карта аддона",  function(_, line) return CoARU_TranslateGlobal(line) end },
     { "база",          function(_, line) return CoARU_TranslateByIndex(line) end },
+
+    { "база",          function(_, line)
+        if not CoARU_UnfixTimeUnits then return nil end
+        local cands = CoARU_UnfixTimeUnits(line)
+        for i = 1, #cands do
+            local ru = CoARU_TranslateByIndex and CoARU_TranslateByIndex(cands[i])
+            if ru and ru ~= cands[i] then return ru end
+        end
+        return nil
+    end },
 
     { "база",          function(_, line) return labelBodyStage(line) end },
 

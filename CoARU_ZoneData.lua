@@ -1118,6 +1118,7 @@ z["Passage of Lost Fiends"]="Перевал Заблудившихся Злод�
 z["Path of the Titans"]="Путь Титанов"
 z["Pestilent Scar"]="Моровой овраг"
 z["Pit of Saron"]="Яма Сарона"
+z["Plaguelands"]="Чумные земли"
 z["Plaguelands: The Scarlet Enclave"]="Чумные земли: Анклав Алого ордена"
 z["Plaguemist Ravine"]="Чумная лощина"
 z["Plaguewood"]="Проклятый лес"

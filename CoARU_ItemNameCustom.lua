@@ -193,6 +193,7 @@ if not t["Amulet of the Gate Warden"] then t["Amulet of the Gate Warden"]="Ам�
 if not t["Amulet of the Inner Dusk"] then t["Amulet of the Inner Dusk"]="Амулет внутренних сумерек" end
 if not t["Amulet of the Sand Prince"] then t["Amulet of the Sand Prince"]="Амулет принца песков" end
 if not t["Amulet of the Third War"] then t["Amulet of the Third War"]="Амулет третьей войны" end
+if not t["Amzust's Cleaver"] then t["Amzust's Cleaver"]="Колун Амзуста" end
 if not t["Ana'thek's Ceremonial Shirt"] then t["Ana'thek's Ceremonial Shirt"]="Церемониальная рубаха Ана'тека" end
 if not t["Anacondra's Envenomed Vestment"] then t["Anacondra's Envenomed Vestment"]="Ядовитое одеяние Анакондры" end
 if not t["Ancestor's Axe"] then t["Ancestor's Axe"]="Топор предка" end
@@ -8000,10 +8001,10 @@ if not t["Bloodforged Doomplate Shoulderguards"] then t["Bloodforged Doomplate S
 if not t["Bloodforged Doomplate Warhelm"] then t["Bloodforged Doomplate Warhelm"]="Закаленный кровью боевой шлем Роковой Брони" end
 if not t["Bloodforged Doomsayer's Mace"] then t["Bloodforged Doomsayer's Mace"]="Закаленная кровью палица вестника рока" end
 if not t["Bloodforged Doomsayer's Robe"] then t["Bloodforged Doomsayer's Robe"]="Закаленное кровью одеяние вестника рока" end
-if not t["Bloodforged Doomspike"] then t["Bloodforged Doomspike"]="Закаленная кровью роковая пика" end
 end
 local function ic2()
 local t = CoARU_ItemNameEN
+if not t["Bloodforged Doomspike"] then t["Bloodforged Doomspike"]="Закаленная кровью роковая пика" end
 if not t["Bloodforged Doomulus Prime"] then t["Bloodforged Doomulus Prime"]="Закаленный кровью рокулюс первый" end
 if not t["Bloodforged Dorian's Prybar"] then t["Bloodforged Dorian's Prybar"]="Закаленный кровью сюрикен Дориана" end
 if not t["Bloodforged Dormant Wind Kissed Blade"] then t["Bloodforged Dormant Wind Kissed Blade"]="Закаленный кровью дремлющий клинок Игривого Ветра" end
@@ -16003,10 +16004,10 @@ if not t["Bloodforged Noxxion's Shackles"] then t["Bloodforged Noxxion's Shackle
 if not t["Bloodforged Nurturing Touch"] then t["Bloodforged Nurturing Touch"]="Закаленное кровью заботливое Касание" end
 if not t["Bloodforged Nymph Heart Charm"] then t["Bloodforged Nymph Heart Charm"]="Закаленный кровью оберег из сердца нимфы" end
 if not t["Bloodforged Nymph Stockings"] then t["Bloodforged Nymph Stockings"]="Закаленные кровью чулки нимфы" end
-if not t["Bloodforged Nyn'jah's Tabi Boots"] then t["Bloodforged Nyn'jah's Tabi Boots"]="Закаленные кровью таби ниндзя" end
 end
 local function ic3()
 local t = CoARU_ItemNameEN
+if not t["Bloodforged Nyn'jah's Tabi Boots"] then t["Bloodforged Nyn'jah's Tabi Boots"]="Закаленные кровью таби ниндзя" end
 if not t["Bloodforged Oak Mallet"] then t["Bloodforged Oak Mallet"]="Закаленная кровью дубовая киянка" end
 if not t["Bloodforged Oakleaf-Spun Handguards"] then t["Bloodforged Oakleaf-Spun Handguards"]="Закаленные кровью боевые рукавицы дубовых листьев" end
 if not t["Bloodforged Oakthrush Staff"] then t["Bloodforged Oakthrush Staff"]="Закаленный кровью дубовый посох с символом дрозда" end
@@ -24006,10 +24007,10 @@ if not t["Bloodforged Wrynn's Legguards of Brutality"] then t["Bloodforged Wrynn
 if not t["Bloodforged Wrynn's Legguards of Conquest"] then t["Bloodforged Wrynn's Legguards of Conquest"]="Закаленные кровью набедренники завоеваний Ринна" end
 if not t["Bloodforged Wrynn's Legguards of Heroism"] then t["Bloodforged Wrynn's Legguards of Heroism"]="Закаленные кровью набедренники героизма Ринна" end
 if not t["Bloodforged Wrynn's Legguards of Triumph"] then t["Bloodforged Wrynn's Legguards of Triumph"]="Закаленные кровью набедренники триумфа Ринна" end
-if not t["Bloodforged Wrynn's Legplates "] then t["Bloodforged Wrynn's Legplates "]="Закаленные кровью ножные латы Ринна" end
 end
 local function ic4()
 local t = CoARU_ItemNameEN
+if not t["Bloodforged Wrynn's Legplates "] then t["Bloodforged Wrynn's Legplates "]="Закаленные кровью ножные латы Ринна" end
 if not t["Bloodforged Wrynn's Legplates of Carnage"] then t["Bloodforged Wrynn's Legplates of Carnage"]="Закаленные кровью ножные латы резни с вензелем Ринна" end
 if not t["Bloodforged Wrynn's Legplates of Conquest"] then t["Bloodforged Wrynn's Legplates of Conquest"]="Закаленные кровью ножные латы завоеваний Ринна" end
 if not t["Bloodforged Wrynn's Legplates of Triumph"] then t["Bloodforged Wrynn's Legplates of Triumph"]="Закаленные кровью ножные латы триумфа Ринна" end
@@ -32009,10 +32010,10 @@ if not t["Golden Skill Card - Deep Freeze"] then t["Golden Skill Card - Deep Fre
 if not t["Golden Skill Card - Defense of Thundarian"] then t["Golden Skill Card - Defense of Thundarian"]="Золотая карточка умения: оборона Громораана" end
 if not t["Golden Skill Card - Defensive Mindset"] then t["Golden Skill Card - Defensive Mindset"]="Золотая карточка умения: защитный настрой" end
 if not t["Golden Skill Card - Defensive Stance"] then t["Golden Skill Card - Defensive Stance"]="Золотая карточка умения: оборонительная стойка" end
-if not t["Golden Skill Card - Defiance"] then t["Golden Skill Card - Defiance"]="Золотая карточка умения: неукротимость" end
 end
 local function ic5()
 local t = CoARU_ItemNameEN
+if not t["Golden Skill Card - Defiance"] then t["Golden Skill Card - Defiance"]="Золотая карточка умения: неукротимость" end
 if not t["Golden Skill Card - Defias Gunslinger"] then t["Golden Skill Card - Defias Gunslinger"]="Золотая карточка умения: стрелок Братства Справедливости" end
 if not t["Golden Skill Card - Defias Tactics"] then t["Golden Skill Card - Defias Tactics"]="Золотая карточка умения: тактика Братства Справедливости" end
 if not t["Golden Skill Card - Defile the Grove"] then t["Golden Skill Card - Defile the Grove"]="Золотая карточка умения: осквернить рощу" end
@@ -36139,6 +36140,7 @@ if not t["Juggernaut's Wrists of The Protectors"] then t["Juggernaut's Wrists of
 if not t["Jump Jump"] then t["Jump Jump"]="Прыг-прыг" end
 if not t["Jungle Ambush Leggings"] then t["Jungle Ambush Leggings"]="Поножи засады джунглей" end
 if not t["Jungle Broadblade"] then t["Jungle Broadblade"]="Широкий клинок джунглей" end
+if not t["Jungle Carver Axe"] then t["Jungle Carver Axe"]="Топор резчика джунглей" end
 if not t["Jungle Coin"] then t["Jungle Coin"]="Монета джунглей" end
 if not t["Jungle Defender"] then t["Jungle Defender"]="Защитник джунглей" end
 if not t["Jungle Garrote"] then t["Jungle Garrote"]="Джунглевая удавка" end
@@ -40011,11 +40013,11 @@ if not t["Legionnaire's Battle Mace"] then t["Legionnaire's Battle Mace"]="Бо�
 if not t["Legionnaire's Blade"] then t["Legionnaire's Blade"]="Клинок легионера" end
 if not t["Legionnaire's Bludgeon"] then t["Legionnaire's Bludgeon"]="Ослоп легионера" end
 if not t["Legionnaire's Chain Boots"] then t["Legionnaire's Chain Boots"]="Цепные сапоги легионера" end
-if not t["Legionnaire's Chain Chest"] then t["Legionnaire's Chain Chest"]="Цепной нагрудник легионера" end
-if not t["Legionnaire's Chain Gloves"] then t["Legionnaire's Chain Gloves"]="Цепные перчатки легионера" end
 end
 local function ic6()
 local t = CoARU_ItemNameEN
+if not t["Legionnaire's Chain Chest"] then t["Legionnaire's Chain Chest"]="Цепной нагрудник легионера" end
+if not t["Legionnaire's Chain Gloves"] then t["Legionnaire's Chain Gloves"]="Цепные перчатки легионера" end
 if not t["Legionnaire's Chain Helmet"] then t["Legionnaire's Chain Helmet"]="Цепной шлем легионера" end
 if not t["Legionnaire's Chain Shoulders"] then t["Legionnaire's Chain Shoulders"]="Цепные наплечники легионера" end
 if not t["Legionnaire's Cleaver"] then t["Legionnaire's Cleaver"]="Колун легионера" end
@@ -45506,6 +45508,7 @@ if not t["Orange Tweed Hat"] then t["Orange Tweed Hat"]="Оранжевая тв
 if not t["Orb of Dawn"] then t["Orb of Dawn"]="Сфера рассвета" end
 if not t["Orb of Isildien Echoes"] then t["Orb of Isildien Echoes"]="Сфера отголосков «Isildien»" end
 if not t["Orb of Madness"] then t["Orb of Madness"]="Сфера безумия" end
+if not t["Orcbane Gavel"] then t["Orcbane Gavel"]="Молоток оркобоя" end
 if not t["Orchid Bow-quet"] then t["Orchid Bow-quet"]="Букет-лук из орхидей" end
 if not t["Orcish Demon Slayer"] then t["Orcish Demon Slayer"]="Орочий истребитель демонов" end
 if not t["Orcish Fishing Device"] then t["Orcish Fishing Device"]="Орочье рыболовное устройство" end
@@ -48013,12 +48016,12 @@ if not t["Sanguine Epaulets of Ten Storms"] then t["Sanguine Epaulets of Ten Sto
 if not t["Sanguine Felheart Belt"] then t["Sanguine Felheart Belt"]="Кровавый пояс Сердца Скверны" end
 if not t["Sanguine Felheart Bracers"] then t["Sanguine Felheart Bracers"]="Кровавые наручи Сердца Скверны" end
 if not t["Sanguine Felheart Gloves"] then t["Sanguine Felheart Gloves"]="Кровавые перчатки Сердца Скверны" end
-if not t["Sanguine Felheart Horns"] then t["Sanguine Felheart Horns"]="Кровавый рогатый шлем Сердца Скверны" end
-if not t["Sanguine Felheart Pants"] then t["Sanguine Felheart Pants"]="Кровавые штаны Сердца Скверны" end
-if not t["Sanguine Felheart Robes"] then t["Sanguine Felheart Robes"]="Кровавая одеяния Сердца Скверны" end
 end
 local function ic7()
 local t = CoARU_ItemNameEN
+if not t["Sanguine Felheart Horns"] then t["Sanguine Felheart Horns"]="Кровавый рогатый шлем Сердца Скверны" end
+if not t["Sanguine Felheart Pants"] then t["Sanguine Felheart Pants"]="Кровавые штаны Сердца Скверны" end
+if not t["Sanguine Felheart Robes"] then t["Sanguine Felheart Robes"]="Кровавая одеяния Сердца Скверны" end
 if not t["Sanguine Felheart Shoulder Pads"] then t["Sanguine Felheart Shoulder Pads"]="Кровавые наплечные пластины Сердца Скверны" end
 if not t["Sanguine Felheart Slippers"] then t["Sanguine Felheart Slippers"]="Кровавые туфли Сердца Скверны" end
 if not t["Sanguine Frostfire Belt"] then t["Sanguine Frostfire Belt"]="Кровавый пояс ледяного огня" end
@@ -52550,6 +52553,7 @@ if not t["Spicy Dino Jerky"] then t["Spicy Dino Jerky"]="Острая вялен
 if not t["Spider Silk Vestments"] then t["Spider Silk Vestments"]="Одеяния из паучьего шелка" end
 if not t["Spider Spiritual Essence"] then t["Spider Spiritual Essence"]="Духовная сущность паука" end
 if not t["Spider's Kiss"] then t["Spider's Kiss"]="Поцелуй паука" end
+if not t["Spidersilk Drape of the Hearth"] then t["Spidersilk Drape of the Hearth"]="Пелерина очага из паучьего шелка" end
 if not t["Spiked Bloodstone Pendant"] then t["Spiked Bloodstone Pendant"]="Шипастая подвеска с кровавым камнем" end
 if not t["Spiked Maul"] then t["Spiked Maul"]="Шипастая кувалда" end
 if not t["Spine Hammer"] then t["Spine Hammer"]="Молот из хребта" end
@@ -54519,6 +54523,7 @@ if not t["Tunic of the Witch Doctor"] then t["Tunic of the Witch Doctor"]="Ту�
 if not t["Tunk's Lil' Whomper"] then t["Tunk's Lil' Whomper"]="Малая дубасилка Танка" end
 if not t["Tunnel Carver"] then t["Tunnel Carver"]="Туннельный резчик" end
 if not t["Tunnel Rat Pike"] then t["Tunnel Rat Pike"]="Пика туннельной крысы" end
+if not t["Tunnel Rat's Burrower Axe"] then t["Tunnel Rat's Burrower Axe"]="Роющий топор туннельщика" end
 if not t["Turqoise Scytheclaw (Backsheath)"] then t["Turqoise Scytheclaw (Backsheath)"]="Бирюзовый косокоготь (ножны за спиной)" end
 if not t["Turquoise Serenade"] then t["Turquoise Serenade"]="Бирюзовая серенада" end
 if not t["Turret Mechanic's Legwraps"] then t["Turret Mechanic's Legwraps"]="Обмотки механика турели" end
@@ -56014,14 +56019,14 @@ if not t["Withered Garment of Azj'Aqir"] then t["Withered Garment of Azj'Aqir"]=
 if not t["Withered Gaze of Azj'Aqir"] then t["Withered Gaze of Azj'Aqir"]="Иссохший взгляд Азж'Акира" end
 if not t["Withered Grasp of Azj'Aqir"] then t["Withered Grasp of Azj'Aqir"]="Иссохшая хватка Азж'Акира" end
 if not t["Withered Legacy of Azj'Aqir"] then t["Withered Legacy of Azj'Aqir"]="Иссохшее наследие Азж'Акира" end
+end
+local function ic8()
+local t = CoARU_ItemNameEN
 if not t["Withered Leggings of Azj'Aqir"] then t["Withered Leggings of Azj'Aqir"]="Иссохшие поножи Азж'Акира" end
 if not t["Withered Mossflayer Boots"] then t["Withered Mossflayer Boots"]="Иссохшие сапоги «Mossflayer»" end
 if not t["Withered Mushroom"] then t["Withered Mushroom"]="Засохший гриб" end
 if not t["Withered Pauldrons of Azj'Aqir"] then t["Withered Pauldrons of Azj'Aqir"]="Иссохшие наплечники Азж'Акира" end
 if not t["Withered Shoulder of Azj'Aqir"] then t["Withered Shoulder of Azj'Aqir"]="Иссохший наплечник Азж'Акира" end
-end
-local function ic8()
-local t = CoARU_ItemNameEN
 if not t["Withered Trollkin Shoulders"] then t["Withered Trollkin Shoulders"]="Наплечники увядшего тролленка" end
 if not t["Withers"] then t["Withers"]="Иссохший" end
 if not t["Withershot Repeater"] then t["Withershot Repeater"]="Скорострел иссушающего выстрела" end
