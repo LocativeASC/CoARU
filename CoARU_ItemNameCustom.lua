@@ -34903,6 +34903,13 @@ if not t["Haromm's Frozen Crescent (Plum)"] then t["Haromm's Frozen Crescent (Pl
 if not t["Harpy Feather Drape"] then t["Harpy Feather Drape"]="Драпировка из перьев гарпии" end
 if not t["Harpy Hunter"] then t["Harpy Hunter"]="Охотник на гарпий" end
 if not t["Harpyclaw's Lucky Short Bow"] then t["Harpyclaw's Lucky Short Bow"]="Счастливый короткий лук Гарпиокогтя" end
+if not t["Harrowed Champion's Armor"] then t["Harrowed Champion's Armor"]="Броня истерзанного поборника" end
+if not t["Harrowed Champion's Boots"] then t["Harrowed Champion's Boots"]="Сапоги истерзанного поборника" end
+if not t["Harrowed Champion's Gloves"] then t["Harrowed Champion's Gloves"]="Перчатки истерзанного поборника" end
+if not t["Harrowed Champion's Headguard"] then t["Harrowed Champion's Headguard"]="Наголовник истерзанного поборника" end
+if not t["Harrowed Champion's Leggings"] then t["Harrowed Champion's Leggings"]="Поножи истерзанного поборника" end
+if not t["Harrowed Champion's Legguards"] then t["Harrowed Champion's Legguards"]="Набедренники истерзанного поборника" end
+if not t["Harrowed Champion's Pauldrons"] then t["Harrowed Champion's Pauldrons"]="Наплечье истерзанного поборника" end
 if not t["Haruspex's Garb"] then t["Haruspex's Garb"]="Одеяние гаруспика" end
 if not t["Harvest Golem Scythe"] then t["Harvest Golem Scythe"]="Коса голема жатвы" end
 if not t["Harvest Scythe"] then t["Harvest Scythe"]="Жатвенная коса" end
@@ -40006,6 +40013,9 @@ if not t["Legion Power Core"] then t["Legion Power Core"]="Силовое ядр
 if not t["Legion Terror"] then t["Legion Terror"]="Ужас Легиона" end
 if not t["Legion's Doom (Green)"] then t["Legion's Doom (Green)"]="Рок Легиона (зеленый)" end
 if not t["Legionbreaker"] then t["Legionbreaker"]="Разрушитель Легиона" end
+end
+local function ic6()
+local t = CoARU_ItemNameEN
 if not t["Legionbreaker (Backsheath)"] then t["Legionbreaker (Backsheath)"]="Сокрушитель Легиона (ножны за спиной)" end
 if not t["Legionnaire's Barrier"] then t["Legionnaire's Barrier"]="Барьер легионера" end
 if not t["Legionnaire's Battle Axe"] then t["Legionnaire's Battle Axe"]="Боевой топор легионера" end
@@ -40013,9 +40023,6 @@ if not t["Legionnaire's Battle Mace"] then t["Legionnaire's Battle Mace"]="Бо�
 if not t["Legionnaire's Blade"] then t["Legionnaire's Blade"]="Клинок легионера" end
 if not t["Legionnaire's Bludgeon"] then t["Legionnaire's Bludgeon"]="Ослоп легионера" end
 if not t["Legionnaire's Chain Boots"] then t["Legionnaire's Chain Boots"]="Цепные сапоги легионера" end
-end
-local function ic6()
-local t = CoARU_ItemNameEN
 if not t["Legionnaire's Chain Chest"] then t["Legionnaire's Chain Chest"]="Цепной нагрудник легионера" end
 if not t["Legionnaire's Chain Gloves"] then t["Legionnaire's Chain Gloves"]="Цепные перчатки легионера" end
 if not t["Legionnaire's Chain Helmet"] then t["Legionnaire's Chain Helmet"]="Цепной шлем легионера" end
@@ -48009,6 +48016,9 @@ if not t["Sanguine Earthshatter Tunic"] then t["Sanguine Earthshatter Tunic"]="�
 if not t["Sanguine Earthshatter Wristguards"] then t["Sanguine Earthshatter Wristguards"]="Кровавые накулачники Землекрушителя" end
 if not t["Sanguine Enigma Boots"] then t["Sanguine Enigma Boots"]="Кровавые сапоги таинства" end
 if not t["Sanguine Enigma Circlet"] then t["Sanguine Enigma Circlet"]="Кровавый венец таинства" end
+end
+local function ic7()
+local t = CoARU_ItemNameEN
 if not t["Sanguine Enigma Leggings"] then t["Sanguine Enigma Leggings"]="Кровавые поножи таинства" end
 if not t["Sanguine Enigma Robes"] then t["Sanguine Enigma Robes"]="Кровавая одеяния таинства" end
 if not t["Sanguine Enigma Shoulderpads"] then t["Sanguine Enigma Shoulderpads"]="Кровавые наплечные пластины таинства" end
@@ -48016,9 +48026,6 @@ if not t["Sanguine Epaulets of Ten Storms"] then t["Sanguine Epaulets of Ten Sto
 if not t["Sanguine Felheart Belt"] then t["Sanguine Felheart Belt"]="Кровавый пояс Сердца Скверны" end
 if not t["Sanguine Felheart Bracers"] then t["Sanguine Felheart Bracers"]="Кровавые наручи Сердца Скверны" end
 if not t["Sanguine Felheart Gloves"] then t["Sanguine Felheart Gloves"]="Кровавые перчатки Сердца Скверны" end
-end
-local function ic7()
-local t = CoARU_ItemNameEN
 if not t["Sanguine Felheart Horns"] then t["Sanguine Felheart Horns"]="Кровавый рогатый шлем Сердца Скверны" end
 if not t["Sanguine Felheart Pants"] then t["Sanguine Felheart Pants"]="Кровавые штаны Сердца Скверны" end
 if not t["Sanguine Felheart Robes"] then t["Sanguine Felheart Robes"]="Кровавая одеяния Сердца Скверны" end
@@ -56012,6 +56019,9 @@ if not t["Withered Cinch of Azj'Aqir"] then t["Withered Cinch of Azj'Aqir"]="И�
 if not t["Withered Clasp of Azj'Aqir"] then t["Withered Clasp of Azj'Aqir"]="Иссохшая застежка Азж'Акира" end
 if not t["Withered Crown of Azj'Aqir"] then t["Withered Crown of Azj'Aqir"]="Иссохшая корона Азж'Акира" end
 if not t["Withered Eyes of Azj'Aqir"] then t["Withered Eyes of Azj'Aqir"]="Иссохшие глаза Азж'Акира" end
+end
+local function ic8()
+local t = CoARU_ItemNameEN
 if not t["Withered Faith Cowl"] then t["Withered Faith Cowl"]="Клобук иссохшей веры" end
 if not t["Withered Finery of Azj'Aqir"] then t["Withered Finery of Azj'Aqir"]="Иссохшее убранство Азж'Акира" end
 if not t["Withered Footwraps of Azj'Aqir"] then t["Withered Footwraps of Azj'Aqir"]="Иссохшие обмотки Азж'Акира" end
@@ -56019,9 +56029,6 @@ if not t["Withered Garment of Azj'Aqir"] then t["Withered Garment of Azj'Aqir"]=
 if not t["Withered Gaze of Azj'Aqir"] then t["Withered Gaze of Azj'Aqir"]="Иссохший взгляд Азж'Акира" end
 if not t["Withered Grasp of Azj'Aqir"] then t["Withered Grasp of Azj'Aqir"]="Иссохшая хватка Азж'Акира" end
 if not t["Withered Legacy of Azj'Aqir"] then t["Withered Legacy of Azj'Aqir"]="Иссохшее наследие Азж'Акира" end
-end
-local function ic8()
-local t = CoARU_ItemNameEN
 if not t["Withered Leggings of Azj'Aqir"] then t["Withered Leggings of Azj'Aqir"]="Иссохшие поножи Азж'Акира" end
 if not t["Withered Mossflayer Boots"] then t["Withered Mossflayer Boots"]="Иссохшие сапоги «Mossflayer»" end
 if not t["Withered Mushroom"] then t["Withered Mushroom"]="Засохший гриб" end

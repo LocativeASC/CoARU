@@ -22,6 +22,9 @@ CoARU_MODULES = {
       hint = "характеристики, подписи вкладок и тултипы статов" },
     { key = "quests", group = "text",  label = "Задания",              hint = "текст, цели, журнал" },
 
+    { key = "chatmark", group = "text", label = "Метка русификатора в чате",
+      hint = "флажок перед ником тех, у кого стоит CoARU" },
+
     { key = "speech", group = "text",  label = "Речь персонажей",      hint = "реплики НПС в чате и в пузырях над ними" },
 
     { key = "titles", group = "names", sub = "ИГРОКИ",  label = "Звания игроков",

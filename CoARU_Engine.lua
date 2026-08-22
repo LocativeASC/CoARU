@@ -747,6 +747,21 @@ local UNFIX_TIME_UNITS = {
       { "(%d+)%s+ч%.",   "%1 hr" },      { "(%d+)%s+дн%.",  "%1 day" } },
 }
 
+local EN_TIME_DOT = {
+    { "(%d+%s+sec)([,%s])", "%1.%2" },   { "(%d+%s+min)([,%s])",  "%1.%2" },
+    { "(%d+%s+sec)%.([,%s])", "%1%2" },  { "(%d+%s+min)%.([,%s])", "%1%2" },
+}
+
+function CoARU_UnfixEnTimeDot(line)
+    local out = {}
+    if not line or not line:find("%d%s+%a") then return out end
+    for i = 1, #EN_TIME_DOT do
+        local cand = line:gsub(EN_TIME_DOT[i][1], EN_TIME_DOT[i][2])
+        if cand ~= line then out[#out + 1] = cand end
+    end
+    return out
+end
+
 function CoARU_UnfixTimeUnits(line)
     local out = {}
     if not line or not CoARU_HasCyrillic or not CoARU_HasCyrillic(line) then return out end
@@ -956,6 +971,18 @@ function CoARU_TranslateRequires(line)
     return nil
 end
 
+function CoARU_TranslateIconItemName(line)
+    if type(line) ~= "string" or not CoARU_ItemNameEN then return nil end
+    local icon, color, name = line:match("^(|T.-|t%s*)(|[cC]%x%x%x%x%x%x%x%x)(.-)|[rR]%s*$")
+    if not (icon and name) or name == "" then return nil end
+    if name:find("|", 1, true) then return nil end
+    local key = name:match("^%s*(.-)%s*$")
+    local ru = CoARU_ItemNameEN[key]
+    if not ru or ru == key then return nil end
+
+    return icon .. color .. ru .. "|r"
+end
+
 function CoARU_TranslateTransmog(line)
     if not line or not CoARU_ItemNameEN then return nil end
     local head, name = line:match("^(Трансмогрификация в:%s*)(.+)$")
@@ -964,11 +991,21 @@ function CoARU_TranslateTransmog(line)
         if head then head = "Трансмогрификация в: " end
     end
     if not head or not name then return nil end
-    name = name:match("^%s*(.-)%s*$")
+
+    local icon = name:match("^(|T.-|t%s*)") or ""
+    local rest = name:sub(#icon + 1)
+    local color = rest:match("^(|[cC]%x%x%x%x%x%x%x%x)") or ""
+    local tail = ""
+    if color ~= "" then
+        rest = rest:sub(#color + 1)
+        local body, close = rest:match("^(.-)(|[rR])%s*$")
+        if body then rest, tail = body, close end
+    end
+    name = rest:match("^%s*(.-)%s*$")
     local ru = CoARU_ItemNameEN[name]
 
     if not ru or ru == name then return nil end
-    return head .. ru
+    return head .. icon .. color .. ru .. tail
 end
 
 local LIST_LABELS = {
@@ -1647,6 +1684,16 @@ local function reapplyInnerColors(line, ru, restore, unwrapped)
                     if nm and nm ~= term then
                         done = wrapByStem(ru, nm, color, restore)
                     end
+
+                    if not done and not one then
+                        done = wrapFirst(ru, term .. "s", color, restore)
+                        if not done then
+                            local many = CoARU_SPELL_NAME_RU[term .. "s"]
+                            if many and many ~= term then
+                                done = wrapByStem(ru, many, color, restore)
+                            end
+                        end
+                    end
                 end
                 if not done then
 
@@ -2229,6 +2276,10 @@ local LINE_STAGES = {
     { "база",          function(_, line)
         if not CoARU_UnfixTimeUnits then return nil end
         local cands = CoARU_UnfixTimeUnits(line)
+        if CoARU_UnfixEnTimeDot then
+            local dot = CoARU_UnfixEnTimeDot(line)
+            for i = 1, #dot do cands[#cands + 1] = dot[i] end
+        end
         for i = 1, #cands do
             local ru = CoARU_TranslateByIndex and CoARU_TranslateByIndex(cands[i])
             if ru and ru ~= cands[i] then return ru end
@@ -2269,6 +2320,7 @@ local LINE_STAGES = {
     { "правило движка", function(_, line) return CoARU_TranslateRequires(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateReagents(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateTransmog(line) end },
+    { "правило движка", function(_, line) return CoARU_TranslateIconItemName(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateProfession(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateStatLine(line) end },
     { "правило движка", function(_, line) return CoARU_TranslateUnitLine(line) end },

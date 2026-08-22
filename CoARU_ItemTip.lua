@@ -353,6 +353,9 @@ function CoARU_ZoneLineRU(plain)
     if type(plain) ~= "string" or plain == "" or not CoARU_ZONE then return nil end
     local pad, core = plain:match("^(%s*)(%S.-)%s*$")
     if not core then return nil end
+    local tail = ""
+    local bare, lvl = core:match("^(.-)%s*(%(%d+%-%d+%))$")
+    if bare and bare ~= "" then core, tail = bare, " " .. lvl end
     local key = CoARU_ZONE[core] and core or (CoARU_ZONE["The " .. core] and ("The " .. core))
     if not key then return nil end
     local inst = CoARU_ZONE_INST and (CoARU_ZONE_INST[key] or CoARU_ZONE_INST[core])
@@ -360,7 +363,7 @@ function CoARU_ZoneLineRU(plain)
     if not ok then return nil end
     local ru = CoARU_ZONE[key]
     if not ru or ru == "" or ru == core then return nil end
-    return pad .. ru
+    return pad .. ru .. tail
 end
 
 function CoARU_ItemLinkNameRU(spec, name)

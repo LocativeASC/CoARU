@@ -148,6 +148,12 @@ local function nameInWrapper(t)
         if ru then return "Убить: " .. ru .. suffix end
     end
 
+    local lead, icon, color, name = t:match("^(.-)(|T.-|t%s*)(|[cC]%x%x%x%x%x%x%x%x)(.+)|[rR]$")
+    if name and name ~= "" and not name:find("|", 1, true) then
+        local ru = wrapNameRU(name)
+        if ru then return lead .. icon .. color .. ru .. "|r" end
+    end
+
     local pre, core, post = t:match("^(.-)%[(.-)%](.-)$")
     if core and core ~= ""
        and (pre == "" or pre:find("^|[cC]%x%x%x%x%x%x%x%x$"))
@@ -522,6 +528,8 @@ local function fitFont(fs, s)
 end
 
 CoARU_AscUI_FitForTest = fitFont
+
+CoARU_AscUI_LookupForTest = lookup
 
 local function setText(fs, s, en)
     if fs.SetDynamicText then

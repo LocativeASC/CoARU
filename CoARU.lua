@@ -1175,6 +1175,90 @@ local function ensureOptionsFrame()
     end
 
     local ROW_H = 44
+
+    local function addFlagRow(pane, prev, paneW)
+        local row = CreateFrame("Frame", nil, pane)
+        row:SetWidth(paneW - 36)
+        row:SetHeight(38)
+        if prev then
+            row:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, -6)
+        else
+            row:SetPoint("TOPLEFT", pane, "TOPLEFT", 18, -6)
+        end
+
+        local cap = row:CreateFontString(nil, "OVERLAY")
+        if CoARU_Type then CoARU_Type(cap, "hint") else cap:SetFontObject(GameFontNormalSmall) end
+        cap:SetPoint("TOPLEFT", row, "TOPLEFT", 2, 0)
+        cap:SetText("Флаг рядом с вашим ником у других игроков")
+
+        local buttons = {}
+        local function refresh()
+            local cur = CoARU_MyFlag and CoARU_MyFlag() or "ru"
+
+            local on = not CoARU_ModOn or CoARU_ModOn("chatmark")
+            cap:SetAlpha(on and 1 or 0.4)
+            for i = 1, #buttons do
+                local b = buttons[i]
+                if not on then
+                    b.icon:SetAlpha(0.25)
+                    b.frame:Hide()
+                else
+
+                    b.icon:SetAlpha(b.key == cur and 1 or 0.55)
+
+                    if b.key == cur then b.frame:Show() else b.frame:Hide() end
+                end
+                b:EnableMouse(on)
+            end
+        end
+
+        CoARU_OptHooks = CoARU_OptHooks or {}
+
+        CoARU_OptHooks.chatmark = function()
+            refresh()
+            if CoARU_AnnounceFlagChange then pcall(CoARU_AnnounceFlagChange) end
+        end
+
+        local prevBtn
+        for i = 1, #CoARU_FLAGS do
+            local f = CoARU_FLAGS[i]
+            local b = CreateFrame("Button", nil, row)
+            b:SetWidth(24)
+            b:SetHeight(24)
+            if prevBtn then
+                b:SetPoint("LEFT", prevBtn, "RIGHT", 8, 0)
+            else
+                b:SetPoint("TOPLEFT", cap, "BOTTOMLEFT", 0, -6)
+            end
+            b.key = f.key
+
+            b.frame = b:CreateTexture(nil, "OVERLAY")
+            b.frame:SetPoint("CENTER", b, "CENTER", 0, 0)
+            b.frame:SetWidth(26)
+            b.frame:SetHeight(26)
+            b.frame:SetTexture("Interface\\AddOns\\CoARU\\Textures\\flag-select")
+            b.icon = b:CreateTexture(nil, "ARTWORK")
+            b.icon:SetPoint("CENTER", b, "CENTER", 0, 0)
+            b.icon:SetWidth(18)
+            b.icon:SetHeight(18)
+            b.icon:SetTexture("Interface\\AddOns\\CoARU\\Textures\\" .. f.tex)
+            b:SetScript("OnEnter", function(self)
+                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                GameTooltip:SetText(f.label, 1, 1, 1)
+                GameTooltip:Show()
+            end)
+            b:SetScript("OnLeave", function() GameTooltip:Hide() end)
+            b:SetScript("OnClick", function()
+                if CoARU_SetMyFlag then CoARU_SetMyFlag(f.key) end
+                refresh()
+            end)
+            buttons[#buttons + 1] = b
+            prevBtn = b
+        end
+        refresh()
+        return row
+    end
+
     local function addModule(pane, m, prev, paneW)
         local r = CoARU_SkinRow2(pane, paneW - 36, ROW_H, m.label, m.hint,
             "CoARUOptionCheck_" .. m.key)
@@ -1261,6 +1345,10 @@ local function ensureOptionsFrame()
                     prev = cb
                     placed[m.key] = true
                 end
+            end
+
+            if g.key == "text" and CoARU_FLAGS then
+                prev = addFlagRow(pane, prev, PANE_W)
             end
             order[#order + 1] = g
         end
@@ -1853,9 +1941,10 @@ local function noteOneLine(kind, line, owner)
         if n >= cap then
 
             CoARU_MissDropped = (CoARU_MissDropped or 0) + 1
-            if CoARU_MissDropped == 1 or CoARU_MissDropped % 500 == 0 then
-                print(("|cffC495DDCoARU|r: |cffff0000копилка переполнена|r (%d записей), потеряно уже %d. Подними потолок: /coaru misscap 20000")
-                    :format(cap, CoARU_MissDropped))
+            if CoARU_MissDropped == 1 then
+                print("|cffC495DDCoARU|r: копилка непереведённых строк заполнена. "
+                    .. "Отправьте отчёт (|cffffd100/coaru status|r или кнопка «Собрать отчёт» "
+                    .. "в настройках) и очистите её: |cffffd100/coaru clear|r")
             end
             return
         end
@@ -2232,10 +2321,23 @@ local LEGIT_LATIN = {
     RaF = true, CD = true, AFK = true, DND = true, BG = true,
 
     Ascension = true, Discord = true, Facebook = true, Nvidia = true,
+    DragonUI = true, ElvUI = true, WeakAuras = true,
     YouTube = true, Twitch = true, WOTLK = true,
     I = true, II = true, III = true, IV = true, V = true, VI = true, VII = true,
     VIII = true, IX = true, X = true, XI = true, XII = true,
 }
+
+for _, cls in ipairs({
+    "Barbarian", "Chronomancer", "Cultist", "Deathknight", "Death Knight", "Demonhunter",
+    "Demon Hunter", "Fleshwarden", "Flesh Warden", "Necromancer", "Prophet", "Pyromancer",
+    "Ranger", "Reaper", "Sonofarugal", "Son of Arugal", "Spiritmage", "Spirit Mage",
+    "Starcaller", "Star Caller", "Stormbringer", "Storm Bringer", "Suncleric", "Sun Cleric",
+    "Tinker", "Wildwalker", "Wild Walker", "Witchdoctor", "Witch Doctor", "Witchhunter",
+    "Witch Hunter", "Venomancer", "Felsworn", "Templar", "Bloodmage", "Blood Mage",
+    "Runemaster", "Rune Master", "Guardian", "Hero",
+}) do
+    LEGIT_LATIN[cls] = true
+end
 
 local TLD = { "gg", "com", "net", "org", "io", "tv", "me", "ru", "dev" }
 
@@ -2428,6 +2530,10 @@ function onTooltipSetItem(tip)
 
                 if not (lab and lab ~= t) and CoARU_TranslateItemPrefix then
                     lab = CoARU_TranslateItemPrefix(t)
+                end
+
+                if not (lab and lab ~= t) and CoARU_TranslateTransmog then
+                    lab = CoARU_TranslateTransmog(t)
                 end
                 if lab and lab ~= t then
                     CoARU_SetTranslated(fs, t, lab)
@@ -2730,6 +2836,10 @@ local function onTooltipShow(tip)
                         ru = CoARU_TranslateProfession(t)
                     end
 
+                    if not (ru and ru ~= t) and CoARU_TranslateTransmog then
+                        ru = CoARU_TranslateTransmog(t)
+                    end
+
                     if not (ru and ru ~= t) and CoARU_TranslateItemLabel then
                         ru = CoARU_TranslateItemLabel(t)
                     end
@@ -2864,6 +2974,39 @@ local function installHooks()
     GameTooltip:HookScript("OnTooltipSetSpell", onTooltipSetSpell)
     hooksecurefunc(GameTooltip, "Show", onTooltipShow)
 
+    local lateTip = CreateFrame("Frame")
+    local lastSeenText
+    lateTip:SetScript("OnUpdate", function()
+        local tip = GameTooltip
+        if not (tip and tip.IsShown and tip:IsShown()) then
+            lastSeenText = nil
+            return
+        end
+        local fs = _G.GameTooltipTextLeft1
+        if not fs then return end
+        local ok, cur = pcall(fs.GetText, fs)
+        if not ok or type(cur) ~= "string" or cur == "" then return end
+        if cur == lastSeenText then return end
+        lastSeenText = cur
+        if CoARU_HasCyrillic and CoARU_HasCyrillic(cur) then return end
+        if tip.GetItem then
+            local o, _, link = pcall(tip.GetItem, tip)
+            if o and link then return end
+        end
+        if tip.GetSpell then
+            local o, sn = pcall(tip.GetSpell, tip)
+            if o and sn then return end
+        end
+        if tip.GetUnit then
+            local o, un = pcall(tip.GetUnit, tip)
+            if o and un then return end
+        end
+        onTooltipShow(tip)
+
+        local ok2, after = pcall(fs.GetText, fs)
+        if ok2 and type(after) == "string" then lastSeenText = after end
+    end)
+
     GameTooltip:HookScript("OnShow", function(tip)
         if tip.GetItem then
             local ok, _, link = pcall(tip.GetItem, tip)
@@ -2923,7 +3066,13 @@ local PLAYER_CMDS = { [""] = true, status = true, donate = true, support = true,
                       ["hint off"] = true, ["hint on"] = true,
 
                       link = true, github = true, ["гит"] = true, ["ссылка"] = true,
-                      update = true, ["обновление"] = true, ["обновления"] = true }
+                      update = true, ["обновление"] = true, ["обновления"] = true,
+
+                      clear = true, ["очистить"] = true,
+
+                      peers = true, ["соседи"] = true,
+
+                      lines = true, ["строки"] = true }
 
 local function isOriginalCmd(cmd)
     return cmd:match("^original") or cmd:match("^оригинал") or cmd:match("^англ")
@@ -3338,7 +3487,7 @@ local function slash(cmd)
         if mn > 0 then
             print("  это уникальные НОРМЫ живого текста. /reload и пришли SavedVariables — переведем волной.")
         end
-    elseif cmd == "clear" then
+    elseif cmd == "clear" or cmd == "очистить" then
 
         local KEEP = {
             opts = true,
@@ -3443,6 +3592,18 @@ local function slash(cmd)
         else
             msg("|cffff0000CoARU_AscUI.lua не загружен|r — нужен полный перезапуск клиента.")
         end
+    elseif cmd == "latin" then
+
+        local n, shown = 0, 0
+        for _, rec in pairs(CoARU_DB.latin or {}) do
+            n = n + 1
+            if shown < 15 and type(rec) == "table" and rec.ex then
+                shown = shown + 1
+                msg(("  [%d] %s"):format(rec.n or 1, rec.ex:gsub("\n", " "):sub(1, 96)))
+            end
+        end
+        msg(("строк с латиницей внутри перевода: %d (показал %d)."):format(n, shown))
+        msg("Полный список уедет в SavedVariables после /reload.")
     elseif cmd == "mixed" then
 
         local n, shown = 0, 0
@@ -3731,7 +3892,7 @@ local function slash(cmd)
         local c = 0
         if CoARU_DB.lines then for _ in ipairs(CoARU_DB.lines) do c = c + 1 end end
         msg(("запись выключена. В копилке тултипов: %d (в SavedVariables)."):format(c))
-    elseif cmd == "lines" then
+    elseif cmd == "lines" or cmd == "строки" then
 
         if not CoARU_LastTip then
             msg("еще не было ни одного тултипа.")
@@ -3741,6 +3902,193 @@ local function slash(cmd)
                 tostring(CoARU_LastTip.id), total))
             for _, line in ipairs(CoARU_LastTip) do print("  " .. line) end
         end
+    elseif cmd == "peers" or cmd == "соседи" then
+
+        local ch = CoARU_PeerChannel or "?"
+        local id = CoARU_PeerChannelId and CoARU_PeerChannelId() or 0
+        if id > 0 then
+            msg(("служебный канал «%s»: подключен (номер %d)."):format(ch, id))
+        else
+            msg(("служебный канал «%s»: НЕ подключен. Вступление идет через 8 секунд после входа в мир."):format(ch))
+        end
+        local n = 0
+        for who, ver in pairs(CoARU_SEEN or {}) do
+            n = n + 1
+            if n <= 12 then msg(("  %s — %s"):format(who, ver)) end
+        end
+        if n == 0 then
+            msg("соседей с CoARU не видно ни одного.")
+            msg("Версию в канал шлют только сборки, где этот канал есть: пока другие игроки не обновятся, слышать некого.")
+        else
+            msg(("всего соседей с CoARU: %d."):format(n))
+        end
+    elseif cmd == "sweep" or cmd:match("^sweep%s") then
+
+        local want = cmd:match("^sweep%s+(.+)$")
+        local function buttons(frame, out, depth)
+            if not frame or depth > 8 or #out > 400 then return end
+            local ok, kids = pcall(function() return { frame:GetChildren() } end)
+            if not ok then return end
+            for _, c in ipairs(kids) do
+                local okv, vis = pcall(c.IsVisible, c)
+                if okv and vis then
+                    local oks, fn = pcall(c.GetScript, c, "OnEnter")
+                    if oks and fn then out[#out + 1] = c end
+                    buttons(c, out, depth + 1)
+                end
+            end
+        end
+
+        local SWEEP_ROOTS = { "AscensionInspectFrame", "DragonUIInspectorPanel",
+                              "InspectFrame", "InspectPaperDollFrame" }
+
+        local function collectAll()
+            local list = {}
+            for _, nm in ipairs(SWEEP_ROOTS) do
+                local f = _G[nm]
+                local okv, vis = pcall(function() return f and f:IsVisible() end)
+                if okv and vis then buttons(f, list, 0) end
+            end
+            return list
+        end
+
+        local function runSweep(list, label)
+            if #list == 0 then
+                msg("кнопок с тултипом не видно: открой окно и повтори.")
+                return
+            end
+
+            local function tally()
+                local a, b = 0, 0
+                if CoARU_DB and CoARU_DB.miss then
+                    for _ in pairs(CoARU_DB.miss) do a = a + 1 end
+                end
+                if CoARU_DB and CoARU_DB.latin then
+                    for _ in pairs(CoARU_DB.latin) do b = b + 1 end
+                end
+                return a, b
+            end
+            local before, beforeLat = tally()
+
+            local i, pass, wait, driver = 0, 1, 0, CreateFrame("Frame")
+            driver:SetScript("OnUpdate", function(self)
+                if wait > 0 then wait = wait - 1 return end
+                i = i + 1
+                if i > #list then
+                    if pass == 1 then
+                        pass, i, wait = 2, 0, 40
+                        if GameTooltip then pcall(GameTooltip.Hide, GameTooltip) end
+                        return
+                    end
+                    self:SetScript("OnUpdate", nil)
+                    self:Hide()
+                    if GameTooltip then pcall(GameTooltip.Hide, GameTooltip) end
+                    local after, afterLat = tally()
+                    msg(("%s: обошел %d тултипов в два прохода. Новых: непереведенных %d, латиницы внутри перевода %d (всего %d и %d)."):format(
+                        label, #list, after - before, afterLat - beforeLat, after, afterLat))
+                    return
+                end
+                local btn = list[i]
+                local okv, vis = pcall(btn.IsVisible, btn)
+                if okv and vis then
+                    local oks, fn = pcall(btn.GetScript, btn, "OnEnter")
+                    if oks and fn then pcall(fn, btn) end
+                end
+                if i > 1 and GameTooltip then pcall(GameTooltip.Hide, GameTooltip) end
+            end)
+        end
+
+        if want == "auto" or want == "off" then
+
+            if CoARU_SweepAuto then
+                CoARU_SweepAuto:SetScript("OnUpdate", nil)
+                CoARU_SweepAuto:Hide()
+                CoARU_SweepAuto = nil
+            end
+            if want == "off" then
+                msg("автообход выключен.")
+            else
+                local watch = CreateFrame("Frame")
+                local wasOpen, acc = false, 0
+                watch:SetScript("OnUpdate", function(_, elapsed)
+                    acc = acc + (elapsed or 0)
+                    if acc < 0.5 then return end
+                    acc = 0
+                    local open = false
+                    for _, nm in ipairs(SWEEP_ROOTS) do
+                        local f = _G[nm]
+                        local okv, vis = pcall(function() return f and f:IsVisible() end)
+                        if okv and vis then open = true break end
+                    end
+
+                    if open and not wasOpen then runSweep(collectAll(), "автообход") end
+                    wasOpen = open
+                end)
+                CoARU_SweepAuto = watch
+                msg("автообход включен: открывай таланты игроков, копилка набьется сама. Выключить: /coaru sweep off")
+            end
+        elseif want == "all" then
+            runSweep(collectAll(), "обход всех окон")
+        elseif not want then
+
+            msg("видимые окна с тултипами (дальше: /coaru sweep <имя>):")
+            local shown = 0
+            for _, c in ipairs({ UIParent:GetChildren() }) do
+                local okv, vis = pcall(c.IsVisible, c)
+                local okn, nm = pcall(c.GetName, c)
+                if okv and vis and okn and nm then
+                    local list = {}
+                    buttons(c, list, 0)
+                    if #list >= 5 and shown < 12 then
+                        shown = shown + 1
+                        print(("  %s — кнопок с тултипом: %d"):format(nm, #list))
+                    end
+                end
+            end
+            if shown == 0 then msg("подходящих окон не видно: открой окно и повтори.") end
+        else
+            local frame = _G[want]
+            if not frame then
+                msg(("окна «%s» нет. Список: /coaru sweep без имени."):format(want))
+            else
+                local list = {}
+                buttons(frame, list, 0)
+                runSweep(list, want)
+            end
+        end
+    elseif cmd == "titlewatch" then
+
+        CoARU_DB.titlewatch = {}
+        local watch = CreateFrame("Frame")
+        local last, ticks = nil, 0
+        watch:SetScript("OnUpdate", function(self)
+            ticks = ticks + 1
+            if ticks > 600 then self:SetScript("OnUpdate", nil); self:Hide(); return end
+            local fs = _G.GameTooltipTextLeft1
+            if not fs then return end
+            local okT, t = pcall(fs.GetText, fs)
+            if not okT or type(t) ~= "string" then return end
+            local okC, r, g, b = pcall(fs.GetTextColor, fs)
+            local col = okC and ("%.2f/%.2f/%.2f"):format(r, g, b) or "?"
+
+            local font = "?"
+            local okF, fo = pcall(fs.GetFontObject, fs)
+            if okF and fo then
+                local okN, nm = pcall(function() return fo:GetName() end)
+                font = (okN and nm) or "безымянный"
+            end
+            local okP, path, size = pcall(fs.GetFont, fs)
+            local cur = ("%s|%s|%s"):format(t, col, font)
+            if cur == last then return end
+            last = cur
+            if #CoARU_DB.titlewatch < 80 then
+                CoARU_DB.titlewatch[#CoARU_DB.titlewatch + 1] =
+                    ("кадр %d: [%s] шрифт=%s кегль=%s = [[%s]]"):format(ticks, col, font,
+                        okP and tostring(size) or "?",
+                        CoARU_Utf8Sub and CoARU_Utf8Sub(t, 70) or t)
+            end
+        end)
+        msg("слежу за заголовком тултипа 600 кадров. Наведись на талант, потом /reload и пришли CoARU.lua.")
     elseif cmd:match("^wraptest") then
 
         if not CoARU_WrapProbe then
@@ -4265,7 +4613,12 @@ local function replyVersion(who)
     pcall(SendAddonMessage, ADDON_PREFIX, "V:" .. myVersion(), "WHISPER", who)
 end
 
-local function noticeVersion(theirs, sender)
+local noticeVersion
+function CoARU_NoticePeerVersion(theirs, sender)
+    if noticeVersion then noticeVersion(theirs, sender) end
+end
+
+function noticeVersion(theirs, sender)
     local mine, other = verNum(myVersion()), verNum(theirs)
     if not mine or not other then return end
     if sender and sender ~= "" then CoARU_SEEN[sender] = theirs end
@@ -4286,8 +4639,14 @@ local VER_SAME, VER_OLD, VER_NEW = "|cffC495DD", "|cffff6060", "|cffffd100"
 local function unitVersionLine(tip)
     if not tip or not tip.GetUnit then return end
     local name = tip:GetUnit()
+
     local ver = name and CoARU_SEEN[name]
+    if not ver then
+        local okMe, me = pcall(UnitName, "player")
+        if okMe and me and me == name then ver = myVersion() end
+    end
     if not ver then return end
+    if CoARU_MarkUnitName then CoARU_MarkUnitName(tip, name) end
     local mine, other = verNum(myVersion()), verNum(ver)
     local color, tail = VER_SAME, ""
     if mine and other and other < mine then

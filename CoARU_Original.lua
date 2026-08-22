@@ -77,6 +77,86 @@ function CoARU_SetTranslated(fs, en, ru)
     end
     ORIG[fs] = { en = en, ru = ru, rgb = lost and before or nil, src = src }
     if lost then CoARU_ReapplyColor(fs) end
+    if CoARU_NoteLatinResidue then CoARU_NoteLatinResidue(fs, ru) end
+end
+
+local LATIN_CAP = 400
+
+local ownerPatterns
+local function ownerTitleLine(s)
+    if not ownerPatterns then
+        ownerPatterns = {}
+        local keys = { "UNITNAME_TITLE_CHARM", "UNITNAME_TITLE_COMPANION",
+                       "UNITNAME_TITLE_CREATION", "UNITNAME_TITLE_GUARDIAN",
+                       "UNITNAME_TITLE_MINION", "UNITNAME_TITLE_OPPONENT",
+                       "UNITNAME_TITLE_PET", "UNITNAME_TITLE_SQUIRE" }
+        for i = 1, 12 do keys[#keys + 1] = "UNITNAME_SUMMON_TITLE" .. i end
+        for _, k in ipairs(keys) do
+            local tpl = _G[k]
+
+            if type(tpl) == "string" then
+                tpl = tpl:gsub("|3%-%d%((%%s)%)", "%1")
+            end
+            if type(tpl) == "string" and tpl:find("%%s") then
+
+                local pat = tpl:gsub("%%s", "\1")
+                pat = pat:gsub("([%^%$%(%)%.%[%]%*%+%-%?%%])", "%%%1")
+                pat = "^" .. pat:gsub("\1", "(.-)") .. "$"
+                ownerPatterns[#ownerPatterns + 1] = pat
+            end
+        end
+    end
+    for i = 1, #ownerPatterns do
+        local who = s:match(ownerPatterns[i])
+        if who and who ~= "" then
+
+            if CoARU_NotePlayerName then pcall(CoARU_NotePlayerName, who) end
+            return true
+        end
+    end
+    return false
+end
+
+function CoARU_NoteLatinResidue(fs, ru)
+
+    if type(ru) ~= "string" or not ru:find("[A-Za-z][A-Za-z][A-Za-z]") then return end
+    if not (CoARU_DB and CoARU_DB.miss and CoARU_HasCyrillic and CoARU_HasCyrillic(ru)) then
+        return
+    end
+    local m = CoARU_DB.latin
+    if not m then m = {}; CoARU_DB.latin = m end
+
+    local naked = ru:gsub("|T.-|t", " "):gsub("|H.-|h", " ")
+    naked = naked:gsub("\194\171.-\194\187", " "):gsub('"[^"]*"', " ")
+    naked = naked:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|[rR]", "")
+
+    if naked:find("\209\131\209\128\208\190\208\178\208\181\208\189\209\140") then return end
+
+    if naked:find("\208\152\208\183\208\179\208\190\209\130\208\190\208\178\208\184\209\130") then
+        return
+    end
+
+    if naked:find("^%s*\208\166\208\181\208\187\209\140:")
+       or naked:find("^%s*\208\164\208\190\208\186\209\131\209\129:") then
+        return
+    end
+
+    if ownerTitleLine(naked) then return end
+    if not naked:find("%f[%a][A-Z][A-Za-z][A-Za-z]") then return end
+    if CoARU_LatinIsLegit and CoARU_LatinIsLegit(naked) then return end
+
+    if CoARU_IsPersonLine and CoARU_IsPersonLine(naked) then return end
+    local key = CoARU_Norm and CoARU_Norm(ru) or ru
+    local rec = m[key]
+    if rec then
+        rec.n = (rec.n or 0) + 1
+        return
+    end
+    local n = 0
+    for _ in pairs(m) do n = n + 1 end
+    if n >= LATIN_CAP then return end
+    m[key] = { ex = CoARU_Utf8Sub and CoARU_Utf8Sub(ru, 220) or ru, n = 1,
+               at = date and date("%d.%m %H:%M") or nil }
 end
 
 local FMT = "%%[%-%d%.]*[dsfgi]"

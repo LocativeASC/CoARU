@@ -51,14 +51,33 @@ local function xlateStatus(fs)
     if new ~= t then fs:SetText(new) end
 end
 
-do
+local hookedLabel = false
+local function hookAreaLabel()
+    if hookedLabel then return end
     local lbl = _G.WorldMapFrameAreaLabel
     if lbl and lbl.SetText then
+        hookedLabel = true
         local busy = false
         hooksecurefunc(lbl, "SetText", function(self, text)
             if busy or not text or text == "" then return end
             if not zoneAllowed(text) then return end
             local ru = ZONE[text]
+
+            if not ru and CoARU_ZoneLineRU then
+                ru = CoARU_ZoneLineRU(text)
+            end
+
+            if not ru then
+                local head = text:match("^([^|(]+)")
+                if head then
+                    local bare = head:match("^%s*(.-)%s*$")
+                    local hit = bare ~= "" and ZONE[bare]
+                    if hit and hit ~= bare and zoneAllowed(bare) then
+                        ru = hit .. text:sub(#head + 1)
+                        if head:sub(-1) == " " then ru = hit .. " " .. text:sub(#head + 1) end
+                    end
+                end
+            end
             if ru and ru ~= text then
                 busy = true
                 self:SetText(ru)
@@ -74,6 +93,7 @@ driver:SetScript("OnUpdate", function(_, elapsed)
     acc = acc + elapsed
     if acc < 0.4 then return end
     acc = 0
+    hookAreaLabel()
     for i = 1, #NAMES do
         xlate(_G[NAMES[i]])
     end
@@ -85,6 +105,8 @@ driver:SetScript("OnEvent", function()
     for i = 1, #NAMES do xlate(_G[NAMES[i]]) end
     xlateStatus(_G.PVPInfoTextString)
 end)
+
+CoARU_HookAreaLabelForTest = hookAreaLabel
 
 function CoARU_ZoneProbe()
     local out = {}
@@ -112,6 +134,13 @@ function CoARU_ZoneProbe()
                          "WorldMapZoneMinimapDropDown", "WorldMapFrameTitle" }) do
         local g = _G[n]
         if g and g.GetText then out[#out + 1] = "G:" .. n .. " = " .. (g:GetText() or "nil") end
+    end
+
+    if CoARU_DB then
+        CoARU_DB.zoneprobe = {}
+        for i = 1, #out do
+            CoARU_DB.zoneprobe[i] = (out[i]:gsub("|", "||"))
+        end
     end
     return out
 end
